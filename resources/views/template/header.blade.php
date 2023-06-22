@@ -23,7 +23,7 @@
                 </div>
                 <div class="drawer-side">
                     <label for="my-drawer" class="drawer-overlay"></label>
-                    <ul class="menu p-4 w-80 h-full bg-base-200 text-base-content">
+                    <ul class="menu p-4 w-80 h-full bg-base-200 text-white">
                         <!-- Sidebar content here -->
                         <li><a>Sidebar Item 1</a></li>
                         <li><a>Sidebar Item 2</a></li>
@@ -31,8 +31,8 @@
                 </div>
             </div>
         </div>
-        <div class="navbar-center">
-            <a class="btn btn-ghost normal-case text-xl">Golden Finger</a>
+        <div class="navbar-center prose">
+            <h2 class="">Golden Finger</h2>
         </div>
         <div class="navbar-end">
             <button class="btn btn-ghost btn-circle">
@@ -50,7 +50,7 @@
             </button>
         </div>
     </div>
-	<div class="px-2 flex-wrap md:px-10">
+	<div class="px-2 pt-10 flex-wrap md:px-10">
 		@yield('content')
 	</div>
 </body>

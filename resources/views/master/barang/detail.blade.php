@@ -1,32 +1,34 @@
 @extends('template/header')
 
 @section('content')
+<div class="prose">
+    <h1 class="text-white">Detail Barang</h1>
+</div>
 <div class="rounded bg-accent p-4 my-5">
-    <h1>Detail Barang</h1>
-    <div class="flex-wrap my-5">
-        <div class="form-control w-full max-w-xs">
+    <div class="flex flex-wrap my-5">
+        <div class="form-control w-full">
             <label class="label">
-                <span class="label-text">Part Number</span>
+                <span class="label-text text-lg font-bold">Part Number</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" placeholder="B001..." class="input input-bordered w-full max-w-xs" />
+            <input type="text" placeholder="B001..." class="input input-bordered w-full" />
         </div>
-        <div class="form-control w-full max-w-xs">
+        <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
-                <span class="label-text">Nama Barang</span>
+                <span class="label-text text-lg font-bold">Nama Barang</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" placeholder="Ban..." class="input input-bordered w-full max-w-xs" />
+            <input type="text" placeholder="Ban..." class="input input-bordered w-full" />
         </div>
-        <div class="form-control w-full max-w-xs">
+        <div class="form-control w-full md:w-1/2">
             <label class="label">
-                <span class="label-text">Harga Jual (Rp)</span>
+                <span class="label-text text-lg font-bold">Harga Jual (Rp)</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="number" placeholder="1000" class="input input-bordered w-full max-w-xs" />
+            <input type="number" placeholder="1000" class="input input-bordered w-full" />
         </div>
     </div>
-    <button class="btn btn-primary">Simpan</button>
+    <button class="btn btn-base text-white">Simpan</button>
 </div>
 
 @endsection

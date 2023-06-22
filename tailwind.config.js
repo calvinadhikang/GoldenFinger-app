@@ -6,26 +6,26 @@ module.exports = {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '100ch', // add required value here
+          }
+        }
+      }
+    },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
     themes: [
       {
-        // mytheme: {
-        //   "primary": "#FFD369", //warna utama
-        //   "secondary": "#EEEEEE",
-        //   "accent": "#393E46", //untuk counter dari background
-        //   "neutral": "#222831",
-        //   "base-100": "#222831", //warna background
-        //   "base-content": "#FFFFFF" //warna text
-        // }
         mytheme: {
           "primary": "#FFD717", //warna utama
           "secondary": "#EEEEEE", //warna notifikasi
-          "accent": "#083358", //untuk counter dari background
-          "base-100": "#001F3F", //warna background
-          "base-content": "#FFFFFF" //warna text
+          "accent": "#f3cb45", //untuk counter dari background
+          "base-100": "#0d0b08", //warna background
+          "base-content": "#0d0b08", //warna text
         }
       }
     ]
