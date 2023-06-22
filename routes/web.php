@@ -33,3 +33,9 @@ Route::prefix('karyawan')->group(function () {
     Route::get('/add', function () { return view('master/karyawan/add'); });
     Route::get('/detail', function () { return view('master/karyawan/detail'); });
 });
+
+Route::prefix('invoice')->group(function () {
+    Route::get('/', function () { return view('master/invoice/view'); });
+    Route::get('/add', function () { return view('master/invoice/add'); });
+    Route::get('/detail', function () { return view('master/invoice/detail'); });
+});
