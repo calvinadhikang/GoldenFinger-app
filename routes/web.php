@@ -19,5 +19,11 @@ Route::get('/', function () {
 });
 Route::post('/', [LoginController::class, "loginAction"]);
 Route::get('/welcome', function () {
-    return view('welcome');
+    return view('template/test');
+});
+
+Route::prefix('barang')->group(function () {
+    Route::get('/', function () { return view('master/barang/view'); });
+    Route::get('/add', function () { return view('master/barang/add'); });
+    Route::get('/detail', function () { return view('master/barang/detail'); });
 });
