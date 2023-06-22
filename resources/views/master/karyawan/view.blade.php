@@ -4,10 +4,9 @@
 <div class="flex items-center mb-10">
     <div class="grow m-auto">
         <div class="prose">
-            <h1>Data Barang</h1>
+            <h1>Data Karyawan</h1>
         </div>
     </div>
-    <button class="btn btn-secondary">Import Excel</button>
 </div>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full">
@@ -17,28 +16,39 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">Part Number</h3></th>
+                    <th class="prose"><h3 class="font-bold">ID</h3></th>
                     <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Harga Jual</h3></th>
-                    <th class="prose"><h3 class="font-bold">Stok</h3></th>
+                    <th class="prose"><h3 class="font-bold">Nomor Telp</h3></th>
+                    <th class="prose"><h3 class="font-bold">Role</h3></th>
+                    <th class="prose"><h3 class="font-bold">Status</h3></th>
                     <th class="prose"><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>123123123</th>
-                    <th>Ban Mobil Besar</th>
-                    <td>Rp <i>1,000,000</i></td>
-                    <td>20 Pcs</td>
+                    <th>1</th>
+                    <th>Calvin Adhikang</th>
+                    <td>0822 5732 4548</td>
+                    <td>Admin</td>
+                    <td>
+                        <span class="rounded-full bg-secondary py-1 px-3">
+                            Aktif
+                        </span>
+                    </td>
                     <td>
                         <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
                     </td>
                 </tr>
                 <tr>
-                    <th>123123123</th>
-                    <th>Ban Mobil Besar</th>
-                    <td>Rp <i>1,000,000</i></td>
-                    <td>20 Pcs</td>
+                    <th>2</th>
+                    <th>Yuki</th>
+                    <td>0822 5732 4548</td>
+                    <td>Pembelian</td>
+                    <td>
+                        <div class="rounded-full bg-error py-1 px-3">
+                            Non-Aktif
+                        </div>
+                    </td>
                     <td>
                         <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
                     </td>

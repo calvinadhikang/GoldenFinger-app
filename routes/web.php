@@ -27,3 +27,9 @@ Route::prefix('barang')->group(function () {
     Route::get('/add', function () { return view('master/barang/add'); });
     Route::get('/detail', function () { return view('master/barang/detail'); });
 });
+
+Route::prefix('karyawan')->group(function () {
+    Route::get('/', function () { return view('master/karyawan/view'); });
+    Route::get('/add', function () { return view('master/karyawan/add'); });
+    Route::get('/detail', function () { return view('master/karyawan/detail'); });
+});

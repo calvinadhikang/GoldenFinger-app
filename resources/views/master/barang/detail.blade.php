@@ -15,7 +15,7 @@
         </div>
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
-                <span class="label-text text-lg font-bold">Nama Barang</span>
+                <span class="label-text text-lg font-bold">Nama</span>
                 <span class="label-text-alt"></span>
             </label>
             <input type="text" placeholder="Ban..." class="input input-bordered w-full" />
