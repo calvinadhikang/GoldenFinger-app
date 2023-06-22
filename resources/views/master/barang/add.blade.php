@@ -28,7 +28,7 @@
             <input type="number" placeholder="1000" class="input input-bordered w-full" />
         </div>
     </div>
-    <button class="btn btn-base text-white">Tambah</button>
+    <button class="btn btn-primary">Tambah</button>
 </div>
 
 @endsection

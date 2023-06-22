@@ -2,14 +2,16 @@
 
 @section('content')
 <div class="flex items-center mb-10">
-    <div class="prose grow m-auto">
-        <h1 class="text-white">Data Barang</h1>
+    <div class="grow m-auto">
+        <div class="prose">
+            <h1>Data Barang</h1>
+        </div>
     </div>
-    <button class="btn btn-primary">Import Excel</button>
+    <button class="btn btn-secondary">Import Excel</button>
 </div>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full">
-        <a class="btn btn-base text-white" href="{{url('barang/add')}}">Tambah</a>
+        <a class="btn btn-primary" href="{{url('barang/add')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
         <table class="table">

@@ -28,7 +28,7 @@
             <input type="number" placeholder="1000" class="input input-bordered w-full" />
         </div>
     </div>
-    <button class="btn btn-base text-white">Simpan</button>
+    <button class="btn btn-primary">Simpan</button>
 </div>
 
 @endsection
