@@ -18,14 +18,20 @@ Route::get('/', function () {
     return view('login');
 });
 Route::post('/', [LoginController::class, "loginAction"]);
-Route::get('/welcome', function () {
-    return view('template/test');
+Route::get('/master', function () {
+    return view('master/master');
 });
 
 Route::prefix('barang')->group(function () {
     Route::get('/', function () { return view('master/barang/view'); });
     Route::get('/add', function () { return view('master/barang/add'); });
     Route::get('/detail', function () { return view('master/barang/detail'); });
+});
+
+Route::prefix('customer')->group(function () {
+    Route::get('/', function () { return view('master/customer/view'); });
+    Route::get('/add', function () { return view('master/customer/add'); });
+    Route::get('/detail', function () { return view('master/customer/detail'); });
 });
 
 Route::prefix('karyawan')->group(function () {
@@ -42,6 +48,8 @@ Route::prefix('invoice')->group(function () {
 
 Route::prefix('po')->group(function () {
     Route::get('/', function () { return view('master/po/view'); });
-    Route::get('/add', function () { return view('master/po/add'); });
+    Route::get('/barang', function () { return view('master/po/barang'); });
+    Route::get('/vendor', function () { return view('master/po/vendor'); });
+    Route::get('/konfirmasi', function () { return view('master/po/konfirmasi'); });
     Route::get('/detail', function () { return view('master/po/detail'); });
 });

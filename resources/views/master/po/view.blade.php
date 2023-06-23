@@ -10,7 +10,7 @@
 </div>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full">
-        <a class="btn btn-primary" href="{{url('po/add')}}">Tambah</a>
+        <a class="btn btn-primary" href="{{url('po/barang')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
         <table class="table">
