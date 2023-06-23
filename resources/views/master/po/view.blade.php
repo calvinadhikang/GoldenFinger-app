@@ -10,14 +10,15 @@
 </div>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full">
-        <a class="btn btn-primary" href="{{url('invoice/add')}}">Tambah</a>
+        <a class="btn btn-primary" href="{{url('po/add')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
         <table class="table">
             <thead>
                 <tr>
                     <th class="prose"><h3 class="font-bold">Kode</h3></th>
-                    <th class="prose"><h3 class="font-bold">Customer</h3></th>
+                    <th class="prose"><h3 class="font-bold">Distributor</h3></th>
+                    <th class="prose"><h3 class="font-bold">Nomor Telp</h3></th>
                     <th class="prose"><h3 class="font-bold">Grand Total (Rp)</h3></th>
                     <th class="prose"><h3 class="font-bold">Tanggal</h3></th>
                     <th class="prose"><h3 class="font-bold">Status</h3></th>
@@ -26,8 +27,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <th>INV001</th>
+                    <th>PO001</th>
                     <th>Calvin Adhikang</th>
+                    <td>0822 5732 4548</td>
                     <td>Rp 1,000,000</td>
                     <td>02 April 2023</td>
                     <td>
@@ -40,8 +42,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>INV002</th>
+                    <th>PO002</th>
                     <th>Yuki</th>
+                    <td>0822 5732 4548</td>
                     <td>Rp 2,500,000</td>
                     <td>02 Juni 2023</td>
                     <td>
@@ -54,8 +57,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>INV003</th>
+                    <th>PO003</th>
                     <th>Felita</th>
+                    <td>0822 5732 4548</td>
                     <td>Rp 3,500,000</td>
                     <td>02 Juni 2023</td>
                     <td>

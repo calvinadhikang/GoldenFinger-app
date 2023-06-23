@@ -39,3 +39,9 @@ Route::prefix('invoice')->group(function () {
     Route::get('/add', function () { return view('master/invoice/add'); });
     Route::get('/detail', function () { return view('master/invoice/detail'); });
 });
+
+Route::prefix('po')->group(function () {
+    Route::get('/', function () { return view('master/po/view'); });
+    Route::get('/add', function () { return view('master/po/add'); });
+    Route::get('/detail', function () { return view('master/po/detail'); });
+});
