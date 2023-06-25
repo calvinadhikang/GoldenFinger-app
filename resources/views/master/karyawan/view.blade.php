@@ -10,7 +10,7 @@
 </div>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full">
-        <a class="btn btn-primary" href="{{url('barang/add')}}">Tambah</a>
+        <a class="btn btn-primary" href="{{url('karyawan/add')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
         <table class="table">
@@ -25,37 +25,46 @@
                 </tr>
             </thead>
             <tbody>
+            @if (count($data) <= 0)
                 <tr>
-                    <th>1</th>
-                    <th>Calvin Adhikang</th>
-                    <td>0822 5732 4548</td>
-                    <td>Admin</td>
-                    <td>
-                        <span class="badge badge-secondary">
-                            Aktif
-                        </span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
+                    <th class="text-error text-lg">Tidak ada data...</th>
                 </tr>
-                <tr>
-                    <th>2</th>
-                    <th>Yuki</th>
-                    <td>0822 5732 4548</td>
-                    <td>Pembelian</td>
-                    <td>
-                        <div class="badge badge-error">
-                            Non-Aktif
-                        </div>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
+            @else
+                @foreach ($data as $item)
+                <?php
+                $role = "Admin";
+                if ($item->role == 1) {
+                    $role = "Pembelian";
+                } else {
+                    $role = "Penjualan";
+                }
+
+                if ($item->status) {
+                    $statusColor = "badge-primary";
+                    $status = "Aktif";
+                }else{
+                    $statusColor = "badge-error";
+                    $status = "Non-Aktif";
+                }
+
+                ?>
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->telp }}</td>
+                        <td>{{ $role }}</td>
+                        <td><span class="badge {{ $statusColor }}">{{ $status }}</span></td>
+                        <td>
+                            <a href="{{ url("karyawan/detail/$item->id") }}">
+                                <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
     </div>
 </div>
-    
+
 @endsection

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MasterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::get('/', [LoginController::class, "loginView"]);
 Route::post('/', [LoginController::class, "loginAction"]);
-Route::get('/master', function () {
-    return view('master/master');
-});
+
+Route::get('/master', [MasterController::class, "masterView"]);
 
 Route::prefix('barang')->group(function () {
     Route::get('/', function () { return view('master/barang/view'); });
@@ -35,9 +34,12 @@ Route::prefix('customer')->group(function () {
 });
 
 Route::prefix('karyawan')->group(function () {
-    Route::get('/', function () { return view('master/karyawan/view'); });
-    Route::get('/add', function () { return view('master/karyawan/add'); });
-    Route::get('/detail', function () { return view('master/karyawan/detail'); });
+    Route::get('/', [KaryawanController::class, "karyawanView"]);
+    Route::get('/add', [KaryawanController::class, "karyawanAddView"]);
+    Route::get('/detail/{id}', [KaryawanController::class, "karyawanDetailView"]);
+
+    Route::post('/add', [KaryawanController::class, "karyawanAddAction"]);
+    Route::post('/detail/{id}', [KaryawanController::class, "karyawanDetailAction"]);
 });
 
 Route::prefix('invoice')->group(function () {

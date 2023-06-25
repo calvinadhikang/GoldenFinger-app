@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <div class="navbar bg-primary">
         <div class="navbar-start">
             <div class="drawer drawer-mobile">
@@ -34,19 +35,19 @@
                         <div class="prose">
                             <h3>Master</h3>
                         </div>
-                        <li><a>
+                        <li><a href="{{ url('/barang') }}">
                             <div class="flex items-center">
                                 <i class="fa-solid fa-box-open me-2 w-6"></i>
                                 Barang
                             </div>
                         </a></li>
-                        <li><a>
+                        <li><a href="{{ url('/customer') }}">
                             <div class="flex items-center">
                                 <i class="fa-solid fa-user me-2 w-6"></i>
                                 Customer
                             </div>
                         </a></li>
-                        <li><a>
+                        <li><a href="{{ url('/karyawan') }}">
                             <div class="flex items-center">
                                 <i class="fa-solid fa-id-badge me-2 w-6"></i>
                                 Karyawan

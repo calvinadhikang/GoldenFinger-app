@@ -8,17 +8,18 @@
     @vite('resources/css/app.css')
 </head>
 <body>
+    @include('sweetalert::alert')
     <section class="h-screen w-screen grid place-items-center p-8">
         <div class="w-full bg-accent rounded-lg shadow mx-8 md:w-1/2">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 class="text-xl font-bold text-primary tracking-tight text-center md:text-2xl">
                     Golden Finger
                 </h1>
-                <form class="space-y-4 md:space-y-6" action="{{url('')}}" method="post">
+                <form class="space-y-4 md:space-y-6" method="post">
                     @csrf
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium">Email</label>
-                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                        <input type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
                     </div>
                     <div>
                         <label for="password" class="block mb-2 text-sm font-medium">Password</label>
