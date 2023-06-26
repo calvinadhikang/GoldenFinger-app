@@ -25,27 +25,28 @@
                 </tr>
             </thead>
             <tbody>
+            @if (count($data) <= 0)
                 <tr>
-                    <th>123123123</th>
-                    <th>Ban Mobil Besar</th>
-                    <td>Rp <i>1,000,000</i></td>
-                    <td>20 Pcs</td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
+                    <th class="text-error text-lg">Tidak ada data...</th>
                 </tr>
-                <tr>
-                    <th>123123123</th>
-                    <th>Ban Mobil Besar</th>
-                    <td>Rp <i>1,000,000</i></td>
-                    <td>20 Pcs</td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
+            @else
+                @foreach ($data as $item)
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>Rp {{ number_format($item->harga) }}</td>
+                        <td>{{ $item->stok }}</td>
+                        <td>
+                            <a href="{{ url("barang/detail/$item->id") }}">
+                                <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
     </div>
 </div>
-    
+
 @endsection

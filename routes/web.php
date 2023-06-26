@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
@@ -22,9 +23,12 @@ Route::post('/', [LoginController::class, "loginAction"]);
 Route::get('/master', [MasterController::class, "masterView"]);
 
 Route::prefix('barang')->group(function () {
-    Route::get('/', function () { return view('master/barang/view'); });
-    Route::get('/add', function () { return view('master/barang/add'); });
-    Route::get('/detail', function () { return view('master/barang/detail'); });
+    Route::get('/', [BarangController::class, "barangView"]);
+    Route::get('/add', [BarangController::class, "barangAddView"]);
+    Route::get('/detail/{id}', [BarangController::class, "barangDetailView"]);
+
+    Route::post('/add', [BarangController::class, "barangAddAction"]);
+    Route::post('/detail/{id}', [BarangController::class, "barangDetailAction"]);
 });
 
 Route::prefix('customer')->group(function () {
