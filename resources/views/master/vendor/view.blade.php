@@ -22,6 +22,8 @@
                     <th class="prose"><h3 class="font-bold">Email</h3></th>
                     <th class="prose"><h3 class="font-bold">Telp</h3></th>
                     <th class="prose"><h3 class="font-bold">Alamat</h3></th>
+                    <th class="prose"><h3 class="font-bold">Barang di Supply</h3></th>
+                    <th class="prose"><h3 class="font-bold">Action</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +39,7 @@
                         <td>{{ $item->email}}</td>
                         <td>{{ $item->telp }}</td>
                         <td>{{ $item->alamat }}</td>
+                        <td>{{ count($item->barang) }}</td>
                         <td>
                             <a href="{{ url("vendors/detail/$item->id") }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
