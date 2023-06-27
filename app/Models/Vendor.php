@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class Vendor extends Model
 {
     use HasFactory;
-    protected $table = 'barang';
+    protected $table = 'vendor';
     protected $primaryKey = 'id';
-    protected $fillable = ['part', 'nama', 'harga', 'stok'];
+    protected $fillable = ['nama', 'email', 'alamat', 'telp'];
 
-    public function vendor()
-    {
+    public function barang(){
         return $this->belongsToMany(
-            Vendor::class,
+            Barang::class,
             'barang_vendor',
-            'barang_id',
-            'vendor_id'
+            'vendor_id',
+            'barang_id'
         );
     }
 }

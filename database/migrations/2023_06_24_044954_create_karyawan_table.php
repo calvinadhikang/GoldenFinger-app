@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('karyawan', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('nama');
             $table->string('password');
             $table->string('telp');

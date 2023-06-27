@@ -53,6 +53,12 @@
                                 Karyawan
                             </div>
                         </a></li>
+                        <li><a href="{{ url('/vendors') }}">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-store me-2 w-6"></i>
+                                Vendor
+                            </div>
+                        </a></li>
                         <li><a>
                             <div class="flex items-center">
                                 <i class="fa-solid fa-users me-2 w-6"></i>

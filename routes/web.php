@@ -4,6 +4,8 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\VendorController;
+use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +31,16 @@ Route::prefix('barang')->group(function () {
 
     Route::post('/add', [BarangController::class, "barangAddAction"]);
     Route::post('/detail/{id}', [BarangController::class, "barangDetailAction"]);
+});
+
+// Note : vendor -> tidak bisa, sudah terpakai dri framework/sistem
+Route::prefix('vendors')->group(function () {
+    Route::get('/', [VendorController::class, "vendorView"]);
+    Route::get('/add', [VendorController::class, "vendorAddView"]);
+    Route::get('/detail/{id}', [VendorController::class, "vendorDetailView"]);
+
+    Route::post('/add', [VendorController::class, "vendorAddAction"]);
+    Route::post('/detail/{id}', [VendorController::class, "vendorDetailAction"]);
 });
 
 Route::prefix('customer')->group(function () {
