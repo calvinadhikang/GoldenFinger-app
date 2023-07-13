@@ -44,6 +44,11 @@ Route::prefix('vendors')->group(function () {
 
     Route::post('/add', [VendorController::class, "vendorAddAction"]);
     Route::post('/detail/{id}', [VendorController::class, "vendorDetailAction"]);
+
+    Route::get('/add/barang', [VendorController::class, "vendorAddBarangView"]);
+    Route::post('/add/barang', [VendorController::class, "vendorAddBarangAction"]);
+    Route::get('/add/harga', [VendorController::class, "vendorAddBarangHargaView"]);
+    Route::post('/add/harga', [VendorController::class, "vendorAddBarangHargaAction"]);
 });
 
 Route::prefix('customer')->group(function () {

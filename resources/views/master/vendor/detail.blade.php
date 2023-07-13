@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="prose">
-    <h1 class="text-white">Detail Vendor</h1>
+    <h1>Detail Vendor</h1>
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
@@ -40,6 +40,40 @@
         </div>
         <button class="btn btn-primary">Simpan</button>
     </form>
+</div>
+<div class="prose">
+    <h2>Barang Di Supply Vendor</h2>
+</div>
+<div class="rounded bg-accent p-4 my-5">
+    <div class="flex justify-end w-full">
+        <a class="btn btn-primary" href="{{url('vendors/add/barang')}}">Tambah</a>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="prose"><h3 class="font-bold">Part Number</h3></th>
+                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
+                    <th class="prose"><h3 class="font-bold">Harga Beli</h3></th>
+                    <th class="prose"><h3 class="font-bold">Stok</h3></th>
+                    <th class="prose"><h3 class="font-bold">Aksi</h3></th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (count($data) <= 0)
+                <tr>
+                    <th class="text-error text-lg">Tidak ada data...</th>
+                </tr>
+            @else
+                @foreach ($data as $item)
+                    <tr>
+
+                    </tr>
+                @endforeach
+            @endif
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @endsection
