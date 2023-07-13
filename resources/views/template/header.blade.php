@@ -12,7 +12,100 @@
 
 <body>
     @include('sweetalert::alert')
-    <div class="navbar bg-primary">
+    <div class="drawer lg:drawer-open">
+        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-side">
+            <label for="my-drawer-2" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 h-full bg-base-200 text-base-content">
+                <!-- Sidebar content here -->
+                <div class="rounded bg-primary p-4 mb-5">
+                    <div class="prose">
+                        <h1 class="mb-0">Calvin Adhikang</h1>
+                        <p class="bg-secondary text-center rounded-lg"><b>Admin</b></p>
+                    </div>
+                </div>
+                <div class="prose">
+                    <h3>Master</h3>
+                </div>
+                <li><a href="{{ url('/barang') }}">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-box-open me-2 w-6"></i>
+                        Barang
+                    </div>
+                </a></li>
+                <li><a href="{{ url('/customer') }}">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-user me-2 w-6"></i>
+                        Customer
+                    </div>
+                </a></li>
+                <li><a href="{{ url('/karyawan') }}">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-id-badge me-2 w-6"></i>
+                        Karyawan
+                    </div>
+                </a></li>
+                <li><a href="{{ url('/vendors') }}">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-store me-2 w-6"></i>
+                        Vendor
+                    </div>
+                </a></li>
+                <li><a>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-users me-2 w-6"></i>
+                        Pemegang Saham
+                    </div>
+                </a></li>
+
+                <div class="prose mt-8">
+                    <h3>Operasional</h3>
+                </div>
+                <li><a>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-dollar-sign me-2 w-6"></i>
+                        Penjualan / Invoice
+                    </div>
+                </a></li>
+                <li><a>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-cart-shopping me-2 w-6"></i>
+                        Pembelian / PO
+                    </div>
+                </a></li>
+            </ul>
+        </div>
+        <div class="drawer-content flex flex-col">
+            <!-- Page content here -->
+            <!-- Navbar -->
+            <div class="w-full navbar bg-primary">
+                <div class="flex-none lg:hidden">
+                <label for="my-drawer-2" class="btn btn-square btn-ghost drawer-button lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </label>
+                </div>
+                <div class="flex-1 px-2 mx-2 prose">
+                    <h1>Golden Finger App</h1>
+                </div>
+                <div class="flex-none hidden lg:block">
+                <ul class="menu menu-horizontal">
+                    <!-- Navbar menu content here -->
+                    {{-- <li><a>Navbar Item 1</a></li>
+                    <li><a>Navbar Item 2</a></li> --}}
+                </ul>
+                </div>
+            </div>
+            <!-- content here -->
+            <div class="px-2 pt-10 flex-wrap md:px-10">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {{-- <div class="navbar bg-primary">
         <div class="navbar-start">
             <div class="drawer drawer-mobile">
                 <input id="my-drawer" type="checkbox" class="drawer-toggle" />
@@ -106,6 +199,6 @@
     </div>
 	<div class="px-2 pt-10 flex-wrap md:px-10">
 		@yield('content')
-	</div>
+	</div> --}}
 </body>
 </html>
