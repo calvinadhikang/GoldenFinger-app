@@ -12,26 +12,28 @@
     </ul>
 </div>
 <div class="rounded bg-accent p-4 my-5">
-    <div class="flex flex-wrap items-center mb-5">
-        <div class="prose ms-2">
-            <h2 class="text-primary text-center">Pilih Barang</h2>
-        </div>
-    </div>
+    <h2 class="text-primary font-bold text-3xl">Pilih Barang</h2>
+    <p class="mb-5"><span class="text-primary">Centang di sebelah kanan </span>Barang yang ingin ditambahkan ke Supplier <br> Klik tombol dibawah bila sudah selesai</p>
     <form method="POST">
         @csrf
-        <div class="">
+        <table class="table" id="table">
+            <thead>
+                <tr>
+                    <th>Part Number</th>
+                    <th>Nama</th>
+                    <th>Tambah</th>
+                </tr>
+            </thead>
+            <tbody>
             @foreach ($barang as $item)
-                <div class="flex mb-2 border-b border-secondary border-opacity-50 p-2">
-                    <div class="grow prose">
-                        <h3>{{ $item->nama }}</h3>
-                        {{ $item->part }}
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" class="checkbox" name="barang[]" value="{{ $item->id }}">
-                    </div>
-                </div>
+                <tr>
+                    <td>{{ $item->part }}</td>
+                    <td>{{ $item->nama }}</td>
+                    <td><input type="checkbox" class="checkbox" name="barang[]" value="{{ $item->id }}"></td>
+                </tr>
             @endforeach
-        </div>
+            </tbody>
+        </table>
         <button class="btn btn-secondary">Selanjutnya</button>
     </form>
 </div>

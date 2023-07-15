@@ -46,7 +46,7 @@
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex justify-end w-full">
-        <a class="btn btn-primary" href="{{url('vendors/add/barang')}}">Tambah</a>
+        <a class="btn btn-primary" href="{{url("vendors/add/barang/$vendor->id")}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
         <table class="table">
@@ -67,7 +67,15 @@
             @else
                 @foreach ($data as $item)
                     <tr>
-
+                        <td>{{ $item->part }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>Rp {{ number_format($item->hargaBeli) }}</td>
+                        <td>{{ $item->stok }}</td>
+                        <td>
+                            <a href="{{ url("barang/detail/$item->id") }}">
+                                <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             @endif

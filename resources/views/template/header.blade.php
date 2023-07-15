@@ -8,6 +8,8 @@
     @vite('resources/css/app.css')
     <title>Document</title>
 	<script src="https://kit.fontawesome.com/7ecee868f3.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{ URL::asset('css/datatable.css') }}" />
 </head>
 
 <body>
@@ -78,14 +80,14 @@
         <div class="drawer-content flex flex-col">
             <!-- Page content here -->
             <!-- Navbar -->
-            <div class="w-full navbar bg-primary">
+            <div class="w-full navbar bg-primary lg:invisible">
                 <div class="flex-none lg:hidden">
                 <label for="my-drawer-2" class="btn btn-square btn-ghost drawer-button lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </label>
                 </div>
                 <div class="flex-1 px-2 mx-2 prose">
-                    <h1>Golden Finger App</h1>
+
                 </div>
                 <div class="flex-none hidden lg:block">
                 <ul class="menu menu-horizontal">
@@ -96,7 +98,7 @@
                 </div>
             </div>
             <!-- content here -->
-            <div class="px-2 pt-10 flex-wrap md:px-10">
+            <div class="px-2 pt-10 lg:pt-0 flex-wrap md:px-10">
                 @yield('content')
             </div>
         </div>
@@ -201,4 +203,11 @@
 		@yield('content')
 	</div> --}}
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#table').DataTable();
+    });
+</script>
 </html>

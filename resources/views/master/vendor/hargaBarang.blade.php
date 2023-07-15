@@ -14,7 +14,7 @@
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex flex-wrap items-center mb-5">
         <a href="/vendors/add/barang"><i class="fas fa-long-arrow-left"></i></a>
-        <div class="prose ms-2">
+        <div class="prose ms-5">
             <h2 class="text-primary text-center">Harga Beli Tiap Barang</h2>
         </div>
     </div>
@@ -28,7 +28,7 @@
                         {{ $item->part }}
                     </div>
                     <div class="flex flex-wrap items-center">
-                        <div class="me-2">Rp</div><input type="number" class="input input-info" name="harga[]">
+                        <div class="me-2">Rp</div><input type="number" class="input input-info" min="1" name="harga[]" required>
                     </div>
                 </div>
             @endforeach

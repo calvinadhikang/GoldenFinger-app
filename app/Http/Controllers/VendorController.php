@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\BarangVendor;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use stdClass;
 use Symfony\Component\VarDumper\VarDumper;
@@ -41,7 +43,12 @@ class VendorController extends Controller
     public function vendorDetailView($id)
     {
         $vendor = Vendor::find($id);
-        $dataBarang = [];
+        $dataBarang = $vendor->barang;
+        foreach ($dataBarang as $key => $value) {
+            $barangVendor = BarangVendor::where('vendor_id', '=', $vendor->id)->where('barang_id', '=', $value->id)->get();
+            $value->hargaBeli = $barangVendor[0]->harga;
+        }
+
         return view('master.vendor.detail', [
             'vendor' => $vendor,
             'data' => $dataBarang
@@ -66,8 +73,9 @@ class VendorController extends Controller
         return redirect()->back();
     }
 
-    public function VendorAddBarangView() {
+    public function VendorAddBarangView($id) {
         $barang = Barang::all();
+        Session::put('vendor_barang_id', $id);
 
         return view('master.vendor.viewBarang', [
             'barang' => $barang
@@ -75,10 +83,14 @@ class VendorController extends Controller
     }
 
     public function VendorAddBarangAction(Request $request) {
-        $arrIdBarang = $request->barang;
+        $arrBarang = $request->barang;
+        if ($arrBarang == null) {
+            toast("Minimal Pilih 1 Barang", 'warning');
+            return redirect()->back();
+        }
 
         $arrTemp = [];
-        foreach ($arrIdBarang as $key => $value) {
+        foreach ($arrBarang as $key => $value) {
             $barang = Barang::find($value);
 
             $obj = new stdClass();
@@ -100,5 +112,33 @@ class VendorController extends Controller
         return view('master.vendor.hargaBarang', [
             'barang' => $barang
         ]);
+    }
+
+    public function VendorAddBarangHargaAction(Request $request) {
+        $idVendor = Session::get('vendor_barang_id');
+        $arrBarang = Session::get('vendor_barang_cart');
+        $arrHarga = $request->harga;
+
+        DB::beginTransaction();
+
+        try {
+            for ($i=0; $i < count($arrBarang); $i++) {
+                $arrBarang[$i]->harga = $arrHarga[$i];
+
+                //insert to table
+                DB::table('barang_vendor')->insert([
+                    'vendor_id' => $idVendor,
+                    'barang_id' => $arrBarang[$i]->id,
+                    'harga' => $arrBarang[$i]->harga
+                ]);
+            }
+
+            DB::commit();
+            toast('Berhasil Insert Barang ke Vendor', 'success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+
+        return redirect("/vendors/detail/$idVendor");
     }
 }
