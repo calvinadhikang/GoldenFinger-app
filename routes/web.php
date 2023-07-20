@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
@@ -68,8 +69,13 @@ Route::prefix('karyawan')->group(function () {
 
 Route::prefix('invoice')->group(function () {
     Route::get('/', function () { return view('master/invoice/view'); });
-    Route::get('/add', function () { return view('master/invoice/add'); });
     Route::get('/detail', function () { return view('master/invoice/detail'); });
+
+    Route::get('/add', [InvoiceController::class, 'invoiceAddView']);
+    Route::post('/add', [InvoiceController::class, 'invoiceAddAction']);
+
+    Route::get('/confirmation', [InvoiceController::class, 'invoiceConfirmationView']);
+    Route::post('/confirmation', [InvoiceController::class, 'invoiceConfirmationAction']);
 });
 
 Route::prefix('po')->group(function () {
