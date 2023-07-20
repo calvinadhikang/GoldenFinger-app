@@ -45,11 +45,11 @@
     <h2>Barang Di Supply Vendor</h2>
 </div>
 <div class="rounded bg-accent p-4 my-5">
-    <div class="flex justify-end w-full">
+    <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url("vendors/add/barang/$vendor->id")}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
-        <table class="table">
+        <table id="table">
             <thead>
                 <tr>
                     <th class="prose"><h3 class="font-bold">Part Number</h3></th>

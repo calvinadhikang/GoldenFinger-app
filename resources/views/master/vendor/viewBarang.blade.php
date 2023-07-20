@@ -19,9 +19,9 @@
         <table class="table" id="table">
             <thead>
                 <tr>
-                    <th>Part Number</th>
-                    <th>Nama</th>
-                    <th>Tambah</th>
+                    <th class="prose"><h3 class="font-bold">Part Number</h3></th>
+                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
+                    <th class="prose"><h3 class="font-bold">Tambah</h3></th>
                 </tr>
             </thead>
             <tbody>

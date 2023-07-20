@@ -63,13 +63,13 @@
                 <div class="prose mt-8">
                     <h3>Operasional</h3>
                 </div>
-                <li><a>
+                <li><a href="{{ url('/invoice') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-dollar-sign me-2 w-6"></i>
                         Penjualan / Invoice
                     </div>
                 </a></li>
-                <li><a>
+                <li><a href="{{ url('/po') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-cart-shopping me-2 w-6"></i>
                         Pembelian / PO
