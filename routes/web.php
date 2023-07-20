@@ -5,6 +5,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\VendorController;
+use App\Mail\TestHTMLMail;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/test', function(){
-    return view('test');
+    Mail::to('calvinadhikang@gmail.com')->send(new TestHTMLMail());
 });
 
 Route::get('/', [LoginController::class, "loginView"]);
