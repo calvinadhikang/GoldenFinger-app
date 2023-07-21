@@ -32,7 +32,7 @@
                     <td>{{ $item->nama }}</td>
                     <td>Rp {{ number_format($item->harga) }}</td>
                     <td>
-                        <input type="number" class="input input-bordered input-secondary" name="qty[]">
+                        <input type="number" class="input input-bordered input-secondary" name="qty[]" value="{{ $item->qty }}">
                         <input type="hidden" name="id[]" value="{{ $item->id }}">
                     </td>
                 </tr>

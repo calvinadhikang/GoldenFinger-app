@@ -9,6 +9,7 @@ use App\Http\Controllers\VendorController;
 use App\Mail\TestHTMLMail;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', function(){
-    Mail::to('calvinadhikang@gmail.com')->send(new TestHTMLMail());
-});
+// Route::get('/test', function(){
+//     Mail::to('calvinadhikang@gmail.com')->send(new TestHTMLMail());
+// });
 
 Route::get('/', [LoginController::class, "loginView"]);
 Route::post('/', [LoginController::class, "loginAction"]);
@@ -77,6 +78,12 @@ Route::prefix('invoice')->group(function () {
 
     Route::get('/confirmation', [InvoiceController::class, 'invoiceConfirmationView']);
     Route::post('/confirmation', [InvoiceController::class, 'invoiceConfirmationAction']);
+
+    Route::get('/created', [InvoiceController::class, 'invoiceCreatedView']);
+
+    Route::get('/reset', function() {
+        Session::remove('invoice_cart');
+    });
 });
 
 Route::prefix('po')->group(function () {

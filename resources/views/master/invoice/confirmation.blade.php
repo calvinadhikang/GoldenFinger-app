@@ -54,16 +54,16 @@
         <div class="flex w-full flex-wrap justify-between">
             <div class="w-full md:w-2/5 ">
                 <p class="mb-2 font-bold">Nama Customer</p>
-                <input type="text" placeholder="Nama Customer..." class="input input-bordered w-full" />
+                <input type="text" placeholder="Nama Customer..." class="input input-bordered w-full" name="nama" />
             </div>
-            <div class="w-full md:w-2/5 ">
+            {{-- <div class="w-full md:w-2/5 ">
                 <p class="mb-2 font-bold">Telp Customer</p>
                 <input type="text" placeholder="Alamat Customer..." class="input input-bordered w-full" />
             </div>
             <div class="w-full mt-5">
                 <p class="mb-2 font-bold">Alamat Customer</p>
                 <textarea name="" class="textarea textarea-bordered w-full" cols="30" rows="2"></textarea>
-            </div>
+            </div> --}}
         </div>
         <button class="btn btn-primary mt-5">Buat Transaksi !</button>
     </form>
