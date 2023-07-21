@@ -22,7 +22,7 @@
                     <th class="prose"><h3 class="font-bold">Part Number</h3></th>
                     <th class="prose"><h3 class="font-bold">Nama</h3></th>
                     <th class="prose"><h3 class="font-bold">Harga</h3></th>
-                    <th class="prose"><h3 class="font-bold">Tambah</h3></th>
+                    <th class="prose"><h3 class="font-bold">Quantity</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +31,10 @@
                     <td>{{ $item->part }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>Rp {{ number_format($item->harga) }}</td>
-                    <td><input type="checkbox" class="checkbox" name="barang[]" value="{{ $item->id }}"></td>
+                    <td>
+                        <input type="number" class="input input-bordered input-secondary" name="qty[]">
+                        <input type="hidden" name="id[]" value="{{ $item->id }}">
+                    </td>
                 </tr>
             @endforeach
             </tbody>

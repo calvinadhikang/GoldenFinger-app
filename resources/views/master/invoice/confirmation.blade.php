@@ -15,8 +15,6 @@
     <h2 class="text-primary font-bold text-3xl">Konfirmasi</h2>
 </div>
 <div class="rounded bg-accent p-4 my-5">
-    <p class="mb-5"><span class="text-primary">Centang di sebelah kanan </span>Barang yang ingin ditambahkan ke Supplier <br> Klik tombol dibawah bila sudah selesai</p>
-
     <form method="POST">
         @csrf
         <table class="table" id="table">
@@ -35,30 +33,39 @@
                     <td>{{ $item->part }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>Rp {{ number_format($item->harga) }}</td>
-                    <td>
-                        Qty: <input type="number" class="input input-bordered input-secondary" style="width: 100px;">
-                    </td>
+                    <td>{{ number_format($item->qty) }}</td>
                     <td>Rp {{ number_format($item->subtotal) }}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-        <button class="btn btn-secondary">Refresh</button>
+        <div class="prose text-right w-full mt-10">
+            Grand Total : <span class="text-2xl font-bold text-primary">Rp {{ number_format($grandTotal) }}</span>
+        </div>
     </form>
 </div>
 
 <div class="prose">
-    <h3>Informasi Pembeli</h3>
+    <h3>Informasi Customer</h3>
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <form action="">
         @csrf
-        <div class="form-control w-full max-w-xs">
-            <label class="label">
-                <span class="label-text">Nama Customer</span>
-            </label>
-            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+        <div class="flex w-full flex-wrap justify-between">
+            <div class="w-full md:w-2/5 ">
+                <p class="mb-2 font-bold">Nama Customer</p>
+                <input type="text" placeholder="Nama Customer..." class="input input-bordered w-full" />
+            </div>
+            <div class="w-full md:w-2/5 ">
+                <p class="mb-2 font-bold">Telp Customer</p>
+                <input type="text" placeholder="Alamat Customer..." class="input input-bordered w-full" />
+            </div>
+            <div class="w-full mt-5">
+                <p class="mb-2 font-bold">Alamat Customer</p>
+                <textarea name="" class="textarea textarea-bordered w-full" cols="30" rows="2"></textarea>
+            </div>
         </div>
+        <button class="btn btn-primary mt-5">Buat Transaksi !</button>
     </form>
 </div>
 @endsection

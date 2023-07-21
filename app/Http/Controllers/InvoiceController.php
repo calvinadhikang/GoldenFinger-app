@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use PHPUnit\Framework\Constraint\IsEmpty;
 
 class InvoiceController extends Controller
 {
@@ -16,14 +17,17 @@ class InvoiceController extends Controller
     }
 
     public function invoiceAddAction(Request $request){
-        $selected = $request->input('barang');
+        $qty = $request->input('qty');
+        $id = $request->input('id');
 
         $list = [];
-        foreach ($selected as $key => $value) {
-            $obj = Barang::find($value);
-            $obj->qty = 1;
-            $obj->subtotal = $obj->harga;
-            $list[] = $obj;
+        for ($i=0; $i < count($qty); $i++) {
+            if ($qty[$i] != null) {
+                $obj = Barang::find($id[$i]);
+                $obj->qty = $qty[$i];
+                $obj->subtotal = $obj->harga * $qty[$i];
+                $list[] = $obj;
+            }
         }
 
         Session::put('invoice_cart', $list);
@@ -32,8 +36,13 @@ class InvoiceController extends Controller
 
     public function invoiceConfirmationView(){
         $barang = Session::get('invoice_cart');
+        $grandTotal = 0;
+        foreach ($barang as $key => $value) {
+            $grandTotal += $value->subtotal;
+        }
         return view('master.invoice.confirmation', [
-            'barang' => $barang
+            'barang' => $barang,
+            'grandTotal' => $grandTotal
         ]);
     }
 }
