@@ -25,17 +25,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>1</th>
-                    <th>Calvin Adhikang</th>
-                    <td>0822 5732 4548</td>
-                    <td>-</td>
-                    <td>Rp 5.000.000 (3x)</td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
-                <tr>
+                @if ($data == null)
+                    <tr>
+                        <td class="text-danger" colspan="6">Tidak ada Data...</td>
+                    </tr>
+                @else
+                    @foreach ($data as $item)
+                    <tr>
+                        <th>{{ $item->id }}</th>
+                        <th>{{ $item->nama }}</th>
+                        <td>{{ $item->telp }}</td>
+                        <td>{{ $item->alamat }}</td>
+                        <td>3</td>
+                        <td>
+                            <a href="{{ url('/customer/detail/'.$item->id) }}">
+                                <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                @endif
+                {{-- <tr>
                     <th>2</th>
                     <th>Yuki</th>
                     <td>0822 5732 4548</td>
@@ -44,7 +54,7 @@
                     <td>
                         <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
                     </td>
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
     </div>

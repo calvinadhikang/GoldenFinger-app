@@ -23,10 +23,10 @@ class CustomerController extends Controller
     public function customerAddAction(Request $request)
     {
         $customer = Customer::create([
-            'part' => $request->input('part'),
+            'alamat' => $request->input('alamat'),
             'nama' => $request->input('nama'),
-            'harga' => $request->input('harga'),
-            'stok' => 0,
+            'telp' => $request->input('telp'),
+            'email' => $request->input('email'),
         ]);
 
         toast('Berhasil Menambah Customer', 'success');
@@ -49,9 +49,9 @@ class CustomerController extends Controller
             return redirect('customer');
         }
 
-        $customer->part = $request->input('part');
+        $customer->alamat = $request->input('alamat');
         $customer->nama = $request->input('nama');
-        $customer->harga = $request->input('harga');
+        $customer->telp = $request->input('telp');
         $customer->save();
 
         toast("Berhasil Update Customer", "success");

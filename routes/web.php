@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
@@ -55,9 +56,12 @@ Route::prefix('vendors')->group(function () {
 });
 
 Route::prefix('customer')->group(function () {
-    Route::get('/', function () { return view('master/customer/view'); });
-    Route::get('/add', function () { return view('master/customer/add'); });
-    Route::get('/detail', function () { return view('master/customer/detail'); });
+    Route::get('/', [CustomerController::class, 'customerView']);
+    Route::get('/add', [CustomerController::class, 'customerAddView']);
+    Route::get('/detail/{id}', [CustomerController::class, 'customerDetailView']);
+
+    Route::post('/add', [CustomerController::class, "customerAddAction"]);
+    Route::post('/detail/{id}', [CustomerController::class, 'customerDetailAction']);
 });
 
 Route::prefix('karyawan')->group(function () {
