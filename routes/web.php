@@ -74,11 +74,14 @@ Route::prefix('karyawan')->group(function () {
 });
 
 Route::prefix('invoice')->group(function () {
-    Route::get('/', function () { return view('master/invoice/view'); });
-    Route::get('/detail', function () { return view('master/invoice/detail'); });
+    Route::get('/', [InvoiceController::class, 'invoiceView']);
+    Route::get('/detail/{id}', [InvoiceController::class, 'invoiceDetailView']);
 
     Route::get('/add', [InvoiceController::class, 'invoiceAddView']);
     Route::post('/add', [InvoiceController::class, 'invoiceAddAction']);
+
+    Route::get('/customer', [InvoiceController::class, 'invoiceCustomerView']);
+    Route::post('/customer', [InvoiceController::class, 'invoiceCustomerAction']);
 
     Route::get('/confirmation', [InvoiceController::class, 'invoiceConfirmationView']);
     Route::post('/confirmation', [InvoiceController::class, 'invoiceConfirmationAction']);

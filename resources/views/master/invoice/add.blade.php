@@ -6,14 +6,16 @@
 </div>
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
-        <li class="step step-primary">Pilih Barang</li>
+        <li class="step step-primary"><a href="{{ url('/invoice/add') }}">Pilih Barang</a></li>
+        <li class="step"><a href="{{ url('/invoice/customer') }}">Pilih Customer</a></li>
         <li class="step">Konfirmasi</li>
-        <li class="step">Simpan</li>
     </ul>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="mb-5 mt-10">
     <h2 class="text-primary font-bold text-3xl">Pilih Barang</h2>
-    <p class="mb-5"><span class="text-primary">Centang di sebelah kanan </span>Barang yang ingin ditambahkan ke <b>Invoice</b> <br> Klik tombol dibawah bila sudah selesai</p>
+    <p><span class="text-primary">Centang di sebelah kanan </span>Barang yang ingin ditambahkan ke <b>Invoice</b> <br> Klik tombol dibawah bila sudah selesai</p>
+</div>
+<div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <table class="table" id="table">

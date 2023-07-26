@@ -12,7 +12,7 @@ class Customer extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['nama', 'alamat', 'telp', 'email'];
 
-    public function vendor()
+    public function invoice()
     {
         return $this->hasMany(
             HeaderInvoice::class,

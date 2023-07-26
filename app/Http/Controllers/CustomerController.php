@@ -57,4 +57,19 @@ class CustomerController extends Controller
         toast("Berhasil Update Customer", "success");
         return redirect()->back();
     }
+
+    public function getCustomer(Request $request){
+        $key = $request->input('key');
+        if ($key == "") {
+            $data = Customer::all();
+        }else{
+            $data = Customer::where('nama', 'like', "%$key%")->get();
+        }
+
+        return response()->json([
+            'error' => false,
+            'message' => 'Berhasil fetch data Customer',
+            'data' => $data
+        ]);
+    }
 }

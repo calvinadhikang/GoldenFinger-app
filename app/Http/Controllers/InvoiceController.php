@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Customer;
+use App\Models\HeaderInvoice;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -13,6 +15,13 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class InvoiceController extends Controller
 {
+    public function invoiceView(){
+        $data = HeaderInvoice::all();
+        return view('master.invoice.view', [
+            'data' => $data
+        ]);
+    }
+
     public function invoiceAddView(){
         $barang = Barang::all();
         $invoice = Session::get('invoice_cart');
@@ -59,11 +68,27 @@ class InvoiceController extends Controller
 
         // Object Creation for Invoice
         $invoice = new stdClass();
-        $invoice->nama = "";
-        $invoice->alamat = "";
-        $invoice->telp = "";
+        $invoice->customer = null;
         $invoice->grandTotal = $grandTotal;
         $invoice->list = $list;
+
+        Session::put('invoice_cart', $invoice);
+        return redirect('/invoice/customer');
+    }
+
+    public function invoiceCustomerView(){
+        $invoice = Session::get('invoice_cart');
+        return view('master.invoice.customer', [
+            'barang' => $invoice->list,
+            'grandTotal' => $invoice->grandTotal,
+        ]);
+    }
+
+    public function invoiceCustomerAction(Request $request){
+        $customer = Customer::find($request->input('customer'));
+        $invoice = Session::get('invoice_cart');
+
+        $invoice->customer = $customer;
 
         Session::put('invoice_cart', $invoice);
         return redirect('/invoice/confirmation');
@@ -71,22 +96,37 @@ class InvoiceController extends Controller
 
     public function invoiceConfirmationView(){
         $invoice = Session::get('invoice_cart');
-        $customer = Customer::all();
+
         return view('master.invoice.confirmation', [
-            'barang' => $invoice->list,
-            'grandTotal' => $invoice->grandTotal,
-            'customer' => $customer
+            'invoice' => $invoice
         ]);
     }
 
     public function invoiceConfirmationAction(Request $request){
-        $nama = $request->input('nama');
-        // $telp = $request->input('telp');
-        // $alamat = $request->input('alamat');
+        $invoice = Session::get('invoice_cart');
 
         DB::beginTransaction();
         try {
+
+            $currentDateTime = Carbon::now()->toDateTimeString();
             //insert header
+            $lastId = DB::table('hinvoice')->insertGetId([
+                'customer_id' => $invoice->customer->id,
+                'total' => $invoice->grandTotal,
+                'status' => 0,
+                'created_at' => $currentDateTime
+            ]);
+
+            foreach ($invoice->list as $key => $value) {
+                DB::table('dinvoice')->insert([
+                    'hinvoice_id' => $lastId,
+                    'part' => $value->part,
+                    'nama' => $value->nama,
+                    'harga' => $value->harga,
+                    'qty' => $value->qty,
+                    'subtotal' => $value->subtotal,
+                ]);
+            }
 
             DB::commit();
         } catch (\Exception $ex) {
@@ -94,7 +134,15 @@ class InvoiceController extends Controller
         }
 
         Session::remove('invoice_cart');
-        toast("Transaksi Customer: $nama, Berhasil dibuat", 'success');
-        return redirect('/invoice/created');
+        toast("Transaksi Customer: ".$invoice->customer->nama.", Berhasil dibuat", 'success');
+        return redirect('/invoice');
+    }
+
+    public function invoiceDetailView($id){
+        $invoice = HeaderInvoice::find($id);
+
+        return view('master.invoice.detail', [
+            'invoice' => $invoice
+        ]);
     }
 }

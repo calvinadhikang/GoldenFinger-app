@@ -45,16 +45,6 @@
                     </tr>
                     @endforeach
                 @endif
-                {{-- <tr>
-                    <th>2</th>
-                    <th>Yuki</th>
-                    <td>0822 5732 4548</td>
-                    <td>Banjarmasin I no. 4</td>
-                    <td>Rp 2.000.000 (2x)</td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr> --}}
             </tbody>
         </table>
     </div>

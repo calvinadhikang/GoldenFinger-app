@@ -25,48 +25,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>INV001</th>
-                    <th>Calvin Adhikang</th>
-                    <td>Rp 1,000,000</td>
-                    <td>02 April 2023</td>
-                    <td>
-                        <span class="badge badge-secondary">
-                            Process
-                        </span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th>INV002</th>
-                    <th>Yuki</th>
-                    <td>Rp 2,500,000</td>
-                    <td>02 Juni 2023</td>
-                    <td>
-                        <span class="badge badge-secondary">
-                            Process
-                        </span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th>INV003</th>
-                    <th>Felita</th>
-                    <td>Rp 3,500,000</td>
-                    <td>02 Juni 2023</td>
-                    <td>
-                        <span class="badge badge-primary">
-                            Finished
-                        </span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
+                @if ($data == null)
+                    <tr>
+                        <td class="text-danger" colspan="6">Tidak ada Data...</td>
+                    </tr>
+                @else
+                    @foreach ($data as $item)
+                    <tr>
+                        <th>{{ $item->id }}</th>
+                        <td>{{ $item->customer->nama }}</td>
+                        <td>Rp {{ number_format($item->total) }}</td>
+                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->status }}</td>
+                        <td>
+                            <a href="{{ url('/invoice/detail/'.$item->id) }}">
+                                <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>
