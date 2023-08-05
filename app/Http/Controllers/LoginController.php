@@ -14,7 +14,7 @@ class LoginController extends Controller
 
         if ($email == "admin" || $password == "admin") {
             toast("Berhasil Login", "success");
-            return redirect('/master');
+            return redirect('/dashboard');
         } else {
             toast("Gagal Login", "error");
             return redirect()->back();

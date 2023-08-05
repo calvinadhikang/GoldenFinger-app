@@ -1,14 +1,14 @@
 @extends('template/header')
 
 @section('content')
-<div class="prose">
-    <h1>Detail Vendor</h1>
+<div class="text-3xl font-bold">
+    <i class="fa-solid fa-circle-info me-2"></i> Detail Vendor
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <input type="hidden" value="{{ $vendor->id }}" name="id">
-        <div class="flex flex-wrap my-5">
+        <div class="flex flex-wrap mb-5">
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Nama</span>
@@ -41,14 +41,47 @@
         <button class="btn btn-primary">Simpan</button>
     </form>
 </div>
-<div class="prose">
-    <h2>Barang Di Supply Vendor</h2>
+
+<div class="text-xl font-semibold">
+    <i class="fa-solid fa-address-book me-2"></i> Contact Person
+</div>
+<div class="rounded bg-accent p-4 my-5">
+    <div class="flex justify-end w-full mb-5">
+        <a class="btn btn-primary" href="{{url("vendors/add/contact/$vendor->id")}}">Tambah</a>
+    </div>
+    <div class="flex flex-wrap">
+        @if (count($vendor->contact_person) <= 0)
+            <div class="text-rose-400 font-bold">Tidak ada Data</div>
+        @else
+            @foreach ($vendor->contact_person as $item)
+                <?php $i = 1; ?>
+                <div class="flex items-center p-2 bg-base-100 rounded-lg shadow-md m-1">
+                    <div class="text-2xl p-2 me-2">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="me-2">
+                        <span class="text-xl font-semibold me-10"> {{ $item->nama }}</span><br>
+                        <span class="text-sm"><i class="fa-solid fa-phone me-2"></i>{{ $item->telp }}</span>
+                    </div>
+                    <div class="hover:shadow-xl bg-red-500 hover:bg-red-600 p-3 rounded-full">
+                        <form action="{{ url("/vendors/remove/contact/$item->id") }}" method="POST">
+                            <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <?php $i += 1; ?>
+            @endforeach
+        @endif
+    </div>
+</div>
+
+<div class="text-xl font-semibold">
+    <i class="fa-solid fa-box me-2"></i> Barang Di Supply Vendor
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url("vendors/add/barang/$vendor->id")}}">Tambah</a>
     </div>
-    <div class="overflow-x-auto">
         <table id="table">
             <thead>
                 <tr>
@@ -81,7 +114,5 @@
             @endif
             </tbody>
         </table>
-    </div>
 </div>
-
 @endsection

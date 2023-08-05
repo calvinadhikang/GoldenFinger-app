@@ -7,7 +7,7 @@
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
         <li class="step step-primary"><a href="{{ url('/invoice/add') }}">Pilih Barang</a></li>
-        <li class="step"><a href="{{ url('/invoice/customer') }}">Pilih Customer</a></li>
+        <li class="step">Pilih Customer</li>
         <li class="step">Konfirmasi</li>
     </ul>
 </div>
@@ -32,7 +32,12 @@
                 <tr>
                     <td>{{ $item->part }}</td>
                     <td>{{ $item->nama }}</td>
-                    <td>Rp {{ number_format($item->harga) }}</td>
+                    <td>
+                        <div class="flex items-center">
+                            <div class="">Rp</div>
+                            <input type="text" class="input input-bordered input-secondary harga flex-shrink" name="harga[]" value="{{ number_format($item->harga) }}">
+                        </div>
+                    </td>
                     <td>
                         <input type="number" class="input input-bordered input-secondary" name="qty[]" value="{{ $item->qty }}">
                         <input type="hidden" name="id[]" value="{{ $item->id }}">
@@ -44,4 +49,18 @@
         <button class="btn btn-secondary">Selanjutnya</button>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+    $(".harga").on("input", function() {
+        // Remove commas and non-numeric characters from the input value
+        let rawValue = $(this).val().replace(/[^0-9]/g, '');
+
+        // Format the input value with thousand separators
+        let formattedValue = Number(rawValue).toLocaleString();
+
+        // Update the input value with the formatted value
+        $(this).val(formattedValue);
+    });
+</script>
 @endsection

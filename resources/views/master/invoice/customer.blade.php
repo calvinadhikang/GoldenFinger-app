@@ -39,7 +39,18 @@
     </form>
 </div>
 
-<div class="prose">
+<div class="text-xl font-medium me-3 mb-2">Dapat Komisi ?</div>
+<div class="rounded bg-accent p-4 mb-5">
+    <div class="flex items-center">
+        <input type="checkbox" class="toggle mr-3" id="komisiCheck">
+        <div class="text-xl font-bold" id="komisiStatus">Tidak</div>
+    </div>
+    <div class="mt-5">
+        <input type="text" class="input input-bordered input-secondary" name="komisi" value="0" id="komisi">
+    </div>
+</div>
+
+<div class="text-xl font-medium">
     <h3>Informasi Pesanan</h3>
 </div>
 <div class="rounded bg-accent p-4 my-5">
@@ -121,5 +132,26 @@ isLoading = (status) => {
         $('#loading').hide();
     }
 }
+
+$('#komisiCheck').on('click', function() {
+    let checkedStatus = $(this).prop('checked');
+    if (checkedStatus) {
+        $('#komisiStatus').html("Dapat");
+    }else{
+        $('#komisiStatus').html("Tidak");
+
+    }
+})
+
+$("#komisi").on("input", function() {
+        // Remove commas and non-numeric characters from the input value
+        let rawValue = $(this).val().replace(/[^0-9]/g, '');
+
+        // Format the input value with thousand separators
+        let formattedValue = Number(rawValue).toLocaleString();
+
+        // Update the input value with the formatted value
+        $(this).val(formattedValue);
+    });
 </script>
 @endsection

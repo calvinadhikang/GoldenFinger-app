@@ -6,6 +6,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\OperationalCostController;
 use App\Http\Controllers\VendorController;
 use App\Mail\TestHTMLMail;
 use App\Models\Vendor;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Session;
 Route::get('/', [LoginController::class, "loginView"]);
 Route::post('/', [LoginController::class, "loginAction"]);
 
-Route::get('/master', [MasterController::class, "masterView"]);
+Route::get('/dashboard', [MasterController::class, "dashboardView"]);
 
 Route::prefix('barang')->group(function () {
     Route::get('/', [BarangController::class, "barangView"]);
@@ -49,6 +50,11 @@ Route::prefix('vendors')->group(function () {
     Route::post('/add', [VendorController::class, "vendorAddAction"]);
     Route::post('/detail/{id}', [VendorController::class, "vendorDetailAction"]);
 
+    Route::get('/add/contact/{id}', [VendorController::class, 'vendorAddContactView']);
+    Route::post('/add/contact/{id}', [VendorController::class, 'vendorAddContactAction']);
+
+    Route::post('/remove/contact/{id}', [VendorController::class, 'vendorRemoveContactAction']);
+
     Route::get('/add/barang/{id}', [VendorController::class, "vendorAddBarangView"]);
     Route::post('/add/barang/{id}', [VendorController::class, "vendorAddBarangAction"]);
     Route::get('/add/harga', [VendorController::class, "vendorAddBarangHargaView"]);
@@ -62,6 +68,13 @@ Route::prefix('customer')->group(function () {
 
     Route::post('/add', [CustomerController::class, "customerAddAction"]);
     Route::post('/detail/{id}', [CustomerController::class, 'customerDetailAction']);
+});
+
+Route::prefix('cost')->group(function () {
+    Route::get('/', [OperationalCostController::class, 'costView']);
+    Route::get('/add', [OperationalCostController::class, 'costAddView']);
+
+    Route::post('/add', [OperationalCostController::class, 'costAddAction']);
 });
 
 Route::prefix('karyawan')->group(function () {

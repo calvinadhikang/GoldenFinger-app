@@ -47,8 +47,16 @@ class InvoiceController extends Controller
         ]);
     }
 
+
+    function parseNumericValue($value){
+        $rawValue = str_replace(',', '', $value);
+        $numeric = (float)$rawValue;
+        return $numeric;
+    }
+
     public function invoiceAddAction(Request $request){
         $qty = $request->input('qty');
+        $harga = $request->input('harga');
         $id = $request->input('id');
 
         $grandTotal = 0;
@@ -57,6 +65,7 @@ class InvoiceController extends Controller
             if ($qty[$i] > 0) {
                 $obj = Barang::find($id[$i]);
                 $obj->qty = $qty[$i];
+                $obj->harga = $this->parseNumericValue($harga[$i]);
 
                 $subtotal = $obj->harga * $qty[$i];
                 $obj->subtotal = $subtotal;

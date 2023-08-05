@@ -4,24 +4,21 @@
 <div class="flex items-center mb-10">
     <div class="grow m-auto">
         <div class="">
-            <h1 class="text-4xl font-extrabold
-            ">Data Barang</h1>
+            <h1 class="text-4xl font-extrabold">Operational Cost</h1>
         </div>
     </div>
-    <button class="btn btn-secondary">Import Excel</button>
 </div>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
-        <a class="btn btn-primary" href="{{url('barang/add')}}">Tambah</a>
+        <a class="btn btn-primary" href="{{url('cost/add')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
         <table class="table" id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">Part Number</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Harga Jual</h3></th>
-                    <th class="prose"><h3 class="font-bold">Stok</h3></th>
+                    <th class="prose"><h3 class="font-bold">Deskripsi</h3></th>
+                    <th class="prose"><h3 class="font-bold">Total</h3></th>
+                    <th class="prose"><h3 class="font-bold">Tanggal</h3></th>
                     <th class="prose"><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
@@ -33,14 +30,14 @@
             @else
                 @foreach ($data as $item)
                     <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->nama }}</td>
-                        <td>Rp {{ number_format($item->harga) }}</td>
-                        <td>{{ $item->stok }}</td>
+                        <td>{{ $item->deskripsi }}</td>
+                        <td>Rp {{ number_format($item->total) }}</td>
+                        <td>{{ $item->created_at }}</td>
                         <td>
-                            <a href="{{ url("barang/detail/$item->id") }}">
-                                <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                            </a>
+                            <form method="POST" action="{{ url("/cost/remove/$item->id") }}">
+                                @csrf
+                                <button><i class="fa-solid fa-circle-minus text-base hover:text-red-600"></i></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

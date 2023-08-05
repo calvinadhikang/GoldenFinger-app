@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class MasterController extends Controller
 {
     //
-    public function masterView(){
+    public function dashboardView(){
         return view('master.master');
     }
 }

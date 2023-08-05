@@ -20,4 +20,12 @@ class Vendor extends Model
             'barang_id'
         );
     }
+
+    public function contact_person(){
+        return $this->hasMany(
+            ContactPerson::class,
+            'vendor_id',
+            'id'
+        );
+    }
 }

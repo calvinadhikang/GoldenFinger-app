@@ -37,20 +37,20 @@
     <h2 class="text-white">Detail Transaksi</h2>
 </div>
 <div class="flex w-full mt-5">
-    <div class="stat bg-accent w-auto me-4">
+    <div class="stat bg-accent w-auto me-4 rounded">
         <div class="stat-title text-white">Total Transaksi</div>
-        <div class="stat-value text-primary">5</div>
+        <div class="stat-value text-primary">{{ count($customer->invoice) }}</div>
         <div class="stat-desc">21% more than last month</div>
     </div>
-    <div class="stat bg-accent w-auto me-4">
+    <div class="stat bg-accent w-auto me-4 rounded">
         <div class="stat-title text-white">Grand Total Transaksi</div>
-        <div class="stat-value">Rp <span class="text-primary">2.500.400</span></div>
+        <div class="stat-value">Rp <span class="text-primary">{{ number_format($grandTotal) }}</span></div>
         <div class="stat-desc">21% more than last month</div>
     </div>
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <div class="overflow-x-auto">
-        <table class="table">
+        <table id="table">
             <thead>
                 <tr>
                     <th class="prose"><h3 class="font-bold">Kode</h3></th>
@@ -61,33 +61,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>INV001</th>
-                    <td>Rp 1,000,000</td>
-                    <td>02 April 2023</td>
-                    <td><span class="badge badge-primary">Finished</span></td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th>INV002</th>
-                    <td>Rp 2,500,000</td>
-                    <td>02 Juni 2023</td>
-                    <td><span class="badge badge-primary">Finished</span></td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th>INV003</th>
-                    <td>Rp 3,500,000</td>
-                    <td>02 Juni 2023</td>
-                    <td><span class="badge badge-primary">Finished</span></td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
+                @if (count($customer->invoice) <= 0)
+                    <tr>
+                        <td colspan="5">Tidak ada Transaksi</td>
+                    </tr>
+                @else
+                    @foreach ($customer->invoice as $item)
+                    <?php
+                    $statusClass = "bg-secondary";
+                    $statusText = "Pending";
+                    if ($item->status == 1) {
+                        $statusClass = "bg-primary";
+                        $statusText = "Selesai";
+                    }
+                    ?>
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>Rp {{ number_format($item->total) }}</td>
+                        <td>{{ $item->created_at }}</td>
+                        <td><div class="py-1 {{ $statusClass }} rounded-md text-center font-medium">{{ $statusText }}</div></td>
+                        <td>
+                            <a href="{{ url('/invoice/detail/'.$item->id) }}">
+                                <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

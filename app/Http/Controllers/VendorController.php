@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\BarangVendor;
+use App\Models\ContactPerson;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -140,5 +141,25 @@ class VendorController extends Controller
         }
 
         return redirect("/vendors/detail/$idVendor");
+    }
+
+    public function vendorAddContactView($id){
+        return view('master.vendor.addContactPerson');
+    }
+
+    public function vendorAddContactAction(Request $request, $id){
+
+        $cp = ContactPerson::create([
+            'vendor_id' => $id,
+            'nama' => $request->input('nama'),
+            'telp' => $request->input('telp'),
+        ]);
+
+        toast('Berhasil Menambah Contact', 'success');
+        return redirect("/vendors/detail/$id");
+    }
+
+    public function vendorRemoveContactAction($id){
+        
     }
 }

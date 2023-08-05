@@ -36,8 +36,13 @@ class CustomerController extends Controller
     public function customerDetailView($id)
     {
         $customer = Customer::find($id);
+        $grandTotal = 0;
+        foreach ($customer->invoice as $key => $value) {
+            $grandTotal += $value->total;
+        }
         return view('master.customer.detail', [
-            'customer' => $customer
+            'customer' => $customer,
+            'grandTotal' => $grandTotal
         ]);
     }
 

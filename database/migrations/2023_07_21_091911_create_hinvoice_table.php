@@ -17,7 +17,11 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->bigInteger('total');
+            $table->bigInteger('grand_total');
+            $table->bigInteger('ppn');
+            $table->bigInteger('komisi');
             $table->integer('status');
+            $table->timestamps('jatuh_tempo');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
