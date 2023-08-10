@@ -33,10 +33,10 @@
                     @foreach ($data as $item)
                     <tr>
                         <th>{{ $item->id }}</th>
-                        <th>{{ $item->nama }}</th>
+                        <td>{{ $item->nama }}</td>
                         <td>{{ $item->telp }}</td>
                         <td>{{ $item->alamat }}</td>
-                        <td>3</td>
+                        <td>{{ count($item->invoice) }}</td>
                         <td>
                             <a href="{{ url('/customer/detail/'.$item->id) }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>

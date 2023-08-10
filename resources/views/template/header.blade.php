@@ -84,7 +84,7 @@
                 <li><a href="{{ url('/cost') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-tags me-2 w-6"></i>
-                        Cost / Pengeluaran
+                        Pengeluaran / Cost
                     </div>
                 </a></li>
                 <div class="flex-grow"></div>
