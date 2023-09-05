@@ -51,7 +51,7 @@
     </div>
     <div class="flex flex-wrap">
         @if (count($vendor->contact_person) <= 0)
-            <div class="text-rose-400 font-bold">Tidak ada Data</div>
+            <div class="text-rose-400 font-bold">Belum ada contact, klik tombol di kanan untuk menambah...</div>
         @else
             @foreach ($vendor->contact_person as $item)
                 <?php $i = 1; ?>
@@ -95,7 +95,7 @@
             <tbody>
             @if (count($data) <= 0)
                 <tr>
-                    <th class="text-error text-lg">Tidak ada data...</th>
+                    <th class="text-error text-lg" colspan="5">Tidak ada data...</th>
                 </tr>
             @else
                 @foreach ($data as $item)

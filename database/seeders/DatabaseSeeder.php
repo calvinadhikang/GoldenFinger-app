@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Barang;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +22,31 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $this->createBarang();
+
+    }
+
+    function createBarang(){
+        $b = Barang::create([
+            'part' => 'B001',
+            'nama' => 'Barang Pertama',
+            'harga' => 1000,
+            'stok' => 0
+        ]);
+
+        $b = Barang::create([
+            'part' => 'B002',
+            'nama' => 'Barang Kedua',
+            'harga' => 2000,
+            'stok' => 0
+        ]);
+
+        $b = Barang::create([
+            'part' => 'B003',
+            'nama' => 'Barang Ketiga',
+            'harga' => 3000,
+            'stok' => 0
+        ]);
     }
 }

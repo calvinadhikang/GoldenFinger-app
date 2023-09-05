@@ -19,15 +19,16 @@
                     <th class="prose"><h3 class="font-bold">Kode</h3></th>
                     <th class="prose"><h3 class="font-bold">Customer</h3></th>
                     <th class="prose"><h3 class="font-bold">Grand Total (Rp)</h3></th>
-                    <th class="prose"><h3 class="font-bold">Tanggal</h3></th>
+                    <th class="prose"><h3 class="font-bold">Tanggal Pesanan</h3></th>
                     <th class="prose"><h3 class="font-bold">Status</h3></th>
+                    <th class="prose"><h3 class="font-bold">Jatuh Tempo</h3></th>
                     <th class="prose"><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>
-                @if ($data == null)
+                @if (count($data) <= 0)
                     <tr>
-                        <td class="text-danger" colspan="6">Tidak ada Data...</td>
+                        <th class="text-error text-lg" colspan="6">Tidak ada Data...</th>
                     </tr>
                 @else
                     @foreach ($data as $item)
@@ -36,7 +37,20 @@
                         <td>{{ $item->customer->nama }}</td>
                         <td>Rp {{ number_format($item->total) }}</td>
                         <td>{{ $item->created_at }}</td>
-                        <td>{{ $item->status }}</td>
+                        <td>
+                            @if ($item->status == 0)
+                            <span class="badge badge-error">
+                                Belum Lunas
+                            </span>
+                            @elseif ($item->status == 1)
+                            <span class="badge badge-secondary">
+                                Lunas
+                            </span>
+                            @endif
+                        </td>
+                        <td>
+                            {{ $item->jatuh_tempo }}
+                        </td>
                         <td>
                             <a href="{{ url('/invoice/detail/'.$item->id) }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>

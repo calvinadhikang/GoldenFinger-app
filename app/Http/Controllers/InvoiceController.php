@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Customer;
 use App\Models\HeaderInvoice;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use PHPUnit\Framework\Constraint\IsEmpty;
 use stdClass;
-use Symfony\Component\VarDumper\VarDumper;
+
 
 class InvoiceController extends Controller
 {
@@ -112,7 +112,16 @@ class InvoiceController extends Controller
     }
 
     public function invoiceConfirmationAction(Request $request){
+        $komisiJumlah = 0;
+        $komisiPenerima = "-";
+        $jatuhTempo = $request->input('jatuhTempo');
         $invoice = Session::get('invoice_cart');
+
+        $komisiStatus = $request->input('komisi');
+        if ($komisiStatus) {
+            $komisiJumlah = $request->input('komisiJumlah');
+            $komisiPenerima = $request->input('komisiPenerima');
+        }
 
         DB::beginTransaction();
         try {
@@ -123,6 +132,11 @@ class InvoiceController extends Controller
                 'customer_id' => $invoice->customer->id,
                 'total' => $invoice->grandTotal,
                 'status' => 0,
+                'contact_person' => $komisiPenerima,
+                'komisi' => $komisiJumlah,
+                'ppn' => 10,
+                'grand_total' => $invoice->grandTotal -= $invoice->grandTotal * 0.10,
+                'jatuh_tempo' => $jatuhTempo,
                 'created_at' => $currentDateTime
             ]);
 
@@ -137,13 +151,14 @@ class InvoiceController extends Controller
                 ]);
             }
 
+            Session::remove('invoice_cart');
+            toast("Transaksi Customer: ".$invoice->customer->nama.", Berhasil dibuat", 'success');
             DB::commit();
         } catch (\Exception $ex) {
+            toast($ex->getMessage(), 'error');
             DB::rollBack();
         }
 
-        Session::remove('invoice_cart');
-        toast("Transaksi Customer: ".$invoice->customer->nama.", Berhasil dibuat", 'success');
         return redirect('/invoice');
     }
 
@@ -153,5 +168,14 @@ class InvoiceController extends Controller
         return view('master.invoice.detail', [
             'invoice' => $invoice
         ]);
+    }
+
+    public function createDocument(Request $request){
+        if ($request->input('type') == 'invoice') {
+            $pdf = Pdf::loadView('template.dokumen.tanda_terima');
+
+            return $pdf->download('document.pdf');
+        }
+        return redirect()->back();
     }
 }

@@ -19,9 +19,10 @@ return new class extends Migration
             $table->bigInteger('total');
             $table->bigInteger('grand_total');
             $table->bigInteger('ppn');
+            $table->text('contact_person');
             $table->bigInteger('komisi');
             $table->integer('status');
-            $table->timestamps('jatuh_tempo');
+            $table->timestamp('jatuh_tempo');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');

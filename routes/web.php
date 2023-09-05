@@ -89,6 +89,7 @@ Route::prefix('karyawan')->group(function () {
 Route::prefix('invoice')->group(function () {
     Route::get('/', [InvoiceController::class, 'invoiceView']);
     Route::get('/detail/{id}', [InvoiceController::class, 'invoiceDetailView']);
+    Route::post('/detail/{id}', [InvoiceController::class, 'createDocument']);
 
     Route::get('/add', [InvoiceController::class, 'invoiceAddView']);
     Route::post('/add', [InvoiceController::class, 'invoiceAddAction']);
@@ -112,4 +113,8 @@ Route::prefix('po')->group(function () {
     Route::get('/vendor', function () { return view('master/po/vendor'); });
     Route::get('/konfirmasi', function () { return view('master/po/konfirmasi'); });
     Route::get('/detail', function () { return view('master/po/detail'); });
+});
+
+Route::prefix('template')->group(function (){
+    Route::get('/tanda_terima', function () { return view('template.dokumen.tanda_terima'); });
 });

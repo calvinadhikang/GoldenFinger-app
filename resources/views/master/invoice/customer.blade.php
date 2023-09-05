@@ -13,8 +13,10 @@
 </div>
 <div class="mb-5 mt-10">
     <h2 class="text-primary font-bold text-3xl">Pilih Customer</h2>
-    <p><span class="text-primary">Centang di sebelah kanan </span>Barang yang ingin ditambahkan ke <b>Invoice</b> <br> Klik tombol dibawah bila sudah selesai</p>
+    <p>Silahkan pilih customer, anda dapat memilih dengan memasukan nama customer di kolom <b>cari nama customer</b><br><span class="text-primary">Tekan tombol kuning di sebelah kanan</span>, bila customer sudah sesuai</p>
 </div>
+
+
 <div class="rounded bg-accent p-4 my-5">
     <div class="mb-5">
         <p class="text-sm font-bold"><i class="fa-solid fa-magnifying-glass me-3"></i>Cari nama Customer</p>
@@ -39,18 +41,7 @@
     </form>
 </div>
 
-<div class="text-xl font-medium me-3 mb-2">Dapat Komisi ?</div>
-<div class="rounded bg-accent p-4 mb-5">
-    <div class="flex items-center">
-        <input type="checkbox" class="toggle mr-3" id="komisiCheck">
-        <div class="text-xl font-bold" id="komisiStatus">Tidak</div>
-    </div>
-    <div class="mt-5">
-        <input type="text" class="input input-bordered input-secondary" name="komisi" value="0" id="komisi">
-    </div>
-</div>
-
-<div class="text-xl font-medium">
+<div class="text-xl font-semibold">
     <h3>Informasi Pesanan</h3>
 </div>
 <div class="rounded bg-accent p-4 my-5">
@@ -133,25 +124,5 @@ isLoading = (status) => {
     }
 }
 
-$('#komisiCheck').on('click', function() {
-    let checkedStatus = $(this).prop('checked');
-    if (checkedStatus) {
-        $('#komisiStatus').html("Dapat");
-    }else{
-        $('#komisiStatus').html("Tidak");
-
-    }
-})
-
-$("#komisi").on("input", function() {
-        // Remove commas and non-numeric characters from the input value
-        let rawValue = $(this).val().replace(/[^0-9]/g, '');
-
-        // Format the input value with thousand separators
-        let formattedValue = Number(rawValue).toLocaleString();
-
-        // Update the input value with the formatted value
-        $(this).val(formattedValue);
-    });
 </script>
 @endsection

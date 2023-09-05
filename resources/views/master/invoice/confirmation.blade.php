@@ -84,6 +84,67 @@
 
 <form method="POST">
     @csrf
+    <div class="grid-cols-2 justify-center mb-2">
+        <span class="text-xl font-semibold me-3">Dapat Komisi ? </span>
+        <input type="checkbox" name="komisi" class="ms-2 toggle" id="komisiCheck" checked>
+    </div>
+    <div class="rounded bg-accent p-4 mb-5">
+        <div class="flex mb-2">
+            <div id="komisiStatus" class="text-2xl font-bold text-secondary w-full">Dapat Komisi</div>
+        </div>
+
+        <div class="flex space-x-4" id="komisi-input">
+            <div class="w-full">
+                <p class="font-semibold">Jumlah Komisi</p>
+                <div class="mt-2">
+                    <input type="number" class="input input-bordered input-secondary w-full" name="komisiJumlah" value="0" id="komisi">
+                </div>
+            </div>
+            <div class="w-full">
+                <p class="font-semibold">Nama Penerima Komisi</p>
+                <div class="mt-2">
+                    <input type="text" class="input input-bordered input-secondary w-full" name="komisiPenerima">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-xl font-semibold mb-2">Jatuh Tempo</p>
+    <div class="rounded bg-accent p-4 mb-5">
+        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="jatuhTempo">
+    </div>
+
     <button class="btn btn-primary w-full mb-10 shadow-lg">Buat Pesanan !</button>
 </form>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+$('#komisiCheck').on('click', function() {
+    let checkedStatus = $(this).prop('checked');
+    if (checkedStatus) {
+        $('#komisiStatus').html("Dapat Komisi");
+        $('#komisiStatus').addClass("text-secondary");
+        $('#komisiStatus').removeClass("text-error");
+
+        $('#komisi-input').show();
+    }else{
+        $('#komisiStatus').html("Tidak Dapat Komisi");
+        $('#komisiStatus').addClass("text-error");
+        $('#komisiStatus').removeClass("text-secondary");
+        $('#komisi-input').hide();
+
+    }
+})
+
+$("#komisi").on("input", function() {
+    // Remove commas and non-numeric characters from the input value
+    let rawValue = $(this).val().replace(/[^0-9]/g, '');
+
+    // Format the input value with thousand separators
+    let formattedValue = Number(rawValue).toLocaleString();
+
+    // Update the input value with the formatted value
+    $(this).val(formattedValue);
+});
+</script>
 @endsection

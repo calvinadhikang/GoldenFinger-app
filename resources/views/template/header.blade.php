@@ -20,13 +20,12 @@
             <label for="my-drawer-2" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 h-full bg-base-200 text-base-content">
                 <!-- Sidebar content here -->
-                <a href="{{ url('/dashboard') }}">
-                    <div class="rounded-lg drop-shadow-lg bg-accent p-4 mb-5">
-                        <h1 class="text-xl font-semibold">Calvin Adhikang</h1>
-                        <p>Admin</p>
-                    </div>
-                </a>
-                <li><a href="">
+                <div class="rounded-lg drop-shadow-lg bg-accent p-4 mb-5">
+                    <h1 class="text-xl font-semibold">Calvin Adhikang</h1>
+                    <p>Admin</p>
+                </div>
+
+                <li><a href="{{ url('/dashboard') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-gauge-high me-2 w-6"></i>
                         Dashboard

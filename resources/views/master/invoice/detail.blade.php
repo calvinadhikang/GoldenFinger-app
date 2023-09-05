@@ -1,10 +1,30 @@
 @extends('template/header')
 
 @section('content')
+<?php use Carbon\Carbon; ?>
 <div class="prose">
     <h1 class="text-white">Detail Invoice</h1>
 </div>
-<div class="prose mt-10">
+
+@if ($invoice->status == 0)
+    <div class="text-red-800 bg-red-400 font-semibold text-xl text-center rounded mt-5 p-3">Belum Lunas</div>
+
+    <?php
+    // Get the current date and time
+    $currentDate = Carbon::now();
+    // Calculate the difference in days
+    $daysLeft = $currentDate->diffInDays($invoice->jatuh_tempo);
+    ?>
+    <h3 class="text-xl font-semibold">Jatuh Tempo</h3>
+    <div class="bg-accent rounded p-4 w-full">
+        <p>{{ $invoice->jatuh_tempo }}</p>
+        <p class="">Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
+    </div>
+@else
+    <div class="text-white bg-secondary font-semibold text-xl text-center rounded mt-5 p-3">Lunas</div>
+@endif
+
+<div class="prose mt-5">
     <h3>Informasi Customer</h3>
 </div>
 <div class="rounded bg-accent p-4 my-5">
@@ -66,13 +86,43 @@
         @endforeach
         </tbody>
     </table>
-    <div class="text-right w-full mt-10">
-        Grand Total : <span class="text-2xl font-bold text-primary">Rp {{ number_format($invoice->grandTotal) }}</span>
+    <div class="text-right w-full mt-10">Total Pesanan : <span class="">Rp {{ number_format($invoice->total) }}</span></div>
+
+</div>
+
+@if ($invoice->komisi > 0)
+<h3 class="text-xl font-semibold">Komisi</h3>
+<div class="rounded bg-accent p-4 my-5">
+    <div class="flex gap-4">
+        <div class="">
+            <p>Penerima Komisi </p>
+            <p class="font-semibold">{{ $invoice->contact_person }}</p>
+        </div>
+        <div class="">
+            <p>Jumlah Komisi </p>
+            <p class="font-semibold">Rp {{ number_format($invoice->komisi) }}</p>
+        </div>
+    </div>
+</div>
+@endif
+
+<h3 class="text-xl font-semibold">Pendapatan</h3>
+<div class="rounded bg-accent p-4 my-5">
+    <div>PPN ({{ $invoice->ppn }}%) : <span class="">Rp {{ number_format($invoice->total - $invoice->grand_total) }}</span></div>
+    <div>Grand Total : <span class="text-2xl font-bold text-primary">Rp {{ number_format($invoice->total) }}</span></div>
+</div>
+
+<h3 class="text-xl font-semibold">Dokumen</h3>
+<div class="rounded bg-accent p-4 my-5">
+    <div class="flex justify-between">
+        <form method="post">
+            @csrf
+            <button class="btn btn-secondary shadow-lg" name="type" value="invoice"><i class="fa-solid fa-file-pdf"></i>Buat Invoice !</button>
+        </form>
+        <button class="btn btn-secondary shadow-lg">Buat Surat Jalan !</button>
+        <button class="btn btn-secondary shadow-lg">Buat Sesuatu !</button>
+        <button class="btn btn-secondary shadow-lg"><i class="fa-solid fa-envelope-open-text"></i></i>Kirim Invoice Ke Customer !</button>
     </div>
 </div>
 
-<div class="flex justify-between">
-    <button class="btn btn-secondary w-5/12 mb-10 shadow-lg"><i class="fa-solid fa-file-pdf"></i>Buat PDF !</button>
-    <button class="btn btn-secondary w-5/12 mb-10 shadow-lg"><i class="fa-solid fa-envelope-open-text"></i></i>Kirim Invoice Ke Customer !</button>
-</div>
 @endsection
