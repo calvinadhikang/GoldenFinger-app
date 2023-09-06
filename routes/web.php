@@ -30,6 +30,10 @@ use Illuminate\Support\Facades\Session;
 Route::get('/', [LoginController::class, "loginView"]);
 Route::post('/', [LoginController::class, "loginAction"]);
 
+Route::get('/logout', function(){
+    return redirect('/');
+});
+
 Route::get('/dashboard', [MasterController::class, "dashboardView"]);
 
 Route::prefix('barang')->group(function () {
