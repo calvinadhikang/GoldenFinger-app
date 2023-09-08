@@ -75,9 +75,11 @@ class InvoiceController extends Controller
             }
         }
 
+
+        $oldInvoice = Session::get('invoice_cart');
         // Object Creation for Invoice
         $invoice = new stdClass();
-        $invoice->customer = null;
+        $invoice->customer = $oldInvoice->customer;
         $invoice->grandTotal = $grandTotal;
         $invoice->list = $list;
 
@@ -89,6 +91,7 @@ class InvoiceController extends Controller
         $invoice = Session::get('invoice_cart');
         return view('master.invoice.customer', [
             'barang' => $invoice->list,
+            'customer' => $invoice->customer,
             'grandTotal' => $invoice->grandTotal,
         ]);
     }
@@ -99,8 +102,18 @@ class InvoiceController extends Controller
 
         $invoice->customer = $customer;
 
+        toast('Berhasil memilih customer', 'success');
+        return redirect()->back();
+        // return redirect('/invoice/confirmation');
+    }
+
+    public function invoiceCustomerUnsetAction(Request $request){
+        $invoice = Session::get('invoice_cart');
+        $invoice->customer = null;
         Session::put('invoice_cart', $invoice);
-        return redirect('/invoice/confirmation');
+
+        toast('Berhasil melepas customer', 'success');
+        return redirect()->back();
     }
 
     public function invoiceConfirmationView(){

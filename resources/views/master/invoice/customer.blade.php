@@ -16,29 +16,73 @@
     <p>Silahkan pilih customer, anda dapat memilih dengan memasukan nama customer di kolom <b>cari nama customer</b><br><span class="text-primary">Tekan tombol kuning di sebelah kanan</span>, bila customer sudah sesuai</p>
 </div>
 
+@if ($customer != null)
+<div class="text-xl font-semibold">Informasi Customer</div>
+@endif
 
 <div class="rounded bg-accent p-4 my-5">
-    <div class="mb-5">
-        <p class="text-sm font-bold"><i class="fa-solid fa-magnifying-glass me-3"></i>Cari nama Customer</p>
-        <input type="text" class="input mt-2" placeholder="Joko" id="search">
-    </div>
-    <span class="loading loading-spinner loading-lg" id="loading"></span>
-
-    <div id="formAdd">
-        <p id="message" class="font-bold text-error">Customer Tidak Ditemukan</p>
-        <a href="{{ url('/customer/add') }}"><button class="btn btn-secondary">Tambah Customer</button></a>
-    </div>
-
-    <form method="POST" action="{{ url('/invoice/customer') }}" id="formCustomer">
-        @csrf
-        <p class="mb-2 font-bold">Nama Customer</p>
-        <div class="flex w-full justify-between">
-            <div class="w-full">
-                <select name="customer" class="select w-full" id="selectCustomer"></select>
-            </div>
-            <button class="btn btn-primary ms-5">Pilih Customer!</button>
+    @if ($customer == null)
+        <div class="mb-5">
+            <p class="text-sm font-bold"><i class="fa-solid fa-magnifying-glass me-3"></i>Cari nama Customer</p>
+            <input type="text" class="input mt-2" placeholder="Joko" id="search">
         </div>
-    </form>
+        <span class="loading loading-spinner loading-lg" id="loading"></span>
+
+        <div id="formAdd">
+            <p id="message" class="font-bold text-error">Customer Tidak Ditemukan</p>
+            <a href="{{ url('/customer/add') }}"><button class="btn btn-secondary">Tambah Customer</button></a>
+        </div>
+
+        <form method="POST" action="{{ url('/invoice/customer') }}" id="formCustomer">
+            @csrf
+            <p class="mb-2 font-bold">Nama Customer</p>
+            <div class="flex w-full justify-between">
+                <div class="w-full">
+                    <select name="customer" class="select w-full" id="selectCustomer"></select>
+                </div>
+                <button class="btn btn-primary ms-5">Pilih Customer!</button>
+            </div>
+        </form>
+    @else
+    <div class="flex flex-wrap mb-5">
+        <div class="form-control w-full md:w-1/2 md:pe-2">
+            <label class="label">
+                <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
+                <span class="label-text-alt"></span>
+            </label>
+            <input type="text" class="input input-bordered w-full " value="{{ $customer->nama }}" disabled/>
+        </div>
+        <div class="form-control w-full md:w-1/2">
+            <label class="label">
+                <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
+                <span class="label-text-alt"></span>
+            </label>
+            <input type="email" class="input input-bordered w-full" value="{{ $customer->email }}" disabled/>
+        </div>
+        <div class="form-control w-full md:w-1/2 md:pe-2">
+            <label class="label">
+                <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
+                <span class="label-text-alt"></span>
+            </label>
+            <input type="text" class="input input-bordered w-full" value="{{ $customer->alamat }}" disabled/>
+        </div>
+        <div class="form-control w-full md:w-1/2">
+            <label class="label">
+                <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
+                <span class="label-text-alt"></span>
+            </label>
+            <input type="text" class="input input-bordered w-full" value="{{ $customer->telp }}" disabled/>
+        </div>
+    </div>
+    <div class="">
+        <a href="{{ url('/invoice/customer/unset') }}">
+            <button class="btn btn-error">Ganti Customer</button>
+        </a>
+        <a href="{{ url('/invoice/confirmation') }}">
+            <button class="btn btn-secondary">Konfirmasi</button>
+        </a>
+    </div>
+    @endif
 </div>
 
 <div class="text-xl font-semibold">
