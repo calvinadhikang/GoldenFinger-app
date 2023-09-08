@@ -87,7 +87,9 @@
                     </div>
                 </a></li>
                 <div class="flex-grow"></div>
-                <a href="{{ url('/logout') }}" class="no-underline w-full"><div class="text-white text-center font-medium bg-red-500 px-4 py-1 rounded-lg hover:shadow-xl hover:font-semibold w-full mb-5">Logout</div></a>
+                <a href="{{ url('/logout') }}" class="no-underline w-full">
+                    <div class="btn btn-error btn-sm btn-block mb-4">Logout</div>
+                </a>
             </ul>
         </div>
         <div class="drawer-content flex flex-col">
