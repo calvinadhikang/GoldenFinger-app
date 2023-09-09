@@ -100,12 +100,14 @@ Route::prefix('invoice')->group(function () {
 
     Route::get('/customer', [InvoiceController::class, 'invoiceCustomerView']);
     Route::post('/customer', [InvoiceController::class, 'invoiceCustomerAction']);
-    Route::post('/customer/unset', [InvoiceController::class, 'invoiceCustomerUnsetAction']);
+    Route::get('/customer/unset', [InvoiceController::class, 'invoiceCustomerUnsetAction']);
 
     Route::get('/confirmation', [InvoiceController::class, 'invoiceConfirmationView']);
     Route::post('/confirmation', [InvoiceController::class, 'invoiceConfirmationAction']);
 
     Route::get('/created', [InvoiceController::class, 'invoiceCreatedView']);
+
+    Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);
 
     Route::get('/reset', function() {
         Session::remove('invoice_cart');

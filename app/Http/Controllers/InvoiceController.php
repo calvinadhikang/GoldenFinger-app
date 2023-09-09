@@ -191,4 +191,14 @@ class InvoiceController extends Controller
         }
         return redirect()->back();
     }
+
+    public function invoiceFinish(Request $request){
+        $invoice = HeaderInvoice::find($request->input('id'));
+        if ($invoice->status == 0) {
+            toast('Berhasil Melunasi Transaksi', 'success');
+            $invoice->status = 1;
+            $invoice->save();
+            return redirect()->back();
+        }
+    }
 }

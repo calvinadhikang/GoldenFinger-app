@@ -7,7 +7,7 @@
 </div>
 
 @if ($invoice->status == 0)
-    <div class="text-red-800 bg-red-400 font-semibold text-xl text-center rounded mt-5 p-3">Belum Lunas</div>
+    <div class="text-red-800 bg-red-400 font-semibold text-xl text-center rounded mt-5 p-3 mb-5">Belum Lunas</div>
 
     <?php
     // Get the current date and time
@@ -15,10 +15,24 @@
     // Calculate the difference in days
     $daysLeft = $currentDate->diffInDays($invoice->jatuh_tempo);
     ?>
-    <h3 class="text-xl font-semibold">Jatuh Tempo</h3>
-    <div class="bg-accent rounded p-4 w-full">
-        <p>{{ $invoice->jatuh_tempo }}</p>
-        <p class="">Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
+    <div class="flex gap-5">
+        <div class="">
+            <h3 class="text-xl font-semibold mb-2">Jatuh Tempo</h3>
+            <div class="bg-accent rounded p-4 w-full">
+                <p>{{ $invoice->jatuh_tempo }}</p>
+                <p class="">Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
+            </div>
+        </div>
+        <div class="">
+            <h3 class="text-xl font-semibold mb-2">Pesanan Sudah Lunas ?</h3>
+            <div class="bg-accent rounded p-4 w-full">
+                <p>Klik tombol dibawah bila pesanan sudah <span class="text-secondary text-xl font-semibold">Lunas</span></p>
+                <form method="post" action="{{ url("/invoice/finish") }}">
+                    @csrf
+                    <button class="btn btn-sm btn-secondary mt-2" name="id" value="{{ $invoice->id }}">Pesanan, Sudah Lunas !</button>
+                </form>
+            </div>
+        </div>
     </div>
 @else
     <div class="text-white bg-secondary font-semibold text-xl text-center rounded mt-5 p-3">Lunas</div>
