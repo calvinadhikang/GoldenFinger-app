@@ -79,7 +79,11 @@ class InvoiceController extends Controller
         $oldInvoice = Session::get('invoice_cart');
         // Object Creation for Invoice
         $invoice = new stdClass();
-        $invoice->customer = $oldInvoice->customer;
+        if ($oldInvoice != null) {
+            $invoice->customer = $oldInvoice->customer;
+        }else{
+            $invoice->customer = null;
+        }
         $invoice->grandTotal = $grandTotal;
         $invoice->list = $list;
 

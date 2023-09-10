@@ -9,44 +9,38 @@
     <li class="step step-primary">Pilih Vendor</li>
     <li class="step">Konfirmasi</li>
 </ul>
+<div class="mb-5 mt-10">
+    <h2 class="font-bold text-3xl">Pilih Vendor</h2>
+    <p>Pilih Vendor dengan harga yang paling sesuai</p>
+    <p class="italic">*harga ditentukan dari harga tawaran masing2 vendor</p>
+</div>
 <div class="rounded bg-accent p-4 my-5">
-    <div class="flex">
-        <div class="mb-2 grow">
-            <div class="prose">
-                <h2 class="mb-0">Pilih Vendor</h2>
-            </div>
-            <p>Pilih vendor sesuai dengan barang yang ingin di beli, <br> 
-            Kamu bisa merubah barang yang sudah kamu pilih dengan menekan tombol <a href="{{ url('/po/barang') }}" class="link text-secondary font-bold italic">kembali</a></p>
-        </div>
-        <button class="btn btn-primary float-right">Konfirmasi <i class="fa-solid fa-chevron-right"></i></button>
-    </div>
+    <p class="mb-5 font-semibold text-primary">Total : {{ count($vendor) }} Vendor Tersedia</p>
     <div class="overflow-x-auto mb-5">
-        <table class="table">
+        <table class="table" id="table">
             <thead>
                 <tr>
                     <th class="prose"><h3 class="font-bold">Nama</h3></th>
                     <th class="prose"><h3 class="font-bold">Nomor Telepon</h3></th>
-                    <th class="prose"><h3 class="font-bold">Harga Vendor</h3></th>
+                    <th class="prose"><h3 class="font-bold">Harga Tawaran Vendor</h3></th>
                     <th class="prose"><h3 class="font-bold">Pilih Vendor</h3></th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($vendor as $item)
                 <tr>
-                    <th>Ban Kotak Lancar Jaya</th>
-                    <th>081 330 77</th>
-                    <td>Rp 2.000.000</td>
+                    <td>{{ $item->nama }}</td>
+                    <td>{{ $item->telp }}</td>
+                    <td>Rp {{ number_format($item->total) }}</td>
                     <td>
-                        <input type="checkbox" class="checkbox">
+                        <form action="" method="post">
+                            @csrf
+                            <button class="btn btn-sm btn-secondary" value="{{ $item->id }}" name="vendor">Pilih !</button>
+                            <input type="hidden" name="total" value="{{ $item->total }}">
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <th>Vendor Ban Bulat</th>
-                    <th>O813 3062 5509 </th>
-                    <td>Rp 3.550.000</td>
-                    <td>
-                        <input type="checkbox" class="checkbox">
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

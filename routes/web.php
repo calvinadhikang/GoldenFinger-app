@@ -7,6 +7,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\OperationalCostController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\VendorController;
 use App\Mail\TestHTMLMail;
 use App\Models\Vendor;
@@ -106,7 +107,6 @@ Route::prefix('invoice')->group(function () {
     Route::post('/confirmation', [InvoiceController::class, 'invoiceConfirmationAction']);
 
     Route::get('/created', [InvoiceController::class, 'invoiceCreatedView']);
-
     Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);
 
     Route::get('/reset', function() {
@@ -115,11 +115,17 @@ Route::prefix('invoice')->group(function () {
 });
 
 Route::prefix('po')->group(function () {
-    Route::get('/', function () { return view('master/po/view'); });
-    Route::get('/barang', function () { return view('master/po/barang'); });
-    Route::get('/vendor', function () { return view('master/po/vendor'); });
-    Route::get('/konfirmasi', function () { return view('master/po/konfirmasi'); });
-    Route::get('/detail', function () { return view('master/po/detail'); });
+    Route::get('/', [PurchaseController::class, 'purchaseView']);
+
+    Route::get('/barang', [PurchaseController::class, 'purchaseBarangView']);
+    Route::post('/barang', [PurchaseController::class, 'purchaseBarangAdd']);
+
+    Route::get('/vendor', [PurchaseController::class, 'purchaseVendorView']);
+    Route::post('/vendor', [PurchaseController::class, 'purchaseVendorAdd']);
+
+    Route::get('/confirmation', [PurchaseController::class, 'purchaseConfirmationView']);
+    Route::post('/confirmation/ppn', [PurchaseController::class, 'purchaseConfirmationPPN']);
+    Route::post('/confirmation', [PurchaseController::class, 'purchaseConfirmationAction']);
 });
 
 Route::prefix('template')->group(function (){

@@ -2,10 +2,11 @@
 
 @section('content')
 <?php use Carbon\Carbon; ?>
-<div class="prose">
+<div class="prose mb-5">
     <h1 class="text-white">Detail Invoice</h1>
 </div>
 
+<p class="text-xl font-semibold">Status Pesanan</p>
 @if ($invoice->status == 0)
     <div class="text-red-800 bg-red-400 font-semibold text-xl text-center rounded mt-5 p-3 mb-5">Belum Lunas</div>
 

@@ -4,7 +4,7 @@
 <div class="flex items-center mb-10">
     <div class="grow m-auto">
         <div class="prose">
-            <h1>Data Invoice</h1>
+            <h1>Data Purchase Order</h1>
         </div>
     </div>
 </div>
