@@ -14,6 +14,13 @@
 
 <body>
     @include('sweetalert::alert')
+    <?php
+    $user = Session::get('user');
+    $role = "Admin";
+    if ($user->role == 1) {
+        $role = "Stakeholder";
+    }
+    ?>
     <div class="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-side">
@@ -21,8 +28,8 @@
             <ul class="menu p-4 w-80 h-full bg-base-200 text-base-content">
                 <!-- Sidebar content here -->
                 <div class="rounded-lg drop-shadow-lg bg-accent p-4 mb-5">
-                    <h1 class="text-xl font-semibold">Calvin Adhikang</h1>
-                    <p>Admin</p>
+                    <h1 class="text-xl font-semibold">{{ $user->nama }}</h1>
+                    <p>{{ $role }}</p>
                 </div>
 
                 <li><a href="{{ url('/dashboard') }}">

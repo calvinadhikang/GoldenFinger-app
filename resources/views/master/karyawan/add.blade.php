@@ -20,9 +20,16 @@
                     <span class="label-text text-lg font-bold"><i class="fa-solid fa-key me-2"></i>Password</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="Ban..." class="input input-bordered w-full" name="password" required/>
+                <input type="password" placeholder="password" class="input input-bordered w-full" name="password" required/>
             </div>
             <div class="form-control w-full md:w-1/2">
+                <label class="label">
+                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Username</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" placeholder="username" class="input input-bordered w-full" name="username" required/>
+            </div>
+            <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                     <span class="label-text-alt"></span>
@@ -37,8 +44,7 @@
                 <select class="select input input-bordered w-full" name="role" required>
                     <option value="" selected disabled>Pilih Role</option>
                     <option value="0">Admin</option>
-                    <option value="1">Pembelian</option>
-                    <option value="2">Penjualan</option>
+                    <option value="1">Stakeholder</option>
                 </select>
             </div>
         </div>

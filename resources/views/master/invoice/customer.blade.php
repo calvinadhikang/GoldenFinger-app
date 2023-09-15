@@ -20,8 +20,9 @@
 <div class="text-xl font-semibold">Informasi Customer</div>
 @endif
 
-<div class="rounded bg-accent p-4 my-5">
-    @if ($customer == null)
+@if ($customer == null)
+    <h1 class="text-xl font-medium">Pilih Customer</h1>
+    <div class="rounded bg-accent p-4 my-5">
         <div class="mb-5">
             <p class="text-sm font-bold"><i class="fa-solid fa-magnifying-glass me-3"></i>Cari nama Customer</p>
             <input type="text" class="input mt-2" placeholder="Joko" id="search">
@@ -30,7 +31,8 @@
 
         <div id="formAdd">
             <p id="message" class="font-bold text-error">Customer Tidak Ditemukan</p>
-            <a href="{{ url('/customer/add') }}"><button class="btn btn-secondary">Tambah Customer</button></a>
+            <p class="text-error">Silahkan buat customer baru dibawah</p>
+            {{-- <a href="{{ url('/customer/add') }}"><button class="btn btn-secondary">Tambah Customer</button></a> --}}
         </div>
 
         <form method="POST" action="{{ url('/invoice/customer') }}" id="formCustomer">
@@ -43,49 +45,91 @@
                 <button class="btn btn-primary ms-5">Pilih Customer!</button>
             </div>
         </form>
-    @else
-    <div class="flex flex-wrap mb-5">
-        <div class="form-control w-full md:w-1/2 md:pe-2">
-            <label class="label">
-                <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
-                <span class="label-text-alt"></span>
-            </label>
-            <input type="text" class="input input-bordered w-full " value="{{ $customer->nama }}" disabled/>
-        </div>
-        <div class="form-control w-full md:w-1/2">
-            <label class="label">
-                <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
-                <span class="label-text-alt"></span>
-            </label>
-            <input type="email" class="input input-bordered w-full" value="{{ $customer->email }}" disabled/>
-        </div>
-        <div class="form-control w-full md:w-1/2 md:pe-2">
-            <label class="label">
-                <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
-                <span class="label-text-alt"></span>
-            </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $customer->alamat }}" disabled/>
-        </div>
-        <div class="form-control w-full md:w-1/2">
-            <label class="label">
-                <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
-                <span class="label-text-alt"></span>
-            </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $customer->telp }}" disabled/>
-        </div>
     </div>
-    <div class="">
-        <a href="{{ url('/invoice/customer/unset') }}">
-            <button class="btn btn-error">Ganti Customer</button>
-        </a>
-        <a href="{{ url('/invoice/confirmation') }}">
-            <button class="btn btn-secondary">Konfirmasi</button>
-        </a>
-    </div>
-    @endif
-</div>
 
-<div class="text-xl font-semibold">
+    <div class="divider">Atau</div>
+
+    <h1 class="text-xl font-medium">Buat Customer Baru</h1>
+    <div class="rounded bg-accent p-4 my-5">
+        <form method="POST" action="{{ url('invoice/customer/new') }}">
+            @csrf
+            <div class="flex flex-wrap my-5">
+                <div class="form-control w-full md:w-1/2 md:pe-2">
+                    <label class="label">
+                        <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
+                        <span class="label-text-alt"></span>
+                    </label>
+                    <input type="text" placeholder="Joko.." class="input input-bordered w-full" name="nama" />
+                </div>
+                <div class="form-control w-full md:w-1/2">
+                    <label class="label">
+                        <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
+                        <span class="label-text-alt"></span>
+                    </label>
+                    <input type="email" placeholder="...@..." class="input input-bordered w-full" name="email" />
+                </div>
+                <div class="form-control w-full md:w-1/2 md:pe-2">
+                    <label class="label">
+                        <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
+                        <span class="label-text-alt"></span>
+                    </label>
+                    <input type="text" placeholder="Jalan..." class="input input-bordered w-full" name="alamat" />
+                </div>
+                <div class="form-control w-full md:w-1/2">
+                    <label class="label">
+                        <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
+                        <span class="label-text-alt"></span>
+                    </label>
+                    <input type="text" placeholder="081..." class="input input-bordered w-full" name="telp" />
+                </div>
+            </div>
+            <button class="btn btn-primary">Tambah</button>
+        </form>
+    </div>
+@else
+    <div class="rounded bg-accent p-4 my-5">
+        <div class="flex flex-wrap mb-5">
+            <div class="form-control w-full md:w-1/2 md:pe-2">
+                <label class="label">
+                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" class="input input-bordered w-full " value="{{ $customer->nama }}" disabled/>
+            </div>
+            <div class="form-control w-full md:w-1/2">
+                <label class="label">
+                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="email" class="input input-bordered w-full" value="{{ $customer->email }}" disabled/>
+            </div>
+            <div class="form-control w-full md:w-1/2 md:pe-2">
+                <label class="label">
+                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" class="input input-bordered w-full" value="{{ $customer->alamat }}" disabled/>
+            </div>
+            <div class="form-control w-full md:w-1/2">
+                <label class="label">
+                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" class="input input-bordered w-full" value="{{ $customer->telp }}" disabled/>
+            </div>
+        </div>
+        <div class="">
+            <a href="{{ url('/invoice/customer/unset') }}">
+                <button class="btn btn-error">Ganti Customer</button>
+            </a>
+            <a href="{{ url('/invoice/confirmation') }}">
+                <button class="btn btn-secondary">Konfirmasi</button>
+            </a>
+        </div>
+    </div>
+@endif
+
+{{-- <div class="text-xl font-semibold">
     <h3>Informasi Pesanan</h3>
 </div>
 <div class="rounded bg-accent p-4 my-5">
@@ -114,7 +158,7 @@
     <div class="text-right w-full mt-10">
         Grand Total : <span class="text-2xl font-bold text-primary">Rp {{ number_format($grandTotal) }}</span>
     </div>
-</div>
+</div> --}}
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>

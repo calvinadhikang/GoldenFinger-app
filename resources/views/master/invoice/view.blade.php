@@ -28,7 +28,7 @@
             <tbody>
                 @if (count($data) <= 0)
                     <tr>
-                        <th class="text-error text-lg" colspan="6">Tidak ada Data...</th>
+                        <th class="text-error text-lg" colspan="7">Tidak ada Data...</th>
                     </tr>
                 @else
                     @foreach ($data as $item)

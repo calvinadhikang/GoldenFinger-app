@@ -24,6 +24,7 @@ class KaryawanController extends Controller
     public function karyawanAddAction(Request $request){
         $karyawan = Karyawan::create([
             'nama' => $request->input('nama'),
+            'username' => $request->input('username'),
             'password' => $request->input('password'),
             'telp' => $request->input('telp'),
             'role' => $request->input('role'),
@@ -58,7 +59,7 @@ class KaryawanController extends Controller
         $status = $request->input('status') == "on" ? 1 : 0;
 
         $karyawan->nama = $request->input('nama');
-        $karyawan->password = $request->input('password');
+        $karyawan->username = $request->input('username');
         $karyawan->telp = $request->input('telp');
         $karyawan->role = $request->input('role');
         $karyawan->status = $status;

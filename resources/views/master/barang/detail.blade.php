@@ -33,6 +33,24 @@
         </div>
         <button class="btn btn-primary">Simpan</button>
     </form>
+
 </div>
 
+<h1 class="text-xl font-medium mb-3">Statistik</h1>
+<div class="flex gap-5">
+    <div class="stats shadow bg-accent">
+        <div class="stat">
+            <div class="stat-title">Jumlah Stok</div>
+            <div class="stat-value">{{ $barang->stok }}</div>
+            <div class="stat-desc"><a href="{{ url('/po') }}">Tambah Stok</a></div>
+        </div>
+    </div>
+    <div class="stats shadow bg-accent">
+        <div class="stat">
+            <div class="stat-title">Pembelian Bulan Ini</div>
+            <div class="stat-value">0 pcs</div>
+            <div class="stat-desc">0% dari bulan lalu</div>
+        </div>
+    </div>
+</div>
 @endsection

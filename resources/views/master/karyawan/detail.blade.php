@@ -18,10 +18,10 @@
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
-                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-key me-2"></i>Password</span>
+                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-key me-2"></i>Username</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="Ban..." class="input input-bordered w-full" value="{{$karyawan->password}}" name="password"/>
+                <input type="text" placeholder="Ban..." class="input input-bordered w-full" value="{{$karyawan->username}}" name="username"/>
             </div>
             <div class="form-control w-full md:w-1/2">
                 <label class="label">
@@ -36,10 +36,9 @@
                     <span class="label-text-alt"></span>
                 </label>
                 <select name="role" id="" class="input input-bordered w-full">
-                    <option value="">Pilih Role</option>
+                    <option value="" selected disabled>Pilih Role</option>
                     <option value="0" {{ $karyawan->role == 0 ? "selected" : "" }}>Admin</option>
-                    <option value="1" {{ $karyawan->role == 1 ? "selected" : "" }}>Pembelian</option>
-                    <option value="2" {{ $karyawan->role == 2 ? "selected" : "" }}>Penjualan</option>
+                    <option value="1" {{ $karyawan->role == 1 ? "selected" : "" }}>Stakeholder</option>
                 </select>
             </div>
             <div class="form-control w-full mt-3">

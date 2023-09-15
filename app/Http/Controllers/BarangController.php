@@ -27,6 +27,7 @@ class BarangController extends Controller
             'part' => $request->input('part'),
             'nama' => $request->input('nama'),
             'harga' => $request->input('harga'),
+            'batas' => $request->input('batas'),
             'stok' => 0,
         ]);
 

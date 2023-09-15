@@ -205,4 +205,21 @@ class InvoiceController extends Controller
             return redirect()->back();
         }
     }
+
+    public function customerAddAction(Request $request){
+        $customer = Customer::create([
+            'alamat' => $request->input('alamat'),
+            'nama' => $request->input('nama'),
+            'telp' => $request->input('telp'),
+            'email' => $request->input('email'),
+        ]);
+
+        $invoice = Session::get('invoice_cart');
+        $invoice->customer = $customer;
+        Session::put('invoice_cart', $invoice);
+
+
+        toast('Berhasil Menambah Customer', 'success');
+        return redirect()->back();
+    }
 }

@@ -101,6 +101,7 @@ Route::prefix('invoice')->group(function () {
 
     Route::get('/customer', [InvoiceController::class, 'invoiceCustomerView']);
     Route::post('/customer', [InvoiceController::class, 'invoiceCustomerAction']);
+    Route::post('/customer/new', [InvoiceController::class, 'customerAddAction']);
     Route::get('/customer/unset', [InvoiceController::class, 'invoiceCustomerUnsetAction']);
 
     Route::get('/confirmation', [InvoiceController::class, 'invoiceConfirmationView']);

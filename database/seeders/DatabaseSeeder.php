@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'part' => 'B001',
             'nama' => 'Barang Pertama',
             'harga' => 1000,
+            'batas' => 10,
             'stok' => 0
         ]);
 
@@ -39,6 +40,7 @@ class DatabaseSeeder extends Seeder
             'part' => 'B002',
             'nama' => 'Barang Kedua',
             'harga' => 2000,
+            'batas' => 10,
             'stok' => 0
         ]);
 
@@ -46,6 +48,7 @@ class DatabaseSeeder extends Seeder
             'part' => 'B003',
             'nama' => 'Barang Ketiga',
             'harga' => 3000,
+            'batas' => 10,
             'stok' => 0
         ]);
     }

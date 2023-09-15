@@ -34,9 +34,7 @@
                 <?php
                 $role = "Admin";
                 if ($item->role == 1) {
-                    $role = "Pembelian";
-                } else {
-                    $role = "Penjualan";
+                    $role = "Stakeholder";
                 }
 
                 if ($item->status) {

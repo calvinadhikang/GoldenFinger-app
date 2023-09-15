@@ -33,7 +33,7 @@
             @else
                 @foreach ($data as $item)
                     <tr>
-                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->part }}</td>
                         <td>{{ $item->nama }}</td>
                         <td>Rp {{ number_format($item->harga) }}</td>
                         <td>{{ $item->stok }}</td>
