@@ -11,10 +11,10 @@ class LoginController extends Controller
 {
     public function loginAction(Request $request)
     {
-        $nama = $request->input('nama');
+        $username = $request->input('username');
         $password = $request->input('password');
 
-        $user = Karyawan::where('nama','=',$nama)->where('password','=',$password)->get();
+        $user = Karyawan::where('username','=',$username)->where('password','=',$password)->get();
         if (count($user) > 0) {
             if ($user[0]->status == 1) {
                 Session::put('user', $user[0]);
