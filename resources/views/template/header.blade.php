@@ -9,7 +9,8 @@
     <title>Document</title>
 	<script src="https://kit.fontawesome.com/7ecee868f3.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="{{ URL::asset('css/datatable.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ URL::asset('css/datatable.css') }}" />--}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
 </head>
 
 <body>
@@ -25,9 +26,9 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-side">
             <label for="my-drawer-2" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 h-full bg-base-200 text-base-content">
+            <ul class="menu p-4 w-80 h-full bg-accent text-base-content">
                 <!-- Sidebar content here -->
-                <div class="rounded-lg drop-shadow-lg bg-accent p-4 mb-5">
+                <div class="rounded-lg drop-shadow-lg bg-secondary px-4 py-5 mb-5">
                     <h1 class="text-xl font-semibold">{{ $user->nama }}</h1>
                     <p>{{ $role }}</p>
                 </div>
@@ -95,7 +96,7 @@
                 </a></li>
                 <div class="flex-grow"></div>
                 <a href="{{ url('/logout') }}" class="no-underline w-full">
-                    <div class="btn btn-error btn-sm btn-block mb-4">Logout</div>
+                    <div class="btn btn-error btn-md btn-block text-white mb-4">Logout</div>
                 </a>
             </ul>
         </div>
