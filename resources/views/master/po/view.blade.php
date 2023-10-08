@@ -20,57 +20,52 @@
                     <th class="prose"><h3 class="font-bold">Distributor</h3></th>
                     <th class="prose"><h3 class="font-bold">Nomor Telp</h3></th>
                     <th class="prose"><h3 class="font-bold">Grand Total (Rp)</h3></th>
-                    <th class="prose"><h3 class="font-bold">Tanggal</h3></th>
-                    <th class="prose"><h3 class="font-bold">Status</h3></th>
+                    <th class="prose"><h3 class="font-bold">Jatuh Tempo</h3></th>
+                    <th class="prose"><h3 class="font-bold">Status Pesanan</h3></th>
+                    <th class="prose"><h3 class="font-bold">Status Pembayaran</h3></th>
                     <th class="prose"><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>
+                @if (count($data) > 0)
+                    @foreach ($data as $item)
+                        <?php
+                            $class_pesanan = "badge-secondary";
+                            $text_pesanan = "Process";
+
+                            $class_pembayaran = "badge-error";
+                            $text_pembayaran = "Belum Bayar";
+
+                            if ($item->status_pesanan == 1) {
+                                $class_pesanan = "badge-primary";
+                                $text_pesanan = "Selesai";
+                            }
+
+                            if ($item->status_pembayaran == 1) {
+                                $class_pembayaran = "badge-primary";
+                                $text_pembayaran = "Selesai";
+                            }
+                        ?>
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->vendor->nama }}</td>
+                            <td>{{ $item->vendor->telp }}</td>
+                            <td>{{ $item->grand_total }}</td>
+                            <td>{{ $item->jatuh_tempo }}</td>
+                            <td><span class="badge {{ $class_pesanan }}">{{ $text_pesanan }}</span></td>
+                            <td><span class="badge {{ $class_pembayaran }}">{{ $text_pembayaran }}</span></td>
+                            <td>
+                                <a href="{{ url("po/detail/$item->id") }}">
+                                    <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
                 <tr>
-                    <th>PO001</th>
-                    <th>Calvin Adhikang</th>
-                    <td>0822 5732 4548</td>
-                    <td>Rp 1,000,000</td>
-                    <td>02 April 2023</td>
-                    <td>
-                        <span class="badge badge-secondary">
-                            Process
-                        </span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
+                    <th class="text-error text-lg" colspan="7">Tidak ada data...</th>
                 </tr>
-                <tr>
-                    <th>PO002</th>
-                    <th>Yuki</th>
-                    <td>0822 5732 4548</td>
-                    <td>Rp 2,500,000</td>
-                    <td>02 Juni 2023</td>
-                    <td>
-                        <span class="badge badge-secondary">
-                            Process
-                        </span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th>PO003</th>
-                    <th>Felita</th>
-                    <td>0822 5732 4548</td>
-                    <td>Rp 3,500,000</td>
-                    <td>02 Juni 2023</td>
-                    <td>
-                        <span class="badge badge-primary">
-                            Finished
-                        </span>
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
-                    </td>
-                </tr>
+                @endif
             </tbody>
         </table>
     </div>

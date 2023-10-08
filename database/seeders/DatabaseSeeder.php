@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Barang;
+use App\Models\Karyawan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,7 +25,18 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->createBarang();
+        $this->createKaryawan();
+    }
 
+    function createKaryawan(){
+        $u = Karyawan::create([
+            'nama' => 'Calvin Adhikang',
+            'username' => 'calvin',
+            'password' => 'calvin',
+            'telp' => '082257324548',
+            'role' => 0,
+            'status' => '1',
+        ]);
     }
 
     function createBarang(){

@@ -1,38 +1,32 @@
 @extends('template/header')
 
 @section('content')
-<?php use Carbon\Carbon; ?>
 <div class="prose mb-5">
     <h1 class="text-white">Detail Invoice</h1>
 </div>
 
-<p class="text-xl font-semibold">Status Pesanan</p>
-@if ($invoice->status == 0)
-    <div class="text-red-200 bg-red-600 font-semibold text-xl text-center rounded mt-5 p-3 mb-5">Belum Lunas</div>
+<p class="text-xl font-semibold">Status Pembayaran</p>
+<div class="p-4 rounded bg-accent">
+    @if ($invoice->status == 0)
+        <div class="text-red-200 bg-red-600 font-semibold text-xl text-center rounded mt-5 p-3 mb-5">Belum Lunas</div>
+    @else
+        <div class="text-white bg-secondary font-semibold text-xl text-center rounded mt-5 p-3">Lunas</div>
+    @endif
 
-    <div class="flex gap-x-5">
-        <div class="flex flex-col">
-            <h3 class="text-xl font-semibold mb-2">Jatuh Tempo</h3>
-            <div class="bg-accent rounded p-4 w-full h-full">
-                <p class="text-xl font-semibold mb-2 text-center">{{ $invoice->jatuh_tempo }}</p>
-                <hr>
-                <p>Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
-            </div>
-        </div>
-        <div class="flex flex-col">
-            <h3 class="text-xl font-semibold mb-2">Pesanan Sudah Lunas ?</h3>
-            <div class="bg-accent rounded p-4 w-full">
-                <p>Klik tombol dibawah bila pesanan sudah <span class="text-secondary text-xl font-semibold">Lunas</span></p>
-                <form method="post" action="{{ url("/invoice/finish") }}">
-                    @csrf
-                    <button class="btn btn-sm btn-secondary mt-2" name="id" value="{{ $invoice->id }}">Pesanan, Sudah Lunas !</button>
-                </form>
-            </div>
-        </div>
+    <div class="grid grid-cols-2 mt-10">
+        <p class="text-lg font-semibold">Tanggal Jatuh Tempo</p>
+        <p class="text-lg font-semibold text-right">{{ $invoice->jatuh_tempo }}</p>
     </div>
-@else
-    <div class="text-white bg-secondary font-semibold text-xl text-center rounded mt-5 p-3">Lunas</div>
-@endif
+    @if ($invoice->status == 0)
+        <p class="text-right">Kurang <span class="font-bold text-lg">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
+    @endif
+
+    @if ($invoice->status == 0)
+        <h3 class="text-xl font-semibold mt-5">Pesanan Sudah Lunas ?</h3>
+        <p>Klik tombol dibawah bila pesanan sudah <span class="text-secondary text-xl font-semibold">Lunas</span></p>
+        <button class="btn btn-primary mt-2" onclick="my_modal_3.showModal()">Pesanan, Sudah Lunas !</button>
+    @endif
+</div>
 
 <div class="prose mt-5">
     <h3>Informasi Customer</h3>
@@ -139,5 +133,24 @@
         <button class="btn btn-secondary shadow-lg"><i class="fa-solid fa-envelope-open-text"></i></i>Kirim Invoice Ke Customer !</button>
     </div>
 </div>
+
+<dialog id="my_modal_3" class="modal">
+    <div class="modal-box bg-slate-300">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="font-bold text-lg">Pelunasan Pesanan</h3>
+        <p class="py-4">Pastikan kembali bahwa pesanan sudah dibayar oleh customer. <br> Bila sudah yakin, tekan tombol dibawah</p>
+        <div class="flex gap-x-3">
+            <form method="post" action="{{ url("/invoice/finish") }}">
+                @csrf
+                <button class="btn btn-primary" name="id" value="{{ $invoice->id }}">Ya, Sudah Lunas !</button>
+            </form>
+            <form method="dialog">
+                <button class="btn btn-outline btn-error">Batal</button>
+            </form>
+        </div>
+    </div>
+</dialog>
 
 @endsection

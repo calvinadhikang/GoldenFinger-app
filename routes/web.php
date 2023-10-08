@@ -118,6 +118,13 @@ Route::prefix('invoice')->group(function () {
 Route::prefix('po')->group(function () {
     Route::get('/', [PurchaseController::class, 'purchaseView']);
 
+    Route::get('/detail/{id}', [PurchaseController::class, 'purchaseDetailView']);
+    Route::get('/detail/{id}', [PurchaseController::class, 'purchaseDetailView']);
+
+    Route::get('/confirmation/pesanan/{id}', [PurchaseController::class, 'confirmationPesananView']);
+    Route::post('/confirmation/pesanan', [PurchaseController::class, 'confirmationPesananAction']);
+    Route::post('/confirmation/pembayaran', [PurchaseController::class, 'confirmationPembayaran']);
+
     Route::get('/barang', [PurchaseController::class, 'purchaseBarangView']);
     Route::post('/barang', [PurchaseController::class, 'purchaseBarangAdd']);
 

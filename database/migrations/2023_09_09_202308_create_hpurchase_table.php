@@ -16,16 +16,17 @@ return new class extends Migration
         Schema::create('hpurchase', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('vendor_id');
+            $table->unsignedBigInteger('karyawan_id');
             $table->bigInteger('total');
             $table->bigInteger('grand_total');
             $table->bigInteger('ppn');
-            $table->unsignedBigInteger('contact_person');
-            $table->integer('status');
+            $table->integer('status_pesanan');
+            $table->integer('status_pembayaran');
             $table->timestamp('jatuh_tempo');
             $table->timestamps();
 
             $table->foreign('vendor_id')->references('id')->on('vendor')->onDelete('cascade');
-            $table->foreign('contact_person')->references('id')->on('contact_person')->onDelete('cascade');
+            $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
         });
     }
 

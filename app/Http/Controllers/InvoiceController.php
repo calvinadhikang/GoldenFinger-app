@@ -47,12 +47,6 @@ class InvoiceController extends Controller
         ]);
     }
 
-    function parseNumericValue($value){
-        $rawValue = str_replace(',', '', $value);
-        $numeric = (float)$rawValue;
-        return $numeric;
-    }
-
     public function invoiceAddAction(Request $request){
         $qty = $request->input('qty');
         $harga = $request->input('harga');
@@ -64,7 +58,7 @@ class InvoiceController extends Controller
             if ($qty[$i] > 0) {
                 $obj = Barang::find($id[$i]);
                 $obj->qty = $qty[$i];
-                $obj->harga = $this->parseNumericValue($harga[$i]);
+                $obj->harga = Util::parseNumericValue($harga[$i]);
 
                 $subtotal = $obj->harga * $qty[$i];
                 $obj->subtotal = $subtotal;
@@ -183,14 +177,9 @@ class InvoiceController extends Controller
     public function invoiceDetailView($id){
         $invoice = HeaderInvoice::find($id);
 
-        // Get the current date and time
-        $currentDate = Carbon::now();
-        // Calculate the difference in days
-        $daysLeft = $currentDate->diffInDays($invoice->jatuh_tempo);
-
         return view('master.invoice.detail', [
             'invoice' => $invoice,
-            'daysLeft' => $daysLeft
+            'daysLeft' => Util::getDiffDays($invoice->jatuh_tempo)
         ]);
     }
 

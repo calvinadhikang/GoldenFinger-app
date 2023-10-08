@@ -60,6 +60,8 @@
                     <th class="prose"><h3 class="font-bold">Nama</h3></th>
                     <th class="prose"><h3 class="font-bold">Stok</h3></th>
                     <th class="prose"><h3 class="font-bold">Quantity Pembelian</h3></th>
+                    <th class="prose"><h3 class="font-bold">Harga Vendor</h3></th>
+                    <th class="prose"><h3 class="font-bold">Subtotal</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -68,12 +70,15 @@
                     <td>{{ $item->part }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->stok }}</td>
-                    <th>{{ $item->qty }}</th>
+                    <td >{{ $item->qty }}</td>
+                    <td>{{ $item->harga }}</td>
+                    <td>{{ $item->subtotal }}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </form>
+    <p class="text-right mt-5 text-lg font-semibold">Total : Rp {{ number_format($po->total) }}</p>
 </div>
 
 <div class="mb-5">
@@ -111,12 +116,17 @@
     </div>
 </div>
 
-<div class="mb-5">
-    <form action="" method="post">
-        @csrf
-        <button class="btn btn-primary btn-block">Buat Pesanan !</button>
-    </form>
+<form action="" method="post">
+@csrf
+<h1 class="text-xl font-semibold mb-5">Jatuh Tempo</h1>
+<div class="bg-accent p-4 rounded mb-10">
+    <input type="date" class="rounded p-2 w-full text-black border border-primary leading-tight" name="jatuhTempo">
 </div>
+
+<div class="mb-5">
+    <button class="btn btn-primary btn-block">Buat Pesanan !</button>
+</div>
+</form>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
