@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="prose">
-    <h1 class="text-white">Buat Purhcase Order</h1>
+    <h1 class="text-white">Buat Purchase Order</h1>
 </div>
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
@@ -85,12 +85,13 @@
             <p class="text-lg font-semibold">PPN :<p>
             <form action="{{ url('/po/confirmation/ppn') }}" method="post">
                 @csrf
-                <input type="text" class="input input-bordered input-secondary" name="ppn" value="{{ $po->PPN }}"> <button class="btn btn-secondary">Simpan !</button>
+                <input type="text" class="input input-bordered input-primary me-5" name="ppn" value="{{ $po->PPN }}"> <button class="btn btn-primary">Simpan !</button>
             </form>
         </div>
         <div class="grow">
-            <p class="text-lg font-semibold mb-2">Pajak</p>
-            <p class="text-lg">Rp {{ number_format($po->PPN * $po->total / 100) }}</p>
+            <p class="text-lg font-semibold mb-2">Total Pajak</p>
+            <hr>
+            <p class="text-2xl font-bold">Rp {{ number_format($po->PPN * $po->total / 100) }}</p>
         </div>
     </div>
 </div>
@@ -98,15 +99,22 @@
 <div class="mb-5">
     <h2 class="font-semibold text-xl">Grand Total</h2>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded bg-accent p-4 my-5 items-center">
     <?php $grandTotal = $po->total + ($po->PPN * $po->total / 100) ?>
-    <p class="text-2xl text-primary font-semibold">Rp {{ number_format($grandTotal) }}</p>
+    <div class="gap-x-10 gap-y-3 grid-cols-2 inline-grid">
+        <p class="font-medium">Total Harga Barang</p>
+        <p>Rp {{ number_format($po->total) }}</p>
+        <p class="font-medium">Total Pajak</p>
+        <p>Rp {{ number_format($po->PPN * $po->total / 100) }}</p>
+        <p class="font-medium">Total Biaya</p>
+        <p class="text-lg text-primary font-semibold">Rp {{ number_format($grandTotal) }}</p>
+    </div>
 </div>
 
 <div class="mb-5">
     <form action="" method="post">
         @csrf
-        <button class="btn btn-secondary btn-block">Buat Pesanan !</button>
+        <button class="btn btn-primary btn-block">Buat Pesanan !</button>
     </form>
 </div>
 

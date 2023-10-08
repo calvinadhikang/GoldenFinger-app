@@ -16,16 +16,18 @@ return new class extends Migration
         Schema::create('hinvoice', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('karyawan_id');
             $table->bigInteger('total');
-            $table->bigInteger('grand_total');
             $table->bigInteger('ppn');
-            $table->text('contact_person');
-            $table->bigInteger('komisi');
+            $table->bigInteger('grand_total');
             $table->integer('status');
             $table->timestamp('jatuh_tempo');
+            $table->text('contact_person');
+            $table->bigInteger('komisi');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
+            $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
         });
     }
 

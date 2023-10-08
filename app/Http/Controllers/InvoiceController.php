@@ -47,7 +47,6 @@ class InvoiceController extends Controller
         ]);
     }
 
-
     function parseNumericValue($value){
         $rawValue = str_replace(',', '', $value);
         $numeric = (float)$rawValue;
@@ -131,6 +130,7 @@ class InvoiceController extends Controller
     public function invoiceConfirmationAction(Request $request){
         $komisiJumlah = 0;
         $komisiPenerima = "-";
+        $karyawan = Session::get('user');
         $jatuhTempo = $request->input('jatuhTempo');
         $invoice = Session::get('invoice_cart');
 
@@ -147,12 +147,13 @@ class InvoiceController extends Controller
             //insert header
             $lastId = DB::table('hinvoice')->insertGetId([
                 'customer_id' => $invoice->customer->id,
+                'karyawan_id' => $karyawan->id,
                 'total' => $invoice->grandTotal,
                 'status' => 0,
                 'contact_person' => $komisiPenerima,
                 'komisi' => $komisiJumlah,
                 'ppn' => 10,
-                'grand_total' => $invoice->grandTotal -= $invoice->grandTotal * 0.10,
+                'grand_total' => $invoice->grandTotal += $invoice->grandTotal * 0.10,
                 'jatuh_tempo' => $jatuhTempo,
                 'created_at' => $currentDateTime
             ]);
@@ -182,8 +183,14 @@ class InvoiceController extends Controller
     public function invoiceDetailView($id){
         $invoice = HeaderInvoice::find($id);
 
+        // Get the current date and time
+        $currentDate = Carbon::now();
+        // Calculate the difference in days
+        $daysLeft = $currentDate->diffInDays($invoice->jatuh_tempo);
+
         return view('master.invoice.detail', [
-            'invoice' => $invoice
+            'invoice' => $invoice,
+            'daysLeft' => $daysLeft
         ]);
     }
 
@@ -217,7 +224,6 @@ class InvoiceController extends Controller
         $invoice = Session::get('invoice_cart');
         $invoice->customer = $customer;
         Session::put('invoice_cart', $invoice);
-
 
         toast('Berhasil Menambah Customer', 'success');
         return redirect()->back();

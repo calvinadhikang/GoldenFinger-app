@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="prose">
-    <h1 class="text-white">Buat PO</h1>
+    <h1 class="text-white">Buat Purchase Order</h1>
 </div>
 <ul class="mt-5 steps w-full">
     <li class="step step-primary">Pilih Barang</li>
@@ -35,7 +35,7 @@
                     <td>
                         <form action="" method="post">
                             @csrf
-                            <button class="btn btn-sm btn-secondary" value="{{ $item->id }}" name="vendor">Pilih !</button>
+                            <button class="btn btn-sm btn-primary" value="{{ $item->id }}" name="vendor">Pilih !</button>
                             <input type="hidden" name="total" value="{{ $item->total }}">
                         </form>
                     </td>

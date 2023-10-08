@@ -20,7 +20,7 @@
                     <span class="label-text text-lg font-bold">Total (Rp)</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="number" placeholder="1000" class="input input-bordered w-full" name="total" required/>
+                <input type="text" placeholder="1000" class="input input-bordered w-full harga" name="total" required/>
             </div>
         </div>
         <button class="btn btn-primary">Tambah</button>

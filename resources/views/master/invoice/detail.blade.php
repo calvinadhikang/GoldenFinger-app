@@ -8,23 +8,18 @@
 
 <p class="text-xl font-semibold">Status Pesanan</p>
 @if ($invoice->status == 0)
-    <div class="text-red-800 bg-red-400 font-semibold text-xl text-center rounded mt-5 p-3 mb-5">Belum Lunas</div>
+    <div class="text-red-200 bg-red-600 font-semibold text-xl text-center rounded mt-5 p-3 mb-5">Belum Lunas</div>
 
-    <?php
-    // Get the current date and time
-    $currentDate = Carbon::now();
-    // Calculate the difference in days
-    $daysLeft = $currentDate->diffInDays($invoice->jatuh_tempo);
-    ?>
-    <div class="flex gap-5">
-        <div class="">
+    <div class="flex gap-x-5">
+        <div class="flex flex-col">
             <h3 class="text-xl font-semibold mb-2">Jatuh Tempo</h3>
-            <div class="bg-accent rounded p-4 w-full">
-                <p>{{ $invoice->jatuh_tempo }}</p>
-                <p class="">Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
+            <div class="bg-accent rounded p-4 w-full h-full">
+                <p class="text-xl font-semibold mb-2 text-center">{{ $invoice->jatuh_tempo }}</p>
+                <hr>
+                <p>Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
             </div>
         </div>
-        <div class="">
+        <div class="flex flex-col">
             <h3 class="text-xl font-semibold mb-2">Pesanan Sudah Lunas ?</h3>
             <div class="bg-accent rounded p-4 w-full">
                 <p>Klik tombol dibawah bila pesanan sudah <span class="text-secondary text-xl font-semibold">Lunas</span></p>
@@ -102,7 +97,6 @@
         </tbody>
     </table>
     <div class="text-right w-full mt-10">Total Pesanan : <span class="">Rp {{ number_format($invoice->total) }}</span></div>
-
 </div>
 
 @if ($invoice->komisi > 0)
@@ -123,8 +117,14 @@
 
 <h3 class="text-xl font-semibold">Pendapatan</h3>
 <div class="rounded bg-accent p-4 my-5">
-    <div>PPN ({{ $invoice->ppn }}%) : <span class="">Rp {{ number_format($invoice->total - $invoice->grand_total) }}</span></div>
-    <div>Grand Total : <span class="text-2xl font-bold text-primary">Rp {{ number_format($invoice->total) }}</span></div>
+    <div class="grid grid-cols-2 gap-y-5">
+        <div class="">Total Harga</div>
+        <div class="text-right">Rp {{ number_format($invoice->total) }}</div>
+        <div class="">PPN ({{ $invoice->ppn }}%)</div>
+        <div class="text-right">Rp {{ number_format($invoice->grand_total - $invoice->total) }}</div>
+        <div class="text-xl font-semibold">Grand Total</div>
+        <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($invoice->grand_total) }}</div>
+    </div>
 </div>
 
 <h3 class="text-xl font-semibold">Dokumen</h3>

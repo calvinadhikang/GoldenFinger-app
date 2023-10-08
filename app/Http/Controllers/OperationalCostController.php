@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OperationalCost;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OperationalCostController extends Controller
@@ -20,7 +21,7 @@ class OperationalCostController extends Controller
 
     public function costAddAction(Request $request){
         $deskripsi = $request->input('deskripsi');
-        $total = $request->input('total');
+        $total = intval(str_replace(',', '', $request->input('total')));
 
         toast('Berhasil Menambah Operational Cost', 'success');
         $cost = OperationalCost::create([
@@ -29,5 +30,21 @@ class OperationalCostController extends Controller
         ]);
 
         return redirect('/cost');
+    }
+
+    public function getMonthlyCost(){
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+
+        $data = OperationalCost::whereMonth('created_at', '=', $currentMonth)->whereYear('created_at', '=', $currentYear)->get();
+        $total = 0;
+        foreach ($data as $key => $value) {
+            $total += $value->total;
+        }
+
+        return response()->json([
+            'data' => $data,
+            'total' => $total
+        ], 200);
     }
 }
