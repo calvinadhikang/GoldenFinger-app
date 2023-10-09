@@ -8,8 +8,8 @@
 </head>
 <style>
 @page {
-    size: A4;
-    margin: 0;
+    width: 21cm;
+    padding: 0.4mm;
 }
 
 * {
@@ -29,15 +29,14 @@
 }
 
 body {
-    border: 1px solid black;
-    width: 210mm;
+    width: 21cm;
     margin: 0;
-    padding: 5px;
+    padding: 0.5cm;
 }
 
 table {
     border-collapse: collapse;
-    width: 98%;
+    width: 19cm;
     border: 1px solid black; /* Single-line border for the entire table */
 }
 
@@ -48,7 +47,7 @@ th, td {
 
 .flex {
     display: flex;
-    gap: 10px;
+    gap: 50px;
 }
 
 .grow {
@@ -103,15 +102,15 @@ th, td {
     <br>
     <div class="inline"></div>
     <div class="flex">
-        <div class="box rekening">
+        <div class="rekening">
             <p>REKENING PANIN</p>
             <p>an PT.GOLDENFINGER WHEELS INDONESIA</p>
             <p>6205003619</p>
         </div>
-        <div class="box">
+        <div class="">
             <p>Diterima Oleh,</p>
         </div>
-        <div class="box">
+        <div class="">
             <p>Diserahkan Oleh,</p>
         </div>
     </div>
