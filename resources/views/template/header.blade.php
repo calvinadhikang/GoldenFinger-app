@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Document</title>
+    <title>Goldfinger Wheels Indonesia</title>
 	<script src="https://kit.fontawesome.com/7ecee868f3.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{{ URL::asset('css/datatable.css') }}" />
@@ -26,7 +26,7 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-side">
             <label for="my-drawer-2" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 h-full bg-accent text-base-content">
+            <ul class="menu p-4 w-80 min-h-screen bg-accent text-base-content overflow-y-visible flex flex-col">
                 <!-- Sidebar content here -->
                 <div class="rounded-lg drop-shadow-lg bg-primary px-4 py-5 mb-5">
                     <h1 class="text-2xl font-bold text-base-100">{{ $user->nama }}</h1>
@@ -94,7 +94,7 @@
                         Pengeluaran / Cost
                     </div>
                 </a></li>
-                <div class="flex-grow"></div>
+                <div class="flex-grow min-h-100"></div>
                 <a href="{{ url('/logout') }}" class="no-underline w-full">
                     <div class="btn btn-error btn-md btn-block text-white mb-4">Logout</div>
                 </a>

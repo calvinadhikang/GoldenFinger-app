@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('hinvoice', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('kode');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('karyawan_id');
             $table->bigInteger('total');
@@ -28,6 +29,7 @@ return new class extends Migration
 
             $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
+            $table->unique('kode');
         });
     }
 

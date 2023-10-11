@@ -33,7 +33,7 @@
                 @else
                     @foreach ($data as $item)
                     <tr>
-                        <th>{{ $item->id }}</th>
+                        <th>{{ $item->kode }}</th>
                         <td>{{ $item->customer->nama }}</td>
                         <td>Rp {{ number_format($item->total) }}</td>
                         <td>{{ $item->created_at }}</td>

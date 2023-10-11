@@ -7,6 +7,8 @@ use App\Models\Customer;
 use App\Models\HeaderInvoice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Error;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -136,12 +138,13 @@ class InvoiceController extends Controller
 
         DB::beginTransaction();
         try {
-
+            $kode = Util::generateInvoiceCode();
             $currentDateTime = Carbon::now()->toDateTimeString();
             //insert header
             $lastId = DB::table('hinvoice')->insertGetId([
                 'customer_id' => $invoice->customer->id,
                 'karyawan_id' => $karyawan->id,
+                'kode' => $kode,
                 'total' => $invoice->grandTotal,
                 'status' => 0,
                 'contact_person' => $komisiPenerima,

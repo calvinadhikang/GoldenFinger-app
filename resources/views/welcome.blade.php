@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Goldfinger Wheels Indonesia</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -148,7 +148,7 @@
     <div class="p-4 sm:ml-64">
         <div class="mt-14">
 			<h1 class="">asdlkjasdklj</h1>
-            
+
         </div>
     </div>
 </body>
