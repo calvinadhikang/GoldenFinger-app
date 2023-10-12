@@ -14,6 +14,7 @@
 
 * {
     margin: 0;
+    box-sizing: border-box;
 }
 
 .text-center {
@@ -45,9 +46,8 @@ th, td {
     text-align: center;
 }
 
-.flex {
-    display: flex;
-    gap: 50px;
+.flex::after {
+    clear: both;
 }
 
 .grow {
@@ -56,13 +56,17 @@ th, td {
 }
 
 .box {
-    display: inline-block;
+    margin-left: 20px;
+    float: left;
+    width: 20%;
 }
 
 .rekening {
+    float: left;
     border: 1px solid black;
     font-weight: bold;
     padding: 5px;
+    width: 45%;
 }
 </style>
 <body>
@@ -107,11 +111,11 @@ th, td {
             <p>an PT.GOLDENFINGER WHEELS INDONESIA</p>
             <p>6205003619</p>
         </div>
-        <div class="">
-            <p>Diterima Oleh,</p>
+        <div class="box">
+            Diterima Oleh,
         </div>
-        <div class="">
-            <p>Diserahkan Oleh,</p>
+        <div class="box">
+            Diserahkan Oleh,
         </div>
     </div>
 </body>
