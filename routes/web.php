@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\OperationalCostController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\VendorController;
 use App\Mail\TestHTMLMail;
 use App\Models\Vendor;
@@ -80,6 +81,8 @@ Route::prefix('cost')->group(function () {
     Route::get('/add', [OperationalCostController::class, 'costAddView']);
 
     Route::post('/add', [OperationalCostController::class, 'costAddAction']);
+
+    Route::post('/remove', [OperationalCostController::class, 'costRemoveAction']);
 });
 
 Route::prefix('karyawan')->group(function () {
@@ -134,6 +137,10 @@ Route::prefix('po')->group(function () {
     Route::get('/confirmation', [PurchaseController::class, 'purchaseConfirmationView']);
     Route::post('/confirmation/ppn', [PurchaseController::class, 'purchaseConfirmationPPN']);
     Route::post('/confirmation', [PurchaseController::class, 'purchaseConfirmationAction']);
+});
+
+Route::prefix('/settings')->group(function (){
+    Route::get('/', [SettingsController::class, 'settingsView']);
 });
 
 Route::prefix('template')->group(function (){

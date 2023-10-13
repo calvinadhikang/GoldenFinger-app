@@ -1,9 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="text-3xl font-bold">
-    <i class="fa-solid fa-circle-info me-2"></i> Detail Vendor
-</div>
+<div class="text-3xl font-bold">Detail Vendor</div>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
@@ -42,9 +40,7 @@
     </form>
 </div>
 
-<div class="text-xl font-semibold">
-    <i class="fa-solid fa-address-book me-2"></i> Contact Person
-</div>
+<div class="text-xl font-semibold">Contact Person</div>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url("vendors/add/contact/$vendor->id")}}">Tambah</a>
@@ -75,9 +71,7 @@
     </div>
 </div>
 
-<div class="text-xl font-semibold">
-    <i class="fa-solid fa-box me-2"></i> Barang Di Supply Vendor
-</div>
+<div class="text-xl font-semibold">Barang Di Supply Vendor</div>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url("vendors/add/barang/$vendor->id")}}">Tambah</a>

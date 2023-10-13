@@ -1,14 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="flex items-center mb-10">
-    <div class="grow m-auto">
-        <div class="prose">
-            <h1>Data Vendor</h1>
-        </div>
-    </div>
-    <button class="btn btn-secondary">Import Excel</button>
-</div>
+<h1 class="text-3xl font-bold mb-5">Data Vendor</h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url('vendors/add')}}">Tambah</a>
@@ -17,13 +10,13 @@
         <table id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">ID</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Email</h3></th>
-                    <th class="prose"><h3 class="font-bold">Telp</h3></th>
-                    <th class="prose"><h3 class="font-bold">Alamat</h3></th>
-                    <th class="prose"><h3 class="font-bold">Barang di Supply</h3></th>
-                    <th class="prose"><h3 class="font-bold">Action</h3></th>
+                    <th><h3 class="font-bold">ID</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Email</h3></th>
+                    <th><h3 class="font-bold">Telp</h3></th>
+                    <th><h3 class="font-bold">Alamat</h3></th>
+                    <th><h3 class="font-bold">Jumlah Barang di Supply</h3></th>
+                    <th><h3 class="font-bold">Action</h3></th>
                 </tr>
             </thead>
             <tbody>

@@ -34,7 +34,7 @@ class Util extends Controller
             DB::table('invoice_setting')->update([
                 'last_year' => $year,
                 'last_month' => $month,
-                'data_count' => 1,
+                'data_count' => 0,
             ]);
         } else {
             // If it's the same month, increment the count
@@ -47,6 +47,15 @@ class Util extends Controller
 
         // Generate the code
         $code = "GLVM/INV/{$year}{$month}/{$totalDataCountFormatted}";
+
+        return $code;
+    }
+
+    static function generatePurchaseCode(){
+        $year = date('y');
+        $month = date('m');
+
+        $code = "PO/GWI/{$year}/{$month}";
 
         return $code;
     }

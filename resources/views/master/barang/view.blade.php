@@ -1,13 +1,8 @@
 @extends('template/header')
 
 @section('content')
-<div class="flex items-center mb-10">
-    <div class="grow m-auto">
-        <div class="">
-            <h1 class="text-4xl font-extrabold
-            ">Data Barang</h1>
-        </div>
-    </div>
+<div class="flex items-center justify-between mb-5">
+    <h1 class="text-3xl font-bold">Data Barang</h1>
     <button class="btn btn-secondary">Import Excel</button>
 </div>
 <div class="rounded bg-accent p-4 w-full">
@@ -15,14 +10,14 @@
         <a class="btn btn-primary" href="{{url('barang/add')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
-        <table class="table" id="table">
+        <table id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">Part Number</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Harga Jual</h3></th>
-                    <th class="prose"><h3 class="font-bold">Stok</h3></th>
-                    <th class="prose"><h3 class="font-bold">Aksi</h3></th>
+                    <th><h3 class="font-bold">Part Number</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Harga Jual</h3></th>
+                    <th><h3 class="font-bold">Stok</h3></th>
+                    <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>

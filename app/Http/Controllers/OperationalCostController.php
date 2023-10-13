@@ -47,4 +47,12 @@ class OperationalCostController extends Controller
             'total' => $total
         ], 200);
     }
+
+    public function costRemoveAction(Request $request){
+        $cost = OperationalCost::find($request->input('id'));
+        $cost->delete();
+
+        toast("Berhasil hapus pengeluaran $cost->deskripsi", 'success');
+        return redirect()->back();
+    }
 }

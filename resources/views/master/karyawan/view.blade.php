@@ -1,13 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="flex items-center mb-10">
-    <div class="grow m-auto">
-        <div class="prose">
-            <h1>Data Karyawan</h1>
-        </div>
-    </div>
-</div>
+<h1 class="text-3xl font-bold mb-5">Data Karyawan</h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url('karyawan/add')}}">Tambah</a>
@@ -16,12 +10,12 @@
         <table id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">ID</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nomor Telp</h3></th>
-                    <th class="prose"><h3 class="font-bold">Role</h3></th>
-                    <th class="prose"><h3 class="font-bold">Status</h3></th>
-                    <th class="prose"><h3 class="font-bold">Aksi</h3></th>
+                    <th><h3 class="font-bold">ID</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Nomor Telp</h3></th>
+                    <th><h3 class="font-bold">Role</h3></th>
+                    <th><h3 class="font-bold">Status</h3></th>
+                    <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>

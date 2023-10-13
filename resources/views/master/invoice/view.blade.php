@@ -1,13 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="flex items-center mb-10">
-    <div class="grow m-auto">
-        <div class="prose">
-            <h1>Data Invoice</h1>
-        </div>
-    </div>
-</div>
+<h1 class="text-3xl font-bold mb-5">Data Invoice</h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url('invoice/add')}}">Tambah</a>
@@ -16,13 +10,13 @@
         <table id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">Kode</h3></th>
-                    <th class="prose"><h3 class="font-bold">Customer</h3></th>
-                    <th class="prose"><h3 class="font-bold">Grand Total (Rp)</h3></th>
-                    <th class="prose"><h3 class="font-bold">Tanggal Pesanan</h3></th>
-                    <th class="prose"><h3 class="font-bold">Status</h3></th>
-                    <th class="prose"><h3 class="font-bold">Jatuh Tempo</h3></th>
-                    <th class="prose"><h3 class="font-bold">Aksi</h3></th>
+                    <th><h3 class="font-bold">Kode</h3></th>
+                    <th><h3 class="font-bold">Customer</h3></th>
+                    <th><h3 class="font-bold">Grand Total (Rp)</h3></th>
+                    <th><h3 class="font-bold">Tanggal Pesanan</h3></th>
+                    <th><h3 class="font-bold">Status</h3></th>
+                    <th><h3 class="font-bold">Jatuh Tempo</h3></th>
+                    <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>

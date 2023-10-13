@@ -39,7 +39,7 @@
                         Dashboard
                     </div>
                 </a></li>
-                <div class="prose">
+                <div class="prose mt-4">
                     <h3>Master</h3>
                 </div>
                 <li><a href="{{ url('/barang') }}">
@@ -73,7 +73,7 @@
                     </div>
                 </a></li>
 
-                <div class="prose mt-8">
+                <div class="prose mt-4">
                     <h3>Operasional</h3>
                 </div>
                 <li><a href="{{ url('/invoice') }}">
@@ -94,9 +94,20 @@
                         Pengeluaran / Cost
                     </div>
                 </a></li>
+
+                <div class="prose mt-4">
+                    <h3>Lainnya</h3>
+                </div>
+                <li><a href="{{ url('/settings') }}">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-gear me-2 w-6"></i>
+                        Pengaturan
+                    </div>
+                </a></li>
+
                 <div class="flex-grow min-h-100"></div>
                 <a href="{{ url('/logout') }}" class="no-underline w-full">
-                    <div class="btn btn-error btn-md btn-block text-white mb-4">Logout</div>
+                    <div class="btn btn-error btn-md btn-block text-white mb-4 hover:bg-red-500 hover:border-red-500">Logout</div>
                 </a>
             </ul>
         </div>
@@ -122,8 +133,10 @@
                 </div>
             </div>
             <!-- content here -->
-            <div class="px-2 pt-10 lg:pt-0 flex-wrap md:px-10">
-                @yield('content')
+            <div class="px-2 pt-10 lg:pt-0 flex-wrap md:px-10 flex items-center w-full justify-center">
+                <div class="lg:max-w-5xl w-full">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>

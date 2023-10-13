@@ -1,13 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="flex items-center mb-10">
-    <div class="grow m-auto">
-        <div class="prose">
-            <h1>Data Customer</h1>
-        </div>
-    </div>
-</div>
+<h1 class="text-3xl font-bold mb-5">Data Customer</h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url('customer/add')}}">Tambah</a>
