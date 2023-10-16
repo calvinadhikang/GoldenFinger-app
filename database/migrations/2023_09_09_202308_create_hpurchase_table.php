@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('hpurchase', function (Blueprint $table) {
             $table->id();
+            $table->string('kode');
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('karyawan_id');
             $table->bigInteger('total');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->integer('status_pembayaran');
             $table->timestamp('jatuh_tempo');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('vendor_id')->references('id')->on('vendor')->onDelete('cascade');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');

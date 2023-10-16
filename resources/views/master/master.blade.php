@@ -2,29 +2,29 @@
 
 @section('content')
     <h1 class="text-xl font-medium">Dashboard</h1>
-    <div class="grid grid-rows-1 grid-cols-2 lg:grid-cols-4 mt-5 gap-5 mb-10">
-        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
+    <div class="flex flex-wrap justify-start mt-5 gap-5 mb-10">
+        <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
             <div class="stat shadow bg-accents">
                 <div class="stat-title">Pendapatan Bulan Ini</div>
                 <div class="stat-value">Rp 89,400</div>
                 <div class="stat-desc">21% dari bulan lalu</div>
             </div>
         </a>
-        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/barang') }}">
+        <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/barang') }}">
             <div class="stat">
                 <div class="stat-title">Total Barang Stok Minim</div>
-                <div class="stat-value">0</div>
+                <div class="stat-value text-error" id="minimum">0</div>
                 <div class="stat-desc">21% dari bulan lalu</div>
             </div>
         </a>
-        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
+        <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
             <div class="stat">
                 <div class="stat-title">Total Vendor Jatuh Tempo</div>
                 <div class="stat-value">0</div>
                 <div class="stat-desc">21% dari bulan lalu</div>
             </div>
         </a>
-        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/cost') }}">
+        <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/cost') }}">
             <div class="stat">
                 <div class="stat-title">Pengeluaran Bulan Ini</div>
                 <div class="stat-value" id="cost">0</div>
@@ -47,6 +47,14 @@
         $('#cost').html(`Rp ${data.total.toLocaleString()}`)
     }
 
+    const getMinimumBarang = async () => {
+        const response = await fetch(baseURL + '/barang/minimum');
+        const data = await response.json();
+
+        $('#minimum').html(data.count)
+    }
+
     getCost()
+    getMinimumBarang()
 </script>
 @endsection

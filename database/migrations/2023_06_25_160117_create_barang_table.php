@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('barang', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('part');
+            $table->string('part')->primary();
             $table->string('nama');
             $table->string('harga');
             $table->integer('stok');
             $table->integer('batas');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

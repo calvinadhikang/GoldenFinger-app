@@ -167,6 +167,7 @@ class PurchaseController extends Controller
             //insert header
             $lastId = DB::table('hpurchase')->insertGetId([
                 'vendor_id' => $po->vendor->id,
+                'kode' => Util::generatePurchaseCode(),
                 'karyawan_id' => $user->id,
                 'total' => $po->total,
                 'grand_total' => $po->grandTotal,

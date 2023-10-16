@@ -11,6 +11,7 @@ class BarangController extends Controller
     public function barangView()
     {
         $barang = Barang::all();
+
         return view('master.barang.view', [
             'data' => $barang
         ]);
@@ -23,10 +24,16 @@ class BarangController extends Controller
 
     public function barangAddAction(Request $request)
     {
+        $duplicate = Barang::find($request->input('part'));
+        if ($duplicate) {
+            toast('Part Number sudah terisi, gunakan part number lainnya', 'error');
+            return redirect()->back();
+        }
+
         $barang = Barang::create([
             'part' => $request->input('part'),
             'nama' => $request->input('nama'),
-            'harga' => $request->input('harga'),
+            'harga' => Util::parseNumericValue($request->input('harga')),
             'batas' => $request->input('batas'),
             'stok' => 0,
         ]);
@@ -53,10 +60,19 @@ class BarangController extends Controller
 
         $barang->part = $request->input('part');
         $barang->nama = $request->input('nama');
-        $barang->harga = $request->input('harga');
+        $barang->harga = Util::parseNumericValue($request->input('harga'));
         $barang->save();
 
         toast("Berhasil Update Barang", "success");
         return redirect()->back();
+    }
+
+    public function getMinimum(){
+        $data = Barang::where('stok', '<=', 'batas')->get();
+
+        return response()->json([
+            'data' => $data,
+            'count' => count($data)
+        ]);
     }
 }

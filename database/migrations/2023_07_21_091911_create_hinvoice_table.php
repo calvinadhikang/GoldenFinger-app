@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('contact_person');
             $table->bigInteger('komisi');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');

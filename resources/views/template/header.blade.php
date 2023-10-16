@@ -95,9 +95,18 @@
                     </div>
                 </a></li>
 
-                <div class="prose mt-4">
-                    <h3>Lainnya</h3>
-                </div>
+                <li class="mt-4 -ms-4">
+                    <details>
+                        <summary class="font-medium text-xl">Laporan</summary>
+                        <ul class="ms-4">
+                            <li><a>Lap. Stok</a></li>
+                            <li><a>Lap. Penjualan</a></li>
+                            <li><a>Lap. Pendapatan</a></li>
+                        </ul>
+                    </details>
+                </li>
+
+                <h3 class="mt-4 text-xl font-medium">Lainnya</h3>
                 <li><a href="{{ url('/settings') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-gear me-2 w-6"></i>

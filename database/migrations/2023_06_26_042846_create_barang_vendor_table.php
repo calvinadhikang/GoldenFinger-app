@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('barang_vendor', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('vendor_id');
-            $table->foreign('vendor_id')->references('id')->on('vendor')->onDelete('cascade');
-            $table->unsignedBigInteger('barang_id');
-            $table->foreign('barang_id')->references('id')->on('barang')->onDelete('cascade');
+            $table->string('barang_id');
             $table->bigInteger('harga');
             $table->timestamps();
+
+            $table->foreign('vendor_id')->references('id')->on('vendor')->onDelete('cascade');
+            $table->foreign('barang_id')->references('part')->on('barang')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

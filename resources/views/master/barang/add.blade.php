@@ -18,14 +18,14 @@
                     <span class="label-text text-lg font-bold">Nama</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="1000" class="input input-bordered w-full" name="nama" required/>
+                <input type="text" placeholder="Nama Barang..." class="input input-bordered w-full" name="nama" required/>
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Harga Jual (Rp)</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="number" placeholder="1000" class="input input-bordered w-full" name="harga" required/>
+                <input type="text" placeholder="1000" class="input input-bordered w-full harga" name="harga" required/>
             </div>
             <div class="form-control w-full md:w-1/2">
                 <label class="label">

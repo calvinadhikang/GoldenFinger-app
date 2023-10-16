@@ -33,7 +33,7 @@
                         <td>Rp {{ number_format($item->harga) }}</td>
                         <td>{{ $item->stok }}</td>
                         <td>
-                            <a href="{{ url("barang/detail/$item->id") }}">
+                            <a href="{{ url("barang/detail/$item->part") }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
                             </a>
                         </td>

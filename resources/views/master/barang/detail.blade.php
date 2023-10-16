@@ -26,7 +26,7 @@
                     <span class="label-text text-lg font-bold">Harga Jual (Rp)</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="number" placeholder="1000" class="input input-bordered w-full" name="harga" value="{{ $barang->harga }}" required/>
+                <input type="text" placeholder="1000" class="input input-bordered w-full harga" name="harga" value="{{ number_format($barang->harga) }}" required/>
             </div>
         </div>
         <button class="btn btn-primary">Simpan</button>

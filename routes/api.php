@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OperationalCostController;
@@ -30,4 +31,7 @@ Route::prefix('/cost')->group(function () {
 });
 Route::prefix('/invoice')->group(function () {
     Route::get('/monthly', [InvoiceController::class, 'getMonthlyPaidInvoice']);
+});
+Route::prefix('/barang')->group(function () {
+    Route::get('/minimum', [BarangController::class, 'getMinimum']);
 });
