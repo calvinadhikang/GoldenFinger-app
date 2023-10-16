@@ -24,7 +24,7 @@
     @if ($invoice->status == 0)
         <h3 class="text-xl font-semibold mt-5">Pesanan Sudah Lunas ?</h3>
         <p>Klik tombol dibawah bila pesanan sudah <span class="text-secondary text-xl font-semibold">Lunas</span></p>
-        <button class="btn btn-primary mt-2" onclick="my_modal_3.showModal()">Pesanan, Sudah Lunas !</button>
+        <button class="btn btn-primary mt-2" onclick="modal_pembayaran.showModal()">Pesanan, Sudah Lunas !</button>
     @endif
 </div>
 
@@ -134,7 +134,7 @@
     </div>
 </div>
 
-<dialog id="my_modal_3" class="modal">
+<dialog id="modal_pembayaran" class="modal">
     <div class="modal-box bg-slate-300">
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -152,5 +152,4 @@
         </div>
     </div>
 </dialog>
-
 @endsection

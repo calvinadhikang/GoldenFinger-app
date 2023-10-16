@@ -32,7 +32,7 @@ class InvoiceController extends Controller
             $found = -1;
             if ($invoice != null) {
                 foreach ($invoice->list as $key => $value) {
-                    if ($valueBarang->id == $value->id) {
+                    if ($valueBarang->part == $value->part) {
                         $found = $key;
                         $valueBarang->qty = $value->qty;
                     }
@@ -52,13 +52,13 @@ class InvoiceController extends Controller
     public function invoiceAddAction(Request $request){
         $qty = $request->input('qty');
         $harga = $request->input('harga');
-        $id = $request->input('id');
+        $part = $request->input('part');
 
         $grandTotal = 0;
         $list = [];
         for ($i=0; $i < count($qty); $i++) {
             if ($qty[$i] > 0) {
-                $obj = Barang::find($id[$i]);
+                $obj = Barang::find($part[$i]);
                 $obj->qty = $qty[$i];
                 $obj->harga = Util::parseNumericValue($harga[$i]);
 

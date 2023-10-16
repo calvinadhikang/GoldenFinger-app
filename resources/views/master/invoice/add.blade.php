@@ -19,10 +19,10 @@
         <table class="table" id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">Part Number</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Harga</h3></th>
-                    <th class="prose"><h3 class="font-bold">Quantity</h3></th>
+                    <th><h3 class="font-bold">Part Number</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Harga</h3></th>
+                    <th><h3 class="font-bold">Quantity</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
                     </td>
                     <td>
                         <input type="number" class="input input-bordered input-secondary" name="qty[]" value="{{ $item->qty }}">
-                        <input type="hidden" name="id[]" value="{{ $item->id }}">
+                        <input type="hidden" name="part[]" value="{{ $item->part }}">
                     </td>
                 </tr>
             @endforeach

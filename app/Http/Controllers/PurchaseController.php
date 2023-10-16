@@ -37,7 +37,7 @@ class PurchaseController extends Controller
             $found = -1;
             if ($oldPO != null) {
                 foreach ($oldPO->list as $key => $value) {
-                    if ($valueBarang->id == $value->id) {
+                    if ($valueBarang->part == $value->part) {
                         $found = $key;
                         $valueBarang->qty = $value->qty;
                     }

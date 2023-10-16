@@ -70,23 +70,23 @@
             <tr>
                 <td>{{ $item->part }}</td>
                 <td>{{ $item->nama }}</td>
-                <td>Rp {{ number_format($item->harga) }}</td>
-                <td>{{ number_format($item->qty) }}</td>
-                <td>Rp {{ number_format($item->subtotal) }}</td>
+                <td>Rp {{ format_decimal($item->harga) }}</td>
+                <td>{{ format_decimal($item->qty) }}</td>
+                <td>Rp {{ format_decimal($item->subtotal) }}</td>
             </tr>
         @endforeach
         </tbody>
     </table>
     <div class="text-right w-full mt-10">
-        Grand Total : <span class="text-2xl font-bold text-primary">Rp {{ number_format($invoice->grandTotal) }}</span>
+        Grand Total : <span class="text-2xl font-bold text-primary">Rp {{ format_decimal($invoice->grandTotal) }}</span>
     </div>
 </div>
 
 <form method="POST">
     @csrf
-    <div class="grid-cols-2 justify-center mb-2">
-        <span class="text-xl font-semibold me-3">Dapat Komisi ? </span>
-        <input type="checkbox" name="komisi" class="ms-2 toggle" id="komisiCheck" checked>
+    <div class="flex gap-10 items-center mb-2 h-10">
+        <span class="text-xl font-semibold">Dapat Komisi ? </span>
+        <input type="checkbox" name="komisi" class="toggle" id="komisiCheck" checked>
     </div>
     <div class="rounded bg-accent p-4 mb-5">
         <div class="flex mb-2">
