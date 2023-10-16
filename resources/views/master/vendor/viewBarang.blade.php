@@ -29,7 +29,7 @@
                 <tr>
                     <td>{{ $item->part }}</td>
                     <td>{{ $item->nama }}</td>
-                    <td><input type="checkbox" class="checkbox" name="barang[]" value="{{ $item->id }}"></td>
+                    <td><input type="checkbox" class="checkbox" name="barang[]" value="{{ $item->part }}"></td>
                 </tr>
             @endforeach
             </tbody>

@@ -25,7 +25,7 @@
                 @foreach ($data as $item)
                     <tr>
                         <td>{{ $item->deskripsi }}</td>
-                        <td>Rp {{ number_format($item->total) }}</td>
+                        <td>Rp {{ format_decimal($item->total) }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>
                             <button onclick="my_modal_3.showModal()" class="btn-modal" id-cost="{{ $item->id }}" value="{{ $item->deskripsi }}"><i class="fa-solid fa-circle-minus text-base hover:text-red-600"></i></button>

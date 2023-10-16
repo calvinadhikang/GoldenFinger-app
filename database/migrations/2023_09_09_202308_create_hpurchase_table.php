@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('kode');
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('karyawan_id');
-            $table->bigInteger('total');
-            $table->bigInteger('grand_total');
+            $table->decimal('total', 20, 2);
+            $table->decimal('grand_total', 20, 2);
             $table->bigInteger('ppn');
             $table->integer('status_pesanan');
             $table->integer('status_pembayaran');

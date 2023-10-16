@@ -44,9 +44,10 @@ class VendorController extends Controller
     public function vendorDetailView($id)
     {
         $vendor = Vendor::find($id);
+
         $dataBarang = $vendor->barang;
         foreach ($dataBarang as $key => $value) {
-            $barangVendor = BarangVendor::where('vendor_id', '=', $vendor->id)->where('barang_id', '=', $value->id)->get();
+            $barangVendor = BarangVendor::where('vendor_id', '=', $vendor->id)->where('barang_id', '=', $value->part)->get();
             $value->hargaBeli = $barangVendor[0]->harga;
         }
 
@@ -95,7 +96,6 @@ class VendorController extends Controller
             $barang = Barang::find($value);
 
             $obj = new stdClass();
-            $obj->id = $barang->id;
             $obj->part = $barang->part;
             $obj->nama = $barang->nama;
             $obj->harga = 0;
@@ -124,12 +124,12 @@ class VendorController extends Controller
 
         try {
             for ($i=0; $i < count($arrBarang); $i++) {
-                $arrBarang[$i]->harga = $arrHarga[$i];
+                $arrBarang[$i]->harga = Util::parseNumericValue($arrHarga[$i]);
 
                 //insert to table
                 DB::table('barang_vendor')->insert([
                     'vendor_id' => $idVendor,
-                    'barang_id' => $arrBarang[$i]->id,
+                    'barang_id' => $arrBarang[$i]->part,
                     'harga' => $arrBarang[$i]->harga
                 ]);
             }
@@ -137,6 +137,7 @@ class VendorController extends Controller
             DB::commit();
             toast('Berhasil Insert Barang ke Vendor', 'success');
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();
         }
 
@@ -160,6 +161,6 @@ class VendorController extends Controller
     }
 
     public function vendorRemoveContactAction($id){
-        
+
     }
 }

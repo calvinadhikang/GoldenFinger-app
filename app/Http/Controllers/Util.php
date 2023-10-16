@@ -55,7 +55,7 @@ class Util extends Controller
         $year = date('y');
         $month = date('m');
 
-        $code = "PO/GWI/{$year}/{$month}";
+        $code = "PO/GWI/{$month}/{$year}";
 
         return $code;
     }

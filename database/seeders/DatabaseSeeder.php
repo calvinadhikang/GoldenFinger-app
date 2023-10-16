@@ -5,7 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Barang;
+use App\Models\BarangVendor;
 use App\Models\Karyawan;
+use App\Models\Vendor;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,10 +28,12 @@ class DatabaseSeeder extends Seeder
 
         $this->createBarang();
         $this->createKaryawan();
+        $this->createVendor();
+        $this->createBarangVendor();
     }
 
     function createKaryawan(){
-        $u = Karyawan::create([
+        Karyawan::create([
             'nama' => 'Calvin Adhikang',
             'username' => 'calvin',
             'password' => 'calvin',
@@ -40,7 +44,7 @@ class DatabaseSeeder extends Seeder
     }
 
     function createBarang(){
-        $b = Barang::create([
+        Barang::create([
             'part' => 'B001',
             'nama' => 'Barang Pertama',
             'harga' => 1000,
@@ -48,7 +52,7 @@ class DatabaseSeeder extends Seeder
             'stok' => 0
         ]);
 
-        $b = Barang::create([
+        Barang::create([
             'part' => 'B002',
             'nama' => 'Barang Kedua',
             'harga' => 2000,
@@ -56,12 +60,34 @@ class DatabaseSeeder extends Seeder
             'stok' => 0
         ]);
 
-        $b = Barang::create([
+        Barang::create([
             'part' => 'B003',
             'nama' => 'Barang Ketiga',
             'harga' => 3000,
             'batas' => 10,
             'stok' => 0
+        ]);
+    }
+
+    function createVendor(){
+        Vendor::create([
+            'nama' => 'Supplier Pertama',
+            'alamat' => 'JL supplier pertama, Surabaya',
+            'email' => 'supp@pertama.com',
+            'telp' => '123123',
+        ]);
+    }
+
+    function createBarangVendor(){
+        BarangVendor::create([
+            'vendor_id' => 1,
+            'barang_id' => 'B001',
+            'harga' => 500000
+        ]);
+        BarangVendor::create([
+            'vendor_id' => 1,
+            'barang_id' => 'B002',
+            'harga' => 750000
         ]);
     }
 }

@@ -56,12 +56,12 @@ class PurchaseController extends Controller
 
     public function purchaseBarangAdd(Request $request){
         $qty = $request->input('qty');
-        $id = $request->input('id');
+        $part = $request->input('part');
 
         $list = [];
         for ($i=0; $i < count($qty); $i++) {
             if ($qty[$i] > 0) {
-                $obj = Barang::find($id[$i]);
+                $obj = Barang::find($part[$i]);
                 $obj->qty = $qty[$i];
 
                 $list[] = $obj;
@@ -69,7 +69,7 @@ class PurchaseController extends Controller
         }
 
         $oldPO = Session::get('po_cart');
-        // Object Creation for Invoice
+        // Object Creation for Purchase
         $PO = new stdClass();
         if ($oldPO != null) {
             $PO->vendor = $oldPO->vendor;
@@ -94,25 +94,35 @@ class PurchaseController extends Controller
         $itemIds = [];
 
         foreach ($oldPO->list as $key => $value) {
-            $itemIds[] = $value->id;
+            $itemIds[] = $value->part;
         }
 
+        // cari vendor yang mampu memasok barang
         $vendors = Vendor::whereHas('barang', function ($query) use ($itemIds) {
-            $query->whereIn('barang.id', $itemIds);
+            $query->whereIn('barang.part', $itemIds);
         })->with(['barang' => function ($query) {
-            $query->select(['barang.id', 'barang.nama', 'vendor_id', 'barang_vendor.harga']);
+            $query->select(['barang.part', 'barang.nama', 'vendor_id', 'barang_vendor.harga']);
         }])->get();
 
-        foreach ($vendors as $key => $value) {
+        // Tentukan harga tiap vendor
+        foreach ($vendors as $key => $vendor) {
             $total = 0;
-            foreach ($value->barang as $key => $vendorItem) {
-                foreach ($oldPO->list as $key => $itemsToBuy) {
-                    if ($vendorItem->id == $itemsToBuy->id) {
-                        $total += $vendorItem->harga * $itemsToBuy->qty;
+
+            // 1. Iterasi dari semua barang yang akan dibeli admin...
+            // 2. Selanjutnya badingkan dengan part number tiap barang yang akan dibeli dengan barang yang di supply oleh Vendor
+            // 3. Hitung jumlah barang yang akan dibeli + harga dari Vendor
+            //    lalu tambahkan hasilnya hingga semua barang yang akan dibeli habis(iterasi habis)
+            // 4. Hasil total penambahan adalah total harga penawaran vendor
+            foreach ($oldPO->list as $key => $itemsToBuy) {
+                foreach ($vendor->barang as $key => $vendorItem) {
+                    if ($itemsToBuy->part == $vendorItem->part) {
+                        $totalPerItem = $vendorItem->harga * $itemsToBuy->qty;
+                        $total += $totalPerItem;
                     }
                 }
             }
-            $value->total = $total;
+
+            $vendor->total = $total;
         }
 
         return view('master.po.vendor', [
@@ -123,15 +133,16 @@ class PurchaseController extends Controller
     public function purchaseVendorAdd(Request $request){
         $oldPO = Session::get('po_cart');
 
-        $vendor = $request->input('vendor');
+        $vendorId = $request->input('vendor');
         $total = $request->input('total');
 
         $oldPO->total = $total;
-        $oldPO->vendor = Vendor::find($vendor);
+        $oldPO->vendor = Vendor::find($vendorId);
 
         //set po->list subtotal
         foreach ($oldPO->list as $key => $value) {
-            $value->harga = BarangVendor::find($value->id)->harga;
+            $objBarang = BarangVendor::where('vendor_id', '=', $vendorId)->where('barang_id', '=', $value->part)->get();
+            $value->harga = $objBarang[0]->harga;
             $value->subtotal = $value->harga * $value->qty;
         }
 

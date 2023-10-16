@@ -35,7 +35,7 @@
                     <td>{{ $item->stok }}</td>
                     <td>
                         <input type="number" class="input input-bordered input-secondary" name="qty[]" value="{{ $item->qty }}">
-                        <input type="hidden" name="id[]" value="{{ $item->id }}">
+                        <input type="hidden" name="part[]" value="{{ $item->part }}">
                     </td>
                 </tr>
             @endforeach

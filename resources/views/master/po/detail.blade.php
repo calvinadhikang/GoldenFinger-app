@@ -5,32 +5,13 @@
     <h1 class="text-white">Detail Purhcase Orders</h1>
 </div>
 
-<dialog id="modal_pembayaran" class="modal">
-    <div class="modal-box bg-slate-300">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        </form>
-        <h3 class="font-bold text-lg">Pelunasan Pesanan</h3>
-        <p class="py-4">Pastikan kembali bahwa barang pesanan sudah tiba dan sesuai. <br> Bila sudah, tekan tombol dibawah untuk konfirmasi pembayaran</p>
-        <div class="flex gap-x-3">
-            <form action="{{ url("/po/confirmation/pembayaran") }}" method="post">
-                @csrf
-                <button class="btn btn-primary" name="id" value="{{ $po->id }}">Ya, Sudah Lunas</button>
-            </form>
-            <form method="dialog">
-                <button class="btn btn-outline btn-error">Batal</button>
-            </form>
-        </div>
-    </div>
-</dialog>
-
 <div class="grid grid-cols-2 gap-x-10">
     <div class="">
         <p class="text-xl font-semibold mb-5">Status Pesanan</p>
         <div class="rounded p-4 bg-accent">
             @if ($po->status_pesanan == 0)
                 <div class="text-white bg-error font-semibold text-xl text-center rounded p-3">Process</div>
-                <p class="mt-10">Barang pesanan sudah sampai ?</p>
+                <p class="mt-10 mb-2">Barang pesanan sudah sampai ?</p>
                 <a href="{{ url("/po/confirmation/pesanan/$po->id") }}" class="btn btn-primary">
                     Ya, Sudah Sampai
                 </a>
@@ -52,6 +33,7 @@
                 <hr>
                 <p>Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
 
+                <h1 class="mt-5 mb-2">Pesanan sudah dibayar ?</h1>
                 <button class="btn btn-primary" onclick="modal_pembayaran.showModal()">Ya, Sudah Lunas</button>
             @else
                 <div class="bg-secondary font-semibold text-xl text-center rounded p-3">Transaksi Telah Dibayar</div>
@@ -63,9 +45,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <div class="prose mt-5">
     <h3>Informasi Customer</h3>
@@ -157,4 +136,22 @@
     </div>
 </div>
 
+<dialog id="modal_pembayaran" class="modal">
+    <div class="modal-box bg-slate-300">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="font-bold text-lg">Pelunasan Pesanan</h3>
+        <p class="py-4">Pastikan kembali bahwa barang pesanan sudah tiba dan sesuai. <br> Bila sudah, tekan tombol dibawah untuk konfirmasi pembayaran</p>
+        <div class="flex gap-x-3">
+            <form action="{{ url("/po/confirmation/pembayaran") }}" method="post">
+                @csrf
+                <button class="btn btn-primary" name="id" value="{{ $po->id }}">Ya, Sudah Lunas</button>
+            </form>
+            <form method="dialog">
+                <button class="btn btn-outline btn-error">Batal</button>
+            </form>
+        </div>
+    </div>
+</dialog>
 @endsection

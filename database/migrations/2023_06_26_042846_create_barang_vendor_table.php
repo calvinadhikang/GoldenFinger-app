@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('vendor_id');
             $table->string('barang_id');
-            $table->bigInteger('harga');
+            $table->decimal('harga', 10, 2);
             $table->timestamps();
 
             $table->foreign('vendor_id')->references('id')->on('vendor')->onDelete('cascade');

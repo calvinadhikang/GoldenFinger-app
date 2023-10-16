@@ -6,18 +6,18 @@
     <div class="flex justify-end w-full">
         <a class="btn btn-primary" href="{{url('po/barang')}}">Tambah</a>
     </div>
-    <div class="overflow-x-auto">
-        <table class="table">
+    <div class="overflow-x-auto mt-5">
+        <table id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">Kode</h3></th>
-                    <th class="prose"><h3 class="font-bold">Distributor</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nomor Telp</h3></th>
-                    <th class="prose"><h3 class="font-bold">Grand Total (Rp)</h3></th>
-                    <th class="prose"><h3 class="font-bold">Jatuh Tempo</h3></th>
-                    <th class="prose"><h3 class="font-bold">Status Pesanan</h3></th>
-                    <th class="prose"><h3 class="font-bold">Status Pembayaran</h3></th>
-                    <th class="prose"><h3 class="font-bold">Aksi</h3></th>
+                    <th><h3 class="font-bold">Kode</h3></th>
+                    <th><h3 class="font-bold">Distributor</h3></th>
+                    <th><h3 class="font-bold">Nomor Telp</h3></th>
+                    <th><h3 class="font-bold">Grand Total (Rp)</h3></th>
+                    <th><h3 class="font-bold">Jatuh Tempo</h3></th>
+                    <th><h3 class="font-bold">Status Pesanan</h3></th>
+                    <th><h3 class="font-bold">Status Pembayaran</h3></th>
+                    <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -41,10 +41,10 @@
                             }
                         ?>
                         <tr>
-                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->kode }}</td>
                             <td>{{ $item->vendor->nama }}</td>
                             <td>{{ $item->vendor->telp }}</td>
-                            <td>{{ $item->grand_total }}</td>
+                            <td>Rp {{ format_decimal($item->grand_total) }}</td>
                             <td>{{ $item->jatuh_tempo }}</td>
                             <td><span class="badge {{ $class_pesanan }}">{{ $text_pesanan }}</span></td>
                             <td><span class="badge {{ $class_pembayaran }}">{{ $text_pembayaran }}</span></td>
@@ -57,7 +57,7 @@
                     @endforeach
                 @else
                 <tr>
-                    <th class="text-error text-lg" colspan="7">Tidak ada data...</th>
+                    <th class="text-error text-lg text-center" colspan="7">Tidak ada data...</th>
                 </tr>
                 @endif
             </tbody>

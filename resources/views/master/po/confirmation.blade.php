@@ -70,15 +70,15 @@
                     <td>{{ $item->part }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->stok }}</td>
-                    <td >{{ $item->qty }}</td>
-                    <td>{{ $item->harga }}</td>
-                    <td>{{ $item->subtotal }}</td>
+                    <td>{{ $item->qty }}</td>
+                    <td>{{ format_decimal($item->harga) }}</td>
+                    <td>{{ format_decimal($item->subtotal) }}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </form>
-    <p class="text-right mt-5 text-lg font-semibold">Total : Rp {{ number_format($po->total) }}</p>
+    <p class="text-right mt-5 text-lg font-semibold">Total : Rp {{ format_decimal($po->total) }}</p>
 </div>
 
 <div class="mb-5">
@@ -96,7 +96,7 @@
         <div class="grow">
             <p class="text-lg font-semibold mb-2">Total Pajak</p>
             <hr>
-            <p class="text-2xl font-bold">Rp {{ number_format($po->PPN * $po->total / 100) }}</p>
+            <p class="text-2xl font-bold">Rp {{ format_decimal($po->PPN * $po->total / 100) }}</p>
         </div>
     </div>
 </div>
@@ -108,11 +108,11 @@
     <?php $grandTotal = $po->total + ($po->PPN * $po->total / 100) ?>
     <div class="gap-x-10 gap-y-3 grid-cols-2 inline-grid">
         <p class="font-medium">Total Harga Barang</p>
-        <p>Rp {{ number_format($po->total) }}</p>
+        <p>Rp {{ format_decimal($po->total) }}</p>
         <p class="font-medium">Total Pajak</p>
-        <p>Rp {{ number_format($po->PPN * $po->total / 100) }}</p>
+        <p>Rp {{ format_decimal($po->PPN * $po->total / 100) }}</p>
         <p class="font-medium">Total Biaya</p>
-        <p class="text-lg text-primary font-semibold">Rp {{ number_format($grandTotal) }}</p>
+        <p class="text-lg text-primary font-semibold">Rp {{ format_decimal($grandTotal) }}</p>
     </div>
 </div>
 

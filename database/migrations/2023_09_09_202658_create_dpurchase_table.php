@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('hpurchase_id');
             $table->string('part');
             $table->string('nama');
-            $table->bigInteger('harga');
+            $table->decimal('harga', 10, 2);
             $table->bigInteger('qty');
-            $table->bigInteger('subtotal');
+            $table->decimal('subtotal', 10, 2);
             $table->timestamps();
 
             $table->foreign('hpurchase_id')->references('id')->on('hpurchase')->onDelete('cascade');

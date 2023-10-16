@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('operational_cost', function (Blueprint $table) {
+        Schema::create('stock_mutation', function (Blueprint $table) {
             $table->id();
-            $table->string('deskripsi');
-            $table->decimal('total', 10, 2);
+            $table->string('barang_id');
+            $table->integer('quantity');
+            $table->decimal('harga', 10, 2);
+            $table->enum('status', ['masuk', 'keluar']);
             $table->timestamps();
+
+            $table->foreign('barang_id')->references('part')->on('barang')->onDelete('cascade');
         });
     }
 
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operational_cost');
+        Schema::dropIfExists('stock_mutation');
     }
 };

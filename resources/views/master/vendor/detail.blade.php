@@ -45,7 +45,7 @@
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url("vendors/add/contact/$vendor->id")}}">Tambah</a>
     </div>
-    <div class="flex flex-wrap">
+    <div class="grid grid-cols-1 md:grid-cols-3">
         @if (count($vendor->contact_person) <= 0)
             <div class="text-rose-400 font-bold">Belum ada contact, klik tombol di kanan untuk menambah...</div>
         @else
@@ -55,11 +55,11 @@
                     <div class="text-2xl p-2 me-2">
                         <i class="fa-solid fa-user"></i>
                     </div>
-                    <div class="me-2">
+                    <div class="me-2 flex-grow">
                         <span class="text-xl font-semibold me-10"> {{ $item->nama }}</span><br>
                         <span class="text-sm"><i class="fa-solid fa-phone me-2"></i>{{ $item->telp }}</span>
                     </div>
-                    <div class="hover:shadow-xl bg-red-500 hover:bg-red-600 p-3 rounded-full">
+                    <div class="hover:shadow-xl bg-red-500 hover:bg-red-600 p-3 rounded-full me-2">
                         <form action="{{ url("/vendors/remove/contact/$item->id") }}" method="POST">
                             <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
@@ -79,11 +79,11 @@
         <table id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">Part Number</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Harga Beli</h3></th>
-                    <th class="prose"><h3 class="font-bold">Stok</h3></th>
-                    <th class="prose"><h3 class="font-bold">Aksi</h3></th>
+                    <th><h3 class="font-bold">Part Number</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Harga Beli</h3></th>
+                    <th><h3 class="font-bold">Stok</h3></th>
+                    <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -99,7 +99,7 @@
                         <td>Rp {{ number_format($item->hargaBeli) }}</td>
                         <td>{{ $item->stok }}</td>
                         <td>
-                            <a href="{{ url("barang/detail/$item->id") }}">
+                            <a href="{{ url("barang/detail/$item->part") }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
                             </a>
                         </td>

@@ -28,7 +28,7 @@
                         {{ $item->part }}
                     </div>
                     <div class="flex flex-wrap items-center">
-                        <div class="me-2">Rp</div><input type="number" class="input input-info" min="1" name="harga[]" required>
+                        <div class="me-2">Rp</div><input type="text" class="input input-info harga" min="1" name="harga[]" required>
                     </div>
                 </div>
             @endforeach
