@@ -10,11 +10,11 @@
         <p class="text-xl font-semibold mb-5">Status Pesanan</p>
         <div class="rounded p-4 bg-accent">
             @if ($po->status_pesanan == 0)
-                <div class="text-white bg-error font-semibold text-xl text-center rounded p-3">Process</div>
+                <div class="text-white bg-error font-semibold text-xl text-center rounded p-3">On Process</div>
                 <p class="mt-10 mb-2">Barang pesanan sudah sampai ?</p>
-                <a href="{{ url("/po/confirmation/pesanan/$po->id") }}" class="btn btn-primary">
+                <button onclick="modal_pesanan.showModal()" class="btn btn-primary">
                     Ya, Sudah Sampai
-                </a>
+                </button>
             @else
                 <div class="bg-secondary font-semibold text-xl text-center rounded p-3">Barang Sudah Sampai</div>
             @endif
@@ -144,7 +144,7 @@
         <h3 class="font-bold text-lg">Pelunasan Pesanan</h3>
         <p class="py-4">Pastikan kembali bahwa barang pesanan sudah tiba dan sesuai. <br> Bila sudah, tekan tombol dibawah untuk konfirmasi pembayaran</p>
         <div class="flex gap-x-3">
-            <form action="{{ url("/po/confirmation/pembayaran") }}" method="post">
+            <form action="{{ url("/po/pembayaran") }}" method="post">
                 @csrf
                 <button class="btn btn-primary" name="id" value="{{ $po->id }}">Ya, Sudah Lunas</button>
             </form>
@@ -152,6 +152,40 @@
                 <button class="btn btn-outline btn-error">Batal</button>
             </form>
         </div>
+    </div>
+</dialog>
+
+<dialog id="modal_pesanan" class="modal">
+    <div class="modal-box bg-slate-300">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="font-bold text-lg">Konfirmasi Pesanan</h3>
+        <p class="mb-4">Bagaimana jumlah Pesanan yang datang ?</p>
+        <div class="">
+            <form action="{{ url("/po/pesanan") }}" method="POST">
+                @csrf
+                <div class="grid">
+                    <label class="label cursor-pointer font-semibold">
+                        <span><i class="fa-solid fa-check"></i> Jumlah Barang Sesuai</span>
+                        <input type="radio" name="status" value="0" class="radio border-black checked:bg-secondary"/>
+                    </label>
+                    <label class="label cursor-pointer font-semibold">
+                        <span><i class="fa-solid fa-plus"></i> Jumlah Barang Lebih Banyak</span>
+                        <input type="radio" name="status" value="1" class="radio border-black checked:bg-secondary"/>
+                    </label>
+                    <label class="label cursor-pointer font-semibold">
+                        <span><i class="fa-solid fa-minus"></i> Jumlah Barang Kurang</span>
+                        <input type="radio" name="status" value="-1" class="radio border-black checked:bg-secondary"/>
+                    </label>
+                </div>
+                <p class="pt-4 pb-2 text-sm text-gray-500">Pastikan telah mengecek pesanan yang datang dengan baik !</p>
+                <button class="btn btn-primary" name="id" value="{{ $po->id }}">Ya, Sudah Lunas</button>
+            </form>
+        </div>
+        <form method="dialog" class="mt-2">
+            <button class="btn btn-outline btn-error">Batal</button>
+        </form>
     </div>
 </dialog>
 @endsection

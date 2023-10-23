@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('stock_mutation', function (Blueprint $table) {
             $table->id();
             $table->string('barang_id');
-            $table->integer('quantity');
+            $table->integer('qty');
             $table->decimal('harga', 10, 2);
             $table->enum('status', ['masuk', 'keluar']);
             $table->timestamps();

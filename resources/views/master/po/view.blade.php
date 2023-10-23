@@ -24,8 +24,8 @@
                 @if (count($data) > 0)
                     @foreach ($data as $item)
                         <?php
-                            $class_pesanan = "badge-secondary";
-                            $text_pesanan = "Process";
+                            $class_pesanan = "badge-error";
+                            $text_pesanan = "On Process";
 
                             $class_pembayaran = "badge-error";
                             $text_pembayaran = "Belum Bayar";

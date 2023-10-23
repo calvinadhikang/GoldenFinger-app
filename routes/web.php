@@ -124,10 +124,6 @@ Route::prefix('po')->group(function () {
     Route::get('/detail/{id}', [PurchaseController::class, 'purchaseDetailView']);
     Route::get('/detail/{id}', [PurchaseController::class, 'purchaseDetailView']);
 
-    Route::get('/confirmation/pesanan/{id}', [PurchaseController::class, 'confirmationPesananView']);
-    Route::post('/confirmation/pesanan', [PurchaseController::class, 'confirmationPesananAction']);
-    Route::post('/confirmation/pembayaran', [PurchaseController::class, 'confirmationPembayaran']);
-
     Route::get('/barang', [PurchaseController::class, 'purchaseBarangView']);
     Route::post('/barang', [PurchaseController::class, 'purchaseBarangAdd']);
 
@@ -137,6 +133,10 @@ Route::prefix('po')->group(function () {
     Route::get('/confirmation', [PurchaseController::class, 'purchaseConfirmationView']);
     Route::post('/confirmation/ppn', [PurchaseController::class, 'purchaseConfirmationPPN']);
     Route::post('/confirmation', [PurchaseController::class, 'purchaseConfirmationAction']);
+
+    //Finishing PO
+    Route::post('/pesanan', [PurchaseController::class, 'finishPesanan']);
+    Route::post('/pembayaran', [PurchaseController::class, 'finishPembayaran']);
 });
 
 Route::prefix('/settings')->group(function (){

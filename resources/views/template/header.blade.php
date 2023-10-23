@@ -114,7 +114,7 @@
                     </div>
                 </a></li>
 
-                <div class="flex-grow min-h-100 mt-10 md:m-0"></div>
+                <div class="flex-grow h-10 mt-10 md:m-0"></div>
                 <a href="{{ url('/logout') }}" class="no-underline w-full">
                     <div class="btn btn-error btn-md btn-block text-white mb-4 hover:bg-red-500 hover:border-red-500">Logout</div>
                 </a>

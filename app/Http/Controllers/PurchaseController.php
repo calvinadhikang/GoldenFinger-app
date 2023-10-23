@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\BarangVendor;
 use App\Models\HeaderPurchase;
+use App\Models\StockMutation;
 use App\Models\Vendor;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use stdClass;
+use Symfony\Component\VarDumper\VarDumper;
 
 class PurchaseController extends Controller
 {
@@ -211,14 +214,7 @@ class PurchaseController extends Controller
         return redirect('/po');
     }
 
-    public function confirmationPesananView($id){
-
-    }
-    public function confirmationPesananAction(Request $request){
-
-    }
-
-    public function confirmationPembayaran(Request $request){
+    public function finishPembayaran(Request $request){
         $id = $request->input('id');
         $po = HeaderPurchase::find($id);
         $po->status_pembayaran = 1;
@@ -226,5 +222,49 @@ class PurchaseController extends Controller
 
         toast('Transaksi telah berhasil dilunasi !', 'success');
         return redirect()->back();
+    }
+
+    public function finishPesanan(Request $request){
+        $status = $request->input('status');
+        $id = $request->input('id');
+        $po = HeaderPurchase::find($id);
+        if ($status == 0) {
+            //tambahkan semua detail transaksi ke table stock_mutation
+            //jangan lupa tambah jumlah stok barang
+            foreach ($po->details as $key => $detail) {
+                $part = $detail->part;
+
+                DB::beginTransaction();
+                try {
+                    //Menambahkan Stok ke table Barang
+                    DB::table('barang')->where('part', $part)->increment('stok', $detail->qty);
+                    //Buat Row Baru di table Stock Mutation
+                    DB::table('stock_mutation')->insert([
+                        'barang_id' => $part,
+                        'qty' => $detail->qty,
+                        'harga' => $detail->harga,
+                    ]);
+
+                    DB::commit();
+                } catch (Exception $ex) {
+                    dd($ex);
+                    DB::rollBack();
+                }
+            }
+
+            toast('Berhasil Melunasi Pesanan, Stok Telah Ditambah', 'success');
+        }
+        elseif ($status == 1) {
+            //Barang Lebih
+        }
+        elseif ($status == -1){
+            //Barang Kurang
+
+        }
+
+        //Update Status Pesanan PO
+        $po->status_pesanan = 1;
+        $po->save();
+        return redirect('/po');
     }
 }

@@ -7,7 +7,7 @@
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
         <li class="step step-primary"><a href="{{ url('/po/barang') }}">Pilih Barang</a></li>
-        <li class="step step-primary">Pilih Customer</li>
+        <li class="step step-primary">Pilih Vendor</li>
         <li class="step step-primary">Konfirmasi</li>
     </ul>
 </div>
