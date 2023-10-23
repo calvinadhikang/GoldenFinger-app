@@ -22,4 +22,12 @@ class Barang extends Model
             'vendor_id'
         );
     }
+
+    public function mutation(){
+        return $this->hasMany(
+            StockMutation::class,
+            'barang_id',
+            'part'
+        );
+    }
 }

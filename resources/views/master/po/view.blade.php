@@ -31,12 +31,12 @@
                             $text_pembayaran = "Belum Bayar";
 
                             if ($item->status_pesanan == 1) {
-                                $class_pesanan = "badge-primary";
+                                $class_pesanan = "badge-secondary";
                                 $text_pesanan = "Selesai";
                             }
 
                             if ($item->status_pembayaran == 1) {
-                                $class_pembayaran = "badge-primary";
+                                $class_pembayaran = "badge-secondary";
                                 $text_pembayaran = "Selesai";
                             }
                         ?>

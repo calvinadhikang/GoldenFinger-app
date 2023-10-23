@@ -31,10 +31,9 @@
         </div>
         <button class="btn btn-primary">Simpan</button>
     </form>
-
 </div>
 
-<h1 class="text-xl font-medium mb-3">Statistik</h1>
+<h1 class="text-xl font-medium my-5">Statistik</h1>
 <div class="flex gap-5">
     <div class="stats shadow bg-accent">
         <div class="stat">
@@ -50,5 +49,29 @@
             <div class="stat-desc">0% dari bulan lalu</div>
         </div>
     </div>
+</div>
+
+<h1 class="text-xl font-medium my-5">Mutasi Stok</h1>
+<div class="p-4 rounded bg-accent mb-5">
+    @foreach ($barang->mutation as $item)
+        <div class="rounded bg-slate-700 bg-opacity-20 rounded-b-none p-2 grid grid-cols-4 border-b border-b-gray-500">
+            <div class="">
+                <h1 class="text-lg">Qty</h1>
+                <h1 class="text-sm">{{ $item->qty }}</h1>
+            </div>
+            <div class="">
+                <h1 class="text-lg">Harga</h1>
+                <h1 class="text-sm">{{ format_decimal($item->harga) }}</h1>
+            </div>
+            <div class="">
+                <h1 class="text-lg">Status</h1>
+                <h1 class="text-sm badge badge-secondary">{{ $item->status }}</h1>
+            </div>
+            <div class="">
+                <h1 class="text-lg">Tanggal</h1>
+                <h1 class="text-sm">{{ $item->created_at }}</h1>
+            </div>
+        </div>
+    @endforeach
 </div>
 @endsection
