@@ -81,7 +81,8 @@ class PurchaseController extends Controller
             $PO->vendor = null;
             $PO->grandTotal = null;
         }
-        $PO->PPN = 0;
+        $oldPO->PPN = DB::table('settings')->select('ppn')->first()->ppn;
+        $oldPO->PPN_value = 0;
         $PO->list = $list;
 
         Session::put('po_cart', $PO);
@@ -94,21 +95,27 @@ class PurchaseController extends Controller
             return redirect('/po/barang');
         }
 
-        $itemIds = [];
+        $availableVendors = [];
+        // cari vendor yang mampu memasok barang
+        $vendors = Vendor::all();
+        foreach ($vendors as $key => $vendor) {
+            $valid = true;
+            foreach ($oldPO->list as $barang) {
+                $available = BarangVendor::where('vendor_id', $vendor->id)->where('barang_id', $barang->part)->count();
+                if ($available == 0) {
+                    $valid = false;
+                }
+            }
 
-        foreach ($oldPO->list as $key => $value) {
-            $itemIds[] = $value->part;
+            if ($valid) {
+                //tambahkan Vendor ke daftar Vendor
+                $availableVendors[] = $vendor;
+            }
         }
 
-        // cari vendor yang mampu memasok barang
-        $vendors = Vendor::whereHas('barang', function ($query) use ($itemIds) {
-            $query->whereIn('barang.part', $itemIds);
-        })->with(['barang' => function ($query) {
-            $query->select(['barang.part', 'barang.nama', 'vendor_id', 'barang_vendor.harga']);
-        }])->get();
-
         // Tentukan harga tiap vendor
-        foreach ($vendors as $key => $vendor) {
+        foreach ($availableVendors as $key => $vendor) {
+            $barangVendor = BarangVendor::where('vendor_id', $vendor->id)->get();
             $total = 0;
 
             // 1. Iterasi dari semua barang yang akan dibeli admin...
@@ -116,11 +123,10 @@ class PurchaseController extends Controller
             // 3. Hitung jumlah barang yang akan dibeli + harga dari Vendor
             //    lalu tambahkan hasilnya hingga semua barang yang akan dibeli habis(iterasi habis)
             // 4. Hasil total penambahan adalah total harga penawaran vendor
-            foreach ($oldPO->list as $key => $itemsToBuy) {
-                foreach ($vendor->barang as $key => $vendorItem) {
-                    if ($itemsToBuy->part == $vendorItem->part) {
-                        $totalPerItem = $vendorItem->harga * $itemsToBuy->qty;
-                        $total += $totalPerItem;
+            foreach ($oldPO->list as $key => $barang) {
+                foreach ($barangVendor as $key => $barang_vendor) {
+                    if ($barang_vendor->barang_id == $barang->part) {
+                        $total += $barang->qty * $barang_vendor->harga;
                     }
                 }
             }
@@ -129,7 +135,7 @@ class PurchaseController extends Controller
         }
 
         return view('master.po.vendor', [
-            'vendor' => $vendors
+            'vendor' => $availableVendors
         ]);
     }
 
@@ -149,6 +155,10 @@ class PurchaseController extends Controller
             $value->subtotal = $value->harga * $value->qty;
         }
 
+        //set PPN from Setting
+        $oldPO->PPN_value = ($oldPO->total / 100 * $oldPO->PPN);
+        $oldPO->grandTotal = $oldPO->PPN_value + $oldPO->total;
+
         Session::put('po_cart', $oldPO);
         return redirect('/po/confirmation');
     }
@@ -165,7 +175,8 @@ class PurchaseController extends Controller
 
         $oldPO = Session::get('po_cart');
         $oldPO->PPN = $ppn;
-        $oldPO->grandTotal = ($oldPO->total / 100 * $oldPO->PPN) + $oldPO->total;
+        $oldPO->PPN_value = ($oldPO->total / 100 * $oldPO->PPN);
+        $oldPO->grandTotal = $oldPO->PPN_value + $oldPO->total;
         Session::put('po_cart', $oldPO);
         return redirect()->back();
     }
@@ -174,6 +185,11 @@ class PurchaseController extends Controller
         $po = Session::get('po_cart');
         $user = Session::get('user');
         $jatuhTempo = $request->input('jatuhTempo');
+
+        if (Carbon::createFromFormat('Y-m-d', $jatuhTempo)->isPast()) {
+            toast('Tanggal Jatuh Tempo minimal hari ini', 'error');
+            return redirect()->back();
+        }
 
         DB::beginTransaction();
         try {
@@ -185,6 +201,7 @@ class PurchaseController extends Controller
                 'karyawan_id' => $user->id,
                 'total' => $po->total,
                 'grand_total' => $po->grandTotal,
+                'ppn_value' => $po->PPN_value,
                 'ppn' => $po->PPN,
                 'status_pesanan' => 0,
                 'status_pembayaran' => 0,
@@ -266,5 +283,23 @@ class PurchaseController extends Controller
         $po->status_pesanan = 1;
         $po->save();
         return redirect('/po');
+    }
+
+    public function countDue(Request $request){
+        $dayBeforeDue = $request->query('day');
+        $oneDayBeforeToday = Carbon::now()->subDay();
+        $data = HeaderPurchase::whereDate('jatuh_tempo', '>=', $oneDayBeforeToday->toDateString())->get();
+        $count = $data->count();
+
+        $total = 0;
+        foreach ($data as $key => $value) {
+            $total += $value->grand_total;
+        }
+
+        return response()->json([
+            'count' => $count,
+            'data' => $data,
+            'total' => $total
+        ]);
     }
 }

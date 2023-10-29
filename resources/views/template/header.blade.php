@@ -142,7 +142,7 @@
                 </div>
             </div>
             <!-- content here -->
-            <div class="px-2 pt-10 lg:pt-0 flex-wrap md:px-10 flex items-center w-full justify-center">
+            <div class="px-2 pt-5 lg:pt-0 flex-wrap md:px-10 flex items-center w-full justify-center">
                 <div class="lg:max-w-5xl w-full">
                     @yield('content')
                 </div>

@@ -7,11 +7,11 @@
         <a class="btn btn-primary" href="{{url('po/barang')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto mt-5">
-        <table id="table">
+        <table id="table" class="table-zebra">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Kode</h3></th>
-                    <th><h3 class="font-bold">Distributor</h3></th>
+                    <th><h3 class="font-bold">Vendor</h3></th>
                     <th><h3 class="font-bold">Nomor Telp</h3></th>
                     <th><h3 class="font-bold">Grand Total (Rp)</h3></th>
                     <th><h3 class="font-bold">Jatuh Tempo</h3></th>

@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OperationalCostController;
+use App\Http\Controllers\PurchaseController;
 use App\Models\OperationalCost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,9 @@ Route::prefix('/cost')->group(function () {
 });
 Route::prefix('/invoice')->group(function () {
     Route::get('/monthly', [InvoiceController::class, 'getMonthlyPaidInvoice']);
+});
+Route::prefix('/po')->group(function () {
+    Route::get('/due', [PurchaseController::class, 'countDue']);
 });
 Route::prefix('/barang')->group(function () {
     Route::get('/minimum', [BarangController::class, 'getMinimum']);

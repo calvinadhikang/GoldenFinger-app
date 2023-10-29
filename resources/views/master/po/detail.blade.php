@@ -165,7 +165,7 @@
         <div class="">
             <form action="{{ url("/po/pesanan") }}" method="POST">
                 @csrf
-                <div class="grid">
+                <div class="grid gap-y-4">
                     <label class="label cursor-pointer font-semibold">
                         <span><i class="fa-solid fa-check"></i> Jumlah Barang Sesuai</span>
                         <input type="radio" name="status" value="0" class="radio border-black checked:bg-secondary"/>

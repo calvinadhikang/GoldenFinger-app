@@ -6,9 +6,9 @@
 </div>
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
-        <li class="step step-primary"><a href="{{ url('/po/barang') }}">Pilih Barang</a></li>
-        <li class="step step-primary">Pilih Vendor</li>
-        <li class="step step-primary">Konfirmasi</li>
+        <li class="step step-primary"><a href="/po/barang" class="hover:underline">Pilih Barang</a></li>
+        <li class="step step-primary"><a href="/po/vendor" class="hover:underline">Pilih Vendor</a></li>
+        <li class="step step-primary text-primary font-medium">Konfirmasi</li>
     </ul>
 </div>
 <div class="mb-5 mt-10">
@@ -53,15 +53,15 @@
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
-        <table class="table" id="table">
+        <table id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">Part Number</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Stok</h3></th>
-                    <th class="prose"><h3 class="font-bold">Quantity Pembelian</h3></th>
-                    <th class="prose"><h3 class="font-bold">Harga Vendor</h3></th>
-                    <th class="prose"><h3 class="font-bold">Subtotal</h3></th>
+                    <th><h3 class="font-medium">Part Number</h3></th>
+                    <th><h3 class="font-medium">Nama</h3></th>
+                    <th><h3 class="font-medium">Stok</h3></th>
+                    <th><h3 class="font-medium">Quantity Pembelian</h3></th>
+                    <th><h3 class="font-medium">Harga Vendor</h3></th>
+                    <th><h3 class="font-medium">Subtotal</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -120,7 +120,8 @@
 @csrf
 <h1 class="text-xl font-semibold mb-5">Jatuh Tempo</h1>
 <div class="bg-accent p-4 rounded mb-10">
-    <input type="date" class="rounded p-2 w-full text-black border border-primary leading-tight" name="jatuhTempo">
+    <p class="text-gray-400 text-sm mb-2">Pastikan tanggal jatuh tempo lebih dari tanggal sekarang</p>
+    <input type="date" class="rounded p-2 w-full text-black border border-primary leading-tight" name="jatuhTempo" required>
 </div>
 
 <div class="mb-5">

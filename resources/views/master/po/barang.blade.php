@@ -6,8 +6,8 @@
 </div>
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
-        <li class="step step-primary"><a href="{{ url('/po/barang') }}">Pilih Barang</a></li>
-        <li class="step">Pilih Customer</li>
+        <li class="step step-primary text-primary font-medium">Pilih Barang</li>
+        <li class="step">Pilih Vendor</li>
         <li class="step">Konfirmasi</li>
     </ul>
 </div>
@@ -18,13 +18,13 @@
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
-        <table class="table" id="table">
+        <table id="table">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">Part Number</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Stok</h3></th>
-                    <th class="prose"><h3 class="font-bold">Quantity</h3></th>
+                    <th><h3 class="font-bold">Part Number</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Stok</h3></th>
+                    <th><h3 class="font-bold">Quantity</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +41,7 @@
             @endforeach
             </tbody>
         </table>
-        <button class="btn btn-secondary">Selanjutnya</button>
+        <button class="btn btn-primary">Selanjutnya</button>
     </form>
 </div>
 

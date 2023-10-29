@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('karyawan_id');
             $table->decimal('total', 20, 2);
             $table->decimal('grand_total', 20, 2);
+            $table->decimal('ppn_value', 20, 2);
             $table->bigInteger('ppn');
             $table->integer('status_pesanan');
             $table->integer('status_pembayaran');

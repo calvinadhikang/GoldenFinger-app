@@ -10,7 +10,7 @@
         <a class="btn btn-primary" href="{{url('barang/add')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
-        <table id="table">
+        <table id="table" class="table-zebra">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Part Number</h3></th>
