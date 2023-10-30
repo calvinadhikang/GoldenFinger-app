@@ -143,6 +143,7 @@ Route::prefix('po')->group(function () {
 
 Route::prefix('/settings')->group(function (){
     Route::get('/', [SettingsController::class, 'settingsView']);
+    Route::post('/download/barang', [SettingsController::class, 'downloadBarang']);
 });
 
 Route::prefix('laporan')->group(function (){
