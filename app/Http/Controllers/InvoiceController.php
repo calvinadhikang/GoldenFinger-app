@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Customer;
+use App\Models\DetailInvoice;
 use App\Models\HeaderInvoice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -198,6 +199,7 @@ class InvoiceController extends Controller
                     'harga' => $value->harga,
                     'qty' => $value->qty,
                     'subtotal' => $value->subtotal,
+                    'created_at' => $currentDateTime
                 ]);
             }
 
@@ -267,6 +269,28 @@ class InvoiceController extends Controller
         }
         return response()->json([
             'total' => $total
+        ], 200);
+    }
+
+    public function getTotalPartSoldThisYear(){
+        $currentYear = Carbon::now()->year;
+
+        $sumOfQty = DetailInvoice::whereYear('created_at', $currentYear)
+            ->select('part', DB::raw('SUM(qty) as total_qty'))
+            ->groupBy('part')
+            ->get();
+
+        $labels = [];
+        $qty = [];
+        foreach ($sumOfQty as $key => $value) {
+            $labels[] = $value->part;
+            $qty[] = $value->total_qty;
+        }
+
+        return response()->json([
+            'labels' => $labels,
+            'qty' => $qty,
+            'data' => $sumOfQty
         ], 200);
     }
 }

@@ -16,16 +16,15 @@ class LoginController extends Controller
 
         $user = Karyawan::where('username','=',$username)->where('password','=',$password)->get();
         if (count($user) > 0) {
-            if ($user[0]->status == 1) {
+            if ($user[0]->status == "Aktif") {
                 Session::put('user', $user[0]);
-                toast("Berhasil Login", "success");
                 return redirect('/dashboard');
             }else{
                 toast("User tidak aktif", "error");
                 return redirect()->back();
             }
         } else {
-            toast("Gagal Login", "error");
+            toast("Username / Password salah!", "error");
             return redirect()->back();
         }
     }

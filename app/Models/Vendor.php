@@ -14,7 +14,7 @@ class Vendor extends Model
 
     public function barang(){
         return $this->belongsToMany(
-            BarangVendor::class,
+            Barang::class,
             'barang_vendor',
             'vendor_id',
             'barang_id'

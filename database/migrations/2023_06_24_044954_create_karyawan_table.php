@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('telp');
-            $table->integer('role');
-            $table->integer('status');
+            $table->enum('role', ['Admin', 'Stakeholder']);
+            $table->enum('status', ['Aktif', 'Non-Aktif']);
             $table->timestamps();
             $table->softDeletes();
         });

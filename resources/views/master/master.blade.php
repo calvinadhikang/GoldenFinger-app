@@ -33,11 +33,12 @@
         </a>
     </div>
 
-    <h1 class="text-xl font-medium">Analytics</h1>
-    <div class="">
-
+    <h1 class="text-xl font-medium mb-5">Total Penjualan Barang Tahun Ini</h1>
+    <div class="p-4 bg-white rounded text-base-100 bg-opacity-80">
+        <canvas id="chart-penjualan"></canvas>
     </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const baseURL = '<?= url('/api') ?>'
     const getCost = async () => {
@@ -70,9 +71,39 @@
         $('#invoice').html(`Rp ${data.total.toLocaleString()}`);
     }
 
+    const getAnalytics = async() => {
+        const response = await fetch(baseURL + '/invoice/sold/items')
+        const data = await response.json();
+
+        const ctx = document.getElementById('chart-penjualan');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: data.labels,
+            datasets: [{
+                label: 'Jumlah Penjualan',
+                data: data.qty,
+                borderWidth: 1
+            }]
+            },
+            options: {
+            scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    const generateChart = async(labels, qtys) => {
+
+    }
+
     getCost()
     getMinimumBarang()
     getPOJatuhTempo()
     getPaidInvoiceThisMonth()
+    getAnalytics()
 </script>
 @endsection

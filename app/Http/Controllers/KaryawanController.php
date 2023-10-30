@@ -56,7 +56,7 @@ class KaryawanController extends Controller
             return redirect('karyawan');
         }
 
-        $status = $request->input('status') == "on" ? 1 : 0;
+        $status = $request->input('status') == "on" ? "Aktif" : "Non-Aktif";
 
         $karyawan->nama = $request->input('nama');
         $karyawan->username = $request->input('username');

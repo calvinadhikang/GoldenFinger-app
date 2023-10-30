@@ -35,13 +35,13 @@
                 </label>
                 <select name="role" id="" class="input input-bordered w-full">
                     <option value="" selected disabled>Pilih Role</option>
-                    <option value="0" {{ $karyawan->role == 0 ? "selected" : "" }}>Admin</option>
-                    <option value="1" {{ $karyawan->role == 1 ? "selected" : "" }}>Stakeholder</option>
+                    <option value="Admin" {{ $karyawan->role == "Admin" ? "selected" : "" }}>Admin</option>
+                    <option value="Stakeholder" {{ $karyawan->role == "Stakeholder" ? "selected" : "" }}>Stakeholder</option>
                 </select>
             </div>
             <div class="form-control w-full mt-3">
                 <span class="label-text text-lg font-bold mb-2"><i class="fa-solid fa-power-off me-2"></i>Status</span>
-                <input type="checkbox" name="status" class="toggle toggle-primary" {{ $karyawan->status == 1 ? "checked" : "" }}/>
+                <input type="checkbox" name="status" class="toggle toggle-primary" {{ $karyawan->status == "Aktif" ? "checked" : "" }}/>
             </div>
         </div>
         <button class="btn btn-primary">Simpan</button>

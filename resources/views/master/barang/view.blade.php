@@ -1,10 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="flex items-center justify-between mb-5">
-    <h1 class="text-3xl font-bold">Data Barang</h1>
-    <button class="btn btn-secondary">Import Excel</button>
-</div>
+<h1 class="text-3xl font-bold">Data Barang</h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url('barang/add')}}">Tambah</a>

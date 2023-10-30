@@ -41,8 +41,8 @@
                 </label>
                 <select class="select input input-bordered w-full" name="role" required>
                     <option value="" selected disabled>Pilih Role</option>
-                    <option value="0">Admin</option>
-                    <option value="1">Stakeholder</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Stakeholder">Stakeholder</option>
                 </select>
             </div>
         </div>

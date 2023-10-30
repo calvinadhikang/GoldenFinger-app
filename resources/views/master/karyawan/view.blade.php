@@ -25,27 +25,12 @@
                 </tr>
             @else
                 @foreach ($data as $item)
-                <?php
-                $role = "Admin";
-                if ($item->role == 1) {
-                    $role = "Stakeholder";
-                }
-
-                if ($item->status) {
-                    $statusColor = "badge-primary";
-                    $status = "Aktif";
-                }else{
-                    $statusColor = "badge-error";
-                    $status = "Non-Aktif";
-                }
-
-                ?>
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->nama }}</td>
                         <td>{{ $item->telp }}</td>
-                        <td>{{ $role }}</td>
-                        <td><span class="badge {{ $statusColor }}">{{ $status }}</span></td>
+                        <td>{{ $item->role }}</td>
+                        <td><span class="badge font-semibold {{ $item->status == "Aktif" ? "badge-primary" : "badge-error" }}">{{ $item->status }}</span></td>
                         <td>
                             <a href="{{ url("karyawan/detail/$item->id") }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>

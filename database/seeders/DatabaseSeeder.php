@@ -38,8 +38,8 @@ class DatabaseSeeder extends Seeder
             'username' => 'calvin',
             'password' => 'calvin',
             'telp' => '082257324548',
-            'role' => 0,
-            'status' => '1',
+            'role' => "Admin",
+            'status' => 'Aktif',
         ]);
     }
 

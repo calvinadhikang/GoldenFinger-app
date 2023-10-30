@@ -31,6 +31,7 @@ Route::prefix('/cost')->group(function () {
     Route::get('/monthly', [OperationalCostController::class, 'getMonthlyCost']);
 });
 Route::prefix('/invoice')->group(function () {
+    Route::get('/sold/items', [InvoiceController::class, 'getTotalPartSoldThisYear']);
     Route::get('/paid/monthly', [InvoiceController::class, 'getPaidInvoiceThisMonth']);
 });
 Route::prefix('/po')->group(function () {
