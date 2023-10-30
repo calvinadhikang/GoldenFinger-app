@@ -6,7 +6,7 @@
         <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
             <div class="stat shadow bg-accents">
                 <div class="stat-title">Pendapatan Bulan Ini</div>
-                <div class="stat-value">Rp 89,400</div>
+                <div class="stat-value" id="invoice"></div>
                 <div class="stat-desc"></div>
             </div>
         </a>
@@ -19,14 +19,14 @@
         </a>
         <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
             <div class="stat">
-                <div class="stat-title">Total PO Jatuh Tempo</div>
+                <div class="stat-title">Total PO Belum Lunas</div>
                 <div class="stat-value" id="po-due">0</div>
                 <div class="stat-desc" id="po-total"></div>
             </div>
         </a>
         <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/cost') }}">
             <div class="stat">
-                <div class="stat-title">Pengeluaran Bulan Ini</div>
+                <div class="stat-title">Biaya Operasional Bulan Ini</div>
                 <div class="stat-value" id="cost">0</div>
                 <div class="stat-desc"></div>
             </div>
@@ -62,8 +62,17 @@
         $('#po-total').html(`Total Hutang: Rp ${data.total.toLocaleString()}`)
     }
 
+    const getPaidInvoiceThisMonth = async() => {
+        const response = await fetch(baseURL + '/invoice/paid/monthly')
+        const data = await response.json();
+
+        console.log(data);
+        $('#invoice').html(`Rp ${data.total.toLocaleString()}`);
+    }
+
     getCost()
     getMinimumBarang()
     getPOJatuhTempo()
+    getPaidInvoiceThisMonth()
 </script>
 @endsection

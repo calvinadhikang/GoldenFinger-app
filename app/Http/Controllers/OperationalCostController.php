@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HeaderPurchase;
 use App\Models\OperationalCost;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

@@ -81,8 +81,8 @@ class PurchaseController extends Controller
             $PO->vendor = null;
             $PO->grandTotal = null;
         }
-        $oldPO->PPN = DB::table('settings')->select('ppn')->first()->ppn;
-        $oldPO->PPN_value = 0;
+        $PO->PPN = DB::table('settings')->select('ppn')->first()->ppn;
+        $PO->PPN_value = 0;
         $PO->list = $list;
 
         Session::put('po_cart', $PO);
@@ -286,9 +286,10 @@ class PurchaseController extends Controller
     }
 
     public function countDue(Request $request){
-        $dayBeforeDue = $request->query('day');
-        $oneDayBeforeToday = Carbon::now()->subDay();
-        $data = HeaderPurchase::whereDate('jatuh_tempo', '>=', $oneDayBeforeToday->toDateString())->get();
+        // $dayBeforeDue = $request->query('day');
+        // $oneDayBeforeToday = Carbon::now()->subDays(7);
+        // $data = HeaderPurchase::whereDate('jatuh_tempo', '<=', $oneDayBeforeToday->toDateString())->get();
+        $data = HeaderPurchase::where('status_pembayaran', 0)->get();
         $count = $data->count();
 
         $total = 0;

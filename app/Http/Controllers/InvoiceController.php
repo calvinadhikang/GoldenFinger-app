@@ -111,6 +111,22 @@ class InvoiceController extends Controller
         }
 
         $invoice = Session::get('invoice_cart');
+
+        //cek limit customer
+        $limit = Customer::find($invoice->customer->id)->limit;
+        $hutangCustomer = HeaderInvoice::where('customer_id', $invoice->customer->id)->where('status', 0)->get();
+        $totalHutang = 0;
+        foreach ($hutangCustomer as $key => $hutang) {
+            $totalHutang += $hutang->grand_total;
+        }
+
+        if ($totalHutang > $limit) {
+            return redirect()->back()->withErrors([
+                'limit' => "Customer ".$invoice->customer->nama." belum melunasi Transaksi sebelumnya dan sudah melebihi limit Rp ".number_format($invoice->customer->limit),
+            ]);
+        }
+
+
         $invoice->list = $list;
         $invoice->total = $total;
         $invoice->PPN_value = ($total / 100) * $invoice->PPN;
@@ -238,5 +254,19 @@ class InvoiceController extends Controller
 
         toast('Berhasil Menambah Customer', 'success');
         return redirect()->back();
+    }
+
+    public function getPaidInvoiceThisMonth(){
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+
+        $data = HeaderInvoice::whereMonth('created_at', '=', $currentMonth)->whereYear('created_at', '=', $currentYear)->where('status', 1)->get();
+        $total = 0;
+        foreach ($data as $invoice) {
+            $total += $invoice->grand_total;
+        }
+        return response()->json([
+            'total' => $total
+        ], 200);
     }
 }

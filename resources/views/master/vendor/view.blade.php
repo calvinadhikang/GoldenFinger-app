@@ -7,7 +7,7 @@
         <a class="btn btn-primary" href="{{url('vendors/add')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
-        <table id="table">
+        <table id="table" class="table-zebra">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">ID</h3></th>

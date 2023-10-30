@@ -7,7 +7,7 @@
         <a class="btn btn-primary" href="{{url('invoice/customer')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
-        <table id="table">
+        <table id="table" class="table-zebra">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Kode</h3></th>
@@ -30,7 +30,7 @@
                         <th>{{ $item->kode }}</th>
                         <td>{{ $item->customer->nama }}</td>
                         <td>Rp {{ number_format($item->total) }}</td>
-                        <td>{{ $item->created_at }}</td>
+                        <td>{{ date_format($item->created_at, 'd M Y') }}</td>
                         <td>
                             @if ($item->status == 0)
                             <span class="badge badge-error">
