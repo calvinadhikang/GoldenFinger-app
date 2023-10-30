@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-3xl font-bold mb-5">Buat Invoice</h1>
+<h1 class="text-2xl font-bold mb-5">Buat Invoice</h1>
 <div class="mt-5 flex justify-center my-10">
     <ul class="steps w-full">
         <li class="step step-primary font-medium">Pilih Customer</li>

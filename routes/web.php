@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\OperationalCostController;
@@ -142,6 +143,10 @@ Route::prefix('po')->group(function () {
 
 Route::prefix('/settings')->group(function (){
     Route::get('/', [SettingsController::class, 'settingsView']);
+});
+
+Route::prefix('laporan')->group(function (){
+    Route::get('/stok', [LaporanController::class, 'stokView'])->name('laporan.stok');
 });
 
 Route::prefix('template')->group(function (){

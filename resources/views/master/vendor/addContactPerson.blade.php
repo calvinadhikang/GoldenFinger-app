@@ -1,10 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="prose">
-    <h1 class="text-white">Tambah Contact Person Vendor</h1>
-</div>
-
+<h1 class="text-white text-2xl font-bold">Tambah Contact Person Vendor</h1>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf

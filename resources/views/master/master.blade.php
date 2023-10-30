@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-    <h1 class="text-xl font-medium">Dashboard</h1>
+    <h1 class="text-2xl font-medium">Dashboard</h1>
     <div class="flex flex-wrap justify-start mt-5 gap-5 mb-10">
         <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
             <div class="stat shadow bg-accents">
@@ -33,8 +33,8 @@
         </a>
     </div>
 
-    <h1 class="text-xl font-medium mb-5">Total Penjualan Barang Tahun Ini</h1>
-    <div class="p-4 bg-accent w-full rounded text-base-100">
+    <h1 class="text-2xl font-medium mb-5">Total Penjualan Barang Tahun Ini</h1>
+    <div class="p-4 bg-white bg-opacity-80 rounded">
         <canvas id="chart-penjualan"></canvas>
     </div>
 

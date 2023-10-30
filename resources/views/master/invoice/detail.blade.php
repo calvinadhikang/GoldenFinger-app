@@ -1,10 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="prose mb-5">
-    <h1 class="text-white">Detail Invoice</h1>
-</div>
-
+<h1 class="text-white text-2xl font-bold">Detail Invoice</h1>
 <p class="text-xl font-semibold">Status Pembayaran</p>
 <div class="p-4 rounded bg-accent">
     @if ($invoice->status == 0)

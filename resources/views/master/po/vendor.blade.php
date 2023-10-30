@@ -1,9 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="prose">
-    <h1 class="text-white">Buat Purchase Order</h1>
-</div>
+<h1 class="text-white text-2xl font-bold mb-5">Buat Purchase Order</h1>
 <ul class="mt-5 steps w-full">
     <li class="step step-primary"><a href="/po/barang" class="hover:underline">Pilih Barang</a></li>
     <li class="step step-primary text-primary font-medium">Pilih Vendor</li>

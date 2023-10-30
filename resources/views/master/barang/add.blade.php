@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-3xl font-bold">Tambah Barang</h1>
+<h1 class="text-2xl font-bold">Tambah Barang</h1>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf

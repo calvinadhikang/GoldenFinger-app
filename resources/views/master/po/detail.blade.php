@@ -1,10 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="prose mb-5">
-    <h1 class="text-white">Detail Purhcase Orders</h1>
-</div>
-
+<h1 class="text-white text-2xl font-bold mb-5">Detail Purhcase Orders</h1>
 <div class="grid grid-cols-2 gap-x-10">
     <div class="">
         <p class="text-xl font-semibold mb-5">Status Pesanan</p>

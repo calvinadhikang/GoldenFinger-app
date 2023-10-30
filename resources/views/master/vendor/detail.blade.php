@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="text-3xl font-bold">Detail Vendor</div>
+<div class="text-2xl font-bold">Detail Vendor</div>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf

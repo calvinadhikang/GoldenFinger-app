@@ -1,9 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<div class="prose">
-    <h1>Tambah Barang di Supply Vendor</h1>
-</div>
+<h1 class="text-2xl font-bold">Tambah Barang di Supply Vendor</h1>
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
         <li class="step step-primary">Pilih Barang</li>

@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-3xl font-bold mb-5">Data Vendor</h1>
+<h1 class="text-2xl font-bold mb-5">Data Vendor</h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url('vendors/add')}}">Tambah</a>

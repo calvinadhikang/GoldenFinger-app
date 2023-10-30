@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-3xl font-bold mb-5">Data Purchase Order</h1>
+<h1 class="text-2xl font-bold mb-5">Data Purchase Order</h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full">
         <a class="btn btn-primary" href="{{url('po/barang')}}">Tambah</a>

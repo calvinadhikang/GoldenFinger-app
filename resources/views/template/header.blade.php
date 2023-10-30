@@ -96,7 +96,7 @@
                     <details>
                         <summary class="font-semibold text-lg">Laporan</summary>
                         <ul class="ms-4">
-                            <li><a>Lap. Stok</a></li>
+                            <li><a href="{{ route('laporan.stok') }}">Lap. Stok</a></li>
                             <li><a>Lap. Penjualan</a></li>
                             <li><a>Lap. Pendapatan</a></li>
                         </ul>
