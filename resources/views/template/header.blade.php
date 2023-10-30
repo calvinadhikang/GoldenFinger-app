@@ -39,9 +39,8 @@
                         Dashboard
                     </div>
                 </a></li>
-                <div class="prose mt-4">
-                    <h3>Master</h3>
-                </div>
+
+                <h3 class="text-lg font-semibold mt-4">Master</h3>
                 <li><a href="{{ url('/barang') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-box-open me-2 w-6"></i>
@@ -73,9 +72,7 @@
                     </div>
                 </a></li>
 
-                <div class="prose mt-4">
-                    <h3>Operasional</h3>
-                </div>
+                <h3 class="text-lg font-semibold mt-4">Operasional</h3>
                 <li><a href="{{ url('/invoice') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-dollar-sign me-2 w-6"></i>
@@ -97,7 +94,7 @@
 
                 <li class="mt-4 -ms-4">
                     <details>
-                        <summary class="font-medium text-xl">Laporan</summary>
+                        <summary class="font-semibold text-lg">Laporan</summary>
                         <ul class="ms-4">
                             <li><a>Lap. Stok</a></li>
                             <li><a>Lap. Penjualan</a></li>
@@ -106,7 +103,7 @@
                     </details>
                 </li>
 
-                <h3 class="mt-4 text-xl font-medium">Lainnya</h3>
+                <h3 class="mt-4 text-lg font-semibold">Lainnya</h3>
                 <li><a href="{{ url('/settings') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-gear me-2 w-6"></i>
