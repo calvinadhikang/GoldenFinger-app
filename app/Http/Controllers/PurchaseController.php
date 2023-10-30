@@ -184,9 +184,9 @@ class PurchaseController extends Controller
     public function purchaseConfirmationAction(Request $request){
         $po = Session::get('po_cart');
         $user = Session::get('user');
-        $jatuhTempo = $request->input('jatuhTempo');
+        $jatuhTempo = Carbon::parse($request->input('jatuhTempo'));
 
-        if (Carbon::createFromFormat('Y-m-d', $jatuhTempo)->isPast()) {
+        if ($jatuhTempo->isPast()) {
             toast('Tanggal Jatuh Tempo minimal hari ini', 'error');
             return redirect()->back();
         }

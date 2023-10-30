@@ -7,14 +7,14 @@
             <div class="stat shadow bg-accents">
                 <div class="stat-title">Pendapatan Bulan Ini</div>
                 <div class="stat-value" id="invoice"></div>
-                <div class="stat-desc"></div>
+                <div class="stat-desc">Jumlah Invoice yang sudah lunas</div>
             </div>
         </a>
         <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/barang') }}">
             <div class="stat">
                 <div class="stat-title">Total Barang Stok Minim</div>
                 <div class="stat-value text-error" id="minimum">0</div>
-                <div class="stat-desc"></div>
+                <div class="stat-desc">Jumlah Barang dengan stok minim</div>
             </div>
         </a>
         <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">

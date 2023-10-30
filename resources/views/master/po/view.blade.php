@@ -40,8 +40,9 @@
                                 $text_pembayaran = "Selesai";
                             }
                         ?>
+
                         <tr>
-                            <td>{{ $item->kode }}</td>
+                            <th>{{ $item->kode }}</th>
                             <td>{{ $item->vendor->nama }}</td>
                             <td>{{ $item->vendor->telp }}</td>
                             <td>Rp {{ format_decimal($item->grand_total) }}</td>
