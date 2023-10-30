@@ -57,6 +57,7 @@ class CustomerController extends Controller
         $customer->alamat = $request->input('alamat');
         $customer->nama = $request->input('nama');
         $customer->telp = $request->input('telp');
+        $customer->limit = Util::parseNumericValue($request->input('limit'));
         $customer->save();
 
         toast("Berhasil Update Customer", "success");
