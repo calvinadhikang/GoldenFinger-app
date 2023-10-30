@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('telp');
             $table->string('email');
+            $table->decimal('limit', 20, 2);
             $table->timestamps();
             $table->softDeletes();
         });

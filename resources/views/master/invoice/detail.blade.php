@@ -22,9 +22,14 @@
     @endif
 
     @if ($invoice->status == 0)
-        <h3 class="text-xl font-semibold mt-5">Pesanan Sudah Lunas ?</h3>
-        <p>Klik tombol dibawah bila pesanan sudah <span class="text-secondary text-xl font-semibold">Lunas</span></p>
-        <button class="btn btn-primary mt-2" onclick="modal_pembayaran.showModal()">Pesanan, Sudah Lunas !</button>
+        <div class="divider"></div>
+        <div class="grid grid-cols-2">
+            <div class="">
+                <h3 class="text-xl font-semibold">Pesanan Sudah Lunas ?</h3>
+                <p>Klik tombol dibawah bila pesanan sudah <span class="text-secondary text-xl font-semibold">Lunas</span></p>
+            </div>
+            <button class="btn btn-primary mt-2" onclick="modal_pembayaran.showModal()">Pesanan, Sudah Lunas !</button>
+        </div>
     @endif
 </div>
 
@@ -93,33 +98,42 @@
     <div class="text-right w-full mt-10">Total Pesanan : <span class="">Rp {{ number_format($invoice->total) }}</span></div>
 </div>
 
-@if ($invoice->komisi > 0)
-<h3 class="text-xl font-semibold">Komisi</h3>
-<div class="rounded bg-accent p-4 my-5">
-    <div class="flex gap-4">
-        <div class="">
-            <p>Penerima Komisi </p>
-            <p class="font-semibold">{{ $invoice->contact_person }}</p>
-        </div>
-        <div class="">
-            <p>Jumlah Komisi </p>
-            <p class="font-semibold">Rp {{ number_format($invoice->komisi) }}</p>
-        </div>
-    </div>
-</div>
-@endif
-
 <h3 class="text-xl font-semibold">Pendapatan</h3>
 <div class="rounded bg-accent p-4 my-5">
-    <div class="grid grid-cols-2 gap-y-5">
+    <div class="grid grid-cols-2 gap-y-2">
         <div class="">Total Harga</div>
         <div class="text-right">Rp {{ number_format($invoice->total) }}</div>
         <div class="">PPN ({{ $invoice->ppn }}%)</div>
-        <div class="text-right">Rp {{ number_format($invoice->grand_total - $invoice->total) }}</div>
+        <div class="text-right">Rp {{ number_format($invoice->ppn_value) }}</div>
         <div class="text-xl font-semibold">Grand Total</div>
         <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($invoice->grand_total) }}</div>
     </div>
 </div>
+
+@if ($invoice->komisi > 0)
+<h3 class="text-xl font-semibold">Komisi</h3>
+<div class="rounded bg-accent p-4 my-5">
+    <div class="grid grid-cols-2 gap-4">
+        <div class="">
+            <p>Penerima Komisi </p>
+            <p class="text-lg font-semibold">{{ $invoice->contact_person }}</p>
+        </div>
+        <div class="">
+            <p>Jumlah Komisi </p>
+            <p class="text-lg font-semibold">Rp {{ number_format($invoice->komisi) }}</p>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="mt-5 grid grid-cols-2">
+        <div class="">Grand Total</div>
+        <div class="text-right">Rp {{ number_format($invoice->grand_total) }}</div>
+        <div class="">Komisi</div>
+        <div class="text-right">- Rp {{ number_format($invoice->komisi) }}</div>
+        <div class="text-xl font-semibold">Total Pendapatan - Komisi</div>
+        <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($invoice->grand_total - $invoice->komisi) }}</div>
+    </div>
+</div>
+@endif
 
 <h3 class="text-xl font-semibold">Dokumen</h3>
 <div class="rounded bg-accent p-4 my-5">

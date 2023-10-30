@@ -99,8 +99,8 @@ Route::prefix('invoice')->group(function () {
     Route::get('/detail/{id}', [InvoiceController::class, 'invoiceDetailView']);
     Route::post('/detail/{id}', [InvoiceController::class, 'createDocument']);
 
-    Route::get('/add', [InvoiceController::class, 'invoiceAddView']);
-    Route::post('/add', [InvoiceController::class, 'invoiceAddAction']);
+    Route::get('/barang', [InvoiceController::class, 'invoiceBarangView']);
+    Route::post('/barang', [InvoiceController::class, 'invoiceBarangAction']);
 
     Route::get('/customer', [InvoiceController::class, 'invoiceCustomerView']);
     Route::post('/customer', [InvoiceController::class, 'invoiceCustomerAction']);
@@ -109,6 +109,7 @@ Route::prefix('invoice')->group(function () {
 
     Route::get('/confirmation', [InvoiceController::class, 'invoiceConfirmationView']);
     Route::post('/confirmation', [InvoiceController::class, 'invoiceConfirmationAction']);
+    Route::post('/confirmation/ppn', [InvoiceController::class,'invoiceConfirmationPPN']);
 
     Route::get('/created', [InvoiceController::class, 'invoiceCreatedView']);
     Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);

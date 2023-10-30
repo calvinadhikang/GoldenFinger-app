@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('hinvoice_id');
             $table->string('part');
             $table->string('nama');
-            $table->decimal('harga', 10, 2);
-            $table->decimal('subtotal', 10, 2);
+            $table->decimal('harga', 20, 2);
+            $table->decimal('subtotal', 20, 2);
             $table->bigInteger('qty');
             $table->timestamps();
 

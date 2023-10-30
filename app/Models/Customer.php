@@ -12,6 +12,15 @@ class Customer extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['nama', 'alamat', 'telp', 'email'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->limit = $model->limit ?? 50000000;
+        });
+    }
+
     public function invoice()
     {
         return $this->hasMany(

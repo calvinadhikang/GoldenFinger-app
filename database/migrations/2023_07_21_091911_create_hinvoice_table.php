@@ -18,9 +18,9 @@ return new class extends Migration
             $table->text('kode');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('karyawan_id');
-            $table->decimal('total', 10, 2);
-            $table->decimal('grand_total', 10, 2);
-            $table->decimal('ppn_value', 10, 2);
+            $table->decimal('total', 20, 2);
+            $table->decimal('grand_total', 20, 2);
+            $table->decimal('ppn_value', 20, 2);
             $table->bigInteger('ppn');
             $table->integer('status');
             $table->timestamp('jatuh_tempo');

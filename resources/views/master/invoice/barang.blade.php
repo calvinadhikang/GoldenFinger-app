@@ -4,8 +4,8 @@
 <h1 class="text-3xl font-bold mb-5">Buat Invoice</h1>
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
-        <li class="step step-primary"><a href="{{ url('/invoice/add') }}">Pilih Barang</a></li>
-        <li class="step">Pilih Customer</li>
+        <li class="step step-primary hover:underline"><a href="{{ url('/invoice/customer') }}">Pilih Customer</a></li>
+        <li class="step step-primary font-medium">Pilih Barang</li>
         <li class="step">Konfirmasi</li>
     </ul>
 </div>
@@ -44,7 +44,7 @@
             @endforeach
             </tbody>
         </table>
-        <button class="btn btn-secondary">Selanjutnya</button>
+        <button class="btn btn-primary">Selanjutnya</button>
     </form>
 </div>
 

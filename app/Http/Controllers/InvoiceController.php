@@ -24,7 +24,47 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function invoiceAddView(){
+    public function invoiceCustomerView(){
+        $invoice = Session::get('invoice_cart');
+
+        if ($invoice == null) {
+            $invoice = new stdClass();
+            $invoice->customer = null;
+            $invoice->list = [];
+            $invoice->PPN = DB::table('settings')->select('ppn')->first()->ppn;
+            $invoice->PPN_value = null;
+            $invoice->total = null;
+            $invoice->grandTotal = null;
+
+            Session::put('invoice_cart', $invoice);
+        }
+
+        return view('master.invoice.customer', [
+            'customer' => $invoice->customer,
+            'customers' => Customer::all()
+        ]);
+    }
+
+    public function invoiceCustomerAction(Request $request){
+        $customer = Customer::find($request->input('id'));
+        $invoice = Session::get('invoice_cart');
+
+        $invoice->customer = $customer;
+
+        toast('Berhasil memilih customer', 'success');
+        return redirect()->back();
+    }
+
+    public function invoiceCustomerUnsetAction(Request $request){
+        $invoice = Session::get('invoice_cart');
+        $invoice->customer = null;
+        Session::put('invoice_cart', $invoice);
+
+        toast('Berhasil melepas customer', 'success');
+        return redirect()->back();
+    }
+
+    public function invoiceBarangView(){
         $barang = Barang::all();
         $invoice = Session::get('invoice_cart');
 
@@ -44,17 +84,17 @@ class InvoiceController extends Controller
             }
         }
 
-        return view('master.invoice.add', [
+        return view('master.invoice.barang', [
             'barang' => $barang
         ]);
     }
 
-    public function invoiceAddAction(Request $request){
+    public function invoiceBarangAction(Request $request){
         $qty = $request->input('qty');
         $harga = $request->input('harga');
         $part = $request->input('part');
 
-        $grandTotal = 0;
+        $total = 0;
         $list = [];
         for ($i=0; $i < count($qty); $i++) {
             if ($qty[$i] > 0) {
@@ -66,53 +106,18 @@ class InvoiceController extends Controller
                 $obj->subtotal = $subtotal;
 
                 $list[] = $obj;
-                $grandTotal += $subtotal;
+                $total += $subtotal;
             }
         }
 
-
-        $oldInvoice = Session::get('invoice_cart');
-        // Object Creation for Invoice
-        $invoice = new stdClass();
-        if ($oldInvoice != null) {
-            $invoice->customer = $oldInvoice->customer;
-        }else{
-            $invoice->customer = null;
-        }
-        $invoice->grandTotal = $grandTotal;
+        $invoice = Session::get('invoice_cart');
         $invoice->list = $list;
+        $invoice->total = $total;
+        $invoice->PPN_value = ($total / 100) * $invoice->PPN;
+        $invoice->grandTotal = $total + $invoice->PPN_value;
 
         Session::put('invoice_cart', $invoice);
-        return redirect('/invoice/customer');
-    }
-
-    public function invoiceCustomerView(){
-        $invoice = Session::get('invoice_cart');
-        return view('master.invoice.customer', [
-            'barang' => $invoice->list,
-            'customer' => $invoice->customer,
-            'grandTotal' => $invoice->grandTotal,
-        ]);
-    }
-
-    public function invoiceCustomerAction(Request $request){
-        $customer = Customer::find($request->input('customer'));
-        $invoice = Session::get('invoice_cart');
-
-        $invoice->customer = $customer;
-
-        toast('Berhasil memilih customer', 'success');
-        return redirect()->back();
-        // return redirect('/invoice/confirmation');
-    }
-
-    public function invoiceCustomerUnsetAction(Request $request){
-        $invoice = Session::get('invoice_cart');
-        $invoice->customer = null;
-        Session::put('invoice_cart', $invoice);
-
-        toast('Berhasil melepas customer', 'success');
-        return redirect()->back();
+        return redirect('/invoice/confirmation');
     }
 
     public function invoiceConfirmationView(){
@@ -121,6 +126,19 @@ class InvoiceController extends Controller
         return view('master.invoice.confirmation', [
             'invoice' => $invoice
         ]);
+    }
+
+    public function invoiceConfirmationPPN(Request $request){
+        $invoice = Session::get('invoice_cart');
+        $new_ppn = $request->input('ppn');
+
+        $invoice->PPN = $new_ppn;
+        $invoice->PPN_value = ($invoice->total / 100) * $invoice->PPN;
+        $invoice->grandTotal = $invoice->total + $invoice->PPN_value;
+        Session::put('invoice_cart', $invoice);
+
+        toast('Berhasil merubah PPN', 'success');
+        return redirect()->back();
     }
 
     public function invoiceConfirmationAction(Request $request){
@@ -132,7 +150,7 @@ class InvoiceController extends Controller
 
         $komisiStatus = $request->input('komisi');
         if ($komisiStatus) {
-            $komisiJumlah = $request->input('komisiJumlah');
+            $komisiJumlah = Util::parseNumericValue($request->input('komisiJumlah'));
             $komisiPenerima = $request->input('komisiPenerima');
         }
 
@@ -145,12 +163,13 @@ class InvoiceController extends Controller
                 'customer_id' => $invoice->customer->id,
                 'karyawan_id' => $karyawan->id,
                 'kode' => $kode,
-                'total' => $invoice->grandTotal,
+                'total' => $invoice->total,
                 'status' => 0,
                 'contact_person' => $komisiPenerima,
                 'komisi' => $komisiJumlah,
-                'ppn' => 10,
-                'grand_total' => $invoice->grandTotal += $invoice->grandTotal * 0.10,
+                'ppn' => $invoice->PPN,
+                'ppn_value' => $invoice->PPN_value,
+                'grand_total' => $invoice->grandTotal,
                 'jatuh_tempo' => $jatuhTempo,
                 'created_at' => $currentDateTime
             ]);

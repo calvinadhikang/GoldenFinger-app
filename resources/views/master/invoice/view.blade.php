@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-bold mb-5">Data Invoice</h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
-        <a class="btn btn-primary" href="{{url('invoice/add')}}">Tambah</a>
+        <a class="btn btn-primary" href="{{url('invoice/customer')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
         <table id="table">
