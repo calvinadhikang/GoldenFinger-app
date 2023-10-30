@@ -16,7 +16,7 @@
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
-        <table class="table" id="table">
+        <table class="table-zebra" id="table">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Part Number</h3></th>
@@ -44,12 +44,12 @@
             @endforeach
             </tbody>
         </table>
-        @error('limit')
+        @if ($hutang > 0)
         <div class="alert alert-error my-5">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span>{{ $message }}. <br><span class="italic font-semibold">Silahkan minta Customer melunasi / kurangi jumlah pembelian</span></span>
+            <span>Hutang customer sebesar Rp {{ number_format($hutang) }} Belum dibayar !<br><span class="italic font-semibold">Jangan lupa untuk ingatkan pelunasan.</span></span>
         </div>
-        @enderror
+        @endif
         <button class="btn btn-primary">Selanjutnya</button>
     </form>
 </div>

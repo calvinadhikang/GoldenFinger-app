@@ -69,6 +69,13 @@ class InvoiceController extends Controller
         $barang = Barang::all();
         $invoice = Session::get('invoice_cart');
 
+        //Hitung hutang Customer
+        $hutangCustomer = HeaderInvoice::where('customer_id', $invoice->customer->id)->where('status', 0)->get();
+        $totalHutang = 0;
+        foreach ($hutangCustomer as $key => $hutang) {
+            $totalHutang += $hutang->grand_total;
+        }
+
         foreach ($barang as $keyBarang => $valueBarang) {
             $found = -1;
             if ($invoice != null) {
@@ -86,7 +93,8 @@ class InvoiceController extends Controller
         }
 
         return view('master.invoice.barang', [
-            'barang' => $barang
+            'barang' => $barang,
+            'hutang' => $totalHutang
         ]);
     }
 
@@ -112,21 +120,6 @@ class InvoiceController extends Controller
         }
 
         $invoice = Session::get('invoice_cart');
-
-        //cek limit customer
-        $limit = Customer::find($invoice->customer->id)->limit;
-        $hutangCustomer = HeaderInvoice::where('customer_id', $invoice->customer->id)->where('status', 0)->get();
-        $totalHutang = 0;
-        foreach ($hutangCustomer as $key => $hutang) {
-            $totalHutang += $hutang->grand_total;
-        }
-
-        if ($totalHutang > $limit) {
-            return redirect()->back()->withErrors([
-                'limit' => "Customer ".$invoice->customer->nama." belum melunasi Transaksi sebelumnya dan sudah melebihi limit Rp ".number_format($invoice->customer->limit),
-            ]);
-        }
-
 
         $invoice->list = $list;
         $invoice->total = $total;

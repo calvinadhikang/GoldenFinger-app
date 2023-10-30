@@ -34,7 +34,7 @@
     </div>
 
     <h1 class="text-xl font-medium mb-5">Total Penjualan Barang Tahun Ini</h1>
-    <div class="p-4 bg-white rounded text-base-100 bg-opacity-80">
+    <div class="p-4 bg-accent w-full rounded text-base-100">
         <canvas id="chart-penjualan"></canvas>
     </div>
 
