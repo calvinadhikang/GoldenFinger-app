@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InvoiceExport;
 use App\Models\Barang;
 use App\Models\Customer;
 use App\Models\DetailInvoice;
@@ -13,6 +14,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 use stdClass;
 
 
@@ -180,6 +182,7 @@ class InvoiceController extends Controller
                 'ppn' => $invoice->PPN,
                 'ppn_value' => $invoice->PPN_value,
                 'grand_total' => $invoice->grandTotal,
+                'po' => $request->input('po'),
                 'jatuh_tempo' => $jatuhTempo,
                 'created_at' => $currentDateTime
             ]);
@@ -214,15 +217,6 @@ class InvoiceController extends Controller
             'invoice' => $invoice,
             'daysLeft' => Util::getDiffDays($invoice->jatuh_tempo)
         ]);
-    }
-
-    public function createDocument(Request $request){
-        if ($request->input('type') == 'invoice') {
-            $pdf = Pdf::loadView('template.dokumen.tanda_terima');
-
-            return $pdf->download('document.pdf');
-        }
-        return redirect()->back();
     }
 
     public function invoiceFinish(Request $request){
@@ -312,5 +306,10 @@ class InvoiceController extends Controller
             'qty' => $qty,
             'data' => $sumOfQty
         ], 200);
+    }
+
+    public function invoiceCreateSuratJalan($id){
+        $invoice = HeaderInvoice::find($id);
+        return Excel::download(new InvoiceExport($invoice), "surat_jalan.xlsx");
     }
 }

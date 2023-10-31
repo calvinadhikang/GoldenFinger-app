@@ -66,7 +66,7 @@
                 <td>{{ $item->part }}</td>
                 <td>{{ $item->nama }}</td>
                 <td>Rp {{ format_decimal($item->harga) }}</td>
-                <td>{{ format_decimal($item->qty) }}</td>
+                <td>{{ number_format($item->qty) }}</td>
                 <td>Rp {{ format_decimal($item->subtotal) }}</td>
             </tr>
         @endforeach
@@ -108,34 +108,38 @@
 
 <form method="POST">
     @csrf
-    <div class="flex gap-10 items-center mb-5 h-10">
-        <span class="text-xl font-semibold">Dapat Komisi ? </span>
-        <input type="checkbox" name="komisi" class="toggle" id="komisiCheck" checked>
-    </div>
-    <div class="rounded bg-accent p-4 mb-5">
-        <div class="flex mb-2">
-            <div id="komisiStatus" class="text-2xl font-bold text-secondary w-full">Dapat Komisi</div>
+    <div class="flex gap-10 items-center justify-between mb-5 h-10">
+        <div class="flex items-center gap-5">
+            <span class="text-xl font-semibold">Dapat Komisi ? </span>
+            <input type="checkbox" name="komisi" class="toggle" id="komisiCheck" checked>
         </div>
-
-        <div class="flex space-x-4" id="komisi-input">
+        <div class="">
+            <div id="komisiStatus" class="text-xl font-semibold text-secondary w-full">Dapat Komisi</div>
+        </div>
+    </div>
+    <div class="rounded bg-accent mb-5">
+        <div class="flex space-x-4 p-4" id="komisi-input">
             <div class="w-full">
                 <p class="font-semibold">Jumlah Komisi</p>
-                <div class="mt-2">
-                    <input type="text" class="input input-secondary w-full harga" name="komisiJumlah" value="0" id="komisi">
-                </div>
+                <input type="text" class="input input-secondary w-full harga" name="komisiJumlah" value="0" id="komisi">
             </div>
             <div class="w-full">
                 <p class="font-semibold">Nama Penerima Komisi</p>
-                <div class="mt-2">
-                    <input type="text" class="input input-secondary w-full" name="komisiPenerima">
-                </div>
+                <input type="text" class="input input-secondary w-full" name="komisiPenerima">
             </div>
         </div>
+    </div>
+
+    <p class="text-xl font-semibold mb-5">Nomor PO</p>
+    <div class="rounded bg-accent p-4 mb-5">
+        <p class="font-semibold">Masukan nomor PO</p>
+        <input type="text" class="input input-primary w-full" name="po" required>
+        <p class="text-gray-400 text-xs mt-1">isi dengan ' - ' kalau tidak ada nomor PO</p>
     </div>
 
     <p class="text-xl font-semibold mb-5">Jatuh Tempo</p>
     <div class="rounded bg-accent p-4 mb-5">
-        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="jatuhTempo">
+        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="jatuhTempo" required>
     </div>
 
     <button class="btn btn-primary w-full mb-10 shadow-lg">Buat Pesanan !</button>

@@ -38,19 +38,17 @@
         <button class="btn btn-primary">Simpan</button>
     </form>
 </div>
-<div class="prose mt-10">
-    <h2 class="text-white">Detail Transaksi</h2>
-</div>
+<h2 class="text-xl font-semibold">Detail Transaksi</h2>
 <div class="flex w-full mt-5">
     <div class="stat bg-accent w-auto me-4 rounded">
-        <div class="stat-title text-white">Jumlah Transaksi</div>
+        <div class="stat-title">Jumlah Transaksi</div>
         <div class="stat-value text-primary">{{ count($customer->invoice) }}</div>
-        <div class="stat-desc"></div>
+        <div class="stat-desc">Jumlah Hutang : <span class="text-lg">{{ $countHutang }}</span></div>
     </div>
     <div class="stat bg-accent w-auto me-4 rounded">
-        <div class="stat-title text-white">Total Transaksi</div>
+        <div class="stat-title">Total Transaksi</div>
         <div class="stat-value">Rp <span class="text-primary">{{ format_decimal($grandTotal) }}</span></div>
-        <div class="stat-desc"></div>
+        <div class="stat-desc">Total Hutang Rp {{ format_decimal($hutang) }}</div>
     </div>
 </div>
 <div class="rounded bg-accent p-4 my-5">
@@ -72,19 +70,11 @@
                     </tr>
                 @else
                     @foreach ($customer->invoice as $item)
-                    <?php
-                    $statusClass = "badge-error";
-                    $statusText = "Belum Bayar";
-                    if ($item->status == 1) {
-                        $statusClass = "badge-primary";
-                        $statusText = "Lunas";
-                    }
-                    ?>
                     <tr>
                         <td>{{ $item->kode }}</td>
                         <td>Rp {{ number_format($item->total) }}</td>
                         <td>{{ $item->created_at }}</td>
-                        <td><div class="badge {{ $statusClass }} rounded-md text-center font-medium">{{ $statusText }}</div></td>
+                        <td><div class="badge {{ $item->status == 1 ? 'badge-secondary' : 'badge-error' }}">{{ $item->status == 1 ? 'Lunas' : 'Belum Lunas' }}</div></td>
                         <td>
                             <a href="{{ url('/invoice/detail/'.$item->id) }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>

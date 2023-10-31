@@ -9,23 +9,20 @@
         <li class="step">Konfirmasi</li>
     </ul>
 </div>
-<div class="mb-5 mt-10">
-    <h2 class="text-primary font-bold text-3xl">Pilih Customer</h2>
-    <p>Silahkan pilih customer, anda dapat memilih dengan memasukan nama customer di kolom <b>cari nama customer</b><br><span class="text-primary">Tekan tombol kuning di sebelah kanan</span>, bila customer sudah sesuai</p>
-</div>
-
-@if ($customer != null)
-<div class="text-xl font-semibold">Konfirmasi Customer</div>
-@endif
 
 @if ($customer == null)
+@if (count($customers) > 0)
     <h1 class="text-xl font-medium">Pilih Customer</h1>
+
     <div class="rounded bg-accent p-4 my-5">
 
         <table id="table">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Nama Customer</h3></th>
+                    <th><h3 class="font-bold">Email</h3></th>
+                    <th><h3 class="font-bold">Alamat</h3></th>
+                    <th><h3 class="font-bold">Telp</h3></th>
                     <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
@@ -33,6 +30,9 @@
                 @foreach ($customers as $item)
                     <tr>
                         <td>{{ $item->nama }}</td>
+                        <td>{{ $item->email }}</td>
+                        <td>{{ $item->alamat }}</td>
+                        <td>{{ $item->telp }}</td>
                         <td>
                             <form method="POST" action="{{ url('/invoice/customer') }}">
                                 @csrf
@@ -46,6 +46,7 @@
     </div>
 
     <div class="divider">Atau</div>
+    @endif
 
     <h1 class="text-xl font-medium">Buat Customer Baru</h1>
     <div class="rounded bg-accent p-4 my-5">
@@ -81,10 +82,11 @@
                     <input type="text" placeholder="081..." class="input input-bordered w-full" name="telp" />
                 </div>
             </div>
-            <button class="btn btn-primary">Tambah</button>
+            <button class="btn btn-primary">Tambah Customer Baru</button>
         </form>
     </div>
 @else
+    <div class="text-xl font-semibold">Konfirmasi Customer</div>
     <div class="rounded bg-accent p-4 my-5">
         <div class="flex flex-wrap mb-5">
             <div class="form-control w-full md:w-1/2 md:pe-2">

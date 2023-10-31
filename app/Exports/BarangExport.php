@@ -6,8 +6,9 @@ use App\Models\Barang;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class BarangExport implements FromView
+class BarangExport implements FromView, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

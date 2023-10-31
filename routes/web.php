@@ -98,7 +98,6 @@ Route::prefix('karyawan')->group(function () {
 Route::prefix('invoice')->group(function () {
     Route::get('/', [InvoiceController::class, 'invoiceView']);
     Route::get('/detail/{id}', [InvoiceController::class, 'invoiceDetailView']);
-    Route::post('/detail/{id}', [InvoiceController::class, 'createDocument']);
 
     Route::get('/barang', [InvoiceController::class, 'invoiceBarangView']);
     Route::post('/barang', [InvoiceController::class, 'invoiceBarangAction']);
@@ -114,6 +113,9 @@ Route::prefix('invoice')->group(function () {
 
     Route::get('/created', [InvoiceController::class, 'invoiceCreatedView']);
     Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);
+
+    Route::get('/detail/{id}/dokumen/surat_jalan', [InvoiceController::class, 'invoiceCreateSuratJalan']);
+
 
     Route::get('/reset', function() {
         Session::remove('invoice_cart');
@@ -148,8 +150,4 @@ Route::prefix('/settings')->group(function (){
 
 Route::prefix('laporan')->group(function (){
     Route::get('/stok', [LaporanController::class, 'stokView'])->name('laporan.stok');
-});
-
-Route::prefix('template')->group(function (){
-    Route::get('/tanda_terima', function () { return view('template.dokumen.tanda_terima'); });
 });

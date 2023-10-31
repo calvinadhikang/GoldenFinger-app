@@ -37,12 +37,20 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $grandTotal = 0;
+        $totalHutang = 0;
+        $countHutang = 0;
         foreach ($customer->invoice as $key => $value) {
             $grandTotal += $value->total;
+            if ($value->status == 0) {
+                $countHutang += 1;
+                $totalHutang += $value->total;
+            }
         }
         return view('master.customer.detail', [
             'customer' => $customer,
-            'grandTotal' => $grandTotal
+            'grandTotal' => $grandTotal,
+            'hutang' => $totalHutang,
+            'countHutang' => $countHutang
         ]);
     }
 

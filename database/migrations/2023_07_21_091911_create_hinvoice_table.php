@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('status');
             $table->timestamp('jatuh_tempo');
             $table->text('contact_person');
+            $table->text('po');
             $table->bigInteger('komisi');
             $table->timestamps();
             $table->softDeletes();

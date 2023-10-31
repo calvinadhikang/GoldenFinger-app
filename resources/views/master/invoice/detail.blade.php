@@ -37,31 +37,38 @@
     <div class="flex flex-wrap">
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
-                <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
+                <span class="label-text font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                 <span class="label-text-alt"></span>
             </label>
             <input type="text" class="input input-bordered w-full " value="{{ $invoice->customer->nama }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
-                <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
+                <span class="label-text font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                 <span class="label-text-alt"></span>
             </label>
             <input type="email" class="input input-bordered w-full" value="{{ $invoice->customer->email }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
-                <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
+                <span class="label-text font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                 <span class="label-text-alt"></span>
             </label>
             <input type="text" class="input input-bordered w-full" value="{{ $invoice->customer->alamat }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
-                <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
+                <span class="label-text font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                 <span class="label-text-alt"></span>
             </label>
             <input type="text" class="input input-bordered w-full" value="{{ $invoice->customer->telp }}" disabled/>
+        </div>
+        <div class="form-control w-full">
+            <label class="label">
+                <span class="label-text font-bold"><i class="fa-solid fa-file-lines me-2"></i>Nomor PO</span>
+                <span class="label-text-alt"></span>
+            </label>
+            <input type="text" class="input input-bordered w-full" value="{{ $invoice->po }}" disabled/>
         </div>
     </div>
 </div>
@@ -70,14 +77,14 @@
     <h3>Data Pesanan</h3>
 </div>
 <div class="rounded bg-accent p-4 my-5">
-    <table class="table" id="table">
+    <table class="table-zebra" id="table">
         <thead>
             <tr>
-                <th class="prose"><h3 class="font-bold">Part Number</h3></th>
-                <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                <th class="prose"><h3 class="font-bold">Harga</h3></th>
-                <th class="prose"><h3 class="font-bold">Jumlah</h3></th>
-                <th class="prose"><h3 class="font-bold">Subtotal</h3></th>
+                <th><h3 class="font-bold">Part Number</h3></th>
+                <th><h3 class="font-bold">Nama</h3></th>
+                <th><h3 class="font-bold">Harga</h3></th>
+                <th><h3 class="font-bold">Jumlah</h3></th>
+                <th><h3 class="font-bold">Subtotal</h3></th>
             </tr>
         </thead>
         <tbody>
@@ -132,16 +139,15 @@
 </div>
 @endif
 
-<h3 class="text-xl font-semibold">Dokumen</h3>
+<h3 class="text-xl font-semibold">Buat Excel</h3>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex justify-between">
-        <form method="post">
-            @csrf
-            <button class="btn btn-secondary shadow-lg" name="type" value="invoice"><i class="fa-solid fa-file-pdf"></i>Buat Invoice !</button>
+        <form action="{{ url("invoice/detail/$invoice->id/dokumen/surat_jalan") }}">
+            <button class="btn btn-success shadow-lg" name="type" value="invoice"><i class="fa-solid fa-file-excel"></i>Buat Invoice !</button>
         </form>
-        <button class="btn btn-secondary shadow-lg">Buat Surat Jalan !</button>
-        <button class="btn btn-secondary shadow-lg">Buat Sesuatu !</button>
-        <button class="btn btn-secondary shadow-lg"><i class="fa-solid fa-envelope-open-text"></i></i>Kirim Invoice Ke Customer !</button>
+        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Surat Jalan !</button>
+        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Sesuatu !</button>
+        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i></i>Kirim Invoice Ke Customer !</button>
     </div>
 </div>
 
