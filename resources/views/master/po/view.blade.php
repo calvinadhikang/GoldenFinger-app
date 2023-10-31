@@ -46,7 +46,7 @@
                             <td>{{ $item->vendor->nama }}</td>
                             <td>{{ $item->vendor->telp }}</td>
                             <td>Rp {{ format_decimal($item->grand_total) }}</td>
-                            <td>{{ $item->jatuh_tempo }}</td>
+                            <td>{{ date_format(new DateTime($item->jatuh_tempo), 'd M Y') }}</td>
                             <td><span class="badge {{ $class_pesanan }}">{{ $text_pesanan }}</span></td>
                             <td><span class="badge {{ $class_pembayaran }}">{{ $text_pembayaran }}</span></td>
                             <td>

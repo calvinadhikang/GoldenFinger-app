@@ -65,11 +65,11 @@
             </div>
             <div class="">
                 <h1 class="text-lg">Status</h1>
-                <h1 class="text-sm badge badge-secondary">{{ $item->status }}</h1>
+                <h1 class="text-sm badge {{ $item->status == 'masuk' ? 'badge-secondary' : 'badge-warning' }} ">{{ $item->status }}</h1>
             </div>
             <div class="">
                 <h1 class="text-lg">Tanggal</h1>
-                <h1 class="text-sm">{{ $item->created_at }}</h1>
+                <h1 class="text-sm">{{ date_format($item->created_at, 'd M Y') }}</h1>
             </div>
         </div>
     @endforeach

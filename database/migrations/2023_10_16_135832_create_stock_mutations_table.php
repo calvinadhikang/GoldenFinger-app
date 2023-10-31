@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('qty');
             $table->decimal('harga', 10, 2);
             $table->enum('status', ['masuk', 'keluar']);
+            $table->unsignedBigInteger('trans_id');
+            $table->text('trans_kode');
             $table->timestamps();
 
             $table->foreign('barang_id')->references('part')->on('barang')->onDelete('cascade');

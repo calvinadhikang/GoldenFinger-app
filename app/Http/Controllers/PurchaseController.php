@@ -255,11 +255,16 @@ class PurchaseController extends Controller
                 try {
                     //Menambahkan Stok ke table Barang
                     DB::table('barang')->where('part', $part)->increment('stok', $detail->qty);
+
                     //Buat Row Baru di table Stock Mutation
                     DB::table('stock_mutation')->insert([
                         'barang_id' => $part,
                         'qty' => $detail->qty,
                         'harga' => $detail->harga,
+                        'status' => 'masuk',
+                        'trans_id' => $po->id,
+                        'trans_kode' => $po->kode,
+                        'created_at' => Carbon::now()
                     ]);
 
                     DB::commit();
@@ -270,6 +275,11 @@ class PurchaseController extends Controller
             }
 
             toast('Berhasil Melunasi Pesanan, Stok Telah Ditambah', 'success');
+
+            //Update Status Pesanan PO
+            $po->status_pesanan = 1;
+            $po->save();
+            return redirect()->back();
         }
         elseif ($status == 1) {
             //Barang Lebih
@@ -279,10 +289,7 @@ class PurchaseController extends Controller
 
         }
 
-        //Update Status Pesanan PO
-        $po->status_pesanan = 1;
-        $po->save();
-        return redirect('/po');
+
     }
 
     public function countDue(Request $request){

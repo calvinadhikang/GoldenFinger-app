@@ -43,7 +43,7 @@
                             @endif
                         </td>
                         <td>
-                            {{ $item->jatuh_tempo }}
+                            {{ date_format(new DateTime($item->jatuh_tempo), 'd M Y') }}
                         </td>
                         <td>
                             <a href="{{ url('/invoice/detail/'.$item->id) }}">

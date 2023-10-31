@@ -228,6 +228,33 @@ class InvoiceController extends Controller
     public function invoiceFinish(Request $request){
         $invoice = HeaderInvoice::find($request->input('id'));
         if ($invoice->status == 0) {
+
+            foreach ($invoice->details as $key => $detail) {
+                $part = $detail->part;
+
+                DB::beginTransaction();
+                try {
+                    //Menambahkan Stok ke table Barang
+                    DB::table('barang')->where('part', $part)->decrement('stok', $detail->qty);
+
+                    //Buat Row Baru di table Stock Mutation
+                    DB::table('stock_mutation')->insert([
+                        'barang_id' => $part,
+                        'qty' => $detail->qty,
+                        'harga' => $detail->harga,
+                        'status' => 'keluar',
+                        'trans_id' => $invoice->id,
+                        'trans_kode' => $invoice->kode,
+                        'created_at' => Carbon::now()
+                    ]);
+
+                    DB::commit();
+                } catch (Exception $ex) {
+                    dd($ex);
+                    DB::rollBack();
+                }
+            }
+
             toast('Berhasil Melunasi Transaksi', 'success');
             $invoice->status = 1;
             $invoice->save();
