@@ -10,6 +10,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Controllers\OperationalCostController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SharesController;
 use App\Http\Controllers\VendorController;
 use App\Mail\TestHTMLMail;
 use App\Models\Vendor;
@@ -150,4 +151,9 @@ Route::prefix('/settings')->group(function (){
 
 Route::prefix('laporan')->group(function (){
     Route::get('/stok', [LaporanController::class, 'stokView'])->name('laporan.stok');
+});
+
+Route::prefix('shares')->group(function (){
+    Route::get('/', [SharesController::class, 'sharesView']);
+    Route::get('/configure', [SharesController::class, 'configureSharesView']);
 });

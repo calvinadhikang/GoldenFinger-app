@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OperationalCostController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SharesController;
 use App\Models\OperationalCost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,4 +40,7 @@ Route::prefix('/po')->group(function () {
 });
 Route::prefix('/barang')->group(function () {
     Route::get('/minimum', [BarangController::class, 'getMinimum']);
+});
+Route::prefix('/shares')->group(function () {
+    Route::get('/', [SharesController::class, 'getSharesData']);
 });

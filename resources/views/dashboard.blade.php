@@ -96,10 +96,6 @@
         });
     }
 
-    const generateChart = async(labels, qtys) => {
-
-    }
-
     getCost()
     getMinimumBarang()
     getPOJatuhTempo()

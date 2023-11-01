@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Karyawan;
+use App\Models\SharesModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\VarDumper;
 
 class KaryawanController extends Controller
@@ -22,16 +25,39 @@ class KaryawanController extends Controller
     }
 
     public function karyawanAddAction(Request $request){
-        $karyawan = Karyawan::create([
-            'nama' => $request->input('nama'),
-            'username' => $request->input('username'),
-            'password' => $request->input('password'),
-            'telp' => $request->input('telp'),
-            'role' => $request->input('role'),
-            'status' => 1,
-        ]);
+        $data = Karyawan::where('username', $request->input('username'))->get();
+        if (count($data) > 0) {
+            toast('Username sudah digunakan', 'error');
+            return redirect()->back();
+        }
 
-        toast("Berhasil Menambah Karyawan", "success");
+        DB::beginTransaction();
+        try {
+            $lastId = DB::table('karyawan')->insertGetId([
+                'nama' => $request->input('nama'),
+                'username' => $request->input('username'),
+                'password' => $request->input('password'),
+                'telp' => $request->input('telp'),
+                'role' => $request->input('role'),
+                'status' => 1,
+                'created_at' => Carbon::now()
+            ]);
+
+            if ($request->input('role') == 'Stakeholder') {
+                DB::table('shares')->insert([
+                    'karyawan_id' => $lastId,
+                    'shares' => 0,
+                    'created_at' => Carbon::now()
+                ]);
+            }
+
+            DB::commit();
+            toast("Berhasil Menambah Karyawan", "success");
+        } catch (\Exception $ex) {
+            dd($ex->getMessage());
+            DB::rollBack();
+        }
+
         return redirect('/karyawan');
     }
 

@@ -17,10 +17,6 @@
     @include('sweetalert::alert')
     <?php
     $user = Session::get('user');
-    $role = "Admin";
-    if ($user->role == 1) {
-        $role = "Stakeholder";
-    }
     ?>
     <div class="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
@@ -30,7 +26,7 @@
                 <!-- Sidebar content here -->
                 <div class="rounded-lg drop-shadow-lg bg-primary px-4 py-5 mb-5">
                     <h1 class="text-2xl font-bold text-base-100">{{ $user->nama }}</h1>
-                    <p class="text-base-100 font-semibold">{{ $role }}</p>
+                    <p class="text-base-100 font-semibold">{{ $user->role }}</p>
                 </div>
 
                 <li><a href="{{ url('/dashboard') }}">
@@ -65,12 +61,15 @@
                         Vendor
                     </div>
                 </a></li>
-                <li><a>
+                @if ($user->role == "Stakeholder")
+                <h3 class="text-lg font-semibold mt-4">Pemegang Saham</h3>
+                <li><a href="{{ url('/shares') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-users me-2 w-6"></i>
-                        Pemegang Saham
+                        Porsi Saham
                     </div>
                 </a></li>
+                @endif
 
                 <h3 class="text-lg font-semibold mt-4">Operasional</h3>
                 <li><a href="{{ url('/invoice') }}">
