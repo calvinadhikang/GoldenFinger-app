@@ -47,15 +47,17 @@
             <td colspan="5">Balikpapan, {{ date_format($date, 'd M Y') }}</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-weight: bold">REKENING PANIN</td>
+            <td style="font-weight: bold">REKENING PANIN</td>
+            <td></td>
+            <td></td>
             <td>Diterima Oleh,</td>
             <td>Diserahkan Oleh,</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-weight: bold">an PT.GOLDENFINGER WHEELS INDONESIA</td>
+            <td style="font-weight: bold">an PT.GOLDENFINGER WHEELS INDONESIA</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-weight: bold">6205003619</td>
+            <td style="font-weight: bold">6205003619</td>
         </tr>
     </table>
 </body>

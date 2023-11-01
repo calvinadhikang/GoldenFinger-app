@@ -81,6 +81,20 @@
             </label>
             <input type="text" class="input input-bordered w-full" value="{{ $invoice->customer->telp }}" disabled/>
         </div>
+        <div class="form-control w-full md:w-1/2 md:pe-2">
+            <label class="label">
+                <span class="label-text font-bold"><i class="fa-solid fa-city me-2"></i>Kota</span>
+                <span class="label-text-alt"></span>
+            </label>
+            <input type="text" placeholder="Kota..." class="input input-bordered w-full" value="{{ $invoice->customer->kota }}" disabled />
+        </div>
+        <div class="form-control w-full md:w-1/2">
+            <label class="label">
+                <span class="label-text font-bold"><i class="fa-solid fa-barcode me-2"></i>NPWP</span>
+                <span class="label-text-alt"></span>
+            </label>
+            <input type="text" placeholder="001.002.003" class="input input-bordered w-full" value="{{ $invoice->customer->NPWP }}" disabled />
+        </div>
         <div class="form-control w-full">
             <label class="label">
                 <span class="label-text font-bold"><i class="fa-solid fa-file-lines me-2"></i>Nomor PO</span>
@@ -123,15 +137,11 @@
 @if ($invoice->komisi > 0)
 <h3 class="text-xl font-semibold">Komisi</h3>
 <div class="rounded bg-accent p-4 my-5">
-    <div class="grid grid-cols-2 gap-4">
-        <div class="">
-            <p>Penerima Komisi </p>
-            <p class="text-lg font-semibold">{{ $invoice->contact_person }}</p>
-        </div>
-        <div class="">
-            <p>Jumlah Komisi </p>
-            <p class="text-lg font-semibold">Rp {{ number_format($invoice->komisi) }}</p>
-        </div>
+    <div class="grid grid-cols-2">
+        <p>Penerima Komisi </p>
+        <p class="text-right text-lg font-semibold">{{ $invoice->contact_person }}</p>
+        <p>Jumlah Komisi </p>
+        <p class="text-right text-lg font-semibold">Rp {{ number_format($invoice->komisi) }}</p>
     </div>
     <div class="divider"></div>
     <div class="mt-5 grid grid-cols-2">

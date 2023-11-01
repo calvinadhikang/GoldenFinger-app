@@ -34,8 +34,52 @@ class InvoiceExport implements FromView, ShouldAutoSize, WithStyles
         $sheet->getStyle('A7:E7')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
         $sheet->getStyle('A8:E8')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
+
         //supaya cell A, bagian table Nomor tidak terlalu lebar
         $sheet->getColumnDimension('A')->setWidth(5);
+
+        $TopSideBorderStyle = [
+            'borders' => [
+                'top' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+                'right' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+                'left' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ]
+        ];
+        $BottomSideBorderStyle = [
+            'borders' => [
+                'bottom' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+                'right' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+                'left' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ]
+        ];
+        $SideBorderStyle = [
+            'borders' => [
+                'right' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+                'left' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ]
+        ];
+        $sheet->mergeCells('A10:C10');
+        $sheet->mergeCells('A11:C11');
+        $sheet->mergeCells('A12:C12');
+        $sheet->getStyle('A10:C10')->applyFromArray($TopSideBorderStyle);
+        $sheet->getStyle('A11:C11')->applyFromArray($SideBorderStyle);
+        $sheet->getStyle('A12:C12')->applyFromArray($BottomSideBorderStyle);
 
         return [
             1 => ['font' => ['bold' => true, 'size' => 14]],
