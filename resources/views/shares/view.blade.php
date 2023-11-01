@@ -3,9 +3,9 @@
 <h1 class="text-xl font-semibold mb-5">Data Shareholders</h1>
 <div class="bg-accent p-4 rounded mb-5">
     <div class="flex justify-end mb-5">
-        <button class="btn btn-primary">Ubah Porsi Saham</button>
+        <a href="{{ url('/shares/configure') }}" class="btn btn-primary">Ubah Porsi Saham</a>
     </div>
-    <table id="table">
+    <table id="table" class="table-zebra">
         <thead>
             <tr>
                 <th class="font-bold">Nama</th>

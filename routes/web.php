@@ -156,4 +156,5 @@ Route::prefix('laporan')->group(function (){
 Route::prefix('shares')->group(function (){
     Route::get('/', [SharesController::class, 'sharesView']);
     Route::get('/configure', [SharesController::class, 'configureSharesView']);
+    Route::post('/configure', [SharesController::class, 'configureSharesAction']);
 });
