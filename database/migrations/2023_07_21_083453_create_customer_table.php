@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('telp');
             $table->string('email');
+            $table->string('kota');
+            $table->text('NPWP');
             $table->decimal('limit', 20, 2);
             $table->timestamps();
             $table->softDeletes();

@@ -2,7 +2,23 @@
 
 @section('content')
 <h1 class="text-white text-2xl font-bold">Detail Invoice</h1>
-<p class="text-xl font-semibold">Status Pembayaran</p>
+<div class="rounded bg-accent p-4 my-5">
+    <div class="grid grid-cols-2 gap-y-2">
+        <div class="text-xl font-semibold">Kode Transaksi</div>
+        <div class="text-right text-lg font-medium">{{ $invoice->kode }}</div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="">Total Harga</div>
+        <div class="text-right">Rp {{ number_format($invoice->total) }}</div>
+        <div class="">PPN ({{ $invoice->ppn }}%)</div>
+        <div class="text-right">Rp {{ number_format($invoice->ppn_value) }}</div>
+        <div class="text-xl font-semibold">Grand Total</div>
+        <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($invoice->grand_total) }}</div>
+    </div>
+</div>
+
+
+<p class="text-xl font-semibold mb-5">Status Pembayaran</p>
 <div class="p-4 rounded bg-accent">
     @if ($invoice->status == 0)
         <div class="text-red-200 bg-red-600 font-semibold text-xl text-center rounded mt-5 p-3 mb-5">Belum Lunas</div>
@@ -10,9 +26,11 @@
         <div class="text-white bg-secondary font-semibold text-xl text-center rounded mt-5 p-3">Lunas</div>
     @endif
 
-    <div class="grid grid-cols-2 mt-10">
-        <p class="text-lg font-semibold">Tanggal Jatuh Tempo</p>
-        <p class="text-lg font-semibold text-right">{{ $invoice->jatuh_tempo }}</p>
+    <div class="grid grid-cols-2 mt-2">
+        <p>Tanggal Jatuh Tempo</p>
+        <p class=" text-right">{{ date_format(new DateTime($invoice->jatuh_tempo), 'd M Y') }}</p>
+        <p>Tanggal Pembayaran</p>
+        <p class=" text-right {{ $invoice->paid_at == null ? 'text-error' : 'text-secondary' }}">{{ $invoice->paid_at == null ? 'Belum Bayar' : date_format(new DateTime($invoice->finished_at), 'd M Y') }}</p>
     </div>
     @if ($invoice->status == 0)
         <p class="text-right">Kurang <span class="font-bold text-lg">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
@@ -102,18 +120,6 @@
     <div class="text-right w-full mt-10">Total Pesanan : <span class="">Rp {{ number_format($invoice->total) }}</span></div>
 </div>
 
-<h3 class="text-xl font-semibold">Pendapatan</h3>
-<div class="rounded bg-accent p-4 my-5">
-    <div class="grid grid-cols-2 gap-y-2">
-        <div class="">Total Harga</div>
-        <div class="text-right">Rp {{ number_format($invoice->total) }}</div>
-        <div class="">PPN ({{ $invoice->ppn }}%)</div>
-        <div class="text-right">Rp {{ number_format($invoice->ppn_value) }}</div>
-        <div class="text-xl font-semibold">Grand Total</div>
-        <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($invoice->grand_total) }}</div>
-    </div>
-</div>
-
 @if ($invoice->komisi > 0)
 <h3 class="text-xl font-semibold">Komisi</h3>
 <div class="rounded bg-accent p-4 my-5">
@@ -143,11 +149,11 @@
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex justify-between">
         <form action="{{ url("invoice/detail/$invoice->id/dokumen/surat_jalan") }}">
-            <button class="btn btn-success shadow-lg" name="type" value="invoice"><i class="fa-solid fa-file-excel"></i>Buat Invoice !</button>
+            <button class="btn btn-success shadow-lg" name="type" value="invoice"><i class="fa-solid fa-file-excel"></i>Buat Surat Jalan !</button>
         </form>
-        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Surat Jalan !</button>
-        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Sesuatu !</button>
-        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i></i>Kirim Invoice Ke Customer !</button>
+        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Faktur Pajak !</button>
+        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Invoice !</button>
+        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Dokumen Lain</button>
     </div>
 </div>
 

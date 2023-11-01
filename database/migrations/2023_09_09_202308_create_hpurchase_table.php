@@ -24,7 +24,9 @@ return new class extends Migration
             $table->bigInteger('ppn');
             $table->integer('status_pesanan');
             $table->integer('status_pembayaran');
-            $table->timestamp('jatuh_tempo');
+            $table->timestamp('jatuh_tempo')->nullable();
+            $table->timestamp('recieved_at')->nullable();
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

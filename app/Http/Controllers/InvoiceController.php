@@ -7,9 +7,7 @@ use App\Models\Barang;
 use App\Models\Customer;
 use App\Models\DetailInvoice;
 use App\Models\HeaderInvoice;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
-use Error;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +44,24 @@ class InvoiceController extends Controller
             'customer' => $invoice->customer,
             'customers' => Customer::all()
         ]);
+    }
+
+    public function customerAddAction(Request $request){
+        $customer = Customer::create([
+            'alamat' => $request->input('alamat'),
+            'nama' => $request->input('nama'),
+            'telp' => $request->input('telp'),
+            'email' => $request->input('email'),
+            'kota' => $request->input('kota'),
+            'NPWP' => $request->input('NPWP'),
+        ]);
+
+        $invoice = Session::get('invoice_cart');
+        $invoice->customer = $customer;
+        Session::put('invoice_cart', $invoice);
+
+        toast('Berhasil Menambah Customer', 'success');
+        return redirect()->back();
     }
 
     public function invoiceCustomerAction(Request $request){
@@ -121,6 +137,11 @@ class InvoiceController extends Controller
             }
         }
 
+        if (count($list) <= 0) {
+            toast('Minimal membeli 1 Barang', 'error');
+            return redirect()->back();
+        }
+
         $invoice = Session::get('invoice_cart');
 
         $invoice->list = $list;
@@ -169,7 +190,7 @@ class InvoiceController extends Controller
         DB::beginTransaction();
         try {
             $kode = Util::generateInvoiceCode();
-            $currentDateTime = Carbon::now()->toDateTimeString();
+            $currentDateTime = Carbon::now();
             //insert header
             $lastId = DB::table('hinvoice')->insertGetId([
                 'customer_id' => $invoice->customer->id,
@@ -235,6 +256,7 @@ class InvoiceController extends Controller
                     DB::table('stock_mutation')->insert([
                         'barang_id' => $part,
                         'qty' => $detail->qty,
+                        'qty-used' => 0,
                         'harga' => $detail->harga,
                         'status' => 'keluar',
                         'trans_id' => $invoice->id,
@@ -251,25 +273,10 @@ class InvoiceController extends Controller
 
             toast('Berhasil Melunasi Transaksi', 'success');
             $invoice->status = 1;
+            $invoice->paid_at = Carbon::now();
             $invoice->save();
             return redirect()->back();
         }
-    }
-
-    public function customerAddAction(Request $request){
-        $customer = Customer::create([
-            'alamat' => $request->input('alamat'),
-            'nama' => $request->input('nama'),
-            'telp' => $request->input('telp'),
-            'email' => $request->input('email'),
-        ]);
-
-        $invoice = Session::get('invoice_cart');
-        $invoice->customer = $customer;
-        Session::put('invoice_cart', $invoice);
-
-        toast('Berhasil Menambah Customer', 'success');
-        return redirect()->back();
     }
 
     public function getPaidInvoiceThisMonth(){

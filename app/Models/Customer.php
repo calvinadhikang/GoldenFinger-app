@@ -10,7 +10,7 @@ class Customer extends Model
     use HasFactory;
     protected $table = 'customer';
     protected $primaryKey = 'id';
-    protected $fillable = ['nama', 'alamat', 'telp', 'email'];
+    protected $fillable = ['nama', 'alamat', 'telp', 'email', 'kota', 'NPWP'];
 
     protected static function boot()
     {

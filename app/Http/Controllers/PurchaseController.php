@@ -235,6 +235,7 @@ class PurchaseController extends Controller
         $id = $request->input('id');
         $po = HeaderPurchase::find($id);
         $po->status_pembayaran = 1;
+        $po->paid_at = Carbon::now();
         $po->save();
 
         toast('Transaksi telah berhasil dilunasi !', 'success');
@@ -260,6 +261,7 @@ class PurchaseController extends Controller
                     DB::table('stock_mutation')->insert([
                         'barang_id' => $part,
                         'qty' => $detail->qty,
+                        'qty-used' => 0,
                         'harga' => $detail->harga,
                         'status' => 'masuk',
                         'trans_id' => $po->id,
@@ -278,6 +280,7 @@ class PurchaseController extends Controller
 
             //Update Status Pesanan PO
             $po->status_pesanan = 1;
+            $po->recieved_at = Carbon::now();
             $po->save();
             return redirect()->back();
         }

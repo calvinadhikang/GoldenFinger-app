@@ -23,10 +23,12 @@ return new class extends Migration
             $table->decimal('ppn_value', 20, 2);
             $table->bigInteger('ppn');
             $table->integer('status');
-            $table->timestamp('jatuh_tempo');
             $table->text('contact_person');
             $table->text('po');
             $table->bigInteger('komisi');
+            $table->timestamp('jatuh_tempo')->nullable();
+            $table->timestamp('recieved_at')->nullable();
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

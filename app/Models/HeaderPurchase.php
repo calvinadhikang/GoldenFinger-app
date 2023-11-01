@@ -9,6 +9,7 @@ class HeaderPurchase extends Model
 {
     use HasFactory;
     protected $table = 'hpurchase';
+    public $timestamps = ['jatuh_tempo', 'recieved_at', 'paid_at'];
 
     public function vendor(){
         return $this->hasOne(

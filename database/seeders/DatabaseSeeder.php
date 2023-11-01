@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
         Barang::create([
             'part' => 'B001',
             'nama' => 'Barang Pertama',
-            'harga' => 1000,
+            'harga' => 550000,
             'batas' => 10,
             'stok' => 0
         ]);
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
         Barang::create([
             'part' => 'B002',
             'nama' => 'Barang Kedua',
-            'harga' => 2000,
+            'harga' => 800000,
             'batas' => 10,
             'stok' => 0
         ]);
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
         Barang::create([
             'part' => 'B003',
             'nama' => 'Barang Ketiga',
-            'harga' => 3000,
+            'harga' => 900000,
             'batas' => 10,
             'stok' => 0
         ]);
@@ -75,6 +75,8 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'JL supplier pertama, Surabaya',
             'email' => 'supp@pertama.com',
             'telp' => '123123',
+            'kota' => 'Surabaya',
+            'NPWP' => '200.300.200'
         ]);
     }
 

@@ -10,8 +10,10 @@
     </ul>
 </div>
 <div class="mb-5 mt-10">
-    <h2 class="text-primary font-bold text-3xl">Pilih Barang</h2>
-    <p><span class="text-primary">Centang di sebelah kanan </span>Barang yang ingin ditambahkan ke <b>Invoice</b> <br> Klik tombol dibawah bila sudah selesai</p>
+    <h2 class="text-xl font-bold">Pilih Barang</h2>
+    <p>1. Pastikan harga sudah benar pada kolom <b>Harga</b>.</p>
+    <p>2. Isi jumlah yang ingin dibeli pada kolom <b>Quantity</b>.</p>
+    <p>3. Tekan <b class="text-primary">Selanjutnya</b> bila sudah sesuai.</p>
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
@@ -32,7 +34,7 @@
                     <td>{{ $item->nama }}</td>
                     <td>
                         <div class="flex items-center">
-                            <div class="">Rp</div>
+                            <div class="me-2 font-medium text-lg">Rp</div>
                             <input type="text" class="input input-bordered input-secondary harga flex-shrink" name="harga[]" value="{{ number_format($item->harga) }}">
                         </div>
                     </td>
@@ -50,6 +52,7 @@
             <span>Hutang customer sebesar Rp {{ number_format($hutang) }} Belum dibayar !<br><span class="italic font-semibold">Jangan lupa untuk ingatkan pelunasan.</span></span>
         </div>
         @endif
+        <p class="text-sm text-gray-400 mb-5">Barang dengan Quantity 0 tidak akan dimasukan.</p>
         <button class="btn btn-primary">Selanjutnya</button>
     </form>
 </div>

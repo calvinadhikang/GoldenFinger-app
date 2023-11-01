@@ -16,7 +16,7 @@
 
     <div class="rounded bg-accent p-4 my-5">
 
-        <table id="table">
+        <table id="table" class="table-fixed">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Nama Customer</h3></th>
@@ -31,7 +31,7 @@
                     <tr>
                         <td>{{ $item->nama }}</td>
                         <td>{{ $item->email }}</td>
-                        <td>{{ $item->alamat }}</td>
+                        <td class="truncate">{{ $item->alamat }}</td>
                         <td>{{ $item->telp }}</td>
                         <td>
                             <form method="POST" action="{{ url('/invoice/customer') }}">
@@ -52,37 +52,51 @@
     <div class="rounded bg-accent p-4 my-5">
         <form method="POST" action="{{ url('invoice/customer/new') }}">
             @csrf
-            <div class="flex flex-wrap my-5">
+            <div class="flex flex-wrap">
                 <div class="form-control w-full md:w-1/2 md:pe-2">
                     <label class="label">
-                        <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
+                        <span class="label-text font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                         <span class="label-text-alt"></span>
                     </label>
-                    <input type="text" placeholder="Joko.." class="input input-bordered w-full" name="nama" />
+                    <input type="text" placeholder="Nama..." class="input input-bordered w-full" name="nama" />
                 </div>
                 <div class="form-control w-full md:w-1/2">
                     <label class="label">
-                        <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
+                        <span class="label-text font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                         <span class="label-text-alt"></span>
                     </label>
                     <input type="email" placeholder="...@..." class="input input-bordered w-full" name="email" />
                 </div>
                 <div class="form-control w-full md:w-1/2 md:pe-2">
                     <label class="label">
-                        <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
+                        <span class="label-text font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                         <span class="label-text-alt"></span>
                     </label>
                     <input type="text" placeholder="Jalan..." class="input input-bordered w-full" name="alamat" />
                 </div>
                 <div class="form-control w-full md:w-1/2">
                     <label class="label">
-                        <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
+                        <span class="label-text font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                         <span class="label-text-alt"></span>
                     </label>
                     <input type="text" placeholder="081..." class="input input-bordered w-full" name="telp" />
                 </div>
+                <div class="form-control w-full md:w-1/2 md:pe-2">
+                    <label class="label">
+                        <span class="label-text font-bold"><i class="fa-solid fa-city me-2"></i>Kota</span>
+                        <span class="label-text-alt"></span>
+                    </label>
+                    <input type="text" placeholder="Kota..." class="input input-bordered w-full" name="kota" />
+                </div>
+                <div class="form-control w-full md:w-1/2">
+                    <label class="label">
+                        <span class="label-text font-bold"><i class="fa-solid fa-barcode me-2"></i>NPWP</span>
+                        <span class="label-text-alt"></span>
+                    </label>
+                    <input type="text" placeholder="001.002.003" class="input input-bordered w-full" name="NPWP" />
+                </div>
             </div>
-            <button class="btn btn-primary">Tambah Customer Baru</button>
+            <button class="btn btn-primary mt-5">Tambah Customer Baru</button>
         </form>
     </div>
 @else
@@ -91,41 +105,53 @@
         <div class="flex flex-wrap mb-5">
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
-                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
+                    <span class="label-text font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                     <span class="label-text-alt"></span>
                 </label>
                 <input type="text" class="input input-bordered w-full " value="{{ $customer->nama }}" disabled/>
             </div>
             <div class="form-control w-full md:w-1/2">
                 <label class="label">
-                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
+                    <span class="label-text font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                     <span class="label-text-alt"></span>
                 </label>
                 <input type="email" class="input input-bordered w-full" value="{{ $customer->email }}" disabled/>
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
-                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
+                    <span class="label-text font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                     <span class="label-text-alt"></span>
                 </label>
                 <input type="text" class="input input-bordered w-full" value="{{ $customer->alamat }}" disabled/>
             </div>
             <div class="form-control w-full md:w-1/2">
                 <label class="label">
-                    <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
+                    <span class="label-text font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                     <span class="label-text-alt"></span>
                 </label>
                 <input type="text" class="input input-bordered w-full" value="{{ $customer->telp }}" disabled/>
             </div>
+            <div class="form-control w-full md:w-1/2 md:pe-2">
+                <label class="label">
+                    <span class="label-text font-bold"><i class="fa-solid fa-city me-2"></i>Kota</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" class="input input-bordered w-full" value="{{ $customer->kota }}" disabled/>
+            </div>
+            <div class="form-control w-full md:w-1/2">
+                <label class="label">
+                    <span class="label-text font-bold"><i class="fa-solid fa-barcode me-2"></i>NPWP</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" class="input input-bordered w-full" value="{{ $customer->NPWP }}" disabled/>
+            </div>
         </div>
-        <div class="">
-            <a href="{{ url('/invoice/customer/unset') }}">
-                <button class="btn btn-error">Ganti Customer</button>
-            </a>
-            <a href="{{ url('/invoice/barang') }}">
-                <button class="btn btn-primary">Customer, Sudah Benar!</button>
-            </a>
-        </div>
+        <a href="{{ url('/invoice/barang') }}">
+            <button class="btn btn-primary">Customer, Sudah Benar!</button>
+        </a>
+        <a href="{{ url('/invoice/customer/unset') }}">
+            <button class="btn btn-ghost border-error text-error">Ganti Customer</button>
+        </a>
     </div>
 @endif
 

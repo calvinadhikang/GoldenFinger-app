@@ -27,6 +27,8 @@ class CustomerController extends Controller
             'nama' => $request->input('nama'),
             'telp' => $request->input('telp'),
             'email' => $request->input('email'),
+            'kota' => $request->input('kota'),
+            'NPWP' => $request->input('NPWP'),
         ]);
 
         toast('Berhasil Menambah Customer', 'success');
@@ -66,6 +68,8 @@ class CustomerController extends Controller
         $customer->nama = $request->input('nama');
         $customer->telp = $request->input('telp');
         $customer->limit = Util::parseNumericValue($request->input('limit'));
+        $customer->kota = $request->input('kota');
+        $customer->NPWP = $request->input('NPWP');
         $customer->save();
 
         toast("Berhasil Update Customer", "success");

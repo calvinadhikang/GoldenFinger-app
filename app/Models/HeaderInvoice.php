@@ -9,6 +9,8 @@ class HeaderInvoice extends Model
 {
     use HasFactory;
     protected $table = 'hinvoice';
+    public $timestamps = ['jatuh_tempo', 'recieved_at', 'paid_at'];
+    protected $fillable = ['status'];
 
     public function customer(){
         return $this->hasOne(

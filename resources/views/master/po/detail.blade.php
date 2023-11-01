@@ -2,7 +2,21 @@
 
 @section('content')
 <h1 class="text-white text-2xl font-bold mb-5">Detail Purhcase Orders</h1>
-<div class="grid grid-cols-2 gap-x-10">
+<div class="rounded bg-accent p-4 my-5">
+    <div class="grid grid-cols-2 gap-y-2">
+        <div class="text-xl font-semibold">Kode Transaksi</div>
+        <div class="text-right text-lg font-medium">{{ $po->kode }}</div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="">Total Harga</div>
+        <div class="text-right">Rp {{ number_format($po->total) }}</div>
+        <div class="">PPN ({{ $po->ppn }}%)</div>
+        <div class="text-right">Rp {{ number_format($po->ppn_value) }}</div>
+        <div class="text-xl font-semibold">Grand Total</div>
+        <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($po->grand_total) }}</div>
+    </div>
+</div>
+<div class="grid grid-cols-2 gap-x-5">
     <div class="">
         <p class="text-xl font-semibold mb-5">Status Pesanan</p>
         <div class="rounded p-4 bg-accent">
@@ -14,31 +28,34 @@
                 </button>
             @else
                 <div class="bg-secondary font-semibold text-xl text-center rounded p-3">Barang Sudah Sampai</div>
+                <div class="grid grid-cols-2 mt-2">
+                    <p>Tanggal Diterima</p>
+                    <p class="text-right">{{ date_format(new DateTime($po->recieved_at), 'd M Y H:i') }}</p>
+                </div>
             @endif
         </div>
     </div>
     <div class="">
         <p class="text-xl font-semibold mb-5">Status Pembayaran</p>
         <div class="rounded p-4 bg-accent">
-            @if ($po->status_pembayaran == 0)
+            @if ($po->status_pembayaran == 1)
+                <div class="bg-secondary font-semibold text-xl text-center rounded p-3">Transaksi Telah Dibayar</div>
+            @else
                 <div class="text-red-50 bg-error font-semibold text-xl text-center rounded p-3">Belum Bayar</div>
-
-                <div class="grid grid-cols-2 mt-10">
-                    <p class="text-lg font-semibold">Tanggal Jatuh Tempo</p>
-                    <p class="text-lg font-semibold text-right">{{ $po->jatuh_tempo }}</p>
-                </div>
-                <hr>
-                <p>Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
+                <p class="text-right">Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
 
                 <h1 class="mt-5 mb-2">Pesanan sudah dibayar ?</h1>
                 <button class="btn btn-primary" onclick="modal_pembayaran.showModal()">Ya, Sudah Lunas</button>
-            @else
-                <div class="bg-secondary font-semibold text-xl text-center rounded p-3">Transaksi Telah Dibayar</div>
-                <div class="grid grid-cols-2 mt-10">
-                    <p class="text-lg font-semibold">Tanggal Jatuh Tempo</p>
-                    <p class="text-lg font-semibold text-right">{{ $po->jatuh_tempo }}</p>
-                </div>
+                <div class="divider"></div>
             @endif
+            <div class="grid grid-cols-2 mt-2">
+                <p class="">Tanggal Jatuh Tempo</p>
+                <p class="text-right">{{ date_format(new DateTime($po->jatuh_tempo), 'd M Y H:i') }}</p>
+                @if ($po->status_pembayaran == 1)
+                    <p class="">Tanggal Pembayaran</p>
+                    <p class="text-right">{{ date_format(new DateTime($po->paid_at), 'd M Y H:i') }}</p>
+                @endif
+            </div>
         </div>
     </div>
 </div>
@@ -106,18 +123,6 @@
         </tbody>
     </table>
     <div class="text-right w-full mt-10">Total Pesanan : <span class="">Rp {{ number_format($po->total) }}</span></div>
-</div>
-
-<h3 class="text-xl font-semibold">Rincian Harga</h3>
-<div class="rounded bg-accent p-4 my-5">
-    <div class="grid grid-cols-2 gap-y-5">
-        <div class="">Total Harga</div>
-        <div class="text-right">Rp {{ number_format($po->total) }}</div>
-        <div class="">PPN ({{ $po->ppn }}%)</div>
-        <div class="text-right">Rp {{ number_format($po->grand_total - $po->total) }}</div>
-        <div class="text-xl font-semibold">Grand Total</div>
-        <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($po->grand_total) }}</div>
-    </div>
 </div>
 
 <h3 class="text-xl font-semibold">Dokumen</h3>

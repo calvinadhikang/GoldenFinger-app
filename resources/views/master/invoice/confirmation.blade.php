@@ -10,8 +10,9 @@
     </ul>
 </div>
 <div class="mb-5 mt-10">
-    <h2 class="font-bold text-3xl text-primary">Konfirmasi Pesanan</h2>
-    <p>Pastikan informasi pesanan, dan customer sudah benar <br> Jangan lupa cek ulang data pesanan dan totalnya</p>
+    <h2 class="font-bold text-xl">Konfirmasi Pesanan</h2>
+    <p>Pastikan informasi pesanan, dan customer sudah benar.</p>
+    <p>Jangan lupa cek ulang data pesanan dan totalnya.</p>
 </div>
 
 <h3 class="font-semibold text-xl mb-5">Informasi Customer</h3>
