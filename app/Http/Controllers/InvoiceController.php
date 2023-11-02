@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\InvoiceExport;
+use App\Exports\SuratJalanExport;
+use App\Exports\TandaTerimaExport;
 use App\Models\Barang;
 use App\Models\Customer;
 use App\Models\DetailInvoice;
@@ -336,8 +338,12 @@ class InvoiceController extends Controller
         ], 200);
     }
 
-    public function invoiceCreateSuratJalan($id){
+    public function invoiceCreateTandaTerima($id){
         $invoice = HeaderInvoice::find($id);
-        return Excel::download(new InvoiceExport($invoice), "surat_jalan.xlsx");
+        return Excel::download(new TandaTerimaExport($invoice), "surat_jalan.xlsx");
+    }
+    public function invoiceCreateInvoice($id){
+        $invoice = HeaderInvoice::find($id);
+        return Excel::download(new InvoiceExport($invoice), 'invoice.xlsx');
     }
 }

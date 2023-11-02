@@ -115,7 +115,7 @@ Route::prefix('invoice')->group(function () {
     Route::get('/created', [InvoiceController::class, 'invoiceCreatedView']);
     Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);
 
-    Route::get('/detail/{id}/dokumen/surat_jalan', [InvoiceController::class, 'invoiceCreateSuratJalan']);
+    Route::get('/detail/{id}/dokumen/surat_jalan', [InvoiceController::class, 'invoiceCreateTandaTerima']);
 
 
     Route::get('/reset', function() {
