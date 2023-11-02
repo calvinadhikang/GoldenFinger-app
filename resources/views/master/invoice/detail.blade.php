@@ -168,7 +168,7 @@
 </div>
 
 <dialog id="modal_pembayaran" class="modal">
-    <div class="modal-box bg-slate-300">
+    <div class="modal-box bg-slate-700 text-white">
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>

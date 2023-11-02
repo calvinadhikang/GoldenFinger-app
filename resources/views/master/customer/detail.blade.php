@@ -34,20 +34,6 @@
                 </label>
                 <input type="text" placeholder="081..." class="input input-bordered w-full" value="{{ $customer->telp }}" name="telp"/>
             </div>
-            <div class="form-control w-full md:w-1/2 md:pe-2">
-                <label class="label">
-                    <span class="label-text font-bold"><i class="fa-solid fa-city me-2"></i>Kota</span>
-                    <span class="label-text-alt"></span>
-                </label>
-                <input type="text" placeholder="Kota..." class="input input-bordered w-full" value="{{ $customer->kota }}" name="kota" />
-            </div>
-            <div class="form-control w-full md:w-1/2">
-                <label class="label">
-                    <span class="label-text font-bold"><i class="fa-solid fa-barcode me-2"></i>NPWP</span>
-                    <span class="label-text-alt"></span>
-                </label>
-                <input type="text" placeholder="001.002.003" class="input input-bordered w-full" value="{{ $customer->NPWP }}" name="NPWP" />
-            </div>
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text font-bold"><i class="fa-solid fa-circle-exclamation me-2"></i>Limit Hutang</span>

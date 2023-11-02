@@ -15,7 +15,7 @@
         <div class="divider"></div>
         <div class="divider"></div>
         <p class="">Total Shares Anda</p>
-        <p class="text-right font-medium">{{ number_format($user->shares) }} %</p>
+        <p class="text-right font-semibold">{{ number_format($user->shares) }} %</p>
         <p class="text-lg">Perkiraan Total Pendapatan Anda dari Shares</p>
         <p class="text-right text-lg font-medium text-primary">Rp {{ number_format($user->shares_value) }}</p>
     </div>

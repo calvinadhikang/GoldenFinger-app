@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\Customer;
 use App\Models\DetailInvoice;
 use App\Models\HeaderInvoice;
+use App\Models\OperationalCost;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -242,6 +243,7 @@ class InvoiceController extends Controller
 
     public function invoiceFinish(Request $request){
         $invoice = HeaderInvoice::find($request->input('id'));
+
         if ($invoice->status == 0) {
 
             foreach ($invoice->details as $key => $detail) {
@@ -263,6 +265,14 @@ class InvoiceController extends Controller
                         'trans_kode' => $invoice->kode,
                         'created_at' => Carbon::now()
                     ]);
+
+                    if ($invoice->komisi > 0) {
+                        DB::table('operational_cost')->insert([
+                            'total' => $invoice->komisi,
+                            'deskripsi' => "Komisi kepada $invoice->contact_person pada Invoice $invoice->kode",
+                            'created_at' => Carbon::now()
+                        ]);
+                    }
 
                     DB::commit();
                 } catch (Exception $ex) {
