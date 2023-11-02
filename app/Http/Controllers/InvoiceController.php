@@ -279,7 +279,7 @@ class InvoiceController extends Controller
         }
     }
 
-    public function getPaidInvoiceThisMonth(){
+    static function getPaidInvoiceThisMonthData(){
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
 
@@ -288,8 +288,19 @@ class InvoiceController extends Controller
         foreach ($data as $invoice) {
             $total += $invoice->grand_total;
         }
+
+        $obj = new stdClass();
+        $obj->total = $total;
+        $obj->data = $data;
+        return $obj;
+    }
+
+    public function getPaidInvoiceThisMonth(){
+
+        $data = $this->getPaidInvoiceThisMonthData();
+
         return response()->json([
-            'total' => $total
+            'total' => $data->total
         ], 200);
     }
 

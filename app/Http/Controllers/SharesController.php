@@ -2,17 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OperationalCost;
 use App\Models\SharesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class SharesController extends Controller
 {
     //
     public function sharesView(){
         $data = SharesModel::orderBy('shares', 'desc')->get();
+        $dataPenjualan = InvoiceController::getPaidInvoiceThisMonthData();
+
+        $user = Session::get('user');
+        $user->shares = SharesModel::where('karyawan_id', $user->id)->first()->shares;
+        $user->shares_value = $dataPenjualan->total / 100 * $user->shares;
+
+        $operasional = OperationalCostController::getOperationalCostThisMonthData();
+        $pendapatanBersih = $dataPenjualan->total - $operasional->total;
+
         return view('shares.view', [
-            'data' => $data
+            'data' => $data,
+            'dataPenjualan' => $dataPenjualan,
+            'user' => $user,
+            'operasional' => $operasional,
+            'pendapatanBersih' => $pendapatanBersih
         ]);
     }
 

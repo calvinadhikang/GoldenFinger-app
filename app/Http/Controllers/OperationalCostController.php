@@ -6,6 +6,7 @@ use App\Models\HeaderPurchase;
 use App\Models\OperationalCost;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use stdClass;
 
 class OperationalCostController extends Controller
 {
@@ -55,5 +56,21 @@ class OperationalCostController extends Controller
 
         toast("Berhasil hapus pengeluaran $cost->deskripsi", 'success');
         return redirect()->back();
+    }
+
+    static function getOperationalCostThisMonthData(){
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+
+        $data = OperationalCost::whereMonth('created_at', '=', $currentMonth)->whereYear('created_at', '=', $currentYear)->get();
+        $totalOc = 0;
+        foreach ($data as $oc) {
+            $totalOc += $oc->total;
+        }
+
+        $obj = new stdClass();
+        $obj->total = $totalOc;
+        $obj->data = $data;
+        return $obj;
     }
 }
