@@ -7,18 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <table>
-        <tr>
-            <th colspan="2">Part</th>
-            <th>stok</th>
-        </tr>
-        @foreach ($data as $item)
-        <tr>
-            <td>{{ $item->part }}</td>
-            <td>{{ $item->nama }}</td>
-            <td>{{ $item->stok }}</td>
-        </tr>
-        @endforeach
-    </table>
+    <tr>
+        <th>Part</th>
+        <th>Nama</th>
+        <th>Harga</th>
+        <th>Stok</th>
+        <th>Batas</th>
+    </tr>
+    @foreach ($data as $item)
+    <tr>
+        <td>{{ $item->part }}</td>
+        <td>{{ $item->nama }}</td>
+        <td>{{ $item->harga }}</td>
+        <td>{{ $item->stok }}</td>
+        <td>{{ $item->batas }}</td>
+    </tr>
+    @endforeach
 </body>
 </html>

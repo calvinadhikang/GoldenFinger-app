@@ -21,10 +21,7 @@
             <p class="text-gray-400">Tekan tombol dibawah untuk Download semua data barang ! <br> Hasil Download dapat digunakan sebagai template untuk Import Barang.</p>
         </div>
         <div class="flex justify-end">
-            <form action="{{ url('/settings/download/barang') }}" method="POST">
-                @csrf
-                <button class="btn btn-primary">Download Excel</button>
-            </form>
+            <a href="{{ url('/settings/download/barang') }}"><button class="btn btn-primary">Download Excel</button></a>
         </div>
     </div>
 
@@ -36,10 +33,11 @@
     </p>
     <div class="grid md:grid-cols-2 mt-5">
         <p class="text-gray-400">Import artinya menghapus semua data barang yang sudah ada !<br> Dan mengganti data dengan yang baru di Upload</p>
-        <div class="flex justify-end gap-2">
-            <input type="file" class="file-input file-input-primary w-full max-w-xs">
+        <form class="flex justify-end gap-2" action="{{ route('upload.barang') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="file" class="file-input file-input-primary w-full max-w-xs" required>
             <button class="btn btn-primary">Import</button>
-        </div>
+        </form>
     </div>
 </div>
 @endsection
