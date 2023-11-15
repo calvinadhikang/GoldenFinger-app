@@ -34,7 +34,7 @@
     </div>
 
     <h1 class="text-2xl font-bold mb-5">Total Penjualan Barang Tahun Ini</h1>
-    <div class="p-4 bg-white bg-opacity-80 rounded">
+    <div class="p-4 bg-slate-800 rounded w-full">
         <canvas id="chart-penjualan"></canvas>
     </div>
 
@@ -80,20 +80,24 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-            labels: data.labels,
-            datasets: [{
-                label: 'Jumlah Penjualan',
-                data: data.qty,
-                borderWidth: 1
-            }]
+                labels: data.labels,
+                datasets: [{
+                    label: 'Jumlah Penjualan',
+                    data: data.qty,
+                    borderWidth: 1
+                }]
             },
             options: {
-            scales: {
-                    y: {
-                        beginAtZero: true
+                customCanvasBackgroundColor: {
+                    color: 'lightGreen',
+                },
+                responsive: true,
+                scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
         });
     }
 
