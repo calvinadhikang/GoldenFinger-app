@@ -6,7 +6,7 @@
     <ul class="steps w-full">
         <li class="step step-primary"><a href="/po/barang" class="hover:underline">Pilih Barang</a></li>
         <li class="step step-primary"><a href="/po/vendor" class="hover:underline">Pilih Vendor</a></li>
-        <li class="step step-primary text-primary font-medium">Konfirmasi</li>
+        <li class="step step-primary font-medium">Konfirmasi</li>
     </ul>
 </div>
 <div class="mb-5 mt-10">

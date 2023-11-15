@@ -4,7 +4,7 @@
 <h1 class="text-white text-2xl font-bold">Buat Purhcase Order</h1>
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
-        <li class="step step-primary text-primary font-medium">Pilih Barang</li>
+        <li class="step step-primary font-medium">Pilih Barang</li>
         <li class="step">Pilih Vendor</li>
         <li class="step">Konfirmasi</li>
     </ul>

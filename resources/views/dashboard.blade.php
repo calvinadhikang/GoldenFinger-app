@@ -1,30 +1,30 @@
 @extends('template/header')
 
 @section('content')
-    <h1 class="text-2xl font-medium">Dashboard</h1>
+    <h1 class="text-2xl font-bold">Dashboard</h1>
     <div class="flex flex-wrap justify-start mt-5 gap-5 mb-10">
-        <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
+        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
             <div class="stat shadow bg-accents">
                 <div class="stat-title">Pendapatan Bulan Ini</div>
-                <div class="stat-value" id="invoice"></div>
+                <div class="stat-value" id="invoice">0</div>
                 <div class="stat-desc">Jumlah Invoice yang sudah lunas</div>
             </div>
         </a>
-        <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/barang') }}">
+        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/barang') }}">
             <div class="stat">
                 <div class="stat-title">Total Barang Stok Minim</div>
-                <div class="stat-value text-error" id="minimum">0</div>
+                <div class="stat-value" id="minimum">0</div>
                 <div class="stat-desc">Jumlah Barang dengan stok minim</div>
             </div>
         </a>
-        <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
+        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
             <div class="stat">
                 <div class="stat-title">Total PO Belum Lunas</div>
                 <div class="stat-value" id="po-due">0</div>
-                <div class="stat-desc" id="po-total"></div>
+                <div class="stat-desc" id="po-total">Total Hutang Rp 0</div>
             </div>
         </a>
-        <a class="stats flex-grow shadow bg-accent hover:bg-accent/50" href="{{ url('/cost') }}">
+        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/cost') }}">
             <div class="stat">
                 <div class="stat-title">Biaya Operasional Bulan Ini</div>
                 <div class="stat-value" id="cost">0</div>
@@ -33,7 +33,7 @@
         </a>
     </div>
 
-    <h1 class="text-2xl font-medium mb-5">Total Penjualan Barang Tahun Ini</h1>
+    <h1 class="text-2xl font-bold mb-5">Total Penjualan Barang Tahun Ini</h1>
     <div class="p-4 bg-white bg-opacity-80 rounded">
         <canvas id="chart-penjualan"></canvas>
     </div>
@@ -53,6 +53,7 @@
         const data = await response.json();
 
         $('#minimum').html(data.count)
+        data.count > 0 && $('#minimum').addClass('text-error')
     }
 
     const getPOJatuhTempo = async () => {

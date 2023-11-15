@@ -6,11 +6,11 @@ use App\Models\Barang;
 use App\Models\BarangVendor;
 use App\Models\ContactPerson;
 use App\Models\Vendor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use stdClass;
-use Symfony\Component\VarDumper\VarDumper;
 
 class VendorController extends Controller
 {
@@ -77,6 +77,14 @@ class VendorController extends Controller
 
     public function VendorAddBarangView($id) {
         $barang = Barang::all();
+        $vendorItem = BarangVendor::where('vendor_id', $id)->get();
+        foreach ($barang as $key => $item) {
+            foreach ($vendorItem as $key => $value) {
+                if ($item->part == $value->barang_id) {
+                    $item->checked = true;
+                }
+            }
+        }
         Session::put('vendor_barang_id', $id);
 
         return view('master.vendor.viewBarang', [
@@ -92,13 +100,16 @@ class VendorController extends Controller
         }
 
         $arrTemp = [];
+        $idVendor = Session::get('vendor_barang_id');
         foreach ($arrBarang as $key => $value) {
             $barang = Barang::find($value);
+
+            $barangVendor = BarangVendor::where('vendor_id', $idVendor)->where('barang_id', $value)->first();
 
             $obj = new stdClass();
             $obj->part = $barang->part;
             $obj->nama = $barang->nama;
-            $obj->harga = 0;
+            $obj->harga = $barangVendor ? number_format($barangVendor->harga) : 0;
 
             $arrTemp[] = $obj;
         }
@@ -121,8 +132,9 @@ class VendorController extends Controller
         $arrHarga = $request->harga;
 
         DB::beginTransaction();
-
         try {
+            DB::table('barang_vendor')->where('vendor_id', $idVendor)->delete();
+
             for ($i=0; $i < count($arrBarang); $i++) {
                 $arrBarang[$i]->harga = Util::parseNumericValue($arrHarga[$i]);
 
@@ -130,7 +142,8 @@ class VendorController extends Controller
                 DB::table('barang_vendor')->insert([
                     'vendor_id' => $idVendor,
                     'barang_id' => $arrBarang[$i]->part,
-                    'harga' => $arrBarang[$i]->harga
+                    'harga' => $arrBarang[$i]->harga,
+                    'created_at' => Carbon::now()
                 ]);
             }
 
