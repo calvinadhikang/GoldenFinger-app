@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\BarangVendor;
+use App\Models\DetailPurchase;
 use App\Models\HeaderPurchase;
 use App\Models\StockMutation;
 use App\Models\Vendor;
@@ -289,10 +290,8 @@ class PurchaseController extends Controller
         }
         elseif ($status == -1){
             //Barang Kurang
-
+            return redirect("/po/handling/kurang/$id");
         }
-
-
     }
 
     public function countDue(Request $request){
@@ -312,5 +311,59 @@ class PurchaseController extends Controller
             'data' => $data,
             'total' => $total
         ]);
+    }
+
+    public function handlingPesananKurang($id, Request $request){
+        $po = HeaderPurchase::find($id);
+        return view('master.po.handling.barang_kurang', [
+            'po' => $po
+        ]);
+    }
+
+    public function handlingPesananKurangAction($id, Request $request){
+        $po = HeaderPurchase::find($id);
+        $detailId = $request->input('id');
+        $detailQty = $request->input('qty');
+
+        DB::beginTransaction();
+        try {
+            //ganti Detail PO
+            foreach ($detailId as $idx => $detail_id) {
+                $oldDetailData = DetailPurchase::find($detail_id);
+
+                //kalau ada perubahan... baru update di DB
+                if ($oldDetailData->qty != $detailQty[$idx]) {
+                    DB::table('dpurchase')->where('id', $detail_id)->update([
+                        'qty' => $detailQty[$idx],
+                        'subtotal' => $oldDetailData->harga * $detailQty[$idx]
+                    ]);
+                }
+            }
+
+            //update Header data
+            $updatedDetails = $po->details;
+            $total = 0;
+            foreach ($updatedDetails as $key => $details) {
+                $total += $details->subtotal;
+            }
+            $ppn_value = $total / 100 * $po->ppn;
+            $grandTotal = $total + $ppn_value;
+
+            DB::table('hpurchase')->where('id', $id)->update([
+                'total' => $total,
+                'ppn_value' => $ppn_value,
+                'grand_total' => $grandTotal
+            ]);
+
+            DB::commit();
+            toast('Berhasil update PO', 'success');
+            return redirect("/po/detail/$id");
+        } catch (Exception $e) {
+            DB::rollBack();
+            toast('Gagal update PO', 'error');
+            return back();
+        }
+
+
     }
 }

@@ -94,7 +94,7 @@
         <div class="grow">
             <p class="text-lg font-semibold mb-2">Total Pajak</p>
             <hr>
-            <p class="text-2xl font-bold">Rp {{ format_decimal($po->PPN * $po->total / 100) }}</p>
+            <p class="text-lg font-semibold">Rp {{ format_decimal($po->PPN_value) }}</p>
         </div>
     </div>
 </div>

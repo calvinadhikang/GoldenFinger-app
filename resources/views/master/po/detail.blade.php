@@ -61,7 +61,7 @@
 </div>
 
 <div class="prose mt-5">
-    <h3>Informasi Customer</h3>
+    <h3>Informasi Vendor</h3>
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex flex-wrap">
@@ -96,18 +96,16 @@
     </div>
 </div>
 
-<div class="prose">
-    <h3>Data Pesanan</h3>
-</div>
+<h3 class="text-xl font-semibold">Data Pesanan</h3>
 <div class="rounded bg-accent p-4 my-5">
     <table class="table" id="table">
         <thead>
             <tr>
-                <th class="prose"><h3 class="font-bold">Part Number</h3></th>
-                <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                <th class="prose"><h3 class="font-bold">Harga</h3></th>
-                <th class="prose"><h3 class="font-bold">Jumlah</h3></th>
-                <th class="prose"><h3 class="font-bold">Subtotal</h3></th>
+                <th><h3 class="font-bold">Part Number</h3></th>
+                <th><h3 class="font-bold">Nama</h3></th>
+                <th><h3 class="font-bold">Harga</h3></th>
+                <th><h3 class="font-bold">Jumlah</h3></th>
+                <th><h3 class="font-bold">Subtotal</h3></th>
             </tr>
         </thead>
         <tbody>
@@ -164,7 +162,7 @@
         </form>
         <h3 class="font-bold text-lg">Konfirmasi Pesanan</h3>
         <p class="mb-4">Bagaimana jumlah Pesanan yang datang ?</p>
-        <div class="">
+        <div class="flex flex-col gap-2">
             <form action="{{ url("/po/pesanan") }}" method="POST">
                 @csrf
                 <div class="grid gap-y-4">
@@ -182,12 +180,12 @@
                     </label>
                 </div>
                 <p class="pt-4 pb-2 text-sm text-gray-500">Pastikan telah mengecek pesanan yang datang dengan baik !</p>
-                <button class="btn btn-primary" name="id" value="{{ $po->id }}">Ya, Sudah Lunas</button>
+                <button class="btn btn-primary" name="id" value="{{ $po->id }}">Konfirmasi</button>
+            </form>
+            <form method="dialog">
+                <button class="btn btn-error btn-outline">Batal</button>
             </form>
         </div>
-        <form method="dialog" class="mt-2">
-            <button class="btn btn-outline btn-error">Batal</button>
-        </form>
     </div>
 </dialog>
 @endsection

@@ -142,6 +142,10 @@ Route::prefix('po')->group(function () {
     //Finishing PO
     Route::post('/pesanan', [PurchaseController::class, 'finishPesanan']);
     Route::post('/pembayaran', [PurchaseController::class, 'finishPembayaran']);
+
+    // Handling PO
+    Route::get('/handling/kurang/{id}', [PurchaseController::class, 'handlingPesananKurang']);
+    Route::post('/handling/kurang/{id}', [PurchaseController::class, 'handlingPesananKurangAction']);
 });
 
 Route::prefix('/settings')->group(function (){
