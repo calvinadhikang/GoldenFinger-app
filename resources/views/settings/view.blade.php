@@ -1,7 +1,7 @@
 @extends('template.header')
 
 @section('content')
-<h1 class="text-3xl font-bold">Pengaturan</h1>
+<h1 class="text-2xl font-bold">Pengaturan</h1>
 <div class="rounded p-4 shadow bg-accent my-5">
     <div class="grid md:grid-cols-2 items-center">
         <div class="">
