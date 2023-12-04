@@ -112,7 +112,7 @@
     <div class="flex gap-10 items-center justify-between mb-5 h-10">
         <div class="flex items-center gap-5">
             <span class="text-xl font-semibold">Dapat Komisi ? </span>
-            <input type="checkbox" name="komisi" class="toggle" id="komisiCheck" checked>
+            <input type="checkbox" name="komisi" class="toggle" id="komisiCheck">
         </div>
         <div class="">
             <div id="komisiStatus" class="text-xl font-semibold text-secondary w-full">Dapat Komisi</div>
@@ -148,9 +148,8 @@
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
-$('#komisiCheck').on('click', function() {
-    let checkedStatus = $(this).prop('checked');
-    if (checkedStatus) {
+const toggleStatus = status => {
+    if (status) {
         $('#komisiStatus').html("Dapat Komisi");
         $('#komisiStatus').addClass("text-secondary");
         $('#komisiStatus').removeClass("text-error");
@@ -162,6 +161,14 @@ $('#komisiCheck').on('click', function() {
         $('#komisiStatus').removeClass("text-secondary");
         $('#komisi-input').hide();
     }
+}
+
+$('#komisiCheck').on('click', function() {
+    let checkedStatus = $(this).prop('checked');
+    toggleStatus(checkedStatus);
 })
+
+toggleStatus(false);
+
 </script>
 @endsection

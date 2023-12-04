@@ -69,8 +69,18 @@
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->stok }}</td>
                     <td>{{ $item->qty }}</td>
-                    <td>{{ format_decimal($item->harga) }}</td>
-                    <td>{{ format_decimal($item->subtotal) }}</td>
+                    <td>
+                        <div>
+                            <p>{{ format_decimal($item->harga * $po->PPN / 100 + $item->harga) }}</p>
+                            <p class="text-xs text-slate-300">Harga Asli : {{ format_decimal($item->harga) }}</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <p>{{ format_decimal($item->subtotal * $po->PPN / 100 + $item->harga) }}</p>
+                            <p class="text-xs">Harga Asli : {{ format_decimal($item->subtotal) }}</p>
+                        </div>
+                        </td>
                 </tr>
             @endforeach
             </tbody>
