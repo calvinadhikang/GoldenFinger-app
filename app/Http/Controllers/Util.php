@@ -49,7 +49,7 @@ class Util extends Controller
         $totalDataCountFormatted = sprintf('%03d', $totalDataCount);
 
         // Generate the code
-        $code = "GLVM/INV/{$year}{$month}/{$totalDataCountFormatted}";
+        $code = "GFLM/INV/{$year}{$month}/{$totalDataCountFormatted}";
 
         return $code;
     }
