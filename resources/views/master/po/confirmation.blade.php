@@ -86,7 +86,8 @@
             </tbody>
         </table>
     </form>
-    <p class="text-right mt-5 text-lg font-semibold">Total : Rp {{ format_decimal($po->total) }}</p>
+    <p class="text-right mt-5 text-lg font-semibold">Total : Rp {{ format_decimal($po->total * $po->PPN / 100 + $po->total) }}</p>
+    <p class="text-right text-sm font-medium">Harga Non PPN : Rp{{ format_decimal($po->total) }}</p>
 </div>
 
 <div class="mb-5">

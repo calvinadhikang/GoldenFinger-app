@@ -363,7 +363,29 @@ class PurchaseController extends Controller
             toast('Gagal update PO', 'error');
             return back();
         }
+    }
 
+    public function getThisMonth(){
+        $data = $this->getThisMonthData();
+        return response()->json([
+            'error' => false,
+            'data' => $data
+        ]);
+    }
 
+    static function getThisMonthData(){
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+
+        $data = HeaderPurchase::whereMonth('created_at', '=', $currentMonth)->whereYear('created_at', '=', $currentYear)->get();
+        $total = 0;
+        foreach ($data as $po) {
+            $total += $po->grand_total;
+        }
+
+        $obj = new stdClass();
+        $obj->total = $total;
+        $obj->data = $data;
+        return $obj;
     }
 }
