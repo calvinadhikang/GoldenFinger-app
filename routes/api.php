@@ -37,6 +37,7 @@ Route::prefix('/invoice')->group(function () {
 });
 Route::prefix('/po')->group(function () {
     Route::get('/due', [PurchaseController::class, 'countDue']);
+    Route::get('/monthly', [PurchaseController::class, 'getThisMonth']);
 });
 Route::prefix('/barang')->group(function () {
     Route::get('/minimum', [BarangController::class, 'getMinimum']);

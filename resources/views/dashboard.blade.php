@@ -31,6 +31,13 @@
                 <div class="stat-desc"></div>
             </div>
         </a>
+        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/po') }}">
+            <div class="stat">
+                <div class="stat-title">Biaya Pembelian Bulan Ini</div>
+                <div class="stat-value" id="po">0</div>
+                <div class="stat-desc"></div>
+            </div>
+        </a>
     </div>
 
     <h1 class="text-2xl font-bold mb-5">Total Penjualan Barang Tahun Ini</h1>
@@ -68,8 +75,15 @@
         const response = await fetch(baseURL + '/invoice/paid/monthly')
         const data = await response.json();
 
-        console.log(data);
         $('#invoice').html(`Rp ${data.total.toLocaleString()}`);
+    }
+
+    const getPOThisMonth = async() => {
+        const response = await fetch(baseURL + '/po/monthly')
+        const data = await response.json();
+        console.log(data)
+
+        $('#po').html(`Rp ${data.data.total.toLocaleString()}`);
     }
 
     const getAnalytics = async() => {
@@ -106,5 +120,6 @@
     getPOJatuhTempo()
     getPaidInvoiceThisMonth()
     getAnalytics()
+    getPOThisMonth()
 </script>
 @endsection
