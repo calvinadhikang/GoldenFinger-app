@@ -158,13 +158,13 @@
 <h3 class="text-xl font-semibold">Buat Excel</h3>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex justify-between">
-        <form action="{{ url("invoice/detail/$invoice->id/dokumen/surat_jalan") }}">
+        <a href="{{ url("invoice/detail/$invoice->id/dokumen/surat_jalan") }}">
             <button class="btn btn-success shadow-lg" name="type" value="invoice"><i class="fa-solid fa-file-excel"></i>Buat Surat Jalan !</button>
-        </form>
+        </a>
         <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Faktur Pajak !</button>
-        <form action="{{ url("invoice/detail/$invoice->id/dokumen/invoice") }}">
+        <a href="{{ url("invoice/detail/$invoice->id/dokumen/invoice") }}">
             <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Invoice !</button>
-        </form>
+        </a>
         <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Dokumen Lain</button>
     </div>
 </div>

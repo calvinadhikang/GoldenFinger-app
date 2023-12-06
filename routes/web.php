@@ -118,7 +118,6 @@ Route::prefix('invoice')->group(function () {
     Route::get('/detail/{id}/dokumen/surat_jalan', [InvoiceController::class, 'invoiceCreateTandaTerima']);
     Route::get('/detail/{id}/dokumen/invoice', [InvoiceController::class, 'invoiceCreateInvoice']);
 
-
     Route::get('/reset', function() {
         Session::remove('invoice_cart');
     });
