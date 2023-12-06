@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -24,7 +25,8 @@ class InvoiceExport implements FromView, ShouldAutoSize, WithStyles
     public function view(): View
     {
         return view('template.export.dokumen.invoice', [
-            'invoice' => $this->invoice
+            'invoice' => $this->invoice,
+            'date' => Carbon::now()
         ]);
     }
 }

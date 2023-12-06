@@ -54,10 +54,10 @@
             <td>Diserahkan Oleh,</td>
         </tr>
         <tr>
-            <td style="font-weight: bold">an PT.GOLDENFINGER WHEELS INDONESIA</td>
+            <td style="font-weight: bold">6205003619</td>
         </tr>
         <tr>
-            <td style="font-weight: bold">6205003619</td>
+            <td style="font-weight: bold">an PT.GOLDENFINGER WHEELS INDONESIA</td>
         </tr>
     </table>
 </body>

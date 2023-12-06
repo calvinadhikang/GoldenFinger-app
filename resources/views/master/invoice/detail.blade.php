@@ -162,7 +162,9 @@
             <button class="btn btn-success shadow-lg" name="type" value="invoice"><i class="fa-solid fa-file-excel"></i>Buat Surat Jalan !</button>
         </form>
         <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Faktur Pajak !</button>
-        <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Invoice !</button>
+        <form action="{{ url("invoice/detail/$invoice->id/dokumen/invoice") }}">
+            <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Invoice !</button>
+        </form>
         <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Dokumen Lain</button>
     </div>
 </div>
