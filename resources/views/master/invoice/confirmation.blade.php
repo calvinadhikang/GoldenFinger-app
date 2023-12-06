@@ -148,12 +148,7 @@
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
-$('#komisiCheck').on('click', function() {
-    let checkedStatus = $(this).prop('checked');
-    toggleKomisi(checkedStatus);
-})
-
-const toggleKomisi = (status) => {
+const toggleStatus = status => {
     if (status) {
         $('#komisiStatus').html("Dapat Komisi");
         $('#komisiStatus').addClass("text-secondary");
@@ -168,6 +163,12 @@ const toggleKomisi = (status) => {
     }
 }
 
-toggleKomisi(false);
+$('#komisiCheck').on('click', function() {
+    let checkedStatus = $(this).prop('checked');
+    toggleStatus(checkedStatus);
+})
+
+toggleStatus(false);
+
 </script>
 @endsection
