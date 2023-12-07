@@ -352,7 +352,12 @@ class InvoiceController extends Controller
 
     public function invoiceCreateTandaTerima($id){
         $invoice = HeaderInvoice::find($id);
-        return Excel::download(new TandaTerimaExport($invoice), "surat_jalan.xlsx");
+        return Excel::download(new TandaTerimaExport($invoice), "tanda_terima.xlsx");
+    }
+
+    public function invoiceCreateSuratJalan($id){
+        $invoice = HeaderInvoice::find($id);
+        return Excel::download(new SuratJalanExport($invoice), "surat_jalan.xlsx");
     }
 
     public function invoiceCreateInvoice($id){

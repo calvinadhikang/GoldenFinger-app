@@ -20,45 +20,56 @@
             <th colspan="5">Email : pt.goldenfingerwheelsindonesia@gmail.com</th>
         </tr>
         <tr>
-            <th colspan="5">Tanda Terima</th>
+            <td colspan="3"></td>
+            <th colspan="2">Surat Jalan</th>
         </tr>
         <tr>
-            <th colspan="5">Kepada Yth. {{ $invoice->customer->nama }}</th>
+            <th colspan="5">Kepada Yth.</th>
         </tr>
         <tr>
-            <th>No</th>
-            <th>Tanggal Invoice</th>
-            <th>No. Invoice</th>
-            <th>No. PO</th>
-            <th>Total</th>
+            <td>Nama</td>
+            <td>: {{ $invoice->customer->nama }}</td>
+            <td></td>
+            <td>Tanggal</td>
+            <td>: {{ date_format($date, 'd M Y') }}</td>
         </tr>
         <tr>
-            <td>1</td>
-            <td>{{ date_format($invoice->created_at, 'd M Y') }}</td>
-            <td>{{ $invoice->kode }}</td>
-            <td>{{ $invoice->po }}</td>
-            <td>{{ format_decimal($invoice->grand_total) }}</td>
+            <td>No Telp</td>
+            <td>: {{ $invoice->customer->telp }}</td>
+            <td></td>
+            <td>No PO</td>
+            <td>: {{ $invoice->po }}</td>
         </tr>
         <tr>
-            <td colspan="4" style="text-align: center">Grand Total</td>
-            <td>{{ format_decimal($invoice->grand_total) }}</td>
+            <td>Alamat</td>
+            <td>: {{ $invoice->customer->alamat }}</td>
+            <td></td>
+            <td>No SJ</td>
+            <td>: {{ $invoice->surat_jalan }}</td>
         </tr>
         <tr>
-            <td colspan="5">Balikpapan, {{ date_format($date, 'd M Y') }}</td>
-        </tr>
-        <tr>
-            <td style="font-weight: bold">REKENING PANIN</td>
+            <td></td>
+            <td>  {{ $invoice->customer->kota }}</td>
             <td></td>
             <td></td>
-            <td>Diterima Oleh,</td>
-            <td>Diserahkan Oleh,</td>
+            <td></td>
         </tr>
         <tr>
-            <td style="font-weight: bold">an PT.GOLDENFINGER WHEELS INDONESIA</td>
+            <td colspan="5"></td>
         </tr>
+        {{-- Table Starts Here --}}
         <tr>
-            <td style="font-weight: bold">6205003619</td>
+            <th colspan="2">Nama Barang</th>
+            <th>Qty</th>
+            <th colspan="2">Keterangan</th>
         </tr>
+        @foreach ($invoice->details as $item)
+        <tr>
+            <td colspan="2">{{ $item->nama }}</td>
+            <td>{{ $item->qty }} SET</td>
+            <td colspan="2"></td>
+        </tr>
+        @endforeach
     </table>
 </body>
 </html>
