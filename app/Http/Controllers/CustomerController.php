@@ -73,6 +73,16 @@ class CustomerController extends Controller
             return redirect('customer');
         }
 
+        $validate = $request->validate([
+            'alamat' => 'required',
+            'nama' => 'required',
+            'telp' => 'required',
+            'email' => 'required',
+            'kota' => 'required',
+            'limit' => 'required',
+            'NPWP' => 'required',
+        ]);
+
         $customer->alamat = $request->input('alamat');
         $customer->nama = $request->input('nama');
         $customer->telp = $request->input('telp');
