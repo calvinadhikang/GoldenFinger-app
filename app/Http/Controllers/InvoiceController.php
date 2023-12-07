@@ -50,6 +50,15 @@ class InvoiceController extends Controller
     }
 
     public function customerAddAction(Request $request){
+        $validate = $request->validate([
+            'alamat' => 'required',
+            'nama' => 'required',
+            'telp' => 'required',
+            'email' => 'required',
+            'kota' => 'required',
+            'NPWP' => 'required',
+        ]);
+
         $customer = Customer::create([
             'alamat' => $request->input('alamat'),
             'nama' => $request->input('nama'),
