@@ -202,12 +202,15 @@ class InvoiceController extends Controller
         DB::beginTransaction();
         try {
             $kode = Util::generateInvoiceCode();
+            $suratJalan = Util::generateSuratJalanCodeFromInvoiceCode($kode);
+
             $currentDateTime = Carbon::now();
             //insert header
             $lastId = DB::table('hinvoice')->insertGetId([
                 'customer_id' => $invoice->customer->id,
                 'karyawan_id' => $karyawan->id,
                 'kode' => $kode,
+                'surat_jalan' => $suratJalan,
                 'total' => $invoice->total,
                 'status' => 0,
                 'contact_person' => $komisiPenerima,

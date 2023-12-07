@@ -54,6 +54,14 @@ class Util extends Controller
         return $code;
     }
 
+    static function generateSuratJalanCodeFromInvoiceCode($invoiceCode){
+        $array = explode("/", $invoiceCode);
+        $time = $array[2];
+        $urutan = $array[3];
+
+        return "GWI-$time-$urutan";
+    }
+
     static function generatePurchaseCode(){
         $year = date('y');
         $month = date('m');
