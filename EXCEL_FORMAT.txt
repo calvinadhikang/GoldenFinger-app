@@ -1,0 +1,16 @@
+INVOICE
+COLUMN WIDTH
+A = 2,71
+B = 4
+C = 9
+D = 40.86
+E = 8,86
+F = 8,86
+G = 14,71
+H = 16,14
+I = 0,92
+
+ROW HEIGHT
+Dibawah Tabel sebelum Perhatian = 3 
+Setelah Perhatian = 3
+

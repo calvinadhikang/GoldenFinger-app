@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class InvoiceExport implements FromView, ShouldAutoSize, WithStyles
+class InvoiceExport implements FromView, WithStyles
 {
     protected $invoice;
     public function __construct($invoice)
@@ -23,79 +23,90 @@ class InvoiceExport implements FromView, ShouldAutoSize, WithStyles
     public function styles(Worksheet $sheet)
     {
         // Header Text
-        $headerTextCell = 'A1:F3';
-        $sheet->getStyle($headerTextCell)->getFont()->setSize(12)->setBold(true);
+        $sheet->getStyle('A1:F1')->getFont()->setSize(14)->setBold(true);
+        $sheet->getStyle('A2:F2')->getFont()->setSize(9)->setBold(true);
+        $sheet->getStyle('A3:F3')->getFont()->setSize(9)->setBold(true);
 
-        // Calculate the width for A4 page size (adjust as needed)
-        $a4Width = PageSetup::PAPERSIZE_A4;
-        $defaultColumnWidth = 8.43; // Adjust this based on your default column width
-        $numColumns = 6; // Adjust this based on the number of columns in the merged range
-        $width = ($a4Width - $defaultColumnWidth * $numColumns) / $numColumns;
-
-        // Set the width for the merged cell range
-        $sheet->getColumnDimension('A')->setWidth($width);
-        $sheet->getColumnDimension('B')->setWidth($width);
-        $sheet->getColumnDimension('C')->setWidth($width);
-        $sheet->getColumnDimension('D')->setWidth($width);
-        $sheet->getColumnDimension('E')->setWidth($width);
-        $sheet->getColumnDimension('F')->setWidth($width);
+        // SET WIDTH
+        $sheet->getColumnDimension('A')->setWidth(2.71);
+        $sheet->getColumnDimension('B')->setWidth(4);
+        $sheet->getColumnDimension('C')->setWidth(9);
+        $sheet->getColumnDimension('D')->setWidth(34.57);
+        $sheet->getColumnDimension('E')->setWidth(8.86);
+        $sheet->getColumnDimension('F')->setWidth(8.86);
+        $sheet->getColumnDimension('G')->setWidth(14.71);
+        $sheet->getColumnDimension('H')->setWidth(16.14);
+        $sheet->getColumnDimension('I')->setWidth(0.92);
 
         // Invoice Text
-        $invoiceTextCell = 'A4:F4';
-        $sheet->mergeCells($invoiceTextCell);
-        $sheet->getStyle($invoiceTextCell)->getAlignment()->setIndent(2)->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle($invoiceTextCell)->getFont()->setSize(14)->setBold(true);
+        $invoiceTextCell = "D4";
+        $sheet->getStyle($invoiceTextCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle($invoiceTextCell)->getFont()->setSize(11)->setBold(true);
 
-        // Make Table
+        // Detail Table
         $detailsCount = count($this->invoice->details);
-        $tableEndRange = 8 + 3 + $detailsCount;
-        $cellRange = "A8:F$tableEndRange";
+        $tableEndRange = 8 + $detailsCount;
+        $cellRange = "B8:H$tableEndRange";
         $sheet->getStyle($cellRange)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getColumnDimension('B')->setWidth(35);
-        $sheet->getColumnDimension('B')->setAutoSize(false);
-        $sheet->getColumnDimension('C')->setWidth(10);
-        $sheet->getColumnDimension('C')->setAutoSize(false);
-        $sheet->getColumnDimension('D')->setWidth(10);
-        $sheet->getColumnDimension('D')->setAutoSize(false);
-        $sheet->getColumnDimension('A')->setWidth(5);
-        $sheet->getColumnDimension('A')->setAutoSize(false);
+        $numberCell = "G9:H$tableEndRange";
+        $sheet->getStyle($numberCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+        $qtyCell = "E8:F$tableEndRange";
+        $sheet->getStyle($qtyCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $noCell = "B8:B$tableEndRange";
+        $sheet->getStyle($noCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         // Table Footer
-        $footerStart = $tableEndRange - 2;
-        $footerEnd = $tableEndRange;
-        $footerRange = "E$footerStart:F$footerEnd";
-        $footerRangeText = "A$footerStart:D$footerEnd";
-        // Clear existing borders
-        $sheet->getStyle($footerRange)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_NONE);
-        // Apply an outside border
-        $sheet->getStyle($footerRange)->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle($footerRange)->getBorders()->getRight()->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle($footerRange)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle($footerRange)->getBorders()->getLeft()->setBorderStyle(Border::BORDER_THIN);
-        // Center Table Footer
-        $sheet->getStyle($footerRangeText)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $footerStart = $tableEndRange + 1;
+        $footerEnd = $tableEndRange + 3;
+        // Footer Number
+        for ($i= $footerStart; $i <= $footerEnd ; $i++) {
+            //number range
+            $numberRange = "G$i:H$i";
+            $sheet->getStyle($numberRange)->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
+            $sheet->getStyle($numberRange)->getBorders()->getRight()->setBorderStyle(Border::BORDER_THIN);
+            $sheet->getStyle($numberRange)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
+            $sheet->getStyle($numberRange)->getBorders()->getLeft()->setBorderStyle(Border::BORDER_THIN);
+            $sheet->getStyle("H$i")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+
+            //text range
+            $textRange = "B$i:F$i";
+            $sheet->getStyle($textRange)->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
+            $sheet->getStyle($textRange)->getBorders()->getRight()->setBorderStyle(Border::BORDER_THIN);
+            $sheet->getStyle($textRange)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
+            $sheet->getStyle($textRange)->getBorders()->getLeft()->setBorderStyle(Border::BORDER_THIN);
+            $sheet->getStyle($textRange)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        }
+
+        // Center Hormat Kami
+        $hormatKamiRow = $footerEnd + 1;
+        $hormatKamiRange = "H$hormatKamiRow";
+        $sheet->getStyle($hormatKamiRange)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        // Center Nadia
+        $nadiaRow = $hormatKamiRow + 4;
+        $nadiaRange = "H$nadiaRow";
+        $sheet->getStyle($nadiaRange)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle($nadiaRange)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
+
+        // Penerima Border
+        $penerimaRange = "F$nadiaRow";
+        $sheet->getStyle($penerimaRange)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
 
         //Perhatian
-        $perhatianStart = $tableEndRange + 1;
-        $perhatianRange = "A$perhatianStart";
-        $sheet->getStyle($perhatianRange)->getAlignment()->setIndent(2)->setHorizontal(Alignment::HORIZONTAL_LEFT)->setVertical(Alignment::VERTICAL_CENTER);
-        $sheet->getStyle($perhatianRange)->getFont()->setSize(10)->setBold(true);
+        $perhatianStart = $footerEnd + 1;
+        $perhatianRange = "B$perhatianStart";
+        $sheet->getStyle($perhatianRange)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT)->setVertical(Alignment::VERTICAL_CENTER);
+        $sheet->getStyle($perhatianRange)->getFont()->setSize(8)->setBold(true);
+        $sheet->getRowDimension($footerEnd + 1)->setRowHeight(20);
 
         // Merge Rekening
-        $rekeningStart = $tableEndRange + 3;
-        $rekeningRange = "A$rekeningStart:B$rekeningStart";
-        $sheet->mergeCells($rekeningRange);
-        $sheet->getStyle($rekeningRange)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
-
-        // Border Rekening Group
-        $rekeningGroupStart = $perhatianStart + 1;
-        $rekeningGroupEnd = $rekeningGroupStart + 2;
-        $rekeningGroupRange = "A$rekeningGroupStart:B$rekeningGroupEnd";
-        $sheet->getStyle($rekeningGroupRange)->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle($rekeningGroupRange)->getBorders()->getRight()->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle($rekeningGroupRange)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle($rekeningGroupRange)->getBorders()->getLeft()->setBorderStyle(Border::BORDER_THIN);
-
+        $rekeningStart = $perhatianStart + 1;
+        $rekeningEnd = $rekeningStart + 3;
+        $rekeningRange = "B$rekeningStart:D$rekeningEnd";
+        $sheet->getStyle($rekeningRange)->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle($rekeningRange)->getBorders()->getRight()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle($rekeningRange)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle($rekeningRange)->getBorders()->getLeft()->setBorderStyle(Border::BORDER_THIN);
     }
 
     public function view(): View

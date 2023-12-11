@@ -20,7 +20,24 @@ class SuratJalanExport implements FromView, ShouldAutoSize, WithStyles
 
     public function styles(Worksheet $sheet)
     {
+        //Header Dokumen
+        $headerTextCell = 'A1:E3';
+        $sheet->getStyle($headerTextCell)->getFont()->setSize(12)->setBold(true);
 
+        // Title 'SURAT JALAN'
+        $titleRange = "D4:E4";
+        $sheet->getStyle($titleRange)->getFont()->setSize(15)->setBold(true);
+        $sheet->getRowDimension(4)->setRowHeight(20);
+
+        //Table Header
+        $headerRange = "A11:E11";
+        $sheet->getStyle($headerRange)->getFont()->setSize(13)->setBold(true);
+
+        //set Table Size
+        $sheet->getColumnDimension("A")->setAutoSize(false);
+        $sheet->getColumnDimension("A")->setWidth(30);
+        $sheet->getColumnDimension("D")->setAutoSize(false);
+        $sheet->getColumnDimension("D")->setWidth(30);
     }
 
     public function view(): View
