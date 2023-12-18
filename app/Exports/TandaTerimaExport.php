@@ -89,7 +89,7 @@ class TandaTerimaExport implements FromView, ShouldAutoSize, WithStyles
     public function view(): View
     {
         $date = Carbon::now();
-        return view('template.export.dokumen.surat_jalan', [
+        return view('template.export.dokumen.tanda_terima', [
             'invoice' => $this->invoice,
             'date' => $date
         ]);
