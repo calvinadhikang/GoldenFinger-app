@@ -20,6 +20,7 @@
             <th>Email : pt.goldenfingerwheelsindonesia@gmail.com</th>
         </tr>
         <tr>
+            <td colspan="5"></td>
             <th>Surat Jalan</th>
         </tr>
         <tr>
@@ -54,10 +55,10 @@
         </tr>
         <tr>
             <td></td>
+            <td>{{ $invoice->customer->kota }}</td>
         </tr>
         <tr>
             <td></td>
-            <td>{{ $invoice->customer->kota }}</td>
         </tr>
         {{-- Table Starts Here --}}
         <tr>

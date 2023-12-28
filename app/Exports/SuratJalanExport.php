@@ -33,6 +33,12 @@ class SuratJalanExport implements FromView, WithStyles
         $sheet->getStyle('A1:F1')->getFont()->setSize(14)->setBold(true);
         $sheet->getStyle('A2:F2')->getFont()->setSize(9)->setBold(true);
         $sheet->getStyle('A3:F3')->getFont()->setSize(9)->setBold(true);
+
+        // Surat Jalan Text
+        $sheet->getStyle('F4')->getFont()->setSize(14)->setBold(true);
+
+        // Header Surat Text
+        $sheet->getStyle('A5:G9')->getFont()->setBold(true);
     }
 
     public function view(): View
