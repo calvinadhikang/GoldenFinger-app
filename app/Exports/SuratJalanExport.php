@@ -29,6 +29,10 @@ class SuratJalanExport implements FromView, WithStyles
         $sheet->getColumnDimension("F")->setWidth(9);
         $sheet->getColumnDimension("G")->setWidth(21);
 
+        // Header Text
+        $sheet->getStyle('A1:F1')->getFont()->setSize(14)->setBold(true);
+        $sheet->getStyle('A2:F2')->getFont()->setSize(9)->setBold(true);
+        $sheet->getStyle('A3:F3')->getFont()->setSize(9)->setBold(true);
     }
 
     public function view(): View
