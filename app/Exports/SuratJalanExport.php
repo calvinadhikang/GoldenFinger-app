@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class SuratJalanExport implements FromView, WithStyles
@@ -39,6 +41,15 @@ class SuratJalanExport implements FromView, WithStyles
 
         // Header Surat Text
         $sheet->getStyle('A5:G9')->getFont()->setBold(true);
+
+        //table item count
+        $tableItemCount = count($this->invoice->details);
+        // Header Table Border
+        $tableHeaderStart = 11;
+        $tableItemEnd = $tableHeaderStart + $tableItemCount;
+        $sheet->getStyle("A$tableHeaderStart:G$tableHeaderStart")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle("D$tableHeaderStart:E$tableItemEnd")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle("A$tableHeaderStart:E$tableItemEnd")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
     }
 
     public function view(): View
