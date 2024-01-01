@@ -71,7 +71,8 @@
             <td colspan="3">{{ $item->nama }}</td>
             <td>{{ $item->qty }}</td>
             <td>SET</td>
-            <td colspan="2"></td>
+            <td></td>
+            <td></td>
         </tr>
         @endforeach
         <tr>

@@ -46,10 +46,17 @@ class SuratJalanExport implements FromView, WithStyles
         $tableItemCount = count($this->invoice->details);
         // Header Table Border
         $tableHeaderStart = 11;
+        $tableItemStart = $tableHeaderStart + 1;
         $tableItemEnd = $tableHeaderStart + $tableItemCount;
         $sheet->getStyle("A$tableHeaderStart:G$tableHeaderStart")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        // Table Detail
         $sheet->getStyle("D$tableHeaderStart:E$tableItemEnd")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle("A$tableHeaderStart:E$tableItemEnd")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle("A$tableHeaderStart:G$tableItemEnd")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        // Table Keterangan Merge
+        $sheet->mergeCells("F$tableItemStart:G$tableItemEnd");
+
+        // Table Footer
+        
     }
 
     public function view(): View
