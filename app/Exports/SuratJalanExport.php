@@ -56,7 +56,13 @@ class SuratJalanExport implements FromView, WithStyles
         $sheet->mergeCells("F$tableItemStart:G$tableItemEnd");
 
         // Table Footer
-        
+        $footerLenght = 5;
+        $footerStart = $tableItemEnd + 1;
+        $footerEnd = $footerStart + $footerLenght;
+        $sheet->getStyle("A$footerStart:G$footerEnd")->getAlignment()->setWrapText(true);
+        //left footer
+        $sheet->mergeCells("A$footerStart:E:$footerEnd");
+        $sheet->getStyle("A$footerStart:E:$footerEnd")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
     }
 
     public function view(): View
