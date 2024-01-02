@@ -9,15 +9,17 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class PurchaseOrderExport implements FromView, WithStyles
 {
-    protected $invoice;
-    public function __construct($invoice)
+    protected $po;
+    public function __construct($po)
     {
-        $this->invoice = $invoice;
+        $this->po = $po;
     }
 
     public function view(): View
     {
-        return view();
+        return view('template.export.dokumen.purchase_order', [
+            'po' => $this->po
+        ]);
     }
 
     public function styles(Worksheet $sheet)

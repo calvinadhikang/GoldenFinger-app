@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PurchaseOrderExport;
 use App\Models\Barang;
 use App\Models\BarangVendor;
 use App\Models\DetailPurchase;
@@ -13,6 +14,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 use stdClass;
 use Symfony\Component\VarDumper\VarDumper;
 
@@ -387,5 +389,10 @@ class PurchaseController extends Controller
         $obj->total = $total;
         $obj->data = $data;
         return $obj;
+    }
+
+    public function poCreatePurchaseOrder($id){
+        $po = HeaderPurchase::find($id);
+        return Excel::download(new PurchaseOrderExport($po), 'purchase_order.xlsx');
     }
 }

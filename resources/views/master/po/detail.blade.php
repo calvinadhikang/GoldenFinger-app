@@ -123,16 +123,10 @@
     <div class="text-right w-full mt-10">Total Pesanan : <span class="">Rp {{ number_format($po->total) }}</span></div>
 </div>
 
-<h3 class="text-xl font-semibold">Dokumen</h3>
+<h3 class="text-xl font-semibold">Buat Excel</h3>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex justify-between">
-        <form method="post">
-            @csrf
-            <button class="btn btn-secondary shadow-lg" name="type" value="invoice"><i class="fa-solid fa-file-pdf"></i>Buat Invoice !</button>
-        </form>
-        <button class="btn btn-secondary shadow-lg">Buat Surat Jalan !</button>
-        <button class="btn btn-secondary shadow-lg">Buat Sesuatu !</button>
-        <button class="btn btn-secondary shadow-lg"><i class="fa-solid fa-envelope-open-text"></i></i>Kirim Invoice Ke Customer !</button>
+        <a href="{{ url("po/detail/$po->id/dokumen/purchase_order") }}" class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Purchase Order</a>
     </div>
 </div>
 
