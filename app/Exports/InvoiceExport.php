@@ -22,10 +22,12 @@ class InvoiceExport implements FromView, WithStyles
 
     public function styles(Worksheet $sheet)
     {
-        // Header Text
-        $sheet->getStyle('A1:F1')->getFont()->setSize(14)->setBold(true);
-        $sheet->getStyle('A2:F2')->getFont()->setSize(9)->setBold(true);
-        $sheet->getStyle('A3:F3')->getFont()->setSize(9)->setBold(true);
+        // Set narrow margins
+        $sheet->getPageSetup()->setFitToWidth(1); // Set Fit-to-Width to 1 page
+        $sheet->getPageMargins()->setTop(0.25); // Set top margin to 0.25 inches
+        $sheet->getPageMargins()->setRight(0.25); // Set right margin to 0.25 inches
+        $sheet->getPageMargins()->setBottom(0.25); // Set bottom margin to 0.25 inches
+        $sheet->getPageMargins()->setLeft(0.25); // Set left margin to 0.25 inches
 
         // SET WIDTH
         $sheet->getColumnDimension('A')->setWidth(2.71);
@@ -37,6 +39,12 @@ class InvoiceExport implements FromView, WithStyles
         $sheet->getColumnDimension('G')->setWidth(14.71);
         $sheet->getColumnDimension('H')->setWidth(16.14);
         $sheet->getColumnDimension('I')->setWidth(0.92);
+
+        // Header Text
+        $sheet->getStyle('A1:F1')->getFont()->setSize(14)->setBold(true);
+        $sheet->getStyle('A2:F2')->getFont()->setSize(9)->setBold(true);
+        $sheet->getStyle('A3:F3')->getFont()->setSize(9)->setBold(true);
+
 
         // Invoice Text
         $invoiceTextCell = "D4";
