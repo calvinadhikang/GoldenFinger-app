@@ -22,6 +22,13 @@ class SuratJalanExport implements FromView, WithStyles
 
     public function styles(Worksheet $sheet)
     {
+        // Set narrow margins
+        $sheet->getPageSetup()->setFitToWidth(1); // Set Fit-to-Width to 1 page
+        $sheet->getPageMargins()->setTop(0.25); // Set top margin to 0.25 inches
+        $sheet->getPageMargins()->setRight(0.25); // Set right margin to 0.25 inches
+        $sheet->getPageMargins()->setBottom(0.25); // Set bottom margin to 0.25 inches
+        $sheet->getPageMargins()->setLeft(0.25); // Set left margin to 0.25 inches
+
         //set Table Size
         $sheet->getColumnDimension("A")->setWidth(9);
         $sheet->getColumnDimension("B")->setWidth(27);
@@ -29,7 +36,7 @@ class SuratJalanExport implements FromView, WithStyles
         $sheet->getColumnDimension("D")->setWidth(6);
         $sheet->getColumnDimension("E")->setWidth(6);
         $sheet->getColumnDimension("F")->setWidth(9);
-        $sheet->getColumnDimension("G")->setWidth(21);
+        $sheet->getColumnDimension("G")->setWidth(26);
 
         // Header Text
         $sheet->getStyle('A1:F1')->getFont()->setSize(14)->setBold(true);
@@ -38,6 +45,7 @@ class SuratJalanExport implements FromView, WithStyles
 
         // Surat Jalan Text
         $sheet->getStyle('F4')->getFont()->setSize(14)->setBold(true);
+        $sheet->getStyle('A4:G4')->getBorders()->getBottom()->setBorderStyle(Border::BORDER_DOUBLE);
 
         // Header Surat Text
         $sheet->getStyle('A5:G9')->getFont()->setBold(true);
@@ -60,10 +68,12 @@ class SuratJalanExport implements FromView, WithStyles
         $footerStart = $tableItemEnd + 1;
         $footerEnd = $footerStart + $footerLenght - 1;
         $sheet->getStyle("A$footerStart:G$footerEnd")->getAlignment()->setWrapText(true);
+        // set Footer Height Dimension
+
         //left footer
-        // $sheet->mergeCells("A$footerStart:E$footerEnd");
-        $sheet->getStyle("A$footerStart:E$footerEnd")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle("F$footerStart:G$footerEnd")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle("A$footerStart:C$footerEnd")->getBorders()->getLeft()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle("A$footerStart:C$footerEnd")->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle("D$footerStart:G$footerEnd")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
     }
 
     public function view(): View

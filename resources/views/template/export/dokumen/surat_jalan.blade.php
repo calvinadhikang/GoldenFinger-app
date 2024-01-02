@@ -76,24 +76,24 @@
         </tr>
         @endforeach
         <tr>
-            <td colspan="5"></td>
-            <td colspan="2">Perhatian</td>
+            <td colspan="3"></td>
+            <td colspan="4">Perhatian</td>
         </tr>
         <tr>
-            <td colspan="5"></td>
-            <td colspan="2">1. Surat Jalan ini merupakan bukti resmi penerimaan barang</td>
+            <td colspan="3"></td>
+            <td colspan="4">1. Surat Jalan ini merupakan bukti resmi penerimaan barang</td>
         </tr>
         <tr>
-            <td colspan="5"></td>
-            <td colspan="2">2. Surat jalan ini bukan bukti penjualan</td>
+            <td colspan="3"></td>
+            <td colspan="4">2. Surat jalan ini bukan bukti penjualan</td>
         </tr>
         <tr>
-            <td colspan="5"></td>
-            <td colspan="2">3. Barang yang sudah diterima tidak dapat ditukar.</td>
+            <td colspan="3"></td>
+            <td colspan="4">3. Barang yang sudah diterima tidak dapat ditukar/</td>
         </tr>
         <tr>
-            <td colspan="5"></td>
-            <td colspan="2">dikembalikan</td>
+            <td colspan="3"></td>
+            <td colspan="4">dikembalikan</td>
         </tr>
         <tr>
             <td><b><i>BARANG SUDAH DITERIMA DALAM KEADAAN BAIK DAN CUKUP Oleh</i></b></td>
