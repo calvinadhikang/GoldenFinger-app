@@ -19,7 +19,7 @@
         </tr>
         <tr></tr>
         <tr>
-            <th>Surat Jalan</th>
+            <th><b>PURCHASE ORDER</b></th>
         </tr>
         <tr>
             <th><b>NO PO : {{ $po->kode }}</b></th>
@@ -33,22 +33,22 @@
         <tr>
             <td colspan="7"><b>PT.GOLDFINGER WHEELS INDONESIA</b></td>
             <td></td>
-            <td colspan="2"></td>
+            <td colspan="2"><b>{{ $po->vendor->nama }}</b></td>
         </tr>
         <tr>
             <td colspan="7">Jl. Soekarno Hatta KM 6, 5 RT. 18, Kalimantan Timur,</td>
             <td></td>
-            <td colspan="2"></td>
+            <td colspan="2">{{ $po->vendor->alamat }}</td>
         </tr>
         <tr>
             <td colspan="7">Kota Balikpapan, Indonesia 76126</td>
             <td></td>
-            <td colspan="2"></td>
+            <td colspan="2">{{ $po->vendor->kota }}</td>
         </tr>
         <tr>
             <td colspan="7">0812-5309-669 | 0821-5711-887</td>
             <td></td>
-            <td colspan="2"></td>
+            <td colspan="2">{{ $po->vendor->telp }}</td>
         </tr>
         <tr></tr>
         <tr></tr>
@@ -81,17 +81,17 @@
         </tr>
         @endforeach
         <tr>
-            <td colspan="8">TOTAL SUB</td>
+            <td colspan="8"><b>TOTAL SUB</b></td>
             <td>Rp</td>
             <td>{{ format_decimal($po->total) }}</td>
         </tr>
         <tr>
-            <td colspan="8">PPN 11%</td>
+            <td colspan="8"><b>PPN 11%</b></td>
             <td>Rp</td>
             <td>{{ format_decimal($po->ppn_value) }}</td>
         </tr>
         <tr>
-            <td colspan="8">TOTAL</td>
+            <td colspan="8"><b>TOTAL</b></td>
             <td>Rp</td>
             <td>{{ format_decimal($po->grand_total) }}</td>
         </tr>
@@ -116,9 +116,9 @@
             <td colspan="2"><b>APPROVE BY</b></td>
         </tr>
         <tr>
-            <td rowspan="2" colspan="3"><b>Eddy Chandra Tjoa</b></td>
-            <td rowspan="2" colspan="5"><b>Nadia P.R.Zakni</b></td>
-            <td rowspan="2" colspan="2"><b>Hendy Kuncoro</b></td>
+            <td rowspan="3" colspan="3"><b>Eddy Chandra Tjoa</b></td>
+            <td rowspan="3" colspan="5"><b>Nadia P.R.Zakni</b></td>
+            <td rowspan="3" colspan="2"><b>Hendy Kuncoro</b></td>
         </tr>
     </table>
 </body>

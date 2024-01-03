@@ -13,7 +13,7 @@
         <div class="w-full bg-accent rounded-lg shadow mx-8 md:w-1/2">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 class="text-3xl font-bold text-primary text-center">
-                    Golden Finger
+                    Admin Gold Finger
                 </h1>
                 <form class="space-y-4 md:space-y-6" method="post">
                     @csrf
