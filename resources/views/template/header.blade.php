@@ -43,6 +43,12 @@
                         Barang
                     </div>
                 </a></li>
+                <li><a href="{{ url('/kategori') }}">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-list me-2 w-6"></i>
+                        Kategori
+                    </div>
+                </a></li>
                 <li><a href="{{ url('/customer') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-user me-2 w-6"></i>

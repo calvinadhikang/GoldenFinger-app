@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
@@ -50,6 +51,15 @@ Route::middleware([EnsureLogin::class])->group(function() {
 
         Route::post('/add', [BarangController::class, "barangAddAction"]);
         Route::post('/detail/{id}', [BarangController::class, "barangDetailAction"]);
+    });
+
+    Route::prefix('kategori')->group(function () {
+        Route::get('/', [KategoriController::class, 'kategoriView']);
+        Route::get('/add', [KategoriController::class, "kategoriAddView"]);
+        Route::get('/detail/{id}', [KategoriController::class, "kategoriDetailView"]);
+
+        Route::post('/add', [KategoriController::class, "kategoriAddAction"]);
+        Route::post('/detail/{id}', [KategoriController::class, "kategoriDetailAction"]);
     });
 
     // Note : vendor -> tidak bisa, sudah terpakai dri framework/sistem
