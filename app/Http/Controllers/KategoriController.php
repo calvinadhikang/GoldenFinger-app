@@ -36,4 +36,15 @@ class KategoriController extends Controller
         return redirect('/kategori');
     }
 
+    public function kategoriDetailAction(Request $request){
+        $nama = $request->input('nama');
+        $id = $request->input('id');
+
+        $kategori = Kategori::find($id);
+        $kategori->nama = $nama;
+        $kategori->save();
+
+        toast('Berhasil edit kategori', 'success');
+        return back();
+    }
 }
