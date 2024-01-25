@@ -50,6 +50,14 @@ class KategoriController extends Controller
         return back();
     }
 
+    public function kategoriDetailActionRemove(Request $request, $id){
+        $barangId = $request->input('barang');
+        DB::table('kategori_barang')->where('kategori_id', $id)->where('barang_id', $barangId)->delete();
+
+        toast('Berhasil Hapus Barang Dari Kategori', 'success');
+        return back();
+    }
+
     public function kategoriDetailAddBarangView($id){
         $barang = Barang::all();
         $kategori = Kategori::find($id);

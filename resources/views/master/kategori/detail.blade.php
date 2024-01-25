@@ -43,7 +43,12 @@
                 <tr>
                     <td>{{ $item->part }}</td>
                     <td>{{ $item->nama }}</td>
-                    <td><a href="" class="btn btn-xs btn-error">Hapus</a></td>
+                    <td>
+                        <form method="POST" action="{{ url("/kategori/detail/$kategori->id/remove") }}">
+                            @csrf
+                            <button class="btn btn-xs btn-error" name="barang" value="{{ $item->part }}">Hapus</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             @endif

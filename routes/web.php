@@ -60,6 +60,7 @@ Route::middleware([EnsureLogin::class])->group(function() {
 
         Route::post('/add', [KategoriController::class, "kategoriAddAction"]);
         Route::post('/detail/{id}', [KategoriController::class, "kategoriDetailAction"]);
+        Route::post('/detail/{id}/remove', [KategoriController::class, "kategoriDetailActionRemove"]);
 
         Route::get('/detail/{id}/add/barang', [KategoriController::class, "kategoriDetailAddBarangView"]);
         Route::post('/detail/{id}/add/barang', [KategoriController::class, "kategoriDetailAddBarangAction"]);
