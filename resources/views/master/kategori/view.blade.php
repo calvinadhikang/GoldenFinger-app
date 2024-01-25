@@ -24,7 +24,7 @@
                 @foreach ($data as $item)
                     <tr>
                         <td>{{ $item->nama }}</td>
-                        <td></td>
+                        <td>{{ count($item->barang) }}</td>
                         <td>
                             <a href="{{ url("kategori/detail/$item->id") }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
