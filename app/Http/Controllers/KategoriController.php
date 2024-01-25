@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KategoriController extends Controller
 {
@@ -46,5 +48,34 @@ class KategoriController extends Controller
 
         toast('Berhasil edit kategori', 'success');
         return back();
+    }
+
+    public function kategoriDetailAddBarangView($id){
+        $barang = Barang::all();
+        $kategori = Kategori::find($id);
+        $kategori_barang = DB::table('kategori_barang')->where('kategori_id', $id)->get();
+        $unlisted = [];
+        $listed = [];
+
+        foreach ($barang as $key => $item) {
+            $found = false;
+            foreach ($kategori_barang as $key => $relation) {
+                if ($item->kode == $relation->barang_id) {
+                    $found = true;
+                }
+            }
+
+            if ($found) {
+                $listed[] = $item;
+            }else{
+                $unlisted[] = $item;
+            }
+        }
+
+        return view('master.kategori.detail_add', [
+            'kategori' => $kategori,
+            'unlisted' => $unlisted,
+            'listed' => $listed
+        ]);
     }
 }
