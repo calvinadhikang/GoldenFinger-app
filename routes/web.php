@@ -62,6 +62,7 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::post('/detail/{id}', [KategoriController::class, "kategoriDetailAction"]);
 
         Route::get('/detail/{id}/add/barang', [KategoriController::class, "kategoriDetailAddBarangView"]);
+        Route::post('/detail/{id}/add/barang', [KategoriController::class, "kategoriDetailAddBarangAction"]);
     });
 
     // Note : vendor -> tidak bisa, sudah terpakai dri framework/sistem

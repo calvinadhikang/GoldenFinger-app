@@ -78,4 +78,17 @@ class KategoriController extends Controller
             'listed' => $listed
         ]);
     }
+
+    public function kategoriDetailAddBarangAction($id, Request $request){
+        $listBarangId = $request->input('barang');
+        foreach ($listBarangId as $key => $value) {
+            DB::table('kategori_barang')->insert([
+                'kategori_id' => $id,
+                'barang_id' => $value
+            ]);
+        }
+
+        toast("Berhasil tambah " . count($listBarangId) . " barang ke kategori", 'success');
+        return redirect("kategori/detail/$id");
+    }
 }
