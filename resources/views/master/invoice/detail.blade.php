@@ -177,13 +177,12 @@
         </form>
         <h3 class="font-bold text-lg">Pelunasan Pesanan</h3>
         <p class="py-4">Pastikan kembali bahwa pesanan sudah dibayar oleh customer. <br> Bila sudah yakin, tekan tombol dibawah</p>
-        <div class="flex gap-x-3">
-            <form method="post" action="{{ url("/invoice/finish") }}">
+        <div>
+            <p class="mb-2 text-sm">Masukan password anda : </p>
+            <form method="post" action="{{ url("/invoice/finish") }}" class="flex gap-x-3">
                 @csrf
+                <input type="password" name="password" class="input input-primary w-full" required>
                 <button class="btn btn-primary" name="id" value="{{ $invoice->id }}">Ya, Sudah Lunas !</button>
-            </form>
-            <form method="dialog">
-                <button class="btn btn-outline btn-error">Batal</button>
             </form>
         </div>
     </div>

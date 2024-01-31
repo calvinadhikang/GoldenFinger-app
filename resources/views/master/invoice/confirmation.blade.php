@@ -134,7 +134,7 @@
     <p class="text-xl font-semibold mb-5">Nomor PO</p>
     <div class="rounded bg-accent p-4 mb-5">
         <p class="font-semibold">Masukan nomor PO</p>
-        <input type="text" class="input input-primary w-full" name="po" required>
+        <input type="text" class="input input-primary w-full" name="po" required value="-">
         <p class="text-gray-400 text-xs mt-1">isi dengan ' - ' kalau tidak ada nomor PO</p>
     </div>
 

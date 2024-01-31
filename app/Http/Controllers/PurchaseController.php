@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use stdClass;
@@ -236,8 +237,17 @@ class PurchaseController extends Controller
 
     public function finishPembayaran(Request $request){
         $id = $request->input('id');
+        $user = Session::get('user');
+        $password = $request->input('password');
+
+        if (!Hash::check($password, $user->password)) {
+            toast('Password Salah !', 'error');
+            return back();
+        }
+
         $po = HeaderPurchase::find($id);
         $po->status_pembayaran = 1;
+        $po->pelunas_id = $user->id;
         $po->paid_at = Carbon::now();
         $po->save();
 

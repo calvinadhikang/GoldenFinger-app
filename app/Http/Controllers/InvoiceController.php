@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use stdClass;
@@ -257,9 +258,16 @@ class InvoiceController extends Controller
 
     public function invoiceFinish(Request $request){
         $invoice = HeaderInvoice::find($request->input('id'));
+        $password = $request->input('password');
+        $user = Session::get('user');
+
+        //check password
+        if (!Hash::check($password, $user->password)) {
+            toast('Gagal Melunasi Invoice, Password Salah', 'error');
+            return back();
+        }
 
         if ($invoice->status == 0) {
-
             foreach ($invoice->details as $key => $detail) {
                 $part = $detail->part;
 
@@ -298,6 +306,7 @@ class InvoiceController extends Controller
             toast('Berhasil Melunasi Transaksi', 'success');
             $invoice->status = 1;
             $invoice->paid_at = Carbon::now();
+            $invoice->pelunas_id = $user->id;
             $invoice->save();
             return redirect()->back();
         }
