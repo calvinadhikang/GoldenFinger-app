@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HeaderPurchase;
 use App\Models\OperationalCost;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,26 +9,44 @@ use stdClass;
 
 class OperationalCostController extends Controller
 {
-    public function costView(){
-        $data = OperationalCost::all();
+    public function costView(Request $request){
+        $inputMonth = $request->input('month');
+
+        if ($inputMonth) {
+            $startDate = Carbon::parse($inputMonth)->startOfMonth();
+            $endDate = Carbon::parse($inputMonth)->endOfMonth();
+
+            $data = OperationalCost::whereBetween('created_at', [$startDate, $endDate])->orderBy('created_at', 'desc')->get();
+        }else{
+            $data = OperationalCost::orderBy('created_at', 'desc')->get();
+        }
+
         return view('master.cost.view', [
-            'data' => $data
+            'data' => $data,
+            'filter' => $inputMonth,
+            'filterReadable' => $inputMonth ? Carbon::parse($inputMonth)->format('F Y') : 'Keseluruhan'
         ]);
     }
 
     public function costAddView(){
-        return view('master.cost.add');
+        $default = Carbon::now()->toDateString();
+        return view('master.cost.add', [
+            'default' => $default
+        ]);
     }
 
     public function costAddAction(Request $request){
         $deskripsi = $request->input('deskripsi');
+        $tanggal = $request->input('tanggal');
         $total = intval(str_replace(',', '', $request->input('total')));
 
         toast('Berhasil Menambah Operational Cost', 'success');
-        $cost = OperationalCost::create([
-            'deskripsi' => $deskripsi,
-            'total' => $total
-        ]);
+
+        $cost = new OperationalCost();
+        $cost->deskripsi = $deskripsi;
+        $cost->total = $total;
+        $cost->created_at = $tanggal;
+        $cost->save();
 
         return redirect('/cost');
     }

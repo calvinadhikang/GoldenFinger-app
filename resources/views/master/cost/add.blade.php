@@ -20,6 +20,13 @@
                 </label>
                 <input type="text" placeholder="1000" class="input input-bordered w-full harga" name="total" required/>
             </div>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text text-lg font-bold">Tanggal Pengeluaran</span>
+                    <span class="label-text-alt">Ubah tanggal pengeluaran bila tanggal pengeluaran bukan hari ini</span>
+                </label>
+                <input type="date" class="input input-bordered w-full" name="tanggal" value="{{ $default }}" required/>
+            </div>
         </div>
         <button class="btn btn-primary">Tambah</button>
     </form>

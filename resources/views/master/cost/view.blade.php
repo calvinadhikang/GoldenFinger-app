@@ -2,6 +2,14 @@
 
 @section('content')
 <h1 class="text-2xl font-bold mb-5">Operational Cost</h1>
+<h1 class="font-medium mb-3">Filter Data</h1>
+<div class="p-4 rounded shadow bg-accent mb-5">
+    <form method="GET" class="flex gap-5">
+        <input type="month" class="input input-primary flex-grow bg-white text-black" name="month" value="{{ $filter }}">
+        <button class="btn btn-secondary">Search</button>
+    </form>
+</div>
+<h1 class="font-medium mb-3">Pengeluaran <span class="badge badge-secondary">{{ $filterReadable }}</span></h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url('cost/add')}}">Tambah</a>
