@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('username');
-            $table->string('password');
+            $table->text('password');
             $table->string('telp');
             $table->enum('role', ['Admin', 'Stakeholder']);
             $table->enum('status', ['Aktif', 'Non-Aktif']);

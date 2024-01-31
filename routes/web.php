@@ -9,6 +9,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\OperationalCostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SharesController;
@@ -43,6 +44,12 @@ Route::get('/logout', function(){
 
 Route::middleware([EnsureLogin::class])->group(function() {
     Route::get('/dashboard', [MasterController::class, "dashboardView"]);
+
+    Route::prefix('/profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'profileView']);
+        Route::post('/', [ProfileController::class, 'profileAction']);
+        Route::post('/password-update', [ProfileController::class, 'profileUpdatePassword']);
+    });
 
     Route::prefix('barang')->group(function () {
         Route::get('/', [BarangController::class, "barangView"]);

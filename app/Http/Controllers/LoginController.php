@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -14,18 +14,26 @@ class LoginController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $user = Karyawan::where('username','=',$username)->where('password','=',$password)->get();
-        if (count($user) > 0) {
-            if ($user[0]->status == "Aktif") {
-                Session::put('user', $user[0]);
-                return redirect('/dashboard');
-            }else{
-                toast("User tidak aktif", "error");
-                return redirect()->back();
+        $users = Karyawan::where('username','=',$username)->get();
+        if (count($users) > 0) {
+            //cari user yang sesuai dengan bcrypt
+            foreach ($users as $key => $value) {
+                if (Hash::check($password, $value->password)) {
+                    if ($value->status == "Aktif") {
+                        Session::put('user', $value);
+                        return redirect('/dashboard');
+                    }else{
+                        toast("User tidak aktif", "error");
+                        return back();
+                    }
+                }
             }
+
+            toast('Password Salah !', 'error');
+            return back();
         } else {
-            toast("Username / Password salah!", "error");
-            return redirect()->back();
+            toast("Username tidak ditemukan", "error");
+            return back();
         }
     }
 

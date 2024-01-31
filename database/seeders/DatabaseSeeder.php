@@ -9,6 +9,7 @@ use App\Models\BarangVendor;
 use App\Models\Karyawan;
 use App\Models\Vendor;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,7 +37,7 @@ class DatabaseSeeder extends Seeder
         Karyawan::create([
             'nama' => 'Calvin Adhikang',
             'username' => 'calvin',
-            'password' => 'calvin',
+            'password' => Hash::make('calvin'),
             'telp' => '082257324548',
             'role' => "Admin",
             'status' => 'Aktif',

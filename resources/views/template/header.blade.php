@@ -24,10 +24,10 @@
             <label for="my-drawer-2" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 min-h-screen bg-accent text-base-content overflow-y-visible flex flex-col">
                 <!-- Sidebar content here -->
-                <div class="rounded-lg drop-shadow-lg bg-primary px-4 py-5 mb-5">
+                <a href="{{ url('/profile') }}" class="rounded-lg drop-shadow-lg bg-primary px-4 py-5 mb-5 hover:bg-opacity-80">
                     <h1 class="text-2xl font-bold text-base-100">{{ $user->nama }}</h1>
                     <p class="text-base-100 font-semibold">{{ $user->role }}</p>
-                </div>
+                </a>
 
                 <li><a href="{{ url('/dashboard') }}">
                     <div class="flex items-center">

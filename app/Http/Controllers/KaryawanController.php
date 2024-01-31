@@ -7,6 +7,7 @@ use App\Models\SharesModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\VarDumper\VarDumper;
 
 class KaryawanController extends Controller
@@ -36,7 +37,7 @@ class KaryawanController extends Controller
             $lastId = DB::table('karyawan')->insertGetId([
                 'nama' => $request->input('nama'),
                 'username' => $request->input('username'),
-                'password' => $request->input('password'),
+                'password' => Hash::make($request->input('password')),
                 'telp' => $request->input('telp'),
                 'role' => $request->input('role'),
                 'status' => 1,
