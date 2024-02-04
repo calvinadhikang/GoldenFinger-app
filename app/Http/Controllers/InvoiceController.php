@@ -249,6 +249,10 @@ class InvoiceController extends Controller
 
     public function invoiceDetailView($id){
         $invoice = HeaderInvoice::find($id);
+        if ($invoice == null) {
+            toast("Invoice $id Tidak Ditemukan !", "error");
+            return redirect('/invoice');
+        }
 
         return view('master.invoice.detail', [
             'invoice' => $invoice,

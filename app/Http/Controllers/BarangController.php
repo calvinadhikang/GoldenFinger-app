@@ -45,6 +45,10 @@ class BarangController extends Controller
     public function barangDetailView($id)
     {
         $barang = Barang::find($id);
+        if ($barang == null) {
+            toast("Barang $id Tidak Ditemukan", 'error');
+            return redirect('/barang');
+        }
         return view('master.barang.detail', [
             'barang' => $barang
         ]);

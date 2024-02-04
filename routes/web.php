@@ -43,7 +43,12 @@ Route::get('/logout', function(){
 });
 
 Route::middleware([EnsureLogin::class])->group(function() {
-    Route::get('/dashboard', [MasterController::class, "dashboardView"]);
+    Route::prefix('/dashboard')->group(function (){
+        Route::get('/', [MasterController::class, "dashboardView"]);
+        Route::get('/barang/minimum', [MasterController::class, 'barangMinimumView']);
+        Route::get('/po/unpaid', [MasterController::class, 'poUnpaidView']);
+        Route::get('/invoice/paid', [MasterController::class, 'invoicePaidView']);
+    });
 
     Route::prefix('/profile')->group(function () {
         Route::get('/', [ProfileController::class, 'profileView']);

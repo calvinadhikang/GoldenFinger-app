@@ -3,21 +3,21 @@
 @section('content')
     <h1 class="text-2xl font-bold">Dashboard</h1>
     <div class="flex flex-wrap justify-start mt-5 gap-5 mb-10">
-        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
+        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/dashboard/invoice/paid') }}">
             <div class="stat shadow bg-accents">
                 <div class="stat-title">Pendapatan Bulan Ini</div>
                 <div class="stat-value" id="invoice">0</div>
                 <div class="stat-desc">Jumlah Invoice yang sudah lunas</div>
             </div>
         </a>
-        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/barang') }}">
+        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/dashboard/barang/minimum') }}">
             <div class="stat">
                 <div class="stat-title">Total Barang Stok Minim</div>
                 <div class="stat-value" id="minimum">0</div>
                 <div class="stat-desc">Jumlah Barang dengan stok minim</div>
             </div>
         </a>
-        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/invoice') }}">
+        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/dashboard/po/unpaid') }}">
             <div class="stat">
                 <div class="stat-title">Total PO Belum Lunas</div>
                 <div class="stat-value" id="po-due">0</div>

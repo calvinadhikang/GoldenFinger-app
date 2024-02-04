@@ -30,6 +30,12 @@ class PurchaseController extends Controller
 
     public function purchaseDetailView($id){
         $po = HeaderPurchase::find($id);
+
+        if ($po == null) {
+            toast("PO $id Tidak Ditemukan !", "error");
+            return redirect('/invoice');
+        }
+
         return view('master.po.detail', [
             'po' => $po,
             'daysLeft' => Util::getDiffDays($po->jatuh_tempo)
