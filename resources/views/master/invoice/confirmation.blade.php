@@ -66,7 +66,10 @@
             <tr>
                 <td>{{ $item->part }}</td>
                 <td>{{ $item->nama }}</td>
-                <td>Rp {{ format_decimal($item->harga) }}</td>
+                <td>
+                    <p>Rp {{ format_decimal($item->harga) }}</p>
+                    <p class="text-xs text-slate-400">Harga Sebelum PPN : Rp {{ format_decimal($item->clean_price) }}</p>
+                </td>
                 <td>{{ number_format($item->qty) }}</td>
                 <td>Rp {{ format_decimal($item->subtotal) }}</td>
             </tr>

@@ -53,6 +53,10 @@
         </div>
         @endif
         <p class="text-sm text-gray-400 mb-5">Barang dengan Quantity 0 tidak akan dimasukan.</p>
+        <div class="my-5 flex items-center gap-3">
+            <input type="checkbox" name="ppn-include" class="checkbox checkbox-primary">
+            <label class="text-sm">Harga Sudah PPN</label>
+        </div>
         <button class="btn btn-primary">Selanjutnya</button>
     </form>
 </div>

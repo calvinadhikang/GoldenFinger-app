@@ -133,14 +133,27 @@ class InvoiceController extends Controller
         $qty = $request->input('qty');
         $harga = $request->input('harga');
         $part = $request->input('part');
+        $ppn_include = $request->input('ppn-include');
+        $invoice = Session::get('invoice_cart');
 
         $total = 0;
+        $cleanTotal = 0; //total harga bersih, untuk perhitungan harga non ppn
         $list = [];
         for ($i=0; $i < count($qty); $i++) {
             if ($qty[$i] > 0) {
                 $obj = Barang::find($part[$i]);
                 $obj->qty = $qty[$i];
-                $obj->harga = Util::parseNumericValue($harga[$i]);
+                $price = Util::parseNumericValue($harga[$i]);
+                $obj->clean_price = $price;
+
+                if ($ppn_include != null){
+                    //kalau harga non ppn
+                    $ppnItem = $price - ($price / 100 * $invoice->PPN);
+                    $obj->harga = $ppnItem;
+                    $cleanTotal += $price * $qty[$i];
+                }else{
+                    $obj->harga = $price;
+                }
 
                 $subtotal = $obj->harga * $qty[$i];
                 $obj->subtotal = $subtotal;
@@ -155,11 +168,15 @@ class InvoiceController extends Controller
             return redirect()->back();
         }
 
-        $invoice = Session::get('invoice_cart');
 
         $invoice->list = $list;
         $invoice->total = $total;
-        $invoice->PPN_value = ($total / 100) * $invoice->PPN;
+        if ($ppn_include != null){
+            //kalau harga non ppn
+            $invoice->PPN_value = ($cleanTotal / 100) * $invoice->PPN;
+        }else{
+            $invoice->PPN_value = ($total / 100) * $invoice->PPN;
+        }
         $invoice->grandTotal = $total + $invoice->PPN_value;
 
         Session::put('invoice_cart', $invoice);
