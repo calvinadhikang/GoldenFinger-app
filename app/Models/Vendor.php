@@ -10,7 +10,7 @@ class Vendor extends Model
     use HasFactory;
     protected $table = 'vendor';
     protected $primaryKey = 'id';
-    protected $fillable = ['nama', 'email', 'alamat', 'telp'];
+    protected $fillable = ['nama', 'email', 'alamat', 'telp', 'kota', 'npwp'];
 
     public function barang(){
         return $this->belongsToMany(

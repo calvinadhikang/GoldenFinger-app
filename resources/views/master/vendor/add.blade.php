@@ -34,6 +34,20 @@
                 </label>
                 <input type="text" placeholder="Jalan..." class="input input-bordered w-full" name="alamat" required/>
             </div>
+            <div class="form-control w-full md:w-1/2 md:pe-2">
+                <label class="label">
+                    <span class="label-text text-lg font-bold">Kota</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" placeholder="Kota..." class="input input-bordered w-full" name="kota" required/>
+            </div>
+            <div class="form-control w-full md:w-1/2">
+                <label class="label">
+                    <span class="label-text text-lg font-bold">NPWP</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" placeholder="NPWP..." class="input input-bordered w-full" name="npwp" required/>
+            </div>
         </div>
         <button class="btn btn-primary">Tambah</button>
     </form>

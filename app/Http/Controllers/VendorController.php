@@ -35,9 +35,11 @@ class VendorController extends Controller
             'email' => $request->input('email'),
             'telp' => $request->input('telp'),
             'alamat' => $request->input('alamat'),
+            'kota' => $request->input('kota'),
+            'npwp' => $request->input('npwp'),
         ]);
 
-        toast('Berhasil Menambah Vendor', 'success');
+        toast('Berhasil Menambah Vendor '. $vendor->nama, 'success');
         return redirect('/vendors');
     }
 
