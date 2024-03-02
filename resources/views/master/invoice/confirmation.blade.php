@@ -159,12 +159,12 @@
                 <div class="w-full">
                     <p class="font-semibold mb-2">Status Pembayaran</p>
                     <div class="flex items-start justify-start">
-                        <input type="checkbox" class="checkbox checkbox-secondary me-2" name="statusPembayaran" id="statusPembayaran" checked>
+                        <input type="checkbox" class="checkbox checkbox-secondary me-2" name="statusPembayaran" id="statusPembayaran">
                         <label>Pembayaran Sudah Lunas</label>
                     </div>
                     <div class="mt-2 text-slate-400" id="statusValuePembayaran">
                         <label class="text-sm">Waktu Pembayaran</label>
-                        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran" required>
+                        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran">
                     </div>
                 </div>
                 <div class="w-full">
@@ -248,6 +248,7 @@ $('#timeCheck').on('click', function() {
 
 toggleKomisiStatus(false);
 toggleTimeStatus(false);
+$('#statusValuePembayaran').hide();
 
 </script>
 @endsection

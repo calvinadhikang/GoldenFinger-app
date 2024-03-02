@@ -28,9 +28,13 @@
 
     <div class="grid grid-cols-2 mt-2">
         <p>Tanggal Jatuh Tempo</p>
-        <p class=" text-right">{{ date_format(new DateTime($invoice->jatuh_tempo), 'd M Y') }}</p>
+        <p class="text-right">{{ date_format(new DateTime($invoice->jatuh_tempo), 'd M Y') }}</p>
         <p>Tanggal Pembayaran</p>
-        <p class=" text-right {{ $invoice->paid_at == null ? 'text-error' : 'text-secondary' }}">{{ $invoice->paid_at == null ? 'Belum Bayar' : date_format(new DateTime($invoice->paid_at), 'd M Y') }}</p>
+        <p class="text-right {{ $invoice->paid_at == null ? 'text-error' : 'text-secondary' }}">{{ $invoice->paid_at == null ? 'Belum Bayar' : date_format(new DateTime($invoice->paid_at), 'd M Y') }}</p>
+        @if ($karyawan)
+        <p>Karyawan</p>
+        <p class="text-right">{{ $karyawan->nama }}</p>
+        @endif
     </div>
     @if (!$invoice->paid_at)
         <p class="text-right">Kurang <span class="font-bold text-lg">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
@@ -41,7 +45,7 @@
         <div class="grid grid-cols-2">
             <div class="">
                 <h3 class="text-xl font-semibold">Pesanan Sudah Lunas ?</h3>
-                <p>Klik tombol dibawah bila pesanan sudah <span class="text-secondary text-xl font-semibold">Lunas</span></p>
+                <p>Klik tombol disamping bila pesanan sudah lunas</p>
             </div>
             <button class="btn btn-primary mt-2" onclick="modal_pembayaran.showModal()">Pesanan, Sudah Lunas !</button>
         </div>

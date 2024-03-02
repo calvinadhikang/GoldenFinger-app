@@ -9,6 +9,7 @@ use App\Models\Barang;
 use App\Models\Customer;
 use App\Models\DetailInvoice;
 use App\Models\HeaderInvoice;
+use App\Models\Karyawan;
 use App\Models\OperationalCost;
 use Carbon\Carbon;
 use Exception;
@@ -281,7 +282,8 @@ class InvoiceController extends Controller
 
         return view('master.invoice.detail', [
             'invoice' => $invoice,
-            'daysLeft' => Util::getDiffDays($invoice->jatuh_tempo)
+            'daysLeft' => Util::getDiffDays($invoice->jatuh_tempo),
+            'karyawan' => Karyawan::find($invoice->paid_by)
         ]);
     }
 
@@ -333,9 +335,8 @@ class InvoiceController extends Controller
             }
 
             toast('Berhasil Melunasi Transaksi', 'success');
-            $invoice->status = 1;
             $invoice->paid_at = Carbon::now();
-            $invoice->pelunas_id = $user->id;
+            $invoice->paid_by = $user->id;
             $invoice->save();
             return redirect()->back();
         }
@@ -345,7 +346,7 @@ class InvoiceController extends Controller
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
 
-        $data = HeaderInvoice::whereMonth('created_at', '=', $currentMonth)->whereYear('created_at', '=', $currentYear)->where('status', 1)->get();
+        $data = HeaderInvoice::whereMonth('created_at', '=', $currentMonth)->whereYear('created_at', '=', $currentYear)->where('paid_by', '!=', null)->get();
         $total = 0;
         foreach ($data as $invoice) {
             $total += $invoice->grand_total;
