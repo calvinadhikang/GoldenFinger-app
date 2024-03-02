@@ -33,6 +33,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->unsignedBigInteger('paid_by')->nullable();
+            $table->unsignedBigInteger('deleted_by')->nullable();
+
             $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->unique('kode');

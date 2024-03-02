@@ -37,7 +37,7 @@ class Util extends Controller
             DB::table('invoice_setting')->update([
                 'last_year' => $year,
                 'last_month' => $month,
-                'data_count' => 0,
+                'data_count' => 1,
             ]);
         } else {
             // If it's the same month, increment the count

@@ -3,7 +3,7 @@
 @section('content')
 <h1 class="text-white text-2xl font-bold">Detail Invoice</h1>
 <div class="rounded bg-accent p-4 my-5">
-    <div class="grid grid-cols-2 gap-y-2">
+    <div class="grid grid-cols-2">
         <div class="text-xl font-semibold">Kode Transaksi</div>
         <div class="text-right text-lg font-medium">{{ $invoice->kode }}</div>
         <div class="divider"></div>
@@ -20,7 +20,7 @@
 
 <p class="text-xl font-semibold mb-5">Status Pembayaran</p>
 <div class="p-4 rounded bg-accent">
-    @if ($invoice->status == 0)
+    @if (!$invoice->paid_at)
         <div class="text-red-200 bg-red-600 font-semibold text-xl text-center rounded mt-5 p-3 mb-5">Belum Lunas</div>
     @else
         <div class="text-white bg-secondary font-semibold text-xl text-center rounded mt-5 p-3">Lunas</div>
@@ -30,13 +30,13 @@
         <p>Tanggal Jatuh Tempo</p>
         <p class=" text-right">{{ date_format(new DateTime($invoice->jatuh_tempo), 'd M Y') }}</p>
         <p>Tanggal Pembayaran</p>
-        <p class=" text-right {{ $invoice->paid_at == null ? 'text-error' : 'text-secondary' }}">{{ $invoice->paid_at == null ? 'Belum Bayar' : date_format(new DateTime($invoice->finished_at), 'd M Y') }}</p>
+        <p class=" text-right {{ $invoice->paid_at == null ? 'text-error' : 'text-secondary' }}">{{ $invoice->paid_at == null ? 'Belum Bayar' : date_format(new DateTime($invoice->paid_at), 'd M Y') }}</p>
     </div>
-    @if ($invoice->status == 0)
+    @if (!$invoice->paid_at)
         <p class="text-right">Kurang <span class="font-bold text-lg">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
     @endif
 
-    @if ($invoice->status == 0)
+    @if (!$invoice->paid_at)
         <div class="divider"></div>
         <div class="grid grid-cols-2">
             <div class="">

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContactPerson extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'contact_person';
     protected $primaryKey = 'id';
     protected $fillable = ['vendor_id', 'nama', 'telp'];
