@@ -101,7 +101,7 @@ class InvoiceController extends Controller
         $invoice = Session::get('invoice_cart');
 
         //Hitung hutang Customer
-        $hutangCustomer = HeaderInvoice::where('customer_id', $invoice->customer->id)->where('status', 0)->get();
+        $hutangCustomer = HeaderInvoice::where('customer_id', $invoice->customer->id)->where('paid_at', null)->get();
         $totalHutang = 0;
         foreach ($hutangCustomer as $key => $hutang) {
             $totalHutang += $hutang->grand_total;
@@ -165,7 +165,9 @@ class InvoiceController extends Controller
 
         if (count($list) <= 0) {
             toast('Minimal membeli 1 Barang', 'error');
-            return redirect()->back();
+            return redirect()->back()->withErrors([
+                'msg' => 'Minimal membeli 1 barang !'
+            ]);
         }
 
 
@@ -211,6 +213,10 @@ class InvoiceController extends Controller
         $jatuhTempo = $request->input('jatuhTempo');
         $invoice = Session::get('invoice_cart');
 
+        //cek apakah transaksi lama
+        $timePembayaran = $request->input('timeValuePembayaran');
+        $timeCreation = $request->input('timePembuatan') ?? Carbon::now();
+
         $komisiStatus = $request->input('komisi');
         if ($komisiStatus) {
             $komisiJumlah = Util::parseNumericValue($request->input('komisiJumlah'));
@@ -230,7 +236,6 @@ class InvoiceController extends Controller
                 'kode' => $kode,
                 'surat_jalan' => $suratJalan,
                 'total' => $invoice->total,
-                'status' => 0,
                 'contact_person' => $komisiPenerima,
                 'komisi' => $komisiJumlah,
                 'ppn' => $invoice->PPN,
@@ -238,7 +243,8 @@ class InvoiceController extends Controller
                 'grand_total' => $invoice->grandTotal,
                 'po' => $request->input('po'),
                 'jatuh_tempo' => $jatuhTempo,
-                'created_at' => $currentDateTime
+                'created_at' => $timeCreation,
+                'paid_at' => $timePembayaran
             ]);
 
             foreach ($invoice->list as $key => $value) {
@@ -256,12 +262,14 @@ class InvoiceController extends Controller
             Session::remove('invoice_cart');
             toast("Transaksi Customer: ".$invoice->customer->nama.", Berhasil dibuat", 'success');
             DB::commit();
+            return redirect('/invoice');
         } catch (\Exception $ex) {
-            toast($ex->getMessage(), 'error');
             DB::rollBack();
+            return back()->withErrors([
+                'msg' => $ex->getMessage()
+            ]);
         }
 
-        return redirect('/invoice');
     }
 
     public function invoiceDetailView($id){

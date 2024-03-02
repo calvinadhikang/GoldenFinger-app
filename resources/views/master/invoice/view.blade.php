@@ -14,7 +14,7 @@
                     <th><h3 class="font-bold">Customer</h3></th>
                     <th><h3 class="font-bold">Grand Total (Rp)</h3></th>
                     <th><h3 class="font-bold">Tanggal Pesanan</h3></th>
-                    <th><h3 class="font-bold">Status</h3></th>
+                    <th><h3 class="font-bold">Status Pembayaran</h3></th>
                     <th><h3 class="font-bold">Jatuh Tempo</h3></th>
                     <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
@@ -32,11 +32,11 @@
                         <td>Rp {{ number_format($item->total) }}</td>
                         <td>{{ date_format($item->created_at, 'd M Y') }}</td>
                         <td>
-                            @if ($item->status == 0)
+                            @if (!$item->paid_at)
                             <span class="badge badge-error">
                                 Belum Lunas
                             </span>
-                            @elseif ($item->status == 1)
+                            @else
                             <span class="badge badge-secondary">
                                 Lunas
                             </span>

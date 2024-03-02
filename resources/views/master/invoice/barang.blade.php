@@ -15,6 +15,12 @@
     <p>2. Isi jumlah yang ingin dibeli pada kolom <b>Quantity</b>.</p>
     <p>3. Tekan <b class="text-primary">Selanjutnya</b> bila sudah sesuai.</p>
 </div>
+@if ($errors->any())
+<div class="alert alert-error my-5">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    <span>{{ $errors->first() }}</span>
+</div>
+@endif
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
@@ -47,7 +53,7 @@
             </tbody>
         </table>
         @if ($hutang > 0)
-        <div class="alert alert-error my-5">
+        <div class="alert alert-warning my-5">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             <span>Hutang customer sebesar Rp {{ number_format($hutang) }} Belum dibayar !<br><span class="italic font-semibold">Jangan lupa untuk ingatkan pelunasan.</span></span>
         </div>

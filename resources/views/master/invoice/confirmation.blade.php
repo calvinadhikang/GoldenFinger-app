@@ -15,6 +15,13 @@
     <p>Jangan lupa cek ulang data pesanan dan totalnya.</p>
 </div>
 
+@if ($errors->any())
+<div class="alert alert-error my-5">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    <span>{{ $errors->first() }}</span>
+</div>
+@endif
+
 <h3 class="font-semibold text-xl mb-5">Informasi Customer</h3>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex flex-wrap">
@@ -112,27 +119,62 @@
 
 <form method="POST">
     @csrf
-    <div class="flex gap-10 items-center justify-between mb-5 h-10">
-        <div class="flex items-center gap-5">
-            <span class="text-xl font-semibold">Dapat Komisi ? </span>
-            <input type="checkbox" name="komisi" class="toggle" id="komisiCheck">
-        </div>
-        <div class="">
-            <div id="komisiStatus" class="text-xl font-semibold text-secondary w-full">Dapat Komisi</div>
-        </div>
-    </div>
-    <div class="rounded bg-accent mb-5">
-        <div class="flex space-x-4 p-4" id="komisi-input">
-            <div class="w-full">
-                <p class="font-semibold">Jumlah Komisi</p>
-                <input type="text" class="input input-secondary w-full harga" name="komisiJumlah" value="0" id="komisi">
+    <div class="">
+        <div class="flex gap-10 items-center justify-between mb-5 h-10">
+            <div class="flex items-center gap-5">
+                <span class="text-xl font-semibold">Dapat Komisi ? </span>
+                <input type="checkbox" name="komisi" class="toggle" id="komisiCheck">
             </div>
-            <div class="w-full">
-                <p class="font-semibold">Nama Penerima Komisi</p>
-                <input type="text" class="input input-secondary w-full" name="komisiPenerima">
+            <div class="">
+                <div id="komisiStatus" class="text-xl font-semibold text-secondary w-full">Dapat Komisi</div>
             </div>
         </div>
+        <div class="rounded bg-accent mb-5">
+            <div class="flex space-x-4 p-4" id="komisi-input">
+                <div class="w-full">
+                    <p class="font-semibold">Jumlah Komisi</p>
+                    <input type="text" class="input input-secondary w-full harga" name="komisiJumlah" value="0" id="komisi">
+                </div>
+                <div class="w-full">
+                    <p class="font-semibold">Nama Penerima Komisi</p>
+                    <input type="text" class="input input-secondary w-full" name="komisiPenerima">
+                </div>
+            </div>
+        </div>
     </div>
+
+    {{-- Form Transaksi Lama --}}
+    <div class="">
+        <div class="flex gap-10 items-center justify-between mb-5 h-10">
+            <div class="flex items-center gap-5">
+                <span class="text-xl font-semibold">Data Transaksi Lama ?</span>
+                <input type="checkbox" name="time" class="toggle" id="timeCheck">
+            </div>
+            <div class="">
+                <div id="timeStatus" class="text-xl font-semibold text-secondary w-full">Data Transaksi Baru</div>
+            </div>
+        </div>
+        <div class="rounded bg-accent mb-5">
+            <div class="flex space-x-4 p-4" id="time-input">
+                <div class="w-full">
+                    <p class="font-semibold mb-2">Status Pembayaran</p>
+                    <div class="flex items-start justify-start">
+                        <input type="checkbox" class="checkbox checkbox-secondary me-2" name="statusPembayaran" id="statusPembayaran" checked>
+                        <label>Pembayaran Sudah Lunas</label>
+                    </div>
+                    <div class="mt-2 text-slate-400" id="statusValuePembayaran">
+                        <label class="text-sm">Waktu Pembayaran</label>
+                        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran" required>
+                    </div>
+                </div>
+                <div class="w-full">
+                    <p class="font-semibold">Tanggal Pembuatan Invoice</p>
+                    <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timePembuatan" id="timePembuatan">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <p class="text-xl font-semibold mb-5">Nomor PO</p>
     <div class="rounded bg-accent p-4 mb-5">
@@ -151,12 +193,11 @@
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
-const toggleStatus = status => {
+const toggleKomisiStatus = status => {
     if (status) {
         $('#komisiStatus').html("Dapat Komisi");
         $('#komisiStatus').addClass("text-secondary");
         $('#komisiStatus').removeClass("text-error");
-
         $('#komisi-input').show();
     }else{
         $('#komisiStatus').html("Tidak Dapat Komisi");
@@ -166,12 +207,47 @@ const toggleStatus = status => {
     }
 }
 
-$('#komisiCheck').on('click', function() {
-    let checkedStatus = $(this).prop('checked');
-    toggleStatus(checkedStatus);
+const toggleTimeStatus = status => {
+    if (status) {
+        $('#timeStatus').html("Data Transaksi Lama");
+        $('#timeStatus').addClass("text-error");
+        $('#timeStatus').removeClass("text-secondary");
+        $('#time-input').show();
+
+        $('#timePembuatan').prop('required', true);
+    }else{
+        $('#timeStatus').html("Data Transaksi Baru");
+        $('#timeStatus').addClass("text-secondary");
+        $('#timeStatus').removeClass("text-error");
+        $('#time-input').hide();
+
+        $('#timePembuatan').prop('required', false);
+    }
+}
+
+$('#statusPembayaran').on('change', function() {
+    let isChecked = $(this).prop('checked');
+    if (isChecked) {
+        $('#statusValuePembayaran').show();
+        $('#timeValuePembayaran').prop('required', true);
+    } else {
+        $('#statusValuePembayaran').hide();
+        $('#timeValuePembayaran').prop('required', false);
+    }
 })
 
-toggleStatus(false);
+$('#komisiCheck').on('click', function() {
+    let checkedStatus = $(this).prop('checked');
+    toggleKomisiStatus(checkedStatus);
+})
+
+$('#timeCheck').on('click', function() {
+    let checkedStatus = $(this).prop('checked');
+    toggleTimeStatus(checkedStatus);
+})
+
+toggleKomisiStatus(false);
+toggleTimeStatus(false);
 
 </script>
 @endsection

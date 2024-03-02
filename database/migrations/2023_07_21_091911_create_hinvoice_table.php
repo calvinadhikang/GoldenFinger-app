@@ -23,7 +23,6 @@ return new class extends Migration
             $table->decimal('grand_total', 20, 2);
             $table->decimal('ppn_value', 20, 2);
             $table->bigInteger('ppn');
-            $table->integer('status');
             $table->text('contact_person');
             $table->text('po');
             $table->bigInteger('komisi');
