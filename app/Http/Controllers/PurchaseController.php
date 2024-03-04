@@ -21,15 +21,22 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class PurchaseController extends Controller
 {
-    public function purchaseView(){
-        $data = HeaderPurchase::all();
+    public function purchaseView(Request $request){
+        $type = $request->query('type', 'all');
+        if ($type == "deleted") {
+            $data = HeaderPurchase::onlyTrashed()->get();
+        }else{
+            $data = HeaderPurchase::all();
+        }
+
         return view('master.po.view', [
-            'data' => $data
+            'data' => $data,
+            'type' => $type
         ]);
     }
 
     public function purchaseDetailView($id){
-        $po = HeaderPurchase::find($id);
+        $po = HeaderPurchase::find($id) ?? HeaderPurchase::withTrashed()->where('id', $id)->first();
 
         if ($po == null) {
             toast("PO $id Tidak Ditemukan !", "error");
@@ -232,13 +239,14 @@ class PurchaseController extends Controller
 
             Session::remove('po_cart');
             toast('Berhasil Membuat Purchase Order', 'success');
+            return redirect('/po');
             DB::commit();
         } catch (\Exception $ex) {
             toast($ex->getMessage(), 'error');
             DB::rollBack();
+            return back();
         }
 
-        return redirect('/po');
     }
 
     public function finishPembayaran(Request $request){
@@ -253,7 +261,7 @@ class PurchaseController extends Controller
 
         $po = HeaderPurchase::find($id);
         $po->status_pembayaran = 1;
-        $po->pelunas_id = $user->id;
+        $po->paid_by = $user->id;
         $po->paid_at = Carbon::now();
         $po->save();
 
@@ -300,6 +308,7 @@ class PurchaseController extends Controller
             //Update Status Pesanan PO
             $po->status_pesanan = 1;
             $po->recieved_at = Carbon::now();
+            $po->recieved_by = Session::get('user')->id;
             $po->save();
             return redirect()->back();
         }
@@ -310,6 +319,42 @@ class PurchaseController extends Controller
             //Barang Kurang
             return redirect("/po/handling/kurang/$id");
         }
+    }
+
+    public function purchaseDelete($id, Request $request){
+        $user = Session::get('user');
+        $password = $request->input('password');
+
+        //check password
+        if (!Hash::check($password, $user->password)) {
+            toast('Gagal Menghapus Purchase Order, Password Salah', 'error');
+            return back();
+        }
+
+        $po = HeaderPurchase::find($id);
+        $po->delete();
+        $po->deleted_by = $user->id;
+        $po->save();
+        toast('Berhasil Menghapus Purchase Order', 'success');
+        return back();
+    }
+
+    public function purchaseRestore($id, Request $request){
+        $user = Session::get('user');
+        $password = $request->input('password');
+
+        //check password
+        if (!Hash::check($password, $user->password)) {
+            toast('Gagal Mengaktifkan Purchase Order, Password Salah', 'error');
+            return back();
+        }
+
+        $po = HeaderPurchase::withTrashed()->where('id', $id)->first();
+        $po->restore();
+        $po->deleted_by = null;
+        $po->save();
+        toast('Berhasil Mengaktifkan Purchase Order', 'success');
+        return back();
     }
 
     public function countDue(Request $request){

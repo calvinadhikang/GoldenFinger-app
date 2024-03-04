@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->decimal('total', 10, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -5,8 +5,11 @@
     <h1 class="text-2xl font-bold mb-5">Data Invoice</h1>
     <a class="btn btn-primary" href="{{url('invoice/customer')}}">Tambah</a>
 </div>
-<div class="rounded bg-accent p-4 w-full mt-5">
-    <a href="{{ $type == 'all' ? '/invoice?type=deleted' : '/invoice' }}" class="mb-5 btn btn-sm text-white bg-transparent {{ $type == 'all' ? 'btn-secondary' : 'btn-error' }}">Invoice {{ $type == 'all' ? 'Aktif' : 'Terhapus' }}</a>
+<div role="tablist" class="tabs tabs-boxed w-fit mt-5 bg-accent font-semibold">
+    <a role="tab" href="/invoice" class="tab {{ $type == 'all' ? 'tab-active' : '' }}"">Invoice Aktif</a>
+    <a role="tab" href="/invoice?type=deleted" class="tab {{ $type == 'deleted' ? 'tab-active' : '' }}">Invoice Terhapus</a>
+</div>
+<div class="rounded bg-accent p-4 w-full mt-2">
     <div class="overflow-x-auto">
         <table id="table" class="table-zebra">
             <thead>

@@ -16,6 +16,23 @@
         <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($po->grand_total) }}</div>
     </div>
 </div>
+
+@if ($po->deleted_at)
+<h3 class="text-xl font-semibold text-secondary">Aktifkan Transaksi Purchase Order</h3>
+<div class="rounded bg-accent p-4 my-5">
+    <p>Status Purchase Order saat ini adalah <span class="text-error font-semibold">Tidak Aktif</span> <br>
+    Untuk mengaktifkan kembali Purchase Order silahkan isi password dibawah dan tekan tombol</p>
+    <form method="POST" action="{{ url("/po/detail/$po->id/restore") }}">
+        @csrf
+        <p class="text-sm mt-2">Password</p>
+        <div class="flex items-center gap-x-2">
+            <input type="password" name="password" class="input input-secondary">
+            <button class="btn btn-secondary">Aktifkan Purchase Order</button>
+        </div>
+    </form>
+</div>
+@endif
+
 <div class="grid grid-cols-2 gap-x-5">
     <div class="">
         <p class="text-xl font-semibold mb-5">Status Pesanan</p>
@@ -129,6 +146,21 @@
         <a href="{{ url("po/detail/$po->id/dokumen/purchase_order") }}" class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Purchase Order</a>
     </div>
 </div>
+
+@if (!$po->deleted_at)
+<h3 class="text-xl font-semibold text-error">Hapus Transaksi Purchase Order</h3>
+<div class="rounded bg-accent p-4 my-5 text-error">
+    <p>Untuk menghapus transaksi Purchase Order, masukan password dan tekan tombol dibawah</p>
+    <form method="POST" action="{{ url("/po/detail/$po->id/delete") }}">
+        @csrf
+        <p class="text-sm mt-2">Password</p>
+        <div class="flex items-center gap-x-2">
+            <input type="password" name="password" class="input input-error">
+            <button class="btn btn-error">Hapus Purchase Order</button>
+        </div>
+    </form>
+</div>
+@endif
 
 <dialog id="modal_pembayaran" class="modal">
     <div class="modal-box bg-slate-700 text-white">

@@ -27,7 +27,6 @@ return new class extends Migration
             $table->timestamp('jatuh_tempo')->nullable();
             $table->timestamp('recieved_at')->nullable();
             $table->timestamp('paid_at')->nullable();
-            $table->unsignedBigInteger('pelunas_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

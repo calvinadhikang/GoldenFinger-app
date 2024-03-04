@@ -161,6 +161,9 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::get('/detail/{id}', [PurchaseController::class, 'purchaseDetailView']);
         Route::get('/detail/{id}', [PurchaseController::class, 'purchaseDetailView']);
 
+        Route::post('/detail/{id}/delete', [PurchaseController::class, 'purchaseDelete']);
+        Route::post('/detail/{id}/restore', [PurchaseController::class, 'purchaseRestore']);
+
         Route::get('/barang', [PurchaseController::class, 'purchaseBarangView']);
         Route::post('/barang', [PurchaseController::class, 'purchaseBarangAdd']);
 
