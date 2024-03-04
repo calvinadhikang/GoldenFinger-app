@@ -17,6 +17,21 @@
     </div>
 </div>
 
+@if ($invoice->deleted_at)
+<h3 class="text-xl font-semibold text-secondary">Aktifkan Transaksi Invoice</h3>
+<div class="rounded bg-accent p-4 my-5">
+    <p>Status invoice saat ini adalah <span class="text-error font-semibold">Tidak Aktif</span> <br>
+    Untuk mengaktifkan kembali Invoice silahkan isi password dibawah dan tekan tombol</p>
+    <form method="POST" action="{{ url("/invoice/detail/$invoice->id/restore") }}">
+        @csrf
+        <p class="text-sm mt-2">Password</p>
+        <div class="flex items-center gap-x-2">
+            <input type="password" name="password" class="input input-secondary">
+            <button class="btn btn-secondary">Aktifkan Invoice</button>
+        </div>
+    </form>
+</div>
+@endif
 
 <p class="text-xl font-semibold mb-5">Status Pembayaran</p>
 <div class="p-4 rounded bg-accent">
@@ -173,6 +188,23 @@
         </a> --}}
     </div>
 </div>
+
+@if (!$invoice->deleted_at)
+<h3 class="text-xl font-semibold text-error">Hapus Transaksi Invoice</h3>
+<div class="rounded bg-accent p-4 my-5 text-error">
+    <p>Untuk menghapus transaksi Invoice, masukan password dan tekan tombol dibawah</p>
+    <form method="POST" action="{{ url("/invoice/detail/$invoice->id/delete") }}">
+        @csrf
+        <p class="text-sm mt-2">Password</p>
+        <div class="flex items-center gap-x-2">
+            <input type="password" name="password" class="input input-error">
+            <button class="btn btn-error">Hapus Invoice</button>
+        </div>
+    </form>
+</div>
+@endif
+
+
 
 <dialog id="modal_pembayaran" class="modal">
     <div class="modal-box bg-slate-700 text-white">

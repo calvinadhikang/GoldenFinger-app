@@ -23,9 +23,15 @@ use stdClass;
 
 class InvoiceController extends Controller
 {
-    public function invoiceView(){
-        $data = HeaderInvoice::all();
+    public function invoiceView(Request $request){
+        $type = $request->query('type', 'all');
+        if ($type == 'all') {
+            $data = HeaderInvoice::all();
+        }else {
+            $data = HeaderInvoice::onlyTrashed()->get();
+        }
         return view('master.invoice.view', [
+            'type' => $type,
             'data' => $data
         ]);
     }
@@ -274,7 +280,7 @@ class InvoiceController extends Controller
     }
 
     public function invoiceDetailView($id){
-        $invoice = HeaderInvoice::find($id);
+        $invoice = HeaderInvoice::find($id) ?? HeaderInvoice::withTrashed()->where('id', $id)->first();
         if ($invoice == null) {
             toast("Invoice $id Tidak Ditemukan !", "error");
             return redirect('/invoice');
@@ -402,5 +408,41 @@ class InvoiceController extends Controller
     public function invoiceCreateInvoice($id){
         $invoice = HeaderInvoice::find($id);
         return Excel::download(new InvoiceExport($invoice), 'invoice.xlsx');
+    }
+
+    public function invoiceDelete($id, Request $request){
+        $user = Session::get('user');
+        $password = $request->input('password');
+
+        //check password
+        if (!Hash::check($password, $user->password)) {
+            toast('Gagal Menghapus Invoice, Password Salah', 'error');
+            return back();
+        }
+
+        $invoice = HeaderInvoice::find($id);
+        $invoice->delete();
+        $invoice->deleted_by = $user->id;
+        $invoice->save();
+        toast('Berhasil Menghapus Invoice', 'success');
+        return back();
+    }
+
+    public function invoiceRestore($id, Request $request){
+        $user = Session::get('user');
+        $password = $request->input('password');
+
+        //check password
+        if (!Hash::check($password, $user->password)) {
+            toast('Gagal Mengaktifkan Invoice, Password Salah', 'error');
+            return back();
+        }
+
+        $invoice = HeaderInvoice::withTrashed()->where('id', $id)->first();
+        $invoice->restore();
+        $invoice->deleted_by = null;
+        $invoice->save();
+        toast('Berhasil Mengaktifkan Invoice', 'success');
+        return back();
     }
 }

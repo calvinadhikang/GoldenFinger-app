@@ -128,6 +128,8 @@ Route::middleware([EnsureLogin::class])->group(function() {
     Route::prefix('invoice')->group(function () {
         Route::get('/', [InvoiceController::class, 'invoiceView']);
         Route::get('/detail/{id}', [InvoiceController::class, 'invoiceDetailView']);
+        Route::post('/detail/{id}/delete', [InvoiceController::class, 'invoiceDelete']);
+        Route::post('/detail/{id}/restore', [InvoiceController::class, 'invoiceRestore']);
 
         Route::get('/barang', [InvoiceController::class, 'invoiceBarangView']);
         Route::post('/barang', [InvoiceController::class, 'invoiceBarangAction']);
