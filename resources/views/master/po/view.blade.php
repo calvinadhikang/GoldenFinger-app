@@ -34,12 +34,12 @@
                             $class_pembayaran = "badge-error";
                             $text_pembayaran = "Belum Bayar";
 
-                            if ($item->status_pesanan == 1) {
+                            if ($item->recieved_at) {
                                 $class_pesanan = "badge-secondary";
                                 $text_pesanan = "Selesai";
                             }
 
-                            if ($item->status_pembayaran == 1) {
+                            if ($item->paid_at) {
                                 $class_pembayaran = "badge-secondary";
                                 $text_pembayaran = "Selesai";
                             }

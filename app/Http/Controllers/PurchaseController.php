@@ -203,14 +203,20 @@ class PurchaseController extends Controller
         $user = Session::get('user');
         $jatuhTempo = Carbon::parse($request->input('jatuhTempo'));
 
-        if ($jatuhTempo->isPast()) {
-            toast('Tanggal Jatuh Tempo minimal hari ini', 'error');
-            return redirect()->back();
+        //cek apakah transaksi lama
+        $timePembayaran = $request->input('timeValuePembayaran') ?? null;
+        $timeCreation = $request->input('timePembuatan') ?? Carbon::now();
+        $timePenerimaan = $request->input('timeValuePenerimaan') ?? null;
+
+        if ($timePembayaran == null && $timePenerimaan == null) {
+            if ($jatuhTempo->isPast()) {
+                toast('Tanggal Jatuh Tempo minimal hari ini', 'error');
+                return redirect()->back();
+            }
         }
 
         DB::beginTransaction();
         try {
-            $currentDateTime = Carbon::now()->toDateTimeString();
             //insert header
             $lastId = DB::table('hpurchase')->insertGetId([
                 'vendor_id' => $po->vendor->id,
@@ -223,7 +229,11 @@ class PurchaseController extends Controller
                 'status_pesanan' => 0,
                 'status_pembayaran' => 0,
                 'jatuh_tempo' => $jatuhTempo,
-                'created_at' => $currentDateTime
+                'created_at' => $timeCreation,
+                'paid_at' => $timePembayaran,
+                'paid_by' => $timePembayaran != null ? Session::get('user')->id : null,
+                'recieved_at' => $timePenerimaan,
+                'recieved_by' => $timePenerimaan != null ? Session::get('user')->id : null
             ]);
 
             foreach ($po->list as $key => $value) {
@@ -239,8 +249,8 @@ class PurchaseController extends Controller
 
             Session::remove('po_cart');
             toast('Berhasil Membuat Purchase Order', 'success');
-            return redirect('/po');
             DB::commit();
+            return redirect('/po');
         } catch (\Exception $ex) {
             toast($ex->getMessage(), 'error');
             DB::rollBack();

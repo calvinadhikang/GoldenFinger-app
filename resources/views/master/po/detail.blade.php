@@ -37,7 +37,7 @@
     <div class="">
         <p class="text-xl font-semibold mb-5">Status Pesanan</p>
         <div class="rounded p-4 bg-accent">
-            @if ($po->status_pesanan == 0)
+            @if ($po->recieved_at == null)
                 <div class="text-white bg-error font-semibold text-xl text-center rounded p-3">On Process</div>
                 <p class="mt-10 mb-2">Barang pesanan sudah sampai ?</p>
                 <button onclick="modal_pesanan.showModal()" class="btn btn-primary">
@@ -55,7 +55,7 @@
     <div class="">
         <p class="text-xl font-semibold mb-5">Status Pembayaran</p>
         <div class="rounded p-4 bg-accent">
-            @if ($po->status_pembayaran == 1)
+            @if ($po->paid_at)
                 <div class="bg-secondary font-semibold text-xl text-center rounded p-3">Transaksi Telah Dibayar</div>
             @else
                 <div class="text-red-50 bg-error font-semibold text-xl text-center rounded p-3">Belum Bayar</div>
@@ -68,7 +68,7 @@
             <div class="grid grid-cols-2 mt-2">
                 <p class="">Tanggal Jatuh Tempo</p>
                 <p class="text-right">{{ date_format(new DateTime($po->jatuh_tempo), 'd M Y H:i') }}</p>
-                @if ($po->status_pembayaran == 1)
+                @if ($po->paid_at)
                     <p class="">Tanggal Pembayaran</p>
                     <p class="text-right">{{ date_format(new DateTime($po->paid_at), 'd M Y H:i') }}</p>
                 @endif

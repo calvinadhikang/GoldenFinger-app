@@ -224,6 +224,13 @@ class InvoiceController extends Controller
         $timePembayaran = $request->input('timeValuePembayaran');
         $timeCreation = $request->input('timePembuatan') ?? Carbon::now();
 
+        if ($timePembayaran == null) {
+            if ($jatuhTempo->isPast()) {
+                toast('Tanggal Jatuh Tempo minimal hari ini', 'error');
+                return redirect()->back();
+            }
+        }
+
         $komisiStatus = $request->input('komisi');
         if ($komisiStatus) {
             $komisiJumlah = Util::parseNumericValue($request->input('komisiJumlah'));
@@ -251,7 +258,8 @@ class InvoiceController extends Controller
                 'po' => $request->input('po'),
                 'jatuh_tempo' => $jatuhTempo,
                 'created_at' => $timeCreation,
-                'paid_at' => $timePembayaran
+                'paid_at' => $timePembayaran,
+                'paid_by' => $timePembayaran != null ? Session::get('user')->id : null
             ]);
 
             foreach ($invoice->list as $key => $value) {
