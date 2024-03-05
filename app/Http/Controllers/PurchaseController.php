@@ -88,6 +88,12 @@ class PurchaseController extends Controller
             }
         }
 
+        if(count($list) <= 0){
+            return back()->withErrors([
+                'msg' => 'Minimal Beli 1 Barang'
+            ]);
+        }
+
         $oldPO = Session::get('po_cart');
         // Object Creation for Purchase
         $PO = new stdClass();

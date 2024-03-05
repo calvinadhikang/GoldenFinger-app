@@ -1,7 +1,13 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-white text-2xl font-bold mb-5">Detail Purhcase Orders</h1>
+<h1 class="text-white text-2xl font-bold">Detail Purhcase Orders</h1>
+<div class="text-sm breadcrumbs mb-5 text-slate-300">
+    <ul>
+        <li><a href="/po">Data Purchase Order</a></li>
+        <li>Buat Purchase Order</li>
+    </ul>
+</div>
 <div class="rounded bg-accent p-4 my-5">
     <div class="grid grid-cols-2 gap-y-2">
         <div class="text-xl font-semibold">Kode Transaksi</div>

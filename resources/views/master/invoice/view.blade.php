@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="flex justify-between items-center">
-    <h1 class="text-2xl font-bold mb-5">Data Invoice</h1>
+    <h1 class="text-2xl font-bold">Data Invoice</h1>
     <a class="btn btn-primary" href="{{url('invoice/customer')}}">Tambah</a>
 </div>
 <div role="tablist" class="tabs tabs-boxed w-fit mt-5 bg-accent font-semibold">

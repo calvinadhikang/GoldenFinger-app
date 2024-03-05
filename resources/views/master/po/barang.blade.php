@@ -2,6 +2,12 @@
 
 @section('content')
 <h1 class="text-white text-2xl font-bold">Buat Purhcase Order</h1>
+<div class="text-sm breadcrumbs mb-5 text-slate-300">
+    <ul>
+        <li><a href="/po">Data Purchase Order</a></li>
+        <li>Buat Purchase Order</li>
+    </ul>
+</div>
 <div class="mt-5 flex justify-center">
     <ul class="steps w-full">
         <li class="step step-primary font-medium">Pilih Barang</li>

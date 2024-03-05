@@ -1,7 +1,13 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-2xl font-bold mb-5">Tambah Operational Cost</h1>
+<h1 class="text-2xl font-bold">Tambah Operational Cost</h1>
+<div class="text-sm breadcrumbs mb-5 text-slate-300">
+    <ul>
+        <li><a href="/customer">Data Operational Cost</a></li>
+        <li>Tambah Operational Cost</li>
+    </ul>
+</div>
 <div class="rounded bg-accent p-4">
     <form method="POST">
         @csrf

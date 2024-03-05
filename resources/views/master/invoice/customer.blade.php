@@ -1,7 +1,13 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-2xl font-bold mb-5">Buat Invoice</h1>
+<h1 class="text-2xl font-bold">Buat Invoice</h1>
+<div class="text-sm breadcrumbs mb-5 text-slate-300">
+    <ul>
+        <li><a href="/invoice">Data Invoice</a></li>
+        <li>Buat Invoice</li>
+    </ul>
+</div>
 <div class="mt-5 flex justify-center my-10">
     <ul class="steps w-full">
         <li class="step step-primary font-medium">Pilih Customer</li>

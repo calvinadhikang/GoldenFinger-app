@@ -1,7 +1,13 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-2xl font-bold mb-5">Detail Karyawan</h1>
+<h1 class="text-2xl font-bold">Detail Karyawan</h1>
+<div class="text-sm breadcrumbs mb-5 text-slate-300">
+    <ul>
+        <li><a href="/karyawan">Data Karyawan</a></li>
+        <li>Detail Karyawan</li>
+    </ul>
+</div>
 <div class="rounded bg-accent p-4 mb-5">
     <form action="" method="POST">
         @csrf

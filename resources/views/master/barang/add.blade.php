@@ -2,6 +2,12 @@
 
 @section('content')
 <h1 class="text-2xl font-bold">Tambah Barang</h1>
+<div class="text-sm breadcrumbs mb-5 text-slate-300">
+    <ul>
+        <li><a href="/barang">Data Barang</a></li>
+        <li>Tambah Barang</li>
+    </ul>
+</div>
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
