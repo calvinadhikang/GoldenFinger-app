@@ -63,6 +63,8 @@ Route::middleware([EnsureLogin::class])->group(function() {
 
         Route::post('/add', [BarangController::class, "barangAddAction"]);
         Route::post('/detail/{id}', [BarangController::class, "barangDetailAction"]);
+
+        Route::post('/detail/{id}/toggle', [BarangController::class, "barangDetailStatusToggle"]);
     });
 
     Route::prefix('kategori')->group(function () {

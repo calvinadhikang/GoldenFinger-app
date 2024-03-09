@@ -12,7 +12,7 @@
     <form method="POST">
         @csrf
         <input type="hidden" value="{{ $barang->id }}" name="id">
-        <div class="flex flex-wrap my-5">
+        <div class="flex flex-wrap mb-5">
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Part Number</span>
@@ -36,6 +36,14 @@
             </div>
         </div>
         <button class="btn btn-primary">Simpan</button>
+    </form>
+</div>
+<h1 class="text-xl font-medium my-5">Status Barang</h1>
+<div class="bg-accent p-4 rounded grid grid-cols-2 items-center">
+    <p class="font-semibold text-xl {{ $barang->deleted_at ? 'text-error' : 'text-secondary' }}">{{ $barang->deleted_at ? 'Terhapus' : 'Tersedia' }}</p>
+    <form action="{{ url("/barang/detail/$barang->part/toggle") }}" class="text-right" method="POST">
+        @csrf
+        <button class="btn {{ $barang->deleted_at ? 'btn-secondary' : 'btn-error' }}">{{ $barang->deleted_at ? 'Aktifkan' : 'Hapus' }}</button>
     </form>
 </div>
 

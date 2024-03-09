@@ -8,12 +8,18 @@ use Illuminate\Http\Request;
 class BarangController extends Controller
 {
     //
-    public function barangView()
+    public function barangView(Request $request)
     {
-        $barang = Barang::all();
+        $type = $request->query('type', 'all');
+        if($type == "all"){
+            $barang = Barang::all();
+        }else{
+            $barang = Barang::onlyTrashed()->get();
+        }
 
         return view('master.barang.view', [
-            'data' => $barang
+            'data' => $barang,
+            'type' => $type
         ]);
     }
 
@@ -44,7 +50,7 @@ class BarangController extends Controller
 
     public function barangDetailView($id)
     {
-        $barang = Barang::find($id);
+        $barang = Barang::find($id) ?? Barang::withTrashed()->where('part', $id)->first();
         if ($barang == null) {
             toast("Barang $id Tidak Ditemukan", 'error');
             return redirect('/barang');
@@ -78,5 +84,17 @@ class BarangController extends Controller
             'data' => $data,
             'count' => count($data)
         ]);
+    }
+
+    public function barangDetailStatusToggle($id){
+        $barang = Barang::withTrashed()->where('part', $id)->first();
+        if ($barang->deleted_at) {
+            $barang->restore();
+        }else {
+            $barang->delete();
+        }
+
+        toast('Berhasil Ubah Status Barang', 'success');
+        return back();
     }
 }

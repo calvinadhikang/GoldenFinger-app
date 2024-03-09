@@ -1,11 +1,15 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-2xl font-bold mb-5">Data Barang</h1>
+<div class="flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Data Barang</h1>
+    <a class="btn btn-primary" href="{{url('barang/add')}}">Tambah</a>
+</div>
+<div role="tablist" class="tabs tabs-boxed w-fit mt-5 bg-accent font-semibold mb-5">
+    <a role="tab" href="/barang" class="tab {{ $type == 'all' ? 'tab-active' : '' }}"">Barang Aktif</a>
+    <a role="tab" href="/barang?type=deleted" class="tab {{ $type == 'deleted' ? 'tab-active' : '' }}">Barang Terhapus</a>
+</div>
 <div class="rounded bg-accent p-4 w-full">
-    <div class="flex justify-end w-full mb-5">
-        <a class="btn btn-primary" href="{{url('barang/add')}}">Tambah</a>
-    </div>
     <div class="overflow-x-auto">
         <table id="table" class="table-zebra">
             <thead>
