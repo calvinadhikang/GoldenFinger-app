@@ -1,13 +1,13 @@
 @extends('template.header')
 
 @section('content')
-<div class="text-xs breadcrumbs">
+<h1 class="text-2xl font-bold">PO Belum Lunas</h1>
+<div class="text-sm breadcrumbs mb-5 text-slate-300">
     <ul>
         <li><a href="/dashboard">Dashboard</a></li>
         <li>PO Belum Lunas</li>
     </ul>
 </div>
-<h1 class="text-2xl font-bold mb-5">PO Belum Lunas</h1>
 <div class="p-4 rounded shadow bg-accent">
     <table id="table" class="table-zebra">
         <thead>

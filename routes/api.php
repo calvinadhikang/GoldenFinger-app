@@ -41,6 +41,7 @@ Route::prefix('/po')->group(function () {
 });
 Route::prefix('/barang')->group(function () {
     Route::get('/minimum', [BarangController::class, 'getMinimum']);
+    Route::get('/', [BarangController::class, 'getAllBarang']);
 });
 Route::prefix('/shares')->group(function () {
     Route::get('/', [SharesController::class, 'getSharesData']);

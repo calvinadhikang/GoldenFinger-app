@@ -97,4 +97,13 @@ class BarangController extends Controller
         toast('Berhasil Ubah Status Barang', 'success');
         return back();
     }
+
+    public function getAllBarang(){
+        $data = Barang::all();
+        foreach ($data as $key => $value) {
+            $value->qty = 0;
+        }
+
+        return $data;
+    }
 }

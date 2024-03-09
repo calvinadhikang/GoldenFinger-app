@@ -1,13 +1,13 @@
 @extends('template.header')
 
 @section('content')
-<div class="text-xs breadcrumbs">
+<h1 class="text-2xl font-bold">Pendapatan Bulan Ini</h1>
+<div class="text-sm breadcrumbs mb-5 text-slate-300">
     <ul>
         <li><a href="/dashboard">Dashboard</a></li>
         <li>Pendapatan Bulan Ini</li>
     </ul>
 </div>
-<h1 class="text-2xl font-bold">Pendapatan Bulan Ini</h1>
 <p class="mb-5 text-sm text-gray-400">Invoice yang sudah terbayar bulan ini</p>
 <div class="rounded bg-accent p-4">
     <table id="table" class="table-zebra">

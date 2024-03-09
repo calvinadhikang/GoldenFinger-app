@@ -1,17 +1,17 @@
 @extends('template.header')
 
 @section('content')
-<div class="text-xs breadcrumbs">
+<div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold">Barang Stok Minimum</h1>
+    <a href="/po/barang"><button class="btn btn-primary mb-5">Pesan ke Vendor</button></a>
+</div>
+<div class="text-sm breadcrumbs mb-5 text-slate-300">
     <ul>
         <li><a href="/dashboard">Dashboard</a></li>
         <li>Barang Stok Minimum</li>
     </ul>
 </div>
-<h1 class="text-2xl font-bold mb-5">Barang Stok Minimum</h1>
 <div class="p-4 rounded shadow bg-accent">
-    <div class="flex justify-end">
-        <a href="/po/barang"><button class="btn btn-primary mb-5">Pesan ke Vendor</button></a>
-    </div>
     <table id="table" class="table-zebra">
         <thead>
             <tr>
