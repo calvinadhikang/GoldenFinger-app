@@ -6,6 +6,8 @@ use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class KategoriController extends Controller
 {
@@ -23,7 +25,7 @@ class KategoriController extends Controller
     }
 
     public function kategoriDetailView($id){
-        $kategori = Kategori::find($id);
+        $kategori = Kategori::withTrashed()->where('id', $id)->first();
 
         return view('master.kategori.detail', [
             'kategori' => $kategori
@@ -98,5 +100,20 @@ class KategoriController extends Controller
 
         toast("Berhasil tambah " . count($listBarangId) . " barang ke kategori", 'success');
         return redirect("kategori/detail/$id");
+    }
+
+    public function kategoriDetailDelete($id, Request $request){
+        $password = $request->input('password');
+        $target = Kategori::withTrashed()->where('id', $id)->first();
+        $user = Session::get('user');
+
+        if (!Hash::check($password, $user->password)) {
+            toast('Gagal Menghapus Kategori, Password Salah', 'error');
+            return back();
+        }
+
+        $target->delete();
+        toast('Berhasil hapus kategori', 'success');
+        return redirect('/kategori');
     }
 }

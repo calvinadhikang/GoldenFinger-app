@@ -25,12 +25,12 @@
     </form>
 </div>
 
-<h1 class="text-xl font-medium my-5">List Barang dengan Kategori</h1>
+<div class="flex items-center justify-between">
+    <h1 class="text-lg font-medium">List Barang dengan Kategori</h1>
+    <a class="btn btn-primary" href='{{ url("/kategori/detail/$kategori->id/add/barang") }}'>Tambah</a>
+</div>
+<p class="text-sm text-slate-300">Jumlah Barang : {{ count($kategori->barang) }}</p>
 <div class="rounded bg-accent p-4 my-5">
-    <p class="text-right">Jumlah Barang dengan Kategori : {{ count($kategori->barang) }}</p>
-    <div class="flex justify-end w-full mb-10 mt-2">
-        <a class="btn btn-primary" href='{{ url("/kategori/detail/$kategori->id/add/barang") }}'>Tambah</a>
-    </div>
     <table id="table" class="table-zebra">
         <thead>
             <tr>
@@ -60,5 +60,15 @@
             @endif
         </tbody>
     </table>
+</div>
+
+<h1 class="text-error text-lg font-semibold">Hapus Kategori</h1>
+<div class="bg-accent p-4 rounded mt-5">
+    <p class="text-error">Untuk menghapus kategori, masukan password !</p>
+    <form method="POST" action="{{ url("/kategori/detail/$kategori->id/delete") }}" class="flex items-center gap-x-2 mt-2">
+        @csrf
+        <input type="password" class="input input-error" placeholder="password.." name="password">
+        <button class="btn btn-error">Hapus Kategori</button>
+    </form>
 </div>
 @endsection
