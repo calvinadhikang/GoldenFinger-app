@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\HeaderPaket;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,9 @@ class PaketController extends Controller
     }
 
     public function paketAddView(){
-        return view('master.paket.add');
+        $data = Barang::latest()->get();
+        return view('master.paket.add', [
+            'barang' => $data
+        ]);
     }
 }

@@ -27,6 +27,10 @@
                 <input type="text" placeholder="1000" class="input input-bordered w-full harga" name="harga" required/>
             </div>
         </div>
+        <p class="text-lg font-bold">Barang Yang Dijual Pada Paket</p>
+        @foreach ($barang as $item)
+        <p>{{ $item->part }}</p>
+        @endforeach
         <button class="btn btn-primary">Tambah</button>
     </form>
 </div>
