@@ -21,13 +21,6 @@
     <p>Jangan lupa cek ulang data pesanan dan totalnya.</p>
 </div>
 
-@if ($errors->any())
-<div class="alert alert-error my-5">
-    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-    <span>{{ $errors->first() }}</span>
-</div>
-@endif
-
 <h3 class="font-semibold text-xl mb-5">Informasi Customer</h3>
 <div class="rounded bg-accent p-4 my-5">
     <div class="flex flex-wrap">
@@ -191,7 +184,7 @@
 
     <p class="text-xl font-semibold mb-5">Jatuh Tempo</p>
     <div class="rounded bg-accent p-4 mb-5">
-        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="jatuhTempo" required>
+        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="jatuhTempo" value="{{ old('jatuhTempo') }}" required>
     </div>
 
     <button class="btn btn-primary w-full mb-10 shadow-lg">Buat Pesanan !</button>

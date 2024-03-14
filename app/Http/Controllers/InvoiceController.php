@@ -225,9 +225,11 @@ class InvoiceController extends Controller
         $timeCreation = $request->input('timePembuatan') ?? Carbon::now();
 
         if ($timePembayaran == null) {
-            if ($jatuhTempo->isPast()) {
-                toast('Tanggal Jatuh Tempo minimal hari ini', 'error');
-                return redirect()->back();
+            if (Carbon::parse($jatuhTempo)->isPast()) {
+                toast('Tanggal Jatuh Tempo Minimal Hari Ini', 'error');
+                return back()->withErrors([
+                    'msg' => 'Tanggal Jatuh Tempo Minimal Hari Ini !'
+                ]);
             }
         }
 
