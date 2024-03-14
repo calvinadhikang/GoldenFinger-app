@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="flex justify-between items-center">
-    <h1 class="text-2xl font-bold">Data Paket</h1>
+    <h1 class="text-2xl font-bold">Data Paket Penjualan</h1>
     <a class="btn btn-primary" href="{{url('paket/add')}}">Tambah</a>
 </div>
 <div role="tablist" class="tabs tabs-boxed w-fit mt-5 bg-accent font-semibold mb-5">
@@ -22,7 +22,7 @@
             <tbody>
             @if (count($data) <= 0)
                 <tr>
-                    <th class="text-error text-lg" colspan="3">Tidak ada data...</th>
+                    <th class="text-error text-lg" colspan="4">Tidak ada data...</th>
                 </tr>
             @else
                 @foreach ($data as $item)
@@ -30,7 +30,7 @@
                         <td>{{ $item->nama }}</td>
                         <td>Rp {{ number_format($item->harga) }}</td>
                         <td>
-                            <a href="{{ url("paket/detail/$item->part") }}">
+                            <a href="{{ url("paket/detail/$item->id") }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>
                             </a>
                         </td>

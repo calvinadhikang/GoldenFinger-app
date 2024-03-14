@@ -52,7 +52,7 @@
                 <li><a href="{{ url('/paket') }}">
                     <div class="flex items-center">
                         <i class="fa-solid fa-layer-group me-2 w-6"></i>
-                        Paket
+                        Paket Penjualan
                     </div>
                 </a></li>
                 <li><a href="{{ url('/customer') }}">
