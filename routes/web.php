@@ -9,6 +9,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\OperationalCostController;
+use App\Http\Controllers\PaketController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SettingsController;
@@ -65,6 +66,17 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::post('/detail/{id}', [BarangController::class, "barangDetailAction"]);
 
         Route::post('/detail/{id}/toggle', [BarangController::class, "barangDetailStatusToggle"]);
+    });
+
+    Route::prefix('paket')->group(function () {
+        Route::get('/', [PaketController::class, "paketView"]);
+        Route::get('/add', [PaketController::class, "paketAddView"]);
+        Route::get('/detail/{id}', [PaketController::class, "paketDetailView"]);
+
+        Route::post('/add', [PaketController::class, "paketAddAction"]);
+        Route::post('/detail/{id}', [PaketController::class, "paketDetailAction"]);
+
+        Route::post('/detail/{id}/toggle', [PaketController::class, "paketDetailStatusToggle"]);
     });
 
     Route::prefix('kategori')->group(function () {
