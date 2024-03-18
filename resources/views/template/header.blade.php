@@ -180,7 +180,7 @@
             $(this).val(formattedValue);
         });
 
-        let table = new DataTable('#table');
+        let table = new DataTable('.data-table');
     });
 </script>
 </html>

@@ -9,6 +9,7 @@ use App\Models\Barang;
 use App\Models\Customer;
 use App\Models\DetailInvoice;
 use App\Models\HeaderInvoice;
+use App\Models\HeaderPaket;
 use App\Models\Karyawan;
 use App\Models\OperationalCost;
 use Carbon\Carbon;
@@ -105,6 +106,7 @@ class InvoiceController extends Controller
 
     public function invoiceBarangView(){
         $barang = Barang::all();
+        $paket = HeaderPaket::all();
         $invoice = Session::get('invoice_cart');
 
         //Hitung hutang Customer
@@ -132,11 +134,17 @@ class InvoiceController extends Controller
 
         return view('master.invoice.barang', [
             'barang' => $barang,
-            'hutang' => $totalHutang
+            'hutang' => $totalHutang,
+            'paket' => $paket
         ]);
     }
 
     public function invoiceBarangAction(Request $request){
+        $barang = json_decode($request->input('barang'));
+        $paket = json_decode($request->input('paket'));
+
+        dd($paket);
+
         $qty = $request->input('qty');
         $harga = $request->input('harga');
         $part = $request->input('part');

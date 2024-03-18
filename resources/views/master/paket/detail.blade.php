@@ -33,7 +33,7 @@
 
 <h1 class="text-lg font-medium my-5">Barang Terjual Dalam Paket</h1>
 <div class="p-4 rounded bg-accent mb-5">
-    <table class="table-zebra" id="table">
+    <table class="table-zebra data-table" id="table">
         <thead>
             <tr>
                 <th><h3 class="font-bold">Part</h3></th>

@@ -22,7 +22,7 @@
 
     <div class="rounded bg-accent p-4 my-5">
 
-        <table id="table" class="table-fixed">
+        <table class="data-table table-fixed">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Nama Customer</h3></th>

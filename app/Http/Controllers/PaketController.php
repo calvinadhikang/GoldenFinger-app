@@ -104,4 +104,18 @@ class PaketController extends Controller
             'msg' => "Berhasil Ubah Status"
         ]);
     }
+
+    public function paketDetailAction($id, Request $request){
+        $nama = $request->input('nama');
+        $harga = $request->input('harga');
+
+        $paket = HeaderPaket::withTrashed()->where('id', $id)->first();
+        $paket->nama = $nama;
+        $paket->harga = Util::parseNumericValue($harga);
+        $paket->save();
+
+        return back()->with([
+            'msg' => "Berhasil Ubah Data Paket"
+        ]);
+    }
 }

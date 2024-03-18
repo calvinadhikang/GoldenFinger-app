@@ -28,7 +28,7 @@
             </div>
         </div>
         <h1 class="text-lg font-bold mb-5 mt-10">Barang Yang Dijual Pada Paket</h1>
-        <table class="table table-zebra" id="table">
+        <table class="table-zebra data-table">
             <thead>
                 <th><h3 class="font-bold">Part</h3></th>
                 <th><h3 class="font-bold">Nama</h3></th>
@@ -39,7 +39,7 @@
                 <tr>
                     <td>{{ $item->part }}</td>
                     <td>{{ $item->nama }}</td>
-                    <td><input type="text" class="input input-secondary data-table" part="{{ $item->part }}"></td>
+                    <td><input type="text" class="input input-secondary part-input" part="{{ $item->part }}"></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -52,7 +52,7 @@
 <script>
 let data = [];
 
-$('body').on('keyup', '.data-table', function() {
+$('body').on('keyup', '.part-input', function() {
     let value = $(this).val();
     let part = $(this).attr('part');
     try {
