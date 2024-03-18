@@ -140,53 +140,99 @@ class InvoiceController extends Controller
     }
 
     public function invoiceBarangAction(Request $request){
-        $barang = json_decode($request->input('barang'));
-        $paket = json_decode($request->input('paket'));
+        $barangs = json_decode($request->input('barang') ?? "[]");
+        $pakets = json_decode($request->input('paket') ?? "[]");
 
-        dd($paket);
-
-        $qty = $request->input('qty');
-        $harga = $request->input('harga');
-        $part = $request->input('part');
         $ppn_include = $request->input('ppn-include');
         $invoice = Session::get('invoice_cart');
 
         $total = 0;
         $cleanTotal = 0; //total harga bersih, untuk perhitungan harga non ppn
-        $list = [];
-        for ($i=0; $i < count($qty); $i++) {
-            if ($qty[$i] > 0) {
-                $obj = Barang::find($part[$i]);
-                $obj->qty = $qty[$i];
-                $price = Util::parseNumericValue($harga[$i]);
-                $obj->clean_price = $price;
+        $list_barang = []; //simpan data barang lengkap
+        $total_list_barang = 0;
+        $list_paket = []; //simpan data paket lengkap
+        $total_list_paket = 0;
 
-                if ($ppn_include != null){
-                    //kalau harga non ppn
-                    $ppnItem = $price - ($price / 100 * $invoice->PPN);
-                    $obj->harga = $ppnItem;
-                    $cleanTotal += $price * $qty[$i];
-                }else{
-                    $obj->harga = $price;
-                }
+        foreach ($barangs as $key => $barang) {
+            $obj = Barang::find($barang->part);
+            $obj->qty = $barang->qty;
+            $price = Util::parseNumericValue($barang->harga);
+            $obj->clean_price = $price;
 
-                $subtotal = $obj->harga * $qty[$i];
-                $obj->subtotal = $subtotal;
-
-                $list[] = $obj;
-                $total += $subtotal;
+            if ($ppn_include != null) {
+                //kalau harga termasuk PPN
+                $ppnItem = $price - ($price / 100 * $invoice->PPN);
+                $obj->harga = $ppnItem;
+                $cleanTotal += $price * $barang->qty;
+            }else{
+                $obj->harga = $price;
             }
+
+            $subtotal = $obj->harga * $barang->qty;
+            $obj->subtotal = $subtotal;
+
+            $list_barang[] = $obj;
+            $total_list_barang += $subtotal;
+            $total += $subtotal;
         }
 
-        if (count($list) <= 0) {
-            toast('Minimal membeli 1 Barang', 'error');
+        foreach ($pakets as $key => $paket) {
+            $obj = HeaderPaket::find($paket->part);
+            $obj->qty = $paket->qty;
+            $price = Util::parseNumericValue($paket->harga);
+            $obj->clean_price = $price;
+
+            if ($ppn_include != null) {
+                //kalau harga termasuk PPN
+                $ppnItem = $price - ($price / 100 * $invoice->PPN);
+                $obj->harga = $ppnItem;
+                $cleanTotal += $price * $paket->qty;
+            }else{
+                $obj->harga = $price;
+            }
+
+            $subtotal = $obj->harga * $paket->qty;
+            $obj->subtotal = $subtotal;
+
+            $list_paket[] = $obj;
+            $total_list_paket += $subtotal;
+            $total += $subtotal;
+        }
+
+        // for ($i=0; $i < count($qty); $i++) {
+        //     if ($qty[$i] > 0) {
+        //         $obj = Barang::find($part[$i]);
+        //         $obj->qty = $qty[$i];
+        //         $price = Util::parseNumericValue($harga[$i]);
+        //         $obj->clean_price = $price;
+
+        //         if ($ppn_include != null){
+        //             //kalau harga non ppn
+        //             $ppnItem = $price - ($price / 100 * $invoice->PPN);
+        //             $obj->harga = $ppnItem;
+        //             $cleanTotal += $price * $qty[$i];
+        //         }else{
+        //             $obj->harga = $price;
+        //         }
+
+        //         $subtotal = $obj->harga * $qty[$i];
+        //         $obj->subtotal = $subtotal;
+
+        //         $list[] = $obj;
+        //         $total += $subtotal;
+        //     }
+        // }
+
+        if (count($barangs) <= 0 && count($pakets) <= 0) {
             return redirect()->back()->withErrors([
-                'msg' => 'Minimal membeli 1 barang !'
+                'msg' => 'Minimal membeli 1 barang / paket !'
             ]);
         }
 
-
-        $invoice->list = $list;
+        $invoice->list_barang = $list_barang;
+        $invoice->total_list_barang = $total_list_barang;
+        $invoice->list_paket = $list_paket;
+        $invoice->total_list_paket = $total_list_paket;
         $invoice->total = $total;
         if ($ppn_include != null){
             //kalau harga non ppn

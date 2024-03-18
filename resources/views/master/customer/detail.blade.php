@@ -11,43 +11,50 @@
 <div class="rounded bg-accent p-4 mb-5">
     <form method="POST">
         @csrf
-        <div class="flex flex-wrap my-5">
-            <div class="form-control w-full md:w-1/2 md:pe-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-5">
+            <div class="form-control">
                 <label class="label">
                     <span class="label-text font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                     <span class="label-text-alt">@error('nama') {{ $message }}  @enderror</span>
                 </label>
                 <input type="text" placeholder="Nama..." class="input input-bordered w-full" value="{{ $customer->nama }}" name="nama" />
             </div>
-            <div class="form-control w-full md:w-1/2">
+            <div class="form-control">
                 <label class="label">
                     <span class="label-text font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                     <span class="label-text-alt">@error('email') {{ $message }}  @enderror</span>
                 </label>
                 <input type="email" placeholder="...@..." class="input input-bordered w-full" value="{{ $customer->email }}" name="email" />
             </div>
-            <div class="form-control w-full md:w-1/2 md:pe-2">
+            <div class="form-control">
                 <label class="label">
                     <span class="label-text font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                     <span class="label-text-alt">@error('alamat') {{ $message }}  @enderror</span>
                 </label>
                 <input type="text" placeholder="Jalan..." class="input input-bordered w-full" value="{{ $customer->alamat }}" name="alamat"/>
             </div>
-            <div class="form-control w-full md:w-1/2">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-bold"><i class="fa-solid fa-city me-2"></i>Kota</span>
+                    <span class="label-text-alt">@error('kota') {{ $message }}  @enderror</span>
+                </label>
+                <input type="text" placeholder="081..." class="input input-bordered w-full" value="{{ $customer->kota }}" name="kota"/>
+            </div>
+            <div class="form-control">
                 <label class="label">
                     <span class="label-text font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                     <span class="label-text-alt">@error('telp') {{ $message }}  @enderror</span>
                 </label>
                 <input type="text" placeholder="081..." class="input input-bordered w-full" value="{{ $customer->telp }}" name="telp"/>
             </div>
-            <div class="form-control w-full md:w-1/2 md:pe-2">
+            <div class="form-control">
                 <label class="label">
                     <span class="label-text font-bold"><i class="fa-solid fa-barcode me-2"></i>NPWP</span>
                     <span class="label-text-alt">@error('NPWP') {{ $message }}  @enderror</span>
                 </label>
                 <input type="text" placeholder="001.002.003" class="input input-bordered w-full" value="{{ $customer->NPWP }}" name="NPWP"/>
             </div>
-            <div class="form-control w-full md:w-1/2">
+            <div class="form-control">
                 <label class="label">
                     <span class="label-text font-bold"><i class="fa-solid fa-circle-exclamation me-2"></i>Limit Hutang</span>
                     <span class="label-text-alt">@error('limit') {{ $message }}  @enderror</span>

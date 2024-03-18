@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('dinvoice', function($table) {
-            $table->enum('type', array('barang', 'paket'));
+            $table->enum('type', array('barang', 'paket'))->default('barang');
         });
     }
 
