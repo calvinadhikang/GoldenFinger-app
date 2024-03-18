@@ -8,7 +8,7 @@
         <div class="text-right mb-5">
             <button class="btn btn-primary">Tambah</button>
         </div>
-        <table id="table" class="table-zebra">
+        <table class="data-table table-zebra">
             <thead>
                 <tr>
                     <th class="font-bold">Part</th>
@@ -34,7 +34,7 @@
 <h1 class="font-bold mt-10">Barang Yang Sudah Ada Pada Kategori <span class="text-primary">{{ $kategori->nama }}</span></h1>
 <div class="rounded bg-accent p-4 my-5">
     @if (count($listed) > 0)
-    <table class="table-zebra w-full">
+    <table class="table-zebra w-full data-table">
         <thead>
             <tr>
                 <th class="font-bold">Part</th>

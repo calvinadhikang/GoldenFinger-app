@@ -78,7 +78,7 @@
 </div>
 <div class="rounded bg-accent p-4 my-5">
     <div class="overflow-x-auto">
-        <table id="table" class="table-zebra">
+        <table class="data-table table-zebra">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Kode</h3></th>

@@ -11,7 +11,7 @@
 </div>
 <div class="rounded bg-accent p-4 w-full mt-2">
     <div class="overflow-x-auto mt-5">
-        <table id="table" class="table-zebra">
+        <table class="table-zebra data-table">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Kode</h3></th>

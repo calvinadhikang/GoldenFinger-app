@@ -4,7 +4,7 @@
 <div class="bg-accent p-4 rounded mb-5">
     <form method="POST">
         @csrf
-        <table id="table" class="table-zebra">
+        <table class="data-table table-zebra">
             <thead>
                 <tr>
                     <th class="font-bold">Nama</th>

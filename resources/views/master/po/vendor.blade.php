@@ -21,7 +21,7 @@
 <div class="rounded bg-accent p-4 my-5">
     <p class="mb-5 font-semibold text-primary">Total : {{ count($vendor) }} Vendor Tersedia</p>
     <div class="overflow-x-auto mb-5">
-        <table id="table">
+        <table class="data-table table-zebra">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Nama</h3></th>

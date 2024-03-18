@@ -31,7 +31,7 @@
 </div>
 <p class="text-sm text-slate-300">Jumlah Barang : {{ count($kategori->barang) }}</p>
 <div class="rounded bg-accent p-4 my-5">
-    <table id="table" class="table-zebra">
+    <table class="data-table table-zebra">
         <thead>
             <tr>
                 <th class="font-bold">Kode Barang</th>

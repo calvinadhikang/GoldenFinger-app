@@ -31,7 +31,7 @@
     <div class="flex justify-end mb-5">
         <a href="{{ url('/shares/configure') }}" class="btn btn-primary">Ubah Porsi Saham</a>
     </div>
-    <table id="table" class="table-zebra">
+    <table class="data-table table-zebra">
         <thead>
             <tr>
                 <th class="font-bold">Nama</th>

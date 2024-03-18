@@ -10,7 +10,7 @@
 </div>
 <p class="mb-5 text-sm text-gray-400">Invoice yang sudah terbayar bulan ini</p>
 <div class="rounded bg-accent p-4">
-    <table id="table" class="table-zebra">
+    <table class="data-table table-zebra">
         <thead>
             <tr>
                 <th>Kode</th>

@@ -57,7 +57,7 @@
 
 <h3 class="font-semibold text-xl mb-5">Data Pesanan</h3>
 <div class="rounded bg-accent p-4 my-5">
-    <table id="table">
+    <table class="data-table table-zebra">
         <thead>
             <tr>
                 <th><h3 class="font-bold">Part Number</h3></th>

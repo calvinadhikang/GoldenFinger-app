@@ -82,7 +82,7 @@
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url("vendors/add/barang/$vendor->id")}}">Tambah</a>
     </div>
-        <table id="table">
+        <table class="data-table table-zebra">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Part Number</h3></th>

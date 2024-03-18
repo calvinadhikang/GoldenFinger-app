@@ -16,7 +16,7 @@
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
-        <table class="table" id="table">
+        <table class="data-table table-zebra">
             <thead>
                 <tr>
                     <th class="prose"><h3 class="font-bold">Part Number</h3></th>

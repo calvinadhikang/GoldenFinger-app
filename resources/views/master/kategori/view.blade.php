@@ -7,7 +7,7 @@
         <a class="btn btn-primary" href="{{url('kategori/add')}}">Tambah</a>
     </div>
     <div class="overflow-x-auto">
-        <table id="table" class="table-zebra">
+        <table class="data-table table-zebra">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Nama</h3></th>

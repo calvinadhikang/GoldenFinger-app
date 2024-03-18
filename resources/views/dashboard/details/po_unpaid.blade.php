@@ -9,7 +9,7 @@
     </ul>
 </div>
 <div class="p-4 rounded shadow bg-accent">
-    <table id="table" class="table-zebra">
+    <table class="data-table table-zebra">
         <thead>
             <tr>
                 <th>Kode PO</th>
