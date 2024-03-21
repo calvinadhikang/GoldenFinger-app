@@ -68,10 +68,10 @@
 <h1 class="text-xl font-medium my-5">Mutasi Stok</h1>
 <div class="p-4 rounded bg-accent mb-5">
     @foreach ($barang->mutation as $item)
-        <div class="rounded bg-slate-700 bg-opacity-20 rounded-b-none p-2 grid grid-cols-4 border-b border-b-gray-500">
+        <div class="rounded  rounded-b-none p-2 grid grid-cols-5 border-b border-b-gray-500">
             <div class="">
                 <h1 class="text-lg">Qty</h1>
-                <h1 class="text-sm">{{ $item->qty }}</h1>
+                <h1 class="text-sm">{{ $item->status == 'keluar' ? '-' : '+' }} {{ $item->qty }}</h1>
             </div>
             <div class="">
                 <h1 class="text-lg">Harga</h1>
@@ -79,11 +79,17 @@
             </div>
             <div class="">
                 <h1 class="text-lg">Status</h1>
-                <h1 class="text-sm badge {{ $item->status == 'masuk' ? 'badge-secondary' : 'badge-warning' }} ">{{ $item->status }}</h1>
+                <h1 class="text-sm badge {{ $item->status == 'masuk' ? 'badge-secondary' : 'badge-error' }} ">{{ $item->status }}</h1>
             </div>
             <div class="">
                 <h1 class="text-lg">Tanggal</h1>
                 <h1 class="text-sm">{{ date_format($item->created_at, 'd M Y') }}</h1>
+            </div>
+            <div class="">
+                <h1 class="text-lg">Invoice</h1>
+                <a href="{{ url("/invoice/detail/$item->trans_id") }}">
+                    <h1 class="text-sm link">{{ $item->trans_kode }}</h1>
+                </a>
             </div>
         </div>
     @endforeach

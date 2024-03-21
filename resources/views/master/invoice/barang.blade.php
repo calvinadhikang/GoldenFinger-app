@@ -19,12 +19,6 @@
     <i class="fa-solid me-2 w-6 fa-box-open"></i>
     <h2 class="text-xl font-bold">Pilih Barang</h2>
 </div>
-@if ($errors->any())
-<div class="alert alert-error my-5">
-    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-    <span>{{ $errors->first() }}</span>
-</div>
-@endif
 <div class="rounded bg-accent p-4 my-5">
     <table class="table-zebra data-table">
         <thead>
@@ -95,7 +89,10 @@
     </div>
 @endif
 
-<div class="p-4 bg-accent rounded mb-5">
+<div class="mb-5 mt-10 flex items-center">
+    <h2 class="text-xl font-bold">Konfirmasi Pesanan</h2>
+</div>
+<div class="p-4 bg-accent rounded my-5">
     <p class="text-sm text-gray-400 mb-5">Barang / Paket Penjualan dengan Quantity 0 tidak akan dimasukan.</p>
     <form id="form" class="flex items-center justify-between" method="POST" action="{{ url('/invoice/barang') }}">
         @csrf

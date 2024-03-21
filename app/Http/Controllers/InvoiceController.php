@@ -199,30 +199,6 @@ class InvoiceController extends Controller
             $total += $subtotal;
         }
 
-        // for ($i=0; $i < count($qty); $i++) {
-        //     if ($qty[$i] > 0) {
-        //         $obj = Barang::find($part[$i]);
-        //         $obj->qty = $qty[$i];
-        //         $price = Util::parseNumericValue($harga[$i]);
-        //         $obj->clean_price = $price;
-
-        //         if ($ppn_include != null){
-        //             //kalau harga non ppn
-        //             $ppnItem = $price - ($price / 100 * $invoice->PPN);
-        //             $obj->harga = $ppnItem;
-        //             $cleanTotal += $price * $qty[$i];
-        //         }else{
-        //             $obj->harga = $price;
-        //         }
-
-        //         $subtotal = $obj->harga * $qty[$i];
-        //         $obj->subtotal = $subtotal;
-
-        //         $list[] = $obj;
-        //         $total += $subtotal;
-        //     }
-        // }
-
         if (count($barangs) <= 0 && count($pakets) <= 0) {
             return redirect()->back()->withErrors([
                 'msg' => 'Minimal membeli 1 barang / paket !'
@@ -234,11 +210,16 @@ class InvoiceController extends Controller
         $invoice->list_paket = $list_paket;
         $invoice->total_list_paket = $total_list_paket;
         $invoice->total = $total;
+
+        // BUG: Perhitungan Incluce PPN salah
+
         if ($ppn_include != null){
-            //kalau harga non ppn
+            //kalau harga termasuk ppn
             $invoice->PPN_value = ($cleanTotal / 100) * $invoice->PPN;
+            $invoice->PPN_included = true;
         }else{
             $invoice->PPN_value = ($total / 100) * $invoice->PPN;
+            $invoice->PPN_included = false;
         }
         $invoice->grandTotal = $total + $invoice->PPN_value;
 
@@ -256,10 +237,23 @@ class InvoiceController extends Controller
 
     public function invoiceConfirmationPPN(Request $request){
         $invoice = Session::get('invoice_cart');
-        $new_ppn = $request->input('ppn');
+        $new_ppn = Util::parseNumericValue($request->input('ppn') ?? 0);
 
         $invoice->PPN = $new_ppn;
-        $invoice->PPN_value = ($invoice->total / 100) * $invoice->PPN;
+        if ($invoice->PPN_included) {
+            $cleanTotal = 0;
+            foreach ($invoice->list_barang as $key => $value) {
+                $cleanTotal += $value->clean_price;
+            }
+            foreach ($invoice->list_paket as $key => $value) {
+                $cleanTotal += $value->clean_price;
+            }
+
+            $invoice->PPN_value = ($cleanTotal / 100) * $invoice->PPN;
+        }else{
+            $invoice->PPN_value = ($invoice->total / 100) * $invoice->PPN;
+        }
+
         $invoice->grandTotal = $invoice->total + $invoice->PPN_value;
         Session::put('invoice_cart', $invoice);
 
@@ -318,7 +312,7 @@ class InvoiceController extends Controller
                 'paid_by' => $timePembayaran != null ? Session::get('user')->id : null
             ]);
 
-            foreach ($invoice->list as $key => $value) {
+            foreach ($invoice->list_barang as $key => $value) {
                 DB::table('dinvoice')->insert([
                     'hinvoice_id' => $lastId,
                     'part' => $value->part,
@@ -326,6 +320,20 @@ class InvoiceController extends Controller
                     'harga' => $value->harga,
                     'qty' => $value->qty,
                     'subtotal' => $value->subtotal,
+                    'type' => 'barang',
+                    'created_at' => $currentDateTime
+                ]);
+            }
+
+            foreach ($invoice->list_paket as $key => $value) {
+                DB::table('dinvoice')->insert([
+                    'hinvoice_id' => $lastId,
+                    'part' => $value->id,
+                    'nama' => $value->nama,
+                    'harga' => $value->harga,
+                    'qty' => $value->qty,
+                    'subtotal' => $value->subtotal,
+                    'type' => 'paket',
                     'created_at' => $currentDateTime
                 ]);
             }
@@ -374,20 +382,39 @@ class InvoiceController extends Controller
 
                 DB::beginTransaction();
                 try {
-                    //Menambahkan Stok ke table Barang
-                    DB::table('barang')->where('part', $part)->decrement('stok', $detail->qty);
+                    if ($detail->type == 'barang') {
+                        //Menambahkan Stok ke table Barang
+                        DB::table('barang')->where('part', $part)->decrement('stok', $detail->qty);
 
-                    //Buat Row Baru di table Stock Mutation
-                    DB::table('stock_mutation')->insert([
-                        'barang_id' => $part,
-                        'qty' => $detail->qty,
-                        'qty-used' => 0,
-                        'harga' => $detail->harga,
-                        'status' => 'keluar',
-                        'trans_id' => $invoice->id,
-                        'trans_kode' => $invoice->kode,
-                        'created_at' => Carbon::now()
-                    ]);
+                        //Buat Row Baru di table Stock Mutation
+                        DB::table('stock_mutation')->insert([
+                            'barang_id' => $part,
+                            'qty' => $detail->qty,
+                            'qty-used' => 0,
+                            'harga' => $detail->harga,
+                            'status' => 'keluar',
+                            'trans_id' => $invoice->id,
+                            'trans_kode' => $invoice->kode,
+                            'created_at' => Carbon::now()
+                        ]);
+                    }else{
+                        $paket = HeaderPaket::withTrashed()->where('id', $part)->first();
+                        foreach ($paket->details as $key => $value) {
+                            DB::table('barang')->where('part', $value->part)->decrement('stok', $value->qty);
+
+                            DB::table('stock_mutation')->insert([
+                                'barang_id' => $value->part,
+                                'qty' => $value->qty,
+                                'qty-used' => 0,
+                                'harga' => $paket->harga,
+                                'status' => 'keluar',
+                                'trans_id' => $invoice->id,
+                                'trans_kode' => $invoice->kode,
+                                'type' => 'paket',
+                                'created_at' => Carbon::now()
+                            ]);
+                        }
+                    }
 
                     if ($invoice->komisi > 0) {
                         DB::table('operational_cost')->insert([
@@ -429,7 +456,6 @@ class InvoiceController extends Controller
     }
 
     public function getPaidInvoiceThisMonth(){
-
         $data = $this->getPaidInvoiceThisMonthData();
 
         return response()->json([

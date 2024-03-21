@@ -12,7 +12,7 @@
     <ul class="steps w-full">
         <li class="step step-primary hover:underline"><a href="{{ url('/invoice/customer') }}">Pilih Customer</a></li>
         <li class="step step-primary hover:underline"><a href="{{ url('/invoice/barang') }}">Pilih Barang</a></li>
-        <li class="step font-medium">Konfirmasi</li>
+        <li class="step step-primary font-medium">Konfirmasi</li>
     </ul>
 </div>
 <div class="mb-5 mt-10">

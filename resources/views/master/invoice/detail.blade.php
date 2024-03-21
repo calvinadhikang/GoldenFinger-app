@@ -139,6 +139,7 @@
             <tr>
                 <th><h3 class="font-bold">Part Number</h3></th>
                 <th><h3 class="font-bold">Nama</h3></th>
+                <th><h3 class="font-bold">Tipe</h3></th>
                 <th><h3 class="font-bold">Harga</h3></th>
                 <th><h3 class="font-bold">Jumlah</h3></th>
                 <th><h3 class="font-bold">Subtotal</h3></th>
@@ -149,6 +150,7 @@
             <tr>
                 <td>{{ $item->part }}</td>
                 <td>{{ $item->nama }}</td>
+                <td>{{ $item->type }}</td>
                 <td>Rp {{ number_format($item->harga) }}</td>
                 <td>{{ number_format($item->qty) }}</td>
                 <td>Rp {{ number_format($item->subtotal) }}</td>
