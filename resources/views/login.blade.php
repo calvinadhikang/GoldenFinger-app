@@ -19,11 +19,11 @@
                     @csrf
                     <div>
                         <label for="username" class="block mb-2 text-lg font-medium">Username</label>
-                        <input type="text" name="username" class="input input-primary w-full" placeholder="name@company.com">
+                        <input type="text" name="username" class="input w-full" placeholder="name@company.com">
                     </div>
                     <div>
                         <label for="password" class="block mb-2 text-lg font-medium">Password</label>
-                        <input type="password" name="password" placeholder="••••••••" class="input input-primary w-full">
+                        <input type="password" name="password" placeholder="••••••••" class="input w-full">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                 </form>
