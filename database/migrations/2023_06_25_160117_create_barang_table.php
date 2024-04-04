@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('harga');
             $table->integer('stok');
             $table->integer('batas');
+            $table->text('image')->nullable()->default('');
+            $table->boolean('public')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
