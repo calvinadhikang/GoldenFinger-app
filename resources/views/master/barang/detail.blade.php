@@ -12,7 +12,7 @@
     <form method="POST">
         @csrf
         <input type="hidden" value="{{ $barang->id }}" name="id">
-        <div class="flex flex-wrap mb-5">
+        <div class="flex flex-wrap gap-y-2 mb-5">
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Part Number</span>
@@ -33,6 +33,23 @@
                     <span class="label-text-alt"></span>
                 </label>
                 <input type="text" placeholder="1000" class="input input-bordered w-full harga" name="harga" value="{{ number_format($barang->harga) }}" required/>
+            </div>
+            <div class="form-control w-full md:w-1/2 md:pe-2">
+                <label class="label">
+                    <span class="label-text text-lg font-bold">Link Gambar</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" class="input input-bordered w-full" name="image" value="{{ $barang->image }}"/>
+            </div>
+            <div class="form-control w-full md:w-1/2">
+                <label class="label">
+                    <span class="label-text text-lg font-bold">Tampil Pada Website</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <select name="public" class="select select-bordered" required>
+                    <option value="true" {{ $barang->public == true ? '' : 'selected' }}>Ya, Terlihat</option>
+                    <option value="false" {{ $barang->public == true ? '' : 'selected' }}>Tidak, Tidak Terlihat</option>
+                </select>
             </div>
         </div>
         <button class="btn btn-primary">Simpan</button>

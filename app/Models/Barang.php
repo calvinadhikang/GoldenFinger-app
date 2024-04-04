@@ -12,7 +12,7 @@ class Barang extends Model
     protected $table = 'barang';
     protected $primaryKey = 'part';
     protected $keyType = 'string';
-    protected $fillable = ['part', 'nama', 'harga', 'stok', 'batas'];
+    protected $fillable = ['part', 'nama', 'harga', 'stok', 'batas', 'image', 'public'];
 
     public function vendor()
     {
