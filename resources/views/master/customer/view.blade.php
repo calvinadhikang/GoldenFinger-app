@@ -10,12 +10,12 @@
         <table class="data-table table-zebra">
             <thead>
                 <tr>
-                    <th class="prose"><h3 class="font-bold">ID</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nama</h3></th>
-                    <th class="prose"><h3 class="font-bold">Nomor Telp</h3></th>
-                    <th class="prose"><h3 class="font-bold">Alamat</h3></th>
-                    <th class="prose"><h3 class="font-bold">Jumlah Transaksi</h3></th>
-                    <th class="prose"><h3 class="font-bold">Aksi</h3></th>
+                    <th><h3 class="font-bold">ID</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Nomor Telp</h3></th>
+                    <th><h3 class="font-bold">Alamat</h3></th>
+                    <th><h3 class="font-bold">Jumlah Transaksi</h3></th>
+                    <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>

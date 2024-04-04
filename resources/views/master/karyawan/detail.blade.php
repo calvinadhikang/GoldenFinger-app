@@ -11,8 +11,7 @@
 <div class="rounded bg-accent p-4 mb-5">
     <form action="" method="POST">
         @csrf
-        <div class="flex flex-wrap my-5">
-            <input type="hidden" name="id" value="{{$karyawan->id}}">
+        <div class="flex flex-wrap mb-5">
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
