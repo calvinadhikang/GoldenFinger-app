@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('hinvoice', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('kode');
+            $table->string('kode');
             $table->text('surat_jalan');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('karyawan_id');

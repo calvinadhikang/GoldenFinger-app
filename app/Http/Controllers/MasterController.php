@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class MasterController extends Controller
 {
-    //
     public function dashboardView(){
         return view('dashboard.dashboard');
     }
 
+    // Dibawah ini adalah function untuk menampilkan view ketika dashboard ditekan!
     public function barangMinimumView(){
         $data = Barang::where('stok', '<=', 'batas')->orderBy('created_at', 'desc')->get();
         return view('dashboard.details.minimum_barang', [
@@ -22,8 +22,9 @@ class MasterController extends Controller
         ]);
     }
 
+    // Dibawah ini adalah function untuk menampilkan view ketika dashboard ditekan!
     public function poUnpaidView(){
-        $data = HeaderPurchase::where('status_pembayaran', 0)->get();
+        $data = HeaderPurchase::whereNull('paid_at')->get();
         $total = 0;
         foreach ($data as $key => $value) {
             $total += $value->grand_total;
@@ -34,11 +35,12 @@ class MasterController extends Controller
         ]);
     }
 
+    // Dibawah ini adalah function untuk menampilkan view ketika dashboard ditekan!
     public function invoicePaidView(){
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
 
-        $data = HeaderInvoice::whereMonth('created_at', '=', $currentMonth)->whereYear('created_at', '=', $currentYear)->where('status', 1)->get();
+        $data = HeaderInvoice::whereMonth('created_at', '=', $currentMonth)->whereYear('created_at', '=', $currentYear)->whereNotNull('paid_at')->get();
         $total = 0;
         foreach ($data as $invoice) {
             $total += $invoice->grand_total;

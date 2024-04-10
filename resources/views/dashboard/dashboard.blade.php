@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="text-2xl font-bold">Dashboard</h1>
-    <div class="flex flex-wrap justify-start mt-5 gap-5 mb-10">
+    <div class="grid grid-cols-2 md:grid-cols-3 mt-5 gap-5 mb-10">
         <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/dashboard/invoice/paid') }}">
             <div class="stat shadow bg-accents">
                 <div class="stat-title">Pendapatan Bulan Ini</div>
@@ -40,9 +40,13 @@
         </a>
     </div>
 
-    <h1 class="text-2xl font-bold mb-5">Total Penjualan Barang Tahun Ini</h1>
-    <div class="p-4 bg-slate-800 rounded w-full">
-        <canvas id="chart-penjualan"></canvas>
+    <h1 class="text-2xl font-bold mb-5">Grafik Perusahaan</h1>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 mb-5">
+        <div class="p-4 bg-slate-800 rounded w-full mb-10">
+            <h1 class="text-lg font-medium">Total Penjualan Barang Tahun Ini</h1>
+            <p class="text-xs text-slate-400 mb-5">*penjualan dalam bentuk Paket tidak termasuk</p>
+            <canvas id="chart-penjualan"></canvas>
+        </div>
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -232,8 +232,6 @@ class PurchaseController extends Controller
                 'grand_total' => $po->grandTotal,
                 'ppn_value' => $po->PPN_value,
                 'ppn' => $po->PPN,
-                'status_pesanan' => 0,
-                'status_pembayaran' => 0,
                 'jatuh_tempo' => $jatuhTempo,
                 'created_at' => $timeCreation,
                 'paid_at' => $timePembayaran,
@@ -276,7 +274,6 @@ class PurchaseController extends Controller
         }
 
         $po = HeaderPurchase::find($id);
-        $po->status_pembayaran = 1;
         $po->paid_by = $user->id;
         $po->paid_at = Carbon::now();
         $po->save();
@@ -322,7 +319,6 @@ class PurchaseController extends Controller
             toast('Berhasil Melunasi Pesanan, Stok Telah Ditambah', 'success');
 
             //Update Status Pesanan PO
-            $po->status_pesanan = 1;
             $po->recieved_at = Carbon::now();
             $po->recieved_by = Session::get('user')->id;
             $po->save();
@@ -377,7 +373,7 @@ class PurchaseController extends Controller
         // $dayBeforeDue = $request->query('day');
         // $oneDayBeforeToday = Carbon::now()->subDays(7);
         // $data = HeaderPurchase::whereDate('jatuh_tempo', '<=', $oneDayBeforeToday->toDateString())->get();
-        $data = HeaderPurchase::where('status_pembayaran', 0)->get();
+        $data = HeaderPurchase::whereNull('paid_at')->get();
         $count = $data->count();
 
         $total = 0;

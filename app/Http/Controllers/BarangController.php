@@ -12,7 +12,7 @@ class BarangController extends Controller
     {
         $type = $request->query('type', 'all');
         if($type == "all"){
-            $barang = Barang::all();
+            $barang = Barang::latest()->get();
         }else{
             $barang = Barang::onlyTrashed()->get();
         }
@@ -76,7 +76,7 @@ class BarangController extends Controller
         $barang->save();
 
         toast("Berhasil Update Barang", "success");
-        return redirect()->back();
+        return redirect('/barang/detail/'.$barang->part);
     }
 
     public function getMinimum(){

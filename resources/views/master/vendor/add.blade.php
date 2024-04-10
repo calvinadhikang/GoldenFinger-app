@@ -4,14 +4,14 @@
 <h1 class="text-2xl font-bold">Tambah Vendor</h1>
 <div class="text-sm breadcrumbs mb-5 text-slate-300">
     <ul>
-        <li><a href="/vendor">Data Vendor</a></li>
+        <li><a href="/vendors">Data Vendor</a></li>
         <li>Tambah Vendor</li>
     </ul>
 </div>
 <div class="rounded bg-accent p-4 mb-5">
     <form method="POST">
         @csrf
-        <div class="flex flex-wrap my-5">
+        <div class="flex flex-wrap mb-5">
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Nama</span>

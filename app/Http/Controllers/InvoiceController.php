@@ -274,9 +274,9 @@ class InvoiceController extends Controller
 
         if ($timePembayaran == null) {
             if (Carbon::parse($jatuhTempo)->isPast()) {
-                toast('Tanggal Jatuh Tempo Minimal Hari Ini', 'error');
+                toast('Tanggal Jatuh Tempo Minimal Besok', 'error');
                 return back()->withErrors([
-                    'msg' => 'Tanggal Jatuh Tempo Minimal Hari Ini !'
+                    'msg' => 'Tanggal Jatuh Tempo Minimal Besok !'
                 ]);
             }
         }
@@ -474,8 +474,12 @@ class InvoiceController extends Controller
         $labels = [];
         $qty = [];
         foreach ($sumOfQty as $key => $value) {
-            $labels[] = $value->part;
-            $qty[] = $value->total_qty;
+            //kalau misalnya sebuah paket, maka jangan hitung sebagai penjualan barang
+            $isPaket = HeaderPaket::withTrashed()->where('id', '=' ,$value->part)->get();
+            if (count($isPaket) <= 0) {
+                $labels[] = $value->part;
+                $qty[] = $value->total_qty;
+            }
         }
 
         return response()->json([

@@ -2,13 +2,15 @@
 
 @section('content')
 <h1 class="text-2xl font-bold mb-5">Operational Cost</h1>
-<h1 class="font-medium mb-3">Filter Data</h1>
+
+{{-- <h1 class="font-medium mb-3">Filter Data</h1>
 <div class="p-4 rounded shadow bg-accent mb-5">
     <form method="GET" class="flex gap-5">
         <input type="month" class="input input-primary flex-grow bg-white text-black" name="month" value="{{ $filter }}">
         <button class="btn btn-secondary">Search</button>
     </form>
-</div>
+</div> --}}
+
 <h1 class="font-medium mb-3">Pengeluaran <span class="badge badge-secondary">{{ $filterReadable }}</span></h1>
 <div class="rounded bg-accent p-4 w-full">
     <div class="flex justify-end w-full mb-5">
@@ -21,7 +23,7 @@
                     <th><h3 class="font-bold">Deskripsi</h3></th>
                     <th><h3 class="font-bold">Total</h3></th>
                     <th><h3 class="font-bold">Tanggal</h3></th>
-                    <th><h3 class="font-bold">Hapus</h3></th>
+                    <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +38,7 @@
                         <td>Rp {{ format_decimal($item->total) }}</td>
                         <td>{{ date_format($item->created_at, 'd M Y') }}</td>
                         <td>
-                            <button onclick="my_modal_3.showModal()" class="btn-modal" id-cost="{{ $item->id }}" value="{{ $item->deskripsi }}"><i class="fa-solid fa-circle-minus text-base hover:text-red-600"></i></button>
+                            <button onclick="my_modal_3.showModal()" class="btn-modal" id-cost="{{ $item->id }}" value="{{ $item->deskripsi }}"><i class="fa-solid fa-trash text-red-600 hover:text-red-400"></i></button>
                         </td>
                     </tr>
                 @endforeach

@@ -11,7 +11,7 @@
 <div class="rounded bg-accent p-4">
     <form method="POST">
         @csrf
-        <div class="flex flex-wrap my-5">
+        <div class="flex flex-wrap mb-5">
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Deskripsi</span>

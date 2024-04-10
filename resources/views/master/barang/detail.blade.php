@@ -47,8 +47,8 @@
                     <span class="label-text-alt"></span>
                 </label>
                 <select name="public" class="select select-bordered" required>
-                    <option value="true" {{ $barang->public == true ? '' : 'selected' }}>Ya, Terlihat</option>
-                    <option value="false" {{ $barang->public == true ? '' : 'selected' }}>Tidak, Tidak Terlihat</option>
+                    <option value="1" {{ $barang->public == 1 ? '' : 'selected' }}>Ya, Terlihat</option>
+                    <option value="0" {{ $barang->public == 1 ? '' : 'selected' }}>Tidak, Tidak Terlihat</option>
                 </select>
             </div>
         </div>
