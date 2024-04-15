@@ -24,40 +24,40 @@ class TestHTMLMail extends Mailable
     }
 
     public function build(){
-        return $this->subject('Test HTML')->view('login');
+        return $this->subject('Test HTML')->view('template.mail.test');
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
-    {
-        return new Envelope(
-            subject: 'Test H T M L Mail',
-        );
-    }
+    // /**
+    //  * Get the message envelope.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Envelope
+    //  */
+    // public function envelope()
+    // {
+    //     return new Envelope(
+    //         subject: 'Test H T M L Mail',
+    //     );
+    // }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            view: 'login',
-        );
-    }
+    // /**
+    //  * Get the message content definition.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Content
+    //  */
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'template.mail.test',
+    //     );
+    // }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
-    }
+    // /**
+    //  * Get the attachments for the message.
+    //  *
+    //  * @return array
+    //  */
+    // public function attachments()
+    // {
+    //     return [];
+    // }
 }

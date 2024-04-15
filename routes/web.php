@@ -18,10 +18,12 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\VulkanisirMachineController;
 use App\Http\Controllers\VulkanisirServiceController;
 use App\Http\Middleware\EnsureLogin;
+use App\Http\Middleware\MustHaveSessionMiddleware;
 use App\Mail\TestHTMLMail;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,10 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/', [LoginController::class, "loginView"]);
 Route::post('/', [LoginController::class, "loginAction"]);
+
+Route::get('/test/mail', function(){
+    Mail::to('calvinadhikang@gmail.com')->send(new TestHTMLMail());
+});
 
 Route::get('/logout', function(){
     Session::remove('user');
@@ -149,17 +155,19 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::post('/detail/{id}/delete', [InvoiceController::class, 'invoiceDelete']);
         Route::post('/detail/{id}/restore', [InvoiceController::class, 'invoiceRestore']);
 
-        Route::get('/barang', [InvoiceController::class, 'invoiceBarangView']);
-        Route::post('/barang', [InvoiceController::class, 'invoiceBarangAction']);
-
         Route::get('/customer', [InvoiceController::class, 'invoiceCustomerView']);
         Route::post('/customer', [InvoiceController::class, 'invoiceCustomerAction']);
         Route::post('/customer/new', [InvoiceController::class, 'customerAddAction']);
         Route::get('/customer/unset', [InvoiceController::class, 'invoiceCustomerUnsetAction']);
 
-        Route::get('/confirmation', [InvoiceController::class, 'invoiceConfirmationView']);
-        Route::post('/confirmation', [InvoiceController::class, 'invoiceConfirmationAction']);
-        Route::post('/confirmation/ppn', [InvoiceController::class,'invoiceConfirmationPPN']);
+        Route::middleware('musthavesession:invoice_cart,/invoice')->group(function() {
+            Route::get('/barang', [InvoiceController::class, 'invoiceBarangView']);
+            Route::post('/barang', [InvoiceController::class, 'invoiceBarangAction']);
+
+            Route::get('/confirmation', [InvoiceController::class, 'invoiceConfirmationView']);
+            Route::post('/confirmation', [InvoiceController::class, 'invoiceConfirmationAction']);
+            Route::post('/confirmation/ppn', [InvoiceController::class,'invoiceConfirmationPPN']);
+        });
 
         Route::get('/created', [InvoiceController::class, 'invoiceCreatedView']);
         Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);
@@ -185,12 +193,14 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::get('/barang', [PurchaseController::class, 'purchaseBarangView']);
         Route::post('/barang', [PurchaseController::class, 'purchaseBarangAdd']);
 
-        Route::get('/vendor', [PurchaseController::class, 'purchaseVendorView']);
-        Route::post('/vendor', [PurchaseController::class, 'purchaseVendorAdd']);
+        Route::middleware('musthavesession:po_cart,/po')->group(function() {
+            Route::get('/vendor', [PurchaseController::class, 'purchaseVendorView']);
+            Route::post('/vendor', [PurchaseController::class, 'purchaseVendorAdd']);
 
-        Route::get('/confirmation', [PurchaseController::class, 'purchaseConfirmationView']);
-        Route::post('/confirmation/ppn', [PurchaseController::class, 'purchaseConfirmationPPN']);
-        Route::post('/confirmation', [PurchaseController::class, 'purchaseConfirmationAction']);
+            Route::get('/confirmation', [PurchaseController::class, 'purchaseConfirmationView']);
+            Route::post('/confirmation/ppn', [PurchaseController::class, 'purchaseConfirmationPPN']);
+            Route::post('/confirmation', [PurchaseController::class, 'purchaseConfirmationAction']);
+        });
 
         //Finishing PO
         Route::post('/pesanan', [PurchaseController::class, 'finishPesanan']);
@@ -231,21 +241,21 @@ Route::middleware([EnsureLogin::class])->group(function() {
 
     Route::prefix('/vservice')->group(function () {
         Route::get('/', [VulkanisirServiceController::class, 'serviceView']);
+        Route::get('/detail/{id}', [VulkanisirServiceController::class, 'serviceDetailView']);
+        Route::post('/finish', [VulkanisirServiceController::class, 'serviceFinishTaken']);
+        Route::post('/cancel', [VulkanisirServiceController::class, 'serviceCancel']);
 
         Route::get('/customer', [VulkanisirServiceController::class, 'serviceCustomerView']);
         Route::post('/customer', [VulkanisirServiceController::class, 'serviceCustomerAction']);
         Route::post('/customer/new', [VulkanisirServiceController::class, 'serviceCustomerAdd']);
         Route::get('/customer/unset', [VulkanisirServiceController::class, 'serviceCustomerUnsetAction']);
 
-        Route::get('/keterangan', [VulkanisirServiceController::class, 'serviceKeteranganView']);
-        Route::post('/keterangan', [VulkanisirServiceController::class, 'serviceKeteranganAction']);
+        Route::middleware('musthavesession:service_cart,/vservice')->group(function() {
+            Route::get('/keterangan', [VulkanisirServiceController::class, 'serviceKeteranganView']);
+            Route::post('/keterangan', [VulkanisirServiceController::class, 'serviceKeteranganAction']);
 
-        Route::get('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationView']);
-        Route::post('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationAction']);
-
-        Route::get('/detail/{id}', [VulkanisirServiceController::class, 'serviceDetailView']);
-
-        Route::post('/finish', [VulkanisirServiceController::class, 'serviceFinishTaken']);
-        Route::post('/cancel', [VulkanisirServiceController::class, 'serviceCancel']);
+            Route::get('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationView']);
+            Route::post('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationAction']);
+        });
     });
 });

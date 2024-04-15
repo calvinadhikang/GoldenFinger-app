@@ -159,6 +159,7 @@ class VulkanisirServiceController extends Controller
         $machine->service_id = $newService->id;
         $machine->save();
 
+        Session::remove('service_cart');
         toast('Berhasil membuat service vulkanisir', 'success');
         return redirect('/vservice');
     }
