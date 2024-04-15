@@ -73,6 +73,12 @@
                         Vendor
                     </div>
                 </a></li>
+                <li><a href="{{ url('/machine') }}">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-boxes-stacked me-2 w-6"></i>
+                        Mesin Vulkanisir
+                    </div>
+                </a></li>
                 @if ($user->role == "Stakeholder")
                 <h3 class="text-lg font-semibold mt-4">Pemegang Saham</h3>
                 <li><a href="{{ url('/shares') }}">
@@ -100,6 +106,12 @@
                     <div class="flex items-center">
                         <i class="fa-solid fa-tags me-2 w-6"></i>
                         Pengeluaran / Cost
+                    </div>
+                </a></li>
+                <li><a href="{{ url('/vservice') }}">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-boxes-stacked me-2 w-6"></i>
+                        Service Vulkanisir
                     </div>
                 </a></li>
 

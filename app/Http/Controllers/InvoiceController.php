@@ -54,7 +54,7 @@ class InvoiceController extends Controller
 
         return view('master.invoice.customer', [
             'customer' => $invoice->customer,
-            'customers' => Customer::all()
+            'customers' => Customer::latest()->get()
         ]);
     }
 

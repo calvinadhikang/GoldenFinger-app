@@ -11,7 +11,7 @@
 <div class="rounded bg-accent p-4 mb-5">
     <form method="POST" action="">
         @csrf
-        <div class="flex flex-wrap my-5">
+        <div class="flex flex-wrap mb-5">
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>

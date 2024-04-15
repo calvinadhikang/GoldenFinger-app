@@ -15,6 +15,8 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SharesController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\VulkanisirMachineController;
+use App\Http\Controllers\VulkanisirServiceController;
 use App\Http\Middleware\EnsureLogin;
 use App\Mail\TestHTMLMail;
 use App\Models\Vendor;
@@ -216,5 +218,34 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::get('/', [SharesController::class, 'sharesView']);
         Route::get('/configure', [SharesController::class, 'configureSharesView']);
         Route::post('/configure', [SharesController::class, 'configureSharesAction']);
+    });
+
+    Route::prefix('/machine')->group(function () {
+        Route::get('/', [VulkanisirMachineController::class, 'machineView']);
+        Route::get('/add', [VulkanisirMachineController::class, 'machineAddView']);
+        Route::post('/add', [VulkanisirMachineController::class, 'machineAddAction']);
+
+        Route::get('/detail/{id}', [VulkanisirMachineController::class, 'machineDetailView']);
+        Route::post('/detail/{id}', [VulkanisirMachineController::class, 'machineDetailAction']);
+    });
+
+    Route::prefix('/vservice')->group(function () {
+        Route::get('/', [VulkanisirServiceController::class, 'serviceView']);
+
+        Route::get('/customer', [VulkanisirServiceController::class, 'serviceCustomerView']);
+        Route::post('/customer', [VulkanisirServiceController::class, 'serviceCustomerAction']);
+        Route::post('/customer/new', [VulkanisirServiceController::class, 'serviceCustomerAdd']);
+        Route::get('/customer/unset', [VulkanisirServiceController::class, 'serviceCustomerUnsetAction']);
+
+        Route::get('/keterangan', [VulkanisirServiceController::class, 'serviceKeteranganView']);
+        Route::post('/keterangan', [VulkanisirServiceController::class, 'serviceKeteranganAction']);
+
+        Route::get('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationView']);
+        Route::post('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationAction']);
+
+        Route::get('/detail/{id}', [VulkanisirServiceController::class, 'serviceDetailView']);
+
+        Route::post('/finish', [VulkanisirServiceController::class, 'serviceFinishTaken']);
+        Route::post('/cancel', [VulkanisirServiceController::class, 'serviceCancel']);
     });
 });
