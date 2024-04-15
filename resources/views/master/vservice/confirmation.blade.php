@@ -59,6 +59,8 @@
 <h2 class="font-semibold text-xl mb-5">Detail Service</h2>
 <div class="rounded bg-accent p-4 my-5 items-center">
     <div class="grid gap-y-3 grid-cols-2">
+        <p class="font-medium">Nama Produk Customer</p>
+        <p class="text-end">{{ $service->nama }}</p>
         <p class="font-medium">Mesin Service</p>
         <p class="text-end">{{ $machine->nama }}</p>
         <p class="font-medium">Perkiraan Waktu Service Selesai</p>

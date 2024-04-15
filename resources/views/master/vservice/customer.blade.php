@@ -96,9 +96,9 @@
                 <div class="form-control w-full md:w-1/2">
                     <label class="label">
                         <span class="label-text font-bold"><i class="fa-solid fa-barcode me-2"></i>NPWP</span>
-                        <span class="label-text-alt">@error('NPWP') {{ $message }}  @enderror</span>
+                        <span class="label-text-alt">Beri tanda '-' bila tidak punya NPWP</span>
                     </label>
-                    <input type="text" required placeholder="001.002.003" class="input input-bordered w-full" name="NPWP" value="{{ old('NPWP') }}" />
+                    <input type="text" value="-" required placeholder="001.002.003" class="input input-bordered w-full" name="NPWP" />
                 </div>
             </div>
             <button class="btn btn-primary mt-5">Tambah Customer Baru</button>

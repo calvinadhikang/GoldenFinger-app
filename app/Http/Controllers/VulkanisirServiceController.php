@@ -35,6 +35,7 @@ class VulkanisirServiceController extends Controller
             }
 
             $value->status = $status;
+            $value->finish_text = $serviceFinishTime;
         }
 
         return view('master.vservice.view', [
@@ -50,6 +51,7 @@ class VulkanisirServiceController extends Controller
         if ($service == null) {
             $service = new stdClass();
             $service->customer = null;
+            $service->nama = null;
             $service->PPN = DB::table('settings')->select('ppn')->first()->ppn;
             $service->PPN_value = null;
             $service->total = null;
@@ -114,9 +116,11 @@ class VulkanisirServiceController extends Controller
         $service = Session::get('service_cart');
 
         $harga = Util::parseNumericValue($request->input('harga'));
+        $nama = $request->input('nama');
         $tanggal = $request->input('tanggal');
         $machine = $request->input('machine');
 
+        $service->nama = $nama;
         $service->PPN_value = $harga / 100 * $service->PPN;
         $service->total = $harga;
         $service->grandTotal = $harga + $service->PPN_value;
@@ -124,7 +128,6 @@ class VulkanisirServiceController extends Controller
         $service->will_finish_at = $tanggal;
         Session::put('service_cart', $service);
 
-        toast('Berhasil menyimpan keterangan service', 'success');
         return redirect('/vservice/confirmation');
     }
 
@@ -148,6 +151,7 @@ class VulkanisirServiceController extends Controller
             'machine_id' => $service->machine,
             'customer_id' => $service->customer->id,
             'harga' => $service->grandTotal,
+            'nama' => $service->nama,
             'will_finish_at' => $service->will_finish_at,
             'handled_by'=> $teknisi_id
         ]);

@@ -11,7 +11,7 @@ class VulkanisirService extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'service';
-    protected $fillable = ['machine_id', 'customer_id', 'harga', 'cancel_reason', 'canceled_by', 'will_finish_at', 'taken_at', 'taken_by', 'handled_by'];
+    protected $fillable = ['machine_id', 'customer_id', 'nama', 'harga', 'cancel_reason', 'canceled_by', 'will_finish_at', 'taken_at', 'taken_by', 'handled_by'];
 
     public function customer(){
         return $this->hasOne(Customer::class, 'id', 'customer_id');

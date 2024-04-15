@@ -16,6 +16,7 @@
                 <tr>
                     <th><h3 class="font-bold">ID</h3></th>
                     <th><h3 class="font-bold">Nama Customer</h3></th>
+                    <th><h3 class="font-bold">Nama Barang</h3></th>
                     <th><h3 class="font-bold">Harga</h3></th>
                     <th><h3 class="font-bold">Status</h3></th>
                     <th><h3 class="font-bold">Akan Selesai Pada Tanggal</h3></th>
@@ -33,9 +34,10 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->customer->nama }}</td>
+                        <td>{{ $item->nama }}</td>
                         <td>Rp {{ number_format($item->harga) }}</td>
                         <td>
-                            @if ($item->status == 'On Progess')
+                            @if ($item->status == 'On Progress')
                             <span class="badge badge-neutral">{{ $item->status }}</span>
                             @elseif ($item->status == 'Pickup')
                                 <span class="badge badge-secondary">{{ $item->status }}</span>
@@ -45,7 +47,7 @@
                                 <span class="badge badge-success">{{ $item->status }}</span>
                             @endif
                         </td>
-                        <td>{{ $item->will_finish_at }}</td>
+                        <td>{{ $item->finish_text }}</td>
                         <td>{{ $item->teknisi->nama }}</td>
                         <td>
                             <a href="{{ url("vservice/detail/$item->id") }}">

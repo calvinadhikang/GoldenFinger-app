@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('machine_id');
             $table->unsignedBigInteger('customer_id');
+            $table->string('nama');
             $table->integer('harga');
             $table->text('cancel_reason')->nullable();
             $table->unsignedBigInteger('canceled_by')->nullable();

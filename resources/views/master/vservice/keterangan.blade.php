@@ -22,6 +22,13 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-5">
             <div class="form-control">
                 <label class="label">
+                    <span class="label-text text-lg font-bold">Nama Produk</span>
+                    <span class="label-text-alt"></span>
+                </label>
+                <input type="text" class="input input-bordered w-full" name="nama" required/>
+            </div>
+            <div class="form-control">
+                <label class="label">
                     <span class="label-text text-lg font-bold">Harga</span>
                     <span class="label-text-alt"></span>
                 </label>
@@ -34,7 +41,7 @@
                 </label>
                 <input type="datetime-local" placeholder="M001" class="input input-bordered w-full" name="tanggal" required/>
             </div>
-            <div class="form-control col-span-2">
+            <div class="form-control">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Pilih Mesin Vulkanisir</span>
                     <span class="label-text-alt"></span>
