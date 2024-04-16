@@ -225,6 +225,36 @@ Route::middleware([EnsureLogin::class])->group(function() {
             Route::get('/', [LaporanController::class, 'stokView'])->name('laporan.stok');
             Route::get('/pdf', [LaporanController::class, 'stokPdfDownload']);
         });
+
+        Route::prefix('/cost')->group(function(){
+            Route::get('/', [LaporanController::class, 'costView'])->name('laporan.cost');
+            Route::get('/pdf', [LaporanController::class, 'costPdfDownload']);
+        });
+
+        Route::prefix('/pendapatan')->group(function(){
+            Route::get('/', [LaporanController::class, 'pendapatanView']);
+            Route::get('/pdf', [LaporanController::class, 'pendapatanPdfDownload']);
+        });
+
+        Route::prefix('/piutang')->group(function(){
+            Route::get('/', [LaporanController::class, 'piutangView']);
+            Route::get('/pdf', [LaporanController::class, 'piutangPdfDownload']);
+        });
+
+        Route::prefix('/hutang')->group(function(){
+            Route::get('/', [LaporanController::class, 'hutangView']);
+            Route::get('/pdf', [LaporanController::class, 'hutangPdfDownload']);
+        });
+
+        Route::prefix('/pembelian')->group(function(){
+            Route::get('/', [LaporanController::class, 'pembelianView']);
+            Route::get('/pdf', [LaporanController::class, 'pembelianPdfDownload']);
+        });
+
+        Route::prefix('/dividen')->group(function(){
+            Route::get('/', [LaporanController::class, 'dividenView']);
+            Route::get('/pdf', [LaporanController::class, 'dividenPdfDownload']);
+        });
     });
 
     Route::prefix('shares')->group(function (){

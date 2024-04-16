@@ -119,9 +119,13 @@
                     <details>
                         <summary class="font-semibold text-lg">Laporan</summary>
                         <ul class="ms-4">
-                            <li><a href="{{ route('laporan.stok') }}">Lap. Stok</a></li>
-                            <li><a>Lap. Penjualan</a></li>
-                            <li><a>Lap. Pendapatan</a></li>
+                            <li><a href="{{ url('/laporan/cost') }}">Lap. Operational Cost</a></li>
+                            <li><a href="{{ url('/laporan/stok') }}">Lap. Stok</a></li>
+                            <li><a href="{{ url('/laporan/piutang') }}">Lap. Piutang</a></li>
+                            <li><a href="{{ url('/laporan/hutang') }}">Lap. Hutang</a></li>
+                            <li><a href="{{ url('/laporan/pendapatan') }}">Lap. Pendapatan</a></li>
+                            <li><a href="{{ url('/laporan/pembelian') }}">Lap. Pembelian</a></li>
+                            <li><a href="{{ url('/laporan/dividen') }}">Lap. Dividen</a></li>
                         </ul>
                     </details>
                 </li>

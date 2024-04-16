@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\HeaderInvoice;
+use App\Models\HeaderPurchase;
+use App\Models\OperationalCost;
+use App\Models\SharesModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,5 +34,210 @@ class LaporanController extends Controller
             'tanggal' => Carbon::now()
         ]);
         return $pdf->download('laporan_stok.pdf');
+    }
+
+    public function costView(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = OperationalCost::latest()->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        return view('laporan.operational_cost', [
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'data' => $data
+        ]);
+    }
+
+    public function costPdfDownload(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = OperationalCost::latest()->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        $pdf = Pdf::loadView('template.pdf.laporan.cost.laporan_cost', [
+            'data' => $data,
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+        ]);
+        return $pdf->download('laporan_cost.pdf');
+    }
+
+    public function pendapatanView(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = HeaderInvoice::latest()->whereNotNull('paid_at')->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        return view('laporan.pendapatan', [
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'data' => $data
+        ]);
+    }
+
+    public function pendapatanPdfDownload(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = HeaderInvoice::latest()->whereNotNull('paid_at')->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        $pdf = Pdf::loadView('template.pdf.laporan.pendapatan.laporan_pendapatan', [
+            'data' => $data,
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+        ]);
+        return $pdf->download('laporan_pendapatan.pdf');
+    }
+
+    public function piutangView(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = HeaderInvoice::latest()->whereNull('paid_at')->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        return view('laporan.piutang', [
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'data' => $data
+        ]);
+    }
+
+    public function piutangPdfDownload(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = HeaderInvoice::latest()->whereNull('paid_at')->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        $pdf = Pdf::loadView('template.pdf.laporan.piutang.laporan_piutang', [
+            'data' => $data,
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+        ]);
+        return $pdf->download('laporan_piutang.pdf');
+    }
+
+    public function hutangView(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = HeaderPurchase::latest()->whereNull('paid_at')->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        return view('laporan.hutang', [
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'data' => $data
+        ]);
+    }
+
+    public function hutangPdfDownload(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = HeaderPurchase::latest()->whereNull('paid_at')->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        $pdf = Pdf::loadView('template.pdf.laporan.hutang.laporan_hutang', [
+            'data' => $data,
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+        ]);
+        return $pdf->download('laporan_hutang.pdf');
+    }
+
+    public function pembelianView(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = HeaderPurchase::latest()->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        return view('laporan.pembelian', [
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'data' => $data
+        ]);
+    }
+
+    public function pembelianPdfDownload(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = HeaderPurchase::latest()->whereBetween('created_at', [$mulai, $akhir])->get();
+
+        $pdf = Pdf::loadView('template.pdf.laporan.pembelian.laporan_pembelian', [
+            'data' => $data,
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+        ]);
+        return $pdf->download('laporan_pembelian.pdf');
+    }
+
+    public function dividenView(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = SharesModel::all();
+        $pendapatan = HeaderInvoice::whereBetween('created_at', [$mulai, $akhir])->whereNotNull('paid_at')->get();
+        $pengeluaran = HeaderPurchase::whereBetween('created_at', [$mulai, $akhir])->whereNotNull('paid_at')->get();
+        $cost = OperationalCost::whereBetween('created_at', [$mulai, $akhir])->get();
+
+        $totalPendapatan = 0;
+        $totalPengeluaran = 0;
+        $totalCost = 0;
+        foreach ($pendapatan as $key => $value) {
+            $totalPendapatan += $value->grand_total;
+        }
+        foreach ($pengeluaran as $key => $value) {
+            $totalPengeluaran += $value->grand_total;
+        }
+        foreach ($cost as $key => $value) {
+            $totalCost += $value->total;
+        }
+        $pendapatanBersih = $totalPendapatan - $totalPengeluaran - $totalCost;
+
+        return view('laporan.dividen', [
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'data' => $data,
+            'pendapatan' => $totalPendapatan,
+            'pengeluaran' => $totalPengeluaran,
+            'cost' => $totalCost,
+            'bersih' => $pendapatanBersih
+        ]);
+    }
+
+    public function dividenPdfDownload(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = SharesModel::latest()->whereBetween('created_at', [$mulai, $akhir])->get();
+        $pendapatan = HeaderInvoice::whereBetween('created_at', [$mulai, $akhir])->whereNotNull('paid_at')->get();
+        $pengeluaran = HeaderPurchase::whereBetween('created_at', [$mulai, $akhir])->whereNotNull('paid_at')->get();
+        $cost = OperationalCost::whereBetween('created_at', [$mulai, $akhir])->get();
+
+        $totalPendapatan = 0;
+        $totalPengeluaran = 0;
+        $totalCost = 0;
+        foreach ($pendapatan as $key => $value) {
+            $totalPendapatan += $value->grand_total;
+        }
+        foreach ($pengeluaran as $key => $value) {
+            $totalPengeluaran += $value->grand_total;
+        }
+        foreach ($cost as $key => $value) {
+            $totalCost += $value->total;
+        }
+        $pendapatanBersih = $totalPendapatan - $totalPengeluaran - $totalCost;
+
+
+        $pdf = Pdf::loadView('template.pdf.laporan.dividen.laporan_dividen', [
+            'data' => $data,
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'pendapatan' => $totalPendapatan,
+            'pengeluaran' => $totalPengeluaran,
+            'cost' => $totalCost,
+            'bersih' => $pendapatanBersih
+        ]);
+        return $pdf->download('laporan_dividen.pdf');
     }
 }
