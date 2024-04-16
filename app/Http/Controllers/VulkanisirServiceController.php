@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ServiceCancelMail;
 use App\Models\Customer;
 use App\Models\Karyawan;
 use App\Models\VulkanisirMachine;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use stdClass;
 
@@ -220,6 +222,9 @@ class VulkanisirServiceController extends Controller
         // Kosongkan Mesin.. melalui relation model VulkanisirService
         $service->machine->service_id = null;
         $service->machine->save();
+
+        // Send Notification Email
+        Mail::to($service->customer->email)->send(new ServiceCancelMail($service));
 
         toast('Berhasil membatalkan service vulkanisir', 'success');
         return back();

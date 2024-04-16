@@ -1,8 +1,45 @@
 @extends('template.header')
 @section('content')
 <h1 class="text-2xl font-bold mb-5">Laporan Stok Barang</h1>
-<div class="bg-white bg-opacity-80 p-4 rounded">
-    <canvas id="chart"></canvas>
+<a href="{{ url('/laporan/stok/pdf') }}">
+    <button class="my-5 btn-block btn btn-secondary"><i class="fa-solid fa-file-pdf text-base hover:text-secondary"></i>Download Laporan Stok Terbaru</button>
+</a>
+<div class="bg-accent bg-opacity-80 p-4 rounded">
+    <div class="overflow-x-auto">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th><h3 class="font-bold">Part Number</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Stok</h3></th>
+                    <th><h3 class="font-bold">Aksi</h3></th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (count($data) <= 0)
+                <tr>
+                    <th class="text-error text-lg" colspan="4">Tidak ada data...</th>
+                </tr>
+            @else
+                @foreach ($data as $item)
+                    <tr>
+                        <td>{{ $item->part }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->stok }}</td>
+                        <td>
+                            <a href="{{ url("laporan/stok/pdf?part=$item->part") }}">
+                                <button class="btn btn-sm btn-secondary">
+                                    <i class="fa-solid fa-file-pdf text-base hover:text-secondary"></i>
+                                    Buat PDF
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

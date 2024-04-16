@@ -221,7 +221,10 @@ Route::middleware([EnsureLogin::class])->group(function() {
     });
 
     Route::prefix('laporan')->group(function (){
-        Route::get('/stok', [LaporanController::class, 'stokView'])->name('laporan.stok');
+        Route::prefix('/stok')->group(function(){
+            Route::get('/', [LaporanController::class, 'stokView'])->name('laporan.stok');
+            Route::get('/pdf', [LaporanController::class, 'stokPdfDownload']);
+        });
     });
 
     Route::prefix('shares')->group(function (){
