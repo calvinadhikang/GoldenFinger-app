@@ -9,7 +9,7 @@ class CustomerController extends Controller
 {
     public function customerView()
     {
-        $customer = Customer::all();
+        $customer = Customer::latest()->get();
         return view('master.customer.view', [
             'data' => $customer
         ]);
@@ -41,7 +41,7 @@ class CustomerController extends Controller
         ]);
 
         toast('Berhasil Menambah Customer', 'success');
-        return redirect('/customer');
+        return redirect('/customer/detail/'.$customer->id);
     }
 
     public function customerDetailView($id)

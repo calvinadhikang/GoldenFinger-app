@@ -49,6 +49,7 @@
                     <option value="" selected disabled>Pilih Role</option>
                     <option value="Admin">Admin</option>
                     <option value="Stakeholder">Stakeholder</option>
+                    <option value="Teknisi">Teknisi</option>
                 </select>
             </div>
         </div>

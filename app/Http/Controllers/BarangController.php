@@ -45,7 +45,7 @@ class BarangController extends Controller
         ]);
 
         toast('Berhasil Menambah Barang', 'success');
-        return redirect('/barang');
+        return redirect('/barang/detail/'.$request->input('part'));
     }
 
     public function barangDetailView($id)
@@ -80,7 +80,13 @@ class BarangController extends Controller
     }
 
     public function getMinimum(){
-        $data = Barang::where('stok', '<=', 'batas')->get();
+        $barangs = Barang::latest()->get();
+        $data = [];
+        foreach ($barangs as $key => $value) {
+            if ($value->stok <= $value->batas) {
+                $data[] = $value;
+            }
+        }
 
         return response()->json([
             'data' => $data,

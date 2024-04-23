@@ -42,6 +42,7 @@
                     <option value="" selected disabled>Pilih Role</option>
                     <option value="Admin" {{ $karyawan->role == "Admin" ? "selected" : "" }}>Admin</option>
                     <option value="Stakeholder" {{ $karyawan->role == "Stakeholder" ? "selected" : "" }}>Stakeholder</option>
+                    <option value="Teknisi" {{ $karyawan->role == "Teknisi" ? "selected" : "" }}>Teknisi</option>
                 </select>
             </div>
             <div class="form-control w-full mt-3">

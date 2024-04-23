@@ -182,7 +182,7 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> --}}
 <script>
     $(document).ready(function() {
         $(".harga").on("input", function() {
@@ -196,7 +196,10 @@
             $(this).val(formattedValue);
         });
 
-        let table = new DataTable('.data-table');
+        let table = $('.data-table').DataTable({
+            searching: false,
+            'order': []
+        });
     });
 </script>
 </html>

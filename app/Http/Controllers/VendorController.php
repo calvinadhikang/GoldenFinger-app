@@ -17,7 +17,7 @@ class VendorController extends Controller
     //
     public function vendorView()
     {
-        $vendor = Vendor::all();
+        $vendor = Vendor::latest()->get();
         return view('master.vendor.view', [
             'data' => $vendor
         ]);

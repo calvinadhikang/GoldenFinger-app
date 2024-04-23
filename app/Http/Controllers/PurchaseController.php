@@ -26,7 +26,7 @@ class PurchaseController extends Controller
         if ($type == "deleted") {
             $data = HeaderPurchase::onlyTrashed()->get();
         }else{
-            $data = HeaderPurchase::all();
+            $data = HeaderPurchase::latest()->get();
         }
 
         return view('master.po.view', [

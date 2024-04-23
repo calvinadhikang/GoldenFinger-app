@@ -16,7 +16,13 @@ class MasterController extends Controller
 
     // Dibawah ini adalah function untuk menampilkan view ketika dashboard ditekan!
     public function barangMinimumView(){
-        $data = Barang::where('stok', '<=', 'batas')->orderBy('created_at', 'desc')->get();
+        $barangs = Barang::orderBy('created_at', 'desc')->get();
+        $data = [];
+        foreach ($barangs as $key => $value) {
+            if ($value->stok <= $value->batas) {
+                $data[] = $value;
+            }
+        }
         return view('dashboard.details.minimum_barang', [
             'data' => $data
         ]);

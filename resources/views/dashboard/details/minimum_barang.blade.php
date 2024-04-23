@@ -17,7 +17,8 @@
             <tr>
                 <th>Part</th>
                 <th>Nama</th>
-                <th>Stok</th>
+                <th>Stok Sekarang</th>
+                <th>Batas</th>
                 <th>Detail</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                 <td>{{ $item->part }}</td>
                 <td>{{ $item->nama }}</td>
                 <td>{{ $item->stok }}</td>
+                <td>{{ $item->batas }}</td>
                 <td><a href="{{ url("/barang/detail/$item->part") }}"><i class="fa-solid fa-circle-info text-base hover:text-secondary"></i></a></td>
             </tr>
             @endforeach

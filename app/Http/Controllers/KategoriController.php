@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\Session;
 
 class KategoriController extends Controller
 {
-    //
     public function kategoriView(){
-        $data = Kategori::all();
+        $data = Kategori::latest()->get();
 
         return view('master.kategori.view', [
             'data' => $data
@@ -37,7 +36,7 @@ class KategoriController extends Controller
         ]);
 
         toast('Berhasil tambah kategori ' . $kategori->nama , 'success');
-        return redirect('/kategori');
+        return redirect('/kategori/detail/'.$kategori->id);
     }
 
     public function kategoriDetailAction(Request $request){
@@ -70,7 +69,7 @@ class KategoriController extends Controller
         foreach ($barang as $key => $item) {
             $found = false;
             foreach ($kategori_barang as $key => $relation) {
-                if ($item->kode == $relation->barang_id) {
+                if ($item->part == $relation->barang_id) {
                     $found = true;
                 }
             }

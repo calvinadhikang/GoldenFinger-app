@@ -27,11 +27,13 @@ return new class extends Migration
             $table->text('po');
             $table->bigInteger('komisi');
             $table->timestamp('jatuh_tempo')->nullable();
-            $table->timestamp('recieved_at')->nullable();
+            $table->timestamp('confirmed_at')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->integer('status');
 
+            $table->unsignedBigInteger('confirmed_by')->nullable();
             $table->unsignedBigInteger('paid_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
 

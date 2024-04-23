@@ -98,7 +98,7 @@
             <tbody>
                 @if (count($customer->invoice) <= 0)
                     <tr>
-                        <td colspan="5" class="text-error text-center">Tidak ada Transaksi</td>
+                        <td colspan="5" class="text-error text-center font-medium">Tidak ada Transaksi</td>
                     </tr>
                 @else
                     @foreach ($customer->invoice as $item)

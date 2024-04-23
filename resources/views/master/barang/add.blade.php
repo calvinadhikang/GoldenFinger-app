@@ -11,7 +11,7 @@
 <div class="rounded bg-accent p-4 my-5">
     <form method="POST">
         @csrf
-        <div class="flex flex-wrap my-5">
+        <div class="flex flex-wrap mb-5">
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Part Number</span>

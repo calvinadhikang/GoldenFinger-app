@@ -27,7 +27,7 @@ class InvoiceController extends Controller
     public function invoiceView(Request $request){
         $type = $request->query('type', 'all');
         if ($type == 'all') {
-            $data = HeaderInvoice::all();
+            $data = HeaderInvoice::latest()->get();
         }else {
             $data = HeaderInvoice::onlyTrashed()->get();
         }

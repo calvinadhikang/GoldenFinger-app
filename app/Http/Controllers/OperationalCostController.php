@@ -10,7 +10,7 @@ use stdClass;
 class OperationalCostController extends Controller
 {
     public function costView(Request $request){
-        $inputMonth = $request->input('month');
+        $inputMonth = $request->query('month');
 
         if ($inputMonth) {
             $startDate = Carbon::parse($inputMonth)->startOfMonth();

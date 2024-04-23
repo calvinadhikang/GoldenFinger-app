@@ -12,9 +12,8 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class KaryawanController extends Controller
 {
-    //
     public function karyawanView(){
-        $data = Karyawan::all();
+        $data = Karyawan::latest()->get();
 
         return view('master.karyawan.view',[
             'data' => $data
@@ -54,12 +53,13 @@ class KaryawanController extends Controller
 
             DB::commit();
             toast("Berhasil Menambah Karyawan", "success");
+            return redirect('/karyawan/detail/'.$lastId);
         } catch (\Exception $ex) {
             dd($ex->getMessage());
             DB::rollBack();
+            return redirect('/karyawan');
         }
 
-        return redirect('/karyawan');
     }
 
     public function karyawanDetailView($id){
