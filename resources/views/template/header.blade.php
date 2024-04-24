@@ -197,7 +197,6 @@
         });
 
         let table = $('.data-table').DataTable({
-            searching: false,
             'order': []
         });
     });

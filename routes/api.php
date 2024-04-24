@@ -34,6 +34,7 @@ Route::prefix('/cost')->group(function () {
 Route::prefix('/invoice')->group(function () {
     Route::get('/sold/items', [InvoiceController::class, 'getTotalPartSoldThisYear']);
     Route::get('/paid/monthly', [InvoiceController::class, 'getPaidInvoiceThisMonth']);
+    Route::get('/overdue', [InvoiceController::class, 'getOverdueInvoices']);
 });
 Route::prefix('/po')->group(function () {
     Route::get('/due', [PurchaseController::class, 'countDue']);

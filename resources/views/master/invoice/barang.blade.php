@@ -50,7 +50,7 @@
 </div>
 
 
-<div class="mb-5 mt-10 flex items-center">
+{{-- <div class="mb-5 mt-10 flex items-center">
     <i class="fa-solid fa-layer-group me-2 w-6"></i>
     <h2 class="text-xl font-bold">Pilih Paket Penjualan</h2>
 </div>
@@ -80,7 +80,7 @@
             @endforeach
         </tbody>
     </table>
-</div>
+</div> --}}
 
 @if ($hutang > 0)
     <div role="alert" class="alert alert-warning mt-10 mb-5">

@@ -84,6 +84,7 @@
 
 <h1 class="text-xl font-medium my-5">Mutasi Stok</h1>
 <div class="p-4 rounded bg-accent mb-5">
+@if (count($barang->mutation) > 0)
     @foreach ($barang->mutation as $item)
         <div class="rounded  rounded-b-none p-2 grid grid-cols-5 border-b border-b-gray-500">
             <div class="">
@@ -110,5 +111,8 @@
             </div>
         </div>
     @endforeach
+@else
+    <p class="text-center">Tidak ada data mutasi</p>
+@endif
 </div>
 @endsection

@@ -92,7 +92,7 @@
     @endif
 </div>
 
-<div class="flex items-center mb-5">
+{{-- <div class="flex items-center mb-5">
     <i class="fa-solid me-2 w-6 fa-layer-group"></i>
     <h3 class="font-semibold text-xl">Data Paket Pesanan</h3>
 </div>
@@ -117,7 +117,6 @@
                 <td>{{ $item->nama }}</td>
                 <td>
                     <p>Rp {{ format_decimal($item->harga) }}</p>
-                    {{-- <p class="text-xs text-slate-400">Harga Tanpa PPN : Rp {{ format_decimal($item->clean_price) }}</p> --}}
                 </td>
                 <td>{{ number_format($item->qty) }}</td>
                 <td>Rp {{ format_decimal($item->subtotal) }}</td>
@@ -127,7 +126,7 @@
     </table>
     <p class="text-right mt-5 text-lg font-semibold">Total : Rp {{ format_decimal($invoice->total_list_paket) }}</p>
     @endif
-</div>
+</div> --}}
 
 <h2 class="font-semibold text-xl mb-5">Informasi Pajak</h2>
 <div class="rounded bg-accent p-4 my-5">

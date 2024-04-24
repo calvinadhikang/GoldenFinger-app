@@ -8,7 +8,7 @@
         <li>Pendapatan Bulan Ini</li>
     </ul>
 </div>
-<p class="mb-5 text-sm text-gray-400">Invoice yang sudah terbayar bulan ini</p>
+<p class="mb-5 text-sm text-gray-400">Invoice yang sudah belum terbayar bulan ini, dan sudah jatuh tempo.</p>
 <div class="rounded bg-accent p-4">
     <table class="data-table table-zebra">
         <thead>

@@ -52,7 +52,7 @@ class CustomerController extends Controller
         $countHutang = 0;
         foreach ($customer->invoice as $key => $value) {
             $grandTotal += $value->total;
-            if ($value->status == 0) {
+            if ($value->paid_at == null) {
                 $countHutang += 1;
                 $totalHutang += $value->total;
             }

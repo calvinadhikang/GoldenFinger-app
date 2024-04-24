@@ -6,7 +6,7 @@
         <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/dashboard/invoice/paid') }}">
             <div class="stat shadow bg-accents">
                 <div class="stat-title">Pendapatan Bulan Ini</div>
-                <div class="stat-value" id="invoice">0</div>
+                <div class="stat-value" id="invoice-paid">0</div>
                 <div class="stat-desc">Jumlah Invoice yang sudah lunas</div>
             </div>
         </a>
@@ -36,6 +36,13 @@
                 <div class="stat-title">Biaya Pembelian Bulan Ini</div>
                 <div class="stat-value" id="po">0</div>
                 <div class="stat-desc"></div>
+            </div>
+        </a>
+        <a class="stats shadow bg-accent hover:bg-accent/50" href="{{ url('/dashboard/invoice/overdue') }}">
+            <div class="stat">
+                <div class="stat-title">Invoice Jatuh Tempo</div>
+                <div class="stat-value" id="invoice-overdue">0</div>
+                <div class="stat-desc">Total Piutang: <span id="invoice-overdue-count"></span></div>
             </div>
         </a>
     </div>
@@ -75,11 +82,19 @@
         $('#po-total').html(`Total Hutang: Rp ${data.total.toLocaleString()}`)
     }
 
+    const getOverdueInvoice = async() => {
+        const response = await fetch(baseURL + '/invoice/overdue')
+        const data = await response.json();
+
+        $('#invoice-overdue').html(`${data.total.toLocaleString()}`);
+        $('#invoice-overdue-count').html(`Rp ${data.total_count.toLocaleString()}`);
+    }
+
     const getPaidInvoiceThisMonth = async() => {
         const response = await fetch(baseURL + '/invoice/paid/monthly')
         const data = await response.json();
 
-        $('#invoice').html(`Rp ${data.total.toLocaleString()}`);
+        $('#invoice-paid').html(`Rp ${data.total.toLocaleString()}`);
     }
 
     const getPOThisMonth = async() => {
@@ -125,5 +140,6 @@
     getPaidInvoiceThisMonth()
     getAnalytics()
     getPOThisMonth()
+    getOverdueInvoice()
 </script>
 @endsection

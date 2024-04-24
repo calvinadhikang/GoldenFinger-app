@@ -6,7 +6,9 @@
     <a class="btn btn-primary" href="{{url('invoice/customer')}}">Tambah</a>
 </div>
 <div role="tablist" class="tabs tabs-boxed w-fit mt-5 bg-accent font-semibold">
-    <a role="tab" href="/invoice" class="tab {{ $type == 'all' ? 'tab-active' : '' }}"">Invoice Aktif</a>
+    <a role="tab" href="/invoice?type=unconfirmed" class="tab {{ $type == 'unconfirmed' ? 'tab-active' : '' }}"">Perlu Konfirmasi</a>
+    <a role="tab" href="/invoice" class="tab {{ $type == 'all' ? 'tab-active' : '' }}"">Invoice Terkonfirmasi</a>
+    <a role="tab" href="/invoice?type=canceled" class="tab {{ $type == 'canceled' ? 'tab-active' : '' }}"">Invoice Dibatalkan</a>
     <a role="tab" href="/invoice?type=deleted" class="tab {{ $type == 'deleted' ? 'tab-active' : '' }}">Invoice Terhapus</a>
 </div>
 <div class="rounded bg-accent p-4 w-full mt-2">
@@ -33,7 +35,7 @@
                     <tr>
                         <th>{{ $item->kode }}</th>
                         <td>{{ $item->customer->nama }}</td>
-                        <td>Rp {{ number_format($item->total) }}</td>
+                        <td>Rp {{ number_format($item->grand_total) }}</td>
                         <td>{{ date_format($item->created_at, 'd M Y') }}</td>
                         <td>
                             @if (!$item->paid_at)

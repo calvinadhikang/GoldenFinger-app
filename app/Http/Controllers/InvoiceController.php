@@ -27,9 +27,13 @@ class InvoiceController extends Controller
     public function invoiceView(Request $request){
         $type = $request->query('type', 'all');
         if ($type == 'all') {
-            $data = HeaderInvoice::latest()->get();
-        }else {
+            $data = HeaderInvoice::latest()->where('status', 1)->get();
+        }else if($type == 'deleted') {
             $data = HeaderInvoice::onlyTrashed()->get();
+        }else if($type == 'unconfirmed'){
+            $data = HeaderInvoice::latest()->where('status', 0)->get();
+        }else if($type == 'canceled'){
+            $data = HeaderInvoice::latest()->where('status', -1)->get();
         }
         return view('master.invoice.view', [
             'type' => $type,
@@ -309,7 +313,10 @@ class InvoiceController extends Controller
                 'jatuh_tempo' => $jatuhTempo,
                 'created_at' => $timeCreation,
                 'paid_at' => $timePembayaran,
-                'paid_by' => $timePembayaran != null ? Session::get('user')->id : null
+                'paid_by' => $timePembayaran != null ? Session::get('user')->id : null,
+                'confirmed_at' => $timeCreation,
+                'confirmed_by' => $karyawan->id,
+                'status'=> 1,
             ]);
 
             foreach ($invoice->list_barang as $key => $value) {
@@ -358,15 +365,28 @@ class InvoiceController extends Controller
             return redirect('/invoice');
         }
 
+        $invoiceText = "Menunggu Konfirmasi";
+        if ($invoice->status == 1) {
+            $invoiceText = "Menunggu Pembayaran";
+        }else if ($invoice->status == 2) {
+            $invoiceText = "Terproses";
+        }else if ($invoice->status == -1) {
+            $invoiceText = "Dibatalkan";
+        }
+
         return view('master.invoice.detail', [
             'invoice' => $invoice,
             'daysLeft' => Util::getDiffDays($invoice->jatuh_tempo),
-            'karyawan' => Karyawan::find($invoice->paid_by)
+            'karyawan' => Karyawan::find($invoice->paid_by),
+            'confirmed_by' => Karyawan::find($invoice->confirmed_by),
+            'statusText' => $invoiceText
         ]);
     }
 
     public function invoiceFinish(Request $request){
         $invoice = HeaderInvoice::find($request->input('id'));
+        $payment_method = $request->input('payment_method');
+        $payment_code = $request->input('payment_code');
         $password = $request->input('password');
         $user = Session::get('user');
 
@@ -376,7 +396,7 @@ class InvoiceController extends Controller
             return back();
         }
 
-        if ($invoice->status == 0) {
+        if ($invoice->paid_at == null) {
             foreach ($invoice->details as $key => $detail) {
                 $part = $detail->part;
 
@@ -425,18 +445,47 @@ class InvoiceController extends Controller
                     }
 
                     DB::commit();
+
+                    toast('Berhasil Melunasi Transaksi', 'success');
+                    $invoice->paid_at = Carbon::now();
+                    $invoice->paid_by = $user->id;
+                    $invoice->paid_method = $payment_method;
+                    $invoice->paid_code = $payment_code;
+                    $invoice->status = 2;
+                    $invoice->save();
+                    return back();
                 } catch (Exception $ex) {
-                    dd($ex);
+                    dd('error');
+                    dd($ex->getMessage());
                     DB::rollBack();
                 }
             }
-
-            toast('Berhasil Melunasi Transaksi', 'success');
-            $invoice->paid_at = Carbon::now();
-            $invoice->paid_by = $user->id;
-            $invoice->save();
-            return redirect()->back();
         }
+    }
+
+    public function invoiceCancel(Request $request){
+        $invoice = HeaderInvoice::find($request->input('id'));
+        $cancel_reason = $request->input('cancel_reason');
+        $password = $request->input('password');
+        $user = Session::get('user');
+
+        //check password
+        if (!Hash::check($password, $user->password)) {
+            toast('Gagal Melunasi Invoice, Password Salah', 'error');
+            return back();
+        }
+
+        try {
+            $invoice->status = -1;
+            $invoice->cancel_reason = $cancel_reason;
+            $invoice->cancel_by = $user->id;
+            $invoice->save();
+
+            toast('Berhasil Batalkan Pesanan', 'success');
+        } catch (Exception $ex) {
+            toast($ex->getMessage(), 'error');
+        }
+        return back();
     }
 
     static function getPaidInvoiceThisMonthData(){
@@ -453,40 +502,6 @@ class InvoiceController extends Controller
         $obj->total = $total;
         $obj->data = $data;
         return $obj;
-    }
-
-    public function getPaidInvoiceThisMonth(){
-        $data = $this->getPaidInvoiceThisMonthData();
-
-        return response()->json([
-            'total' => $data->total
-        ], 200);
-    }
-
-    public function getTotalPartSoldThisYear(){
-        $currentYear = Carbon::now()->year;
-
-        $sumOfQty = DetailInvoice::whereYear('created_at', $currentYear)
-            ->select('part', DB::raw('SUM(qty) as total_qty'))
-            ->groupBy('part')
-            ->get();
-
-        $labels = [];
-        $qty = [];
-        foreach ($sumOfQty as $key => $value) {
-            //kalau misalnya sebuah paket, maka jangan hitung sebagai penjualan barang
-            $isPaket = HeaderPaket::withTrashed()->where('id', '=' ,$value->part)->get();
-            if (count($isPaket) <= 0) {
-                $labels[] = $value->part;
-                $qty[] = $value->total_qty;
-            }
-        }
-
-        return response()->json([
-            'labels' => $labels,
-            'qty' => $qty,
-            'data' => $sumOfQty
-        ], 200);
     }
 
     public function invoiceCreateTandaTerima($id){
@@ -533,10 +548,83 @@ class InvoiceController extends Controller
         }
 
         $invoice = HeaderInvoice::withTrashed()->where('id', $id)->first();
+        $invoice->confirmed_at = Carbon::now();
+        $invoice->confirmed_by = $user->id;
+        $invoice->status = 1;
         $invoice->restore();
         $invoice->deleted_by = null;
         $invoice->save();
+
         toast('Berhasil Mengaktifkan Invoice', 'success');
         return back();
+    }
+
+    public function invoiceConfirm($id, Request $request){
+        $user = Session::get('user');
+        $password = $request->input('password');
+
+        //check password
+        if (!Hash::check($password, $user->password)) {
+            toast('Gagal Mengaktifkan Invoice, Password Salah', 'error');
+            return back();
+        }
+
+        $invoice = HeaderInvoice::withTrashed()->where('id', $id)->first();
+        $invoice->confirmed_at = Carbon::now();
+        $invoice->confirmed_by = $user->id;
+        $invoice->status = 1;
+        $invoice->save();
+
+        toast('Berhasil Konfrimasi Invoice', 'success');
+        return back();
+    }
+
+    // Api Functions
+    public function getTotalPartSoldThisYear(){
+        $currentYear = Carbon::now()->year;
+
+        $sumOfQty = DetailInvoice::whereYear('created_at', $currentYear)
+            ->select('part', DB::raw('SUM(qty) as total_qty'))
+            ->groupBy('part')
+            ->get();
+
+        $labels = [];
+        $qty = [];
+        foreach ($sumOfQty as $key => $value) {
+            //kalau misalnya sebuah paket, maka jangan hitung sebagai penjualan barang
+            $isPaket = HeaderPaket::withTrashed()->where('id', '=' ,$value->part)->get();
+            if (count($isPaket) <= 0) {
+                $labels[] = $value->part;
+                $qty[] = $value->total_qty;
+            }
+        }
+
+        return response()->json([
+            'labels' => $labels,
+            'qty' => $qty,
+            'data' => $sumOfQty
+        ], 200);
+    }
+
+    public function getPaidInvoiceThisMonth(){
+        $data = $this->getPaidInvoiceThisMonthData();
+
+        return response()->json([
+            'total' => $data->total
+        ], 200);
+    }
+
+    public function getOverdueInvoices(){
+        $total_count = 0;
+        $now = Carbon::now();
+        $data = HeaderInvoice::whereNull('paid_at')->where('jatuh_tempo', '<=', $now)->get();
+        foreach ($data as $key => $value) {
+            $total_count += $value->grand_total;
+        }
+
+        return response()->json([
+            'total' => count($data),
+            'total_count' => $total_count
+        ]);
     }
 }

@@ -57,6 +57,7 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::get('/barang/minimum', [MasterController::class, 'barangMinimumView']);
         Route::get('/po/unpaid', [MasterController::class, 'poUnpaidView']);
         Route::get('/invoice/paid', [MasterController::class, 'invoicePaidView']);
+        Route::get('/invoice/overdue', [MasterController::class, 'invoiceOverdueView']);
     });
 
     Route::prefix('/profile')->group(function () {
@@ -154,6 +155,7 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::get('/detail/{id}', [InvoiceController::class, 'invoiceDetailView']);
         Route::post('/detail/{id}/delete', [InvoiceController::class, 'invoiceDelete']);
         Route::post('/detail/{id}/restore', [InvoiceController::class, 'invoiceRestore']);
+        Route::post('/detail/{id}/confirm', [InvoiceController::class, 'invoiceConfirm']);
 
         Route::get('/customer', [InvoiceController::class, 'invoiceCustomerView']);
         Route::post('/customer', [InvoiceController::class, 'invoiceCustomerAction']);
@@ -171,6 +173,7 @@ Route::middleware([EnsureLogin::class])->group(function() {
 
         Route::get('/created', [InvoiceController::class, 'invoiceCreatedView']);
         Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);
+        Route::post('/cancel', [InvoiceController::class, 'invoiceCancel']);
 
         Route::get('/detail/{id}/dokumen/tanda_terima', [InvoiceController::class, 'invoiceCreateTandaTerima']);
         Route::get('/detail/{id}/dokumen/surat_jalan', [InvoiceController::class, 'invoiceCreateSuratJalan']);

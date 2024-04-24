@@ -56,4 +56,18 @@ class MasterController extends Controller
             'total' => $total
         ]);
     }
+
+    public function invoiceOverdueView(){
+        $total_count = 0;
+        $now = Carbon::now();
+        $data = HeaderInvoice::whereNull('paid_at')->where('jatuh_tempo', '<=', $now)->get();
+        foreach ($data as $key => $value) {
+            $total_count += $value->grand_total;
+        }
+
+        return view('dashboard.details.invoice_overdue', [
+            'data' => $data,
+            'total' => $total_count
+        ]);
+    }
 }

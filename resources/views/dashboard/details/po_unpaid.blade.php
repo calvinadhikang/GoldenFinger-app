@@ -24,7 +24,7 @@
             <tr>
                 <td>{{ $item->kode }}</td>
                 <td>{{ $item->vendor->nama }}</td>
-                <td>{{ format_decimal($item->grand_total) }}</td>
+                <td>Rp {{ format_decimal($item->grand_total) }}</td>
                 <td>{{ date_format(new DateTime($item->jatuh_tempo), 'd M Y') }}</td>
                 <td><a href="{{ url("/po/detail/$item->id") }}"><i class="fa-solid fa-circle-info text-base hover:text-secondary"></i></a></td>
             </tr>

@@ -106,7 +106,7 @@
                         <td>{{ $item->kode }}</td>
                         <td>Rp {{ number_format($item->total) }}</td>
                         <td>{{ $item->created_at }}</td>
-                        <td><div class="badge {{ $item->status == 1 ? 'badge-secondary' : 'badge-error' }}">{{ $item->status == 1 ? 'Lunas' : 'Belum Lunas' }}</div></td>
+                        <td><div class="badge {{ $item->paid_at != null ? 'badge-secondary' : 'badge-error' }}">{{ $item->paid_at != null ? 'Lunas' : 'Belum Lunas' }}</div></td>
                         <td>
                             <a href="{{ url('/invoice/detail/'.$item->id) }}">
                                 <i class="fa-solid fa-circle-info text-base hover:text-secondary"></i>

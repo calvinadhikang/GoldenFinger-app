@@ -6,9 +6,11 @@ namespace Database\Seeders;
 
 use App\Models\Barang;
 use App\Models\BarangVendor;
+use App\Models\Customer;
 use App\Models\Karyawan;
 use App\Models\SharesModel;
 use App\Models\Vendor;
+use App\Models\VulkanisirMachine;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -32,6 +34,8 @@ class DatabaseSeeder extends Seeder
         $this->createKaryawan();
         $this->createVendor();
         $this->createBarangVendor();
+        $this->createMachine();
+        $this->createCustomer();
     }
 
     function createKaryawan(){
@@ -92,7 +96,8 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Bridgestone - Tyre 750 R16',
             'harga' => 500000,
             'batas' => 10,
-            'stok' => 20
+            'stok' => 20,
+            'public' => true
         ]);
 
         Barang::create([
@@ -100,7 +105,8 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Bridgestone - Tyre 1200 R24 L317',
             'harga' => 800000,
             'batas' => 10,
-            'stok' => 12
+            'stok' => 12,
+            'public' => true
         ]);
 
         Barang::create([
@@ -108,7 +114,8 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Bridgestone - Tyre 1200 R24 M840',
             'harga' => 1000000,
             'batas' => 10,
-            'stok' => 2
+            'stok' => 2,
+            'public' => true
         ]);
 
         Barang::create([
@@ -116,7 +123,8 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Longmarch Indonesia - Butyl Inner Tube',
             'harga' => 450000,
             'batas' => 10,
-            'stok' => 5
+            'stok' => 5,
+            'public' => true
         ]);
     }
 
@@ -166,6 +174,45 @@ class DatabaseSeeder extends Seeder
             'vendor_id' => 2,
             'barang_id' => 'LIButyl',
             'harga' => 400000
+        ]);
+    }
+
+    function createMachine(){
+        VulkanisirMachine::create([
+            'nama' => 'M001'
+        ]);
+        VulkanisirMachine::create([
+            'nama' => 'M002'
+        ]);
+        VulkanisirMachine::create([
+            'nama' => 'M003'
+        ]);
+    }
+
+    function createCustomer(){
+        Customer::create([
+            'nama' => 'Calvin Adhikang',
+            'email' => 'calvinadhikang@gmail.com',
+            'alamat' => 'Jalan Nanas 4 no 404',
+            'telp' => '082257324548',
+            'kota' => 'Sidoarjo',
+            'NPWP' => '10.250.78.900'
+        ]);
+        Customer::create([
+            'nama' => 'Yuki Bara',
+            'email' => 'yuki@gmail.com',
+            'alamat' => 'Ruko Purimas A1',
+            'telp' => '082255554567',
+            'kota' => 'Surabaya',
+            'NPWP' => '100.200.300'
+        ]);
+        Customer::create([
+            'nama' => 'Angeline',
+            'email' => 'angeline@gmail.com',
+            'alamat' => 'Twin Tower Surabaya',
+            'telp' => '081244789980',
+            'kota' => 'Surabaya',
+            'NPWP' => '-'
         ]);
     }
 }
