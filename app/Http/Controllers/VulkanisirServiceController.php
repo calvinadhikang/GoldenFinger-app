@@ -124,8 +124,8 @@ class VulkanisirServiceController extends Controller
 
         $service->nama = $nama;
         $service->PPN_value = $harga / 100 * $service->PPN;
-        $service->total = $harga;
-        $service->grandTotal = $harga + $service->PPN_value;
+        $service->total = $harga - $service->PPN_value;
+        $service->grandTotal = $harga;
         $service->machine = $machine;
         $service->will_finish_at = $tanggal;
         Session::put('service_cart', $service);
@@ -134,7 +134,7 @@ class VulkanisirServiceController extends Controller
     }
 
     public function serviceConfirmationView(){
-        $teknisi = Karyawan::latest()->get();
+        $teknisi = Karyawan::latest()->where('role', 'Teknisi')->get();
         $service = Session::get('service_cart');
         $machine = VulkanisirMachine::find($service->machine);
 

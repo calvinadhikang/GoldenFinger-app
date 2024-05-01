@@ -29,114 +29,123 @@
                     <p class="text-base-100 font-semibold">{{ $user->role }}</p>
                 </a>
 
-                <li><a href="{{ url('/dashboard') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-gauge-high me-2 w-6"></i>
-                        Dashboard
-                    </div>
-                </a></li>
+                @if ($user->role == 'Teknisi')
+                    <li><a href="{{ url('/vservice') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-boxes-stacked me-2 w-6"></i>
+                            Service Vulkanisir
+                        </div>
+                    </a></li>
+                @else
+                    <li><a href="{{ url('/dashboard') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-gauge-high me-2 w-6"></i>
+                            Dashboard
+                        </div>
+                    </a></li>
 
-                <h3 class="text-lg font-semibold mt-4">Master</h3>
-                <li><a href="{{ url('/barang') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-box-open me-2 w-6"></i>
-                        Barang
-                    </div>
-                </a></li>
-                <li><a href="{{ url('/kategori') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-list me-2 w-6"></i>
-                        Kategori
-                    </div>
-                </a></li>
-                <li><a href="{{ url('/paket') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-layer-group me-2 w-6"></i>
-                        Paket Penjualan
-                    </div>
-                </a></li>
-                <li><a href="{{ url('/customer') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-user me-2 w-6"></i>
-                        Customer
-                    </div>
-                </a></li>
-                <li><a href="{{ url('/karyawan') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-id-badge me-2 w-6"></i>
-                        Karyawan
-                    </div>
-                </a></li>
-                <li><a href="{{ url('/vendors') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-store me-2 w-6"></i>
-                        Vendor
-                    </div>
-                </a></li>
-                <li><a href="{{ url('/machine') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-boxes-stacked me-2 w-6"></i>
-                        Mesin Vulkanisir
-                    </div>
-                </a></li>
-                @if ($user->role == "Stakeholder")
-                <h3 class="text-lg font-semibold mt-4">Pemegang Saham</h3>
-                <li><a href="{{ url('/shares') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-users me-2 w-6"></i>
-                        Porsi Saham
-                    </div>
-                </a></li>
+                    <h3 class="text-lg font-semibold mt-4">Master</h3>
+                    <li><a href="{{ url('/barang') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-box-open me-2 w-6"></i>
+                            Barang
+                        </div>
+                    </a></li>
+                    <li><a href="{{ url('/kategori') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-list me-2 w-6"></i>
+                            Kategori
+                        </div>
+                    </a></li>
+                    <li><a href="{{ url('/paket') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-layer-group me-2 w-6"></i>
+                            Paket Penjualan
+                        </div>
+                    </a></li>
+                    <li><a href="{{ url('/customer') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-user me-2 w-6"></i>
+                            Customer
+                        </div>
+                    </a></li>
+                    <li><a href="{{ url('/karyawan') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-id-badge me-2 w-6"></i>
+                            Karyawan
+                        </div>
+                    </a></li>
+                    <li><a href="{{ url('/vendors') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-store me-2 w-6"></i>
+                            Vendor
+                        </div>
+                    </a></li>
+                    <li><a href="{{ url('/machine') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-boxes-stacked me-2 w-6"></i>
+                            Mesin Vulkanisir
+                        </div>
+                    </a></li>
+                    @if ($user->role == "Stakeholder")
+                    <h3 class="text-lg font-semibold mt-4">Pemegang Saham</h3>
+                    <li><a href="{{ url('/shares') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-users me-2 w-6"></i>
+                            Porsi Saham
+                        </div>
+                    </a></li>
+                    @endif
+
+                    <h3 class="text-lg font-semibold mt-4">Operasional</h3>
+                    <li><a href="{{ url('/invoice') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-dollar-sign me-2 w-6"></i>
+                            Penjualan / Invoice
+                        </div>
+                    </a></li>
+                    <li><a href="{{ url('/po') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-cart-shopping me-2 w-6"></i>
+                            Pembelian / PO
+                        </div>
+                    </a></li>
+                    <li><a href="{{ url('/cost') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-tags me-2 w-6"></i>
+                            Pengeluaran / Cost
+                        </div>
+                    </a></li>
+                    <li><a href="{{ url('/vservice') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-boxes-stacked me-2 w-6"></i>
+                            Service Vulkanisir
+                        </div>
+                    </a></li>
+
+                    <li class="mt-4 -ms-4">
+                        <details>
+                            <summary class="font-semibold text-lg">Laporan</summary>
+                            <ul class="ms-4">
+                                <li><a href="{{ url('/laporan/cost') }}">Lap. Operational Cost</a></li>
+                                <li><a href="{{ url('/laporan/stok') }}">Lap. Stok</a></li>
+                                <li><a href="{{ url('/laporan/piutang') }}">Lap. Piutang</a></li>
+                                <li><a href="{{ url('/laporan/hutang') }}">Lap. Hutang</a></li>
+                                <li><a href="{{ url('/laporan/pendapatan') }}">Lap. Pendapatan</a></li>
+                                <li><a href="{{ url('/laporan/pembelian') }}">Lap. Pembelian</a></li>
+                                <li><a href="{{ url('/laporan/dividen') }}">Lap. Dividen</a></li>
+                            </ul>
+                        </details>
+                    </li>
+
+                    <h3 class="mt-4 text-lg font-semibold">Lainnya</h3>
+                    <li><a href="{{ url('/settings') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-gear me-2 w-6"></i>
+                            Pengaturan
+                        </div>
+                    </a></li>
                 @endif
-
-                <h3 class="text-lg font-semibold mt-4">Operasional</h3>
-                <li><a href="{{ url('/invoice') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-dollar-sign me-2 w-6"></i>
-                        Penjualan / Invoice
-                    </div>
-                </a></li>
-                <li><a href="{{ url('/po') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-cart-shopping me-2 w-6"></i>
-                        Pembelian / PO
-                    </div>
-                </a></li>
-                <li><a href="{{ url('/cost') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-tags me-2 w-6"></i>
-                        Pengeluaran / Cost
-                    </div>
-                </a></li>
-                <li><a href="{{ url('/vservice') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-boxes-stacked me-2 w-6"></i>
-                        Service Vulkanisir
-                    </div>
-                </a></li>
-
-                <li class="mt-4 -ms-4">
-                    <details>
-                        <summary class="font-semibold text-lg">Laporan</summary>
-                        <ul class="ms-4">
-                            <li><a href="{{ url('/laporan/cost') }}">Lap. Operational Cost</a></li>
-                            <li><a href="{{ url('/laporan/stok') }}">Lap. Stok</a></li>
-                            <li><a href="{{ url('/laporan/piutang') }}">Lap. Piutang</a></li>
-                            <li><a href="{{ url('/laporan/hutang') }}">Lap. Hutang</a></li>
-                            <li><a href="{{ url('/laporan/pendapatan') }}">Lap. Pendapatan</a></li>
-                            <li><a href="{{ url('/laporan/pembelian') }}">Lap. Pembelian</a></li>
-                            <li><a href="{{ url('/laporan/dividen') }}">Lap. Dividen</a></li>
-                        </ul>
-                    </details>
-                </li>
-
-                <h3 class="mt-4 text-lg font-semibold">Lainnya</h3>
-                <li><a href="{{ url('/settings') }}">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-gear me-2 w-6"></i>
-                        Pengaturan
-                    </div>
-                </a></li>
 
                 <div class="flex-grow h-10 mt-10 md:m-0"></div>
                 <a href="{{ url('/logout') }}" class="no-underline w-full">
@@ -167,7 +176,7 @@
             </div>
             <!-- content here -->
             <div class="px-2 pt-5 lg:pt-0 flex-wrap md:px-10 flex items-center w-full justify-center">
-                <div class="lg:max-w-5xl w-full">
+                <div class="lg:max-w-screen-2xl w-full">
                     @if ($errors->any())
                         <div class="alert alert-error my-5">
                             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>

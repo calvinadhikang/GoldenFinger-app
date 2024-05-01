@@ -30,7 +30,7 @@
             <div class="form-control">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Harga</span>
-                    <span class="label-text-alt"></span>
+                    <span class="label-text-alt">Harga sudah termasuk PPN</span>
                 </label>
                 <input type="text" class="harga input input-bordered w-full" name="harga" required/>
             </div>

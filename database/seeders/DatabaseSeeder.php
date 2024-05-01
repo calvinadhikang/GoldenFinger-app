@@ -75,6 +75,15 @@ class DatabaseSeeder extends Seeder
             'status' => 'Aktif',
         ]);
 
+        Karyawan::create([
+            'nama' => 'Bagong',
+            'username' => 'bagong',
+            'password' => Hash::make('bagong'),
+            'telp' => '081267562393',
+            'role' => "Teknisi",
+            'status' => 'Aktif',
+        ]);
+
         // Create Shares
         SharesModel::create([
             'karyawan_id' => 1,
