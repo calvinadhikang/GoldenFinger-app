@@ -11,7 +11,7 @@ class HeaderInvoice extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'hinvoice';
     public $timestamps = ['jatuh_tempo', 'recieved_at', 'paid_at'];
-    protected $fillable = ['status'];
+    protected $fillable = ['status', 'snap_token'];
 
     public function customer(){
         return $this->hasOne(

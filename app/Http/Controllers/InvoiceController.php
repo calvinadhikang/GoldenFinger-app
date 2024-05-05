@@ -35,9 +35,13 @@ class InvoiceController extends Controller
         }else if($type == 'canceled'){
             $data = HeaderInvoice::latest()->where('status', -1)->get();
         }
+
+        $countNotConfirm = HeaderInvoice::where('status', 0)->count();
+
         return view('master.invoice.view', [
             'type' => $type,
-            'data' => $data
+            'data' => $data,
+            'countNotConfirm' => $countNotConfirm
         ]);
     }
 

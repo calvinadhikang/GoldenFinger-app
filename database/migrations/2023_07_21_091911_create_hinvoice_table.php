@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kode');
             $table->text('surat_jalan');
             $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('karyawan_id');
+            $table->unsignedBigInteger('karyawan_id')->nullable();
             $table->decimal('total', 20, 2);
             $table->decimal('grand_total', 20, 2);
             $table->decimal('ppn_value', 20, 2);
@@ -48,6 +48,7 @@ return new class extends Migration
             $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->unique('kode');
+            $table->string('snap_token')->nullable();
         });
     }
 
