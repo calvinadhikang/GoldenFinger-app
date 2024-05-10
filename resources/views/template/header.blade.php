@@ -98,6 +98,12 @@
                     @endif
 
                     <h3 class="text-lg font-semibold mt-4">Operasional</h3>
+                    <li><a href="{{ url('/arap') }}">
+                        <div class="flex items-center justify-between">
+                            <i class="fa-solid fa-scale-balanced me-2 w-6"></i>
+                            AR AP Handle
+                        </div>
+                    </a></li>
                     <li><a href="{{ url('/invoice') }}">
                         <div class="flex items-center">
                             <i class="fa-solid fa-dollar-sign me-2 w-6"></i>

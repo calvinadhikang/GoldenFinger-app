@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ARAPController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
@@ -293,5 +294,9 @@ Route::middleware([EnsureLogin::class])->group(function() {
             Route::get('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationView']);
             Route::post('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationAction']);
         });
+    });
+
+    Route::prefix('/arap')->group(function () {
+        Route::get('/', [ARAPController::class, 'view']);
     });
 });
