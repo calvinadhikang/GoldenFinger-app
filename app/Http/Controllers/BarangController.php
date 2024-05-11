@@ -42,6 +42,7 @@ class BarangController extends Controller
             'harga' => Util::parseNumericValue($request->input('harga')),
             'batas' => $request->input('batas'),
             'stok' => 0,
+            'description' => $request->input('description')
         ]);
 
         toast('Berhasil Menambah Barang', 'success');
@@ -73,6 +74,7 @@ class BarangController extends Controller
         $barang->harga = Util::parseNumericValue($request->input('harga'));
         $barang->image = $request->input('image');
         $barang->public = $request->input('public');
+        $barang->description = $request->input('description');
         $barang->save();
 
         toast("Berhasil Update Barang", "success");

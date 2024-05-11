@@ -52,9 +52,14 @@
                 </select>
             </div>
         </div>
+        <div class="mb-5">
+            <div class="text-lg font-bold">Deskripsi Barang</div>
+            <textarea class="textarea w-full" rows="4" name="description">{{ $barang->description }}</textarea>
+        </div>
         <button class="btn btn-primary">Simpan</button>
     </form>
 </div>
+
 <h1 class="text-xl font-medium my-5">Status Barang</h1>
 <div class="bg-accent p-4 rounded grid grid-cols-2 items-center">
     <p class="font-semibold text-xl {{ $barang->deleted_at ? 'text-error' : 'text-secondary' }}">{{ $barang->deleted_at ? 'Terhapus' : 'Tersedia' }}</p>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('batas');
             $table->string('image')->nullable();
             $table->boolean('public')->default(false);
+            $table->string('description')->nullable()->default('');
             $table->timestamps();
             $table->softDeletes();
         });

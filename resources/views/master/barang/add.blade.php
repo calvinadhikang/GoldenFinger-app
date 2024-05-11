@@ -41,6 +41,10 @@
                 <input type="number" placeholder="Ban..." value="10" class="input input-bordered w-full" name="batas" required/>
             </div>
         </div>
+        <div class="my-5 space-y-2">
+            <div class="label-text text-lg font-bold">Deskripsi Barang</div>
+            <textarea name="description" class="textarea w-full" rows="5"></textarea>
+        </div>
         <button class="btn btn-primary">Tambah</button>
     </form>
 </div>
