@@ -55,7 +55,7 @@
 <form method="POST">
     @csrf
     <div class="rounded bg-accent p-4 my-5">
-        <table class="" id="table">
+        <table class="data-table">
             <thead>
                 <tr>
                     <th><h3 class="font-bold">Part Number</h3></th>

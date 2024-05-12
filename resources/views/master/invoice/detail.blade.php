@@ -306,7 +306,7 @@
                         <p>Kode Pembayaran</p>
                         <p>Isi dengan "-" bila Cash</p>
                     </div>
-                    <input type="text" name="payment_code" class="input w-full" value="-" required>
+                    <input type="text" name="payment_code" class="input w-full" required>
 
                     <div class="divider"></div>
 

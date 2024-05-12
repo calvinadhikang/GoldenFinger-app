@@ -54,6 +54,8 @@
                 <div class="grid grid-cols-2 mt-2">
                     <p>Tanggal Diterima</p>
                     <p class="text-right">{{ date_format(new DateTime($po->recieved_at), 'd M Y H:i') }}</p>
+                    <p>Diterima Oleh</p>
+                    <p class="text-right">{{ $recieved_name }}</p>
                 </div>
             @endif
         </div>
@@ -77,7 +79,13 @@
                 @if ($po->paid_at)
                     <p class="">Tanggal Pembayaran</p>
                     <p class="text-right">{{ date_format(new DateTime($po->paid_at), 'd M Y H:i') }}</p>
-                @endif
+                    <p>Metode Pembayaran</p>
+                    <p class="text-right">{{ $po->paid_method }}</p>
+                    <p>Kode Pembayaran</p>
+                    <p class="text-right">{{ $po->paid_code }}</p>
+                    <p>Terkonfirmasi Oleh</p>
+                    <p class="text-right">{{ $paid_name }}</p>
+                    @endif
             </div>
         </div>
     </div>
@@ -159,6 +167,8 @@
     <p>Untuk menghapus transaksi Purchase Order, masukan password dan tekan tombol dibawah</p>
     <form method="POST" action="{{ url("/po/detail/$po->id/delete") }}">
         @csrf
+        <p class="text-sm mt-2">Masukan alasan penghapusan</p>
+        <input type="text" class="input input-error w-full" name="reason" required>
         <p class="text-sm mt-2">Password</p>
         <div class="flex items-center gap-x-2">
             <input type="password" name="password" class="input input-error">
@@ -176,11 +186,28 @@
         <h3 class="font-bold text-lg">Pelunasan Pesanan</h3>
         <p class="py-4">Pastikan kembali bahwa barang pesanan sudah tiba dan sesuai. <br> Bila sudah, tekan tombol dibawah untuk konfirmasi pembayaran</p>
         <div>
-            <p class="mb-2 text-sm">Masukan password anda : </p>
-            <form action="{{ url("/po/pembayaran") }}" method="post" class="flex gap-x-3">
+            <form action="{{ url("/po/pembayaran") }}" method="post">
                 @csrf
-                <input type="password" name="password" class="input input-primary w-full" required>
-                <button class="btn btn-primary" name="id" value="{{ $po->id }}">Ya, Sudah Lunas</button>
+                <div class="mb-4">
+                    <p>Metode Pembayaran</p>
+                    <select class="select w-full" name="paid_method" required>
+                        <option value="" selected disabled>Pilih Metode</option>
+                        <option value="cash">Cash</option>
+                        <option value="transfer">Transfer</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <p>Kode Pembayaran</p>
+                    <p class="text-sm text-gray-400 mb-2">Isi dengan '-' bila cash.</p>
+                    <input type="text" name="paid_code" class="input w-full" required>
+                </div>
+                <div class="">
+                    <p class="mb-2 text-sm">Masukan password anda : </p>
+                    <div class="flex w-full gap-x-2">
+                        <input type="password" name="password" class="input input-primary w-full" required>
+                        <button class="btn btn-primary" name="id" value="{{ $po->id }}">Ya, Sudah Lunas</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -192,29 +219,21 @@
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
         <h3 class="font-bold text-lg">Konfirmasi Pesanan</h3>
-        <p class="mb-4">Bagaimana jumlah Pesanan yang datang ?</p>
-        <div class="flex flex-col gap-2">
+        <p>Bagaimana jumlah Pesanan yang datang ?</p>
+        <p>Pastikan telah mengecek pesanan yang datang dengan baik !</p>
+        <div class="flex flex-col gap-2 mt-5">
             <form action="{{ url("/po/pesanan") }}" method="POST">
                 @csrf
-                <div class="grid gap-y-4">
-                    <label class="label cursor-pointer font-semibold">
-                        <span><i class="fa-solid fa-check"></i> Jumlah Barang Sesuai</span>
-                        <input type="radio" name="status" value="0" class="radio border-black checked:bg-secondary"/>
-                    </label>
-                    <label class="label cursor-pointer font-semibold">
-                        <span><i class="fa-solid fa-plus"></i> Jumlah Barang Lebih Banyak</span>
-                        <input type="radio" name="status" value="1" class="radio border-black checked:bg-secondary"/>
-                    </label>
-                    <label class="label cursor-pointer font-semibold">
-                        <span><i class="fa-solid fa-minus"></i> Jumlah Barang Kurang</span>
-                        <input type="radio" name="status" value="-1" class="radio border-black checked:bg-secondary"/>
-                    </label>
+                <select name="status" class="select w-full" required>
+                    <option value="" disabled selected>Pilih Jumlah Barang</option>
+                    <option value="0">Jumlah Barang Sesuai</option>
+                    <option value="-1">Jumlah Barang Kurang</option>
+                </select>
+                <p class="mt-4">Masukan password</p>
+                <div class="flex gap-x-2">
+                    <input type="password" class="input w-full" name="password" required>
+                    <button class="btn btn-primary" name="id" value="{{ $po->id }}">Konfirmasi</button>
                 </div>
-                <p class="pt-4 pb-2 text-sm text-gray-500">Pastikan telah mengecek pesanan yang datang dengan baik !</p>
-                <button class="btn btn-primary" name="id" value="{{ $po->id }}">Konfirmasi</button>
-            </form>
-            <form method="dialog">
-                <button class="btn btn-error btn-outline">Batal</button>
             </form>
         </div>
     </div>

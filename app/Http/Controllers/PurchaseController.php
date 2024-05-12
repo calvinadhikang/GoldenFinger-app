@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\BarangVendor;
 use App\Models\DetailPurchase;
 use App\Models\HeaderPurchase;
+use App\Models\Karyawan;
 use App\Models\StockMutation;
 use App\Models\Vendor;
 use Carbon\Carbon;
@@ -43,9 +44,23 @@ class PurchaseController extends Controller
             return redirect('/invoice');
         }
 
+        $paid_name = "";
+        if ($po->paid_by != null){
+            $karyawan = Karyawan::where('id', $po->paid_by)->first();
+            $paid_name = $karyawan->nama;
+        }
+
+        $recieved_name = "";
+        if ($po->recieved_by != null){
+            $karyawan = Karyawan::where('id', $po->recieved_by)->first();
+            $recieved_name = $karyawan->nama;
+        }
+
         return view('master.po.detail', [
             'po' => $po,
-            'daysLeft' => Util::getDiffDays($po->jatuh_tempo)
+            'daysLeft' => Util::getDiffDays($po->jatuh_tempo),
+            'paid_name' => $paid_name,
+            'recieved_name' => $recieved_name
         ]);
     }
 
@@ -267,6 +282,8 @@ class PurchaseController extends Controller
         $id = $request->input('id');
         $user = Session::get('user');
         $password = $request->input('password');
+        $paid_code = $request->input('paid_code');
+        $paid_method = $request->input('paid_method');
 
         if (!Hash::check($password, $user->password)) {
             toast('Password Salah !', 'error');
@@ -276,6 +293,8 @@ class PurchaseController extends Controller
         $po = HeaderPurchase::find($id);
         $po->paid_by = $user->id;
         $po->paid_at = Carbon::now();
+        $po->paid_code = $paid_code;
+        $po->paid_method = $paid_method;
         $po->save();
 
         toast('Transaksi telah berhasil dilunasi !', 'success');
@@ -283,8 +302,18 @@ class PurchaseController extends Controller
     }
 
     public function finishPesanan(Request $request){
+        // Status digunakan untuk menentukan tipe barang PO yang datang..
+        // Apakah barang sesuai 0, lebih 1, atau kurang -1
         $status = $request->input('status');
         $id = $request->input('id');
+
+        $user = Session::get('user');
+        $password = $request->input('password');
+        if (!Hash::check($password, $user->password)) {
+            toast('Password Salah !', 'error');
+            return back();
+        }
+
         $po = HeaderPurchase::find($id);
         if ($status == 0) {
             //tambahkan semua detail transaksi ke table stock_mutation
@@ -321,6 +350,7 @@ class PurchaseController extends Controller
             //Update Status Pesanan PO
             $po->recieved_at = Carbon::now();
             $po->recieved_by = Session::get('user')->id;
+            $po->recieved_by = $user->id;
             $po->save();
             return redirect()->back();
         }
@@ -335,6 +365,7 @@ class PurchaseController extends Controller
 
     public function purchaseDelete($id, Request $request){
         $user = Session::get('user');
+        $reason = $request->input('reason');
         $password = $request->input('password');
 
         //check password
@@ -346,6 +377,7 @@ class PurchaseController extends Controller
         $po = HeaderPurchase::find($id);
         $po->delete();
         $po->deleted_by = $user->id;
+        $po->deleted_reason = $reason;
         $po->save();
         toast('Berhasil Menghapus Purchase Order', 'success');
         return back();
@@ -364,6 +396,7 @@ class PurchaseController extends Controller
         $po = HeaderPurchase::withTrashed()->where('id', $id)->first();
         $po->restore();
         $po->deleted_by = null;
+        $po->deleted_reason = null;
         $po->save();
         toast('Berhasil Mengaktifkan Purchase Order', 'success');
         return back();

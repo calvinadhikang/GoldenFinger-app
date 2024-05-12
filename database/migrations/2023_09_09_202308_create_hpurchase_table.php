@@ -31,6 +31,10 @@ return new class extends Migration
             $table->unsignedBigInteger('paid_by')->nullable();
             $table->unsignedBigInteger('recieved_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
+            $table->text('deleted_reason')->nullable();
+
+            $table->string('paid_method')->nullable();
+            $table->string('paid_code')->nullable();
 
             $table->foreign('vendor_id')->references('id')->on('vendor')->onDelete('cascade');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');

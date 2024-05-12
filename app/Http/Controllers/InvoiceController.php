@@ -27,7 +27,7 @@ class InvoiceController extends Controller
     public function invoiceView(Request $request){
         $type = $request->query('type', 'all');
         if ($type == 'all') {
-            $data = HeaderInvoice::latest()->where('status', 1)->get();
+            $data = HeaderInvoice::latest()->whereIn('status', [1, 2])->get();
         }else if($type == 'deleted') {
             $data = HeaderInvoice::onlyTrashed()->get();
         }else if($type == 'unconfirmed'){
