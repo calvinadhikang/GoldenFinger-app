@@ -378,6 +378,7 @@ class PurchaseController extends Controller
         $po->delete();
         $po->deleted_by = $user->id;
         $po->deleted_reason = $reason;
+        $po->deleted_at = Carbon::now();
         $po->save();
         toast('Berhasil Menghapus Purchase Order', 'success');
         return back();
@@ -397,6 +398,7 @@ class PurchaseController extends Controller
         $po->restore();
         $po->deleted_by = null;
         $po->deleted_reason = null;
+        $po->deleted_at = null;
         $po->save();
         toast('Berhasil Mengaktifkan Purchase Order', 'success');
         return back();

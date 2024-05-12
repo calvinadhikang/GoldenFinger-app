@@ -32,7 +32,7 @@
         @csrf
         <p class="text-sm mt-2">Password</p>
         <div class="flex items-center gap-x-2">
-            <input type="password" name="password" class="input input-secondary">
+            <input type="password" name="password" class="input input-secondary" required>
             <button class="btn btn-secondary">Aktifkan Purchase Order</button>
         </div>
     </form>
@@ -45,10 +45,12 @@
         <div class="rounded p-4 bg-accent">
             @if ($po->recieved_at == null)
                 <div class="text-white bg-error font-semibold text-xl text-center rounded p-3">On Process</div>
-                <p class="mt-10 mb-2">Barang pesanan sudah sampai ?</p>
-                <button onclick="modal_pesanan.showModal()" class="btn btn-primary">
-                    Ya, Sudah Sampai
-                </button>
+                @if ($po->deleted_by == null)
+                    <p class="mt-10 mb-2">Barang pesanan sudah sampai ?</p>
+                    <button onclick="modal_pesanan.showModal()" class="btn btn-primary">
+                        Ya, Sudah Sampai
+                    </button>
+                @endif
             @else
                 <div class="bg-secondary font-semibold text-xl text-center rounded p-3">Barang Sudah Sampai</div>
                 <div class="grid grid-cols-2 mt-2">
@@ -69,9 +71,11 @@
                 <div class="text-red-50 bg-error font-semibold text-xl text-center rounded p-3">Belum Bayar</div>
                 <p class="text-right">Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
 
-                <h1 class="mt-5 mb-2">Pesanan sudah dibayar ?</h1>
-                <button class="btn btn-primary" onclick="modal_pembayaran.showModal()">Ya, Sudah Lunas</button>
-                <div class="divider"></div>
+                @if ($po->deleted_by == null)
+                    <h1 class="mt-5 mb-2">Pesanan sudah dibayar ?</h1>
+                    <button class="btn btn-primary" onclick="modal_pembayaran.showModal()">Ya, Sudah Lunas</button>
+                    <div class="divider"></div>
+                @endif
             @endif
             <div class="grid grid-cols-2 mt-2">
                 <p class="">Tanggal Jatuh Tempo</p>
