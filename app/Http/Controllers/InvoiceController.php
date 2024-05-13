@@ -378,10 +378,17 @@ class InvoiceController extends Controller
             $invoiceText = "Dibatalkan";
         }
 
+        $paid_by = "";
+        if ($invoice->snap_token) {
+            $paid_by = Customer::find($invoice->paid_by);
+        }else {
+            $paid_by = Karyawan::find($invoice->paid_by);
+        }
+
         return view('master.invoice.detail', [
             'invoice' => $invoice,
             'daysLeft' => Util::getDiffDays($invoice->jatuh_tempo),
-            'karyawan' => Karyawan::find($invoice->paid_by),
+            'paid_by' => $paid_by,
             'confirmed_by' => Karyawan::find($invoice->confirmed_by),
             'statusText' => $invoiceText
         ]);

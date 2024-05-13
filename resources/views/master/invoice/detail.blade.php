@@ -54,6 +54,14 @@
                 <p class="text-end">{{ date_format(new DateTime($invoice->confirmed_at), 'd M Y') }}</p>
                 <p>Terkonfirmasi Oleh</p>
                 <p class="text-end">{{ $confirmed_by->nama }}</p>
+                @if ($invoice->paid_at)
+                <p>Metode Pembayaran</p>
+                <p class="text-end">{{ $invoice->paid_method }}</p>
+                <p>Kode Pembayaran</p>
+                <p class="text-end">{{ $invoice->paid_code }}</p>
+                <p>Pembayaran Terkonfirmasi Oleh</p>
+                <p class="text-end">{{ $paid_by->nama }}</p>
+                @endif
             @elseif ($invoice->cancel_by != null)
                 <p>Dibatalkan Karena</p>
                 <p class="text-end">{{ $invoice->cancel_reason }}</p>
@@ -92,16 +100,6 @@
                 <p class="text-right {{ $invoice->paid_at == null ? 'text-error' : 'text-secondary' }}">
                     {{ $invoice->paid_at == null ? 'Belum Bayar' : date_format(new DateTime($invoice->paid_at), 'd M Y') }}
                 </p>
-                @if ($karyawan)
-                    <p>Terkonfirmasi Oleh</p>
-                    <p class="text-right">{{ $karyawan->nama }}</p>
-                @endif
-                @if ($invoice->status == 2)
-                    <p>Metode Pembayaran</p>
-                    <p class="text-right">{{ $invoice->paid_method }}</p>
-                    <p>Kode Pembayaran</p>
-                    <p class="text-right">{{ $invoice->paid_code }}</p>
-                @endif
             </div>
             @if (!$invoice->paid_at)
                 <p class="text-right">Kurang <span class="font-bold text-lg">{{ $daysLeft }}</span> Hari hingga jatuh

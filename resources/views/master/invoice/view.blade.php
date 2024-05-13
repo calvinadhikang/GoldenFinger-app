@@ -38,7 +38,11 @@
                             <h3 class="font-bold">Tanggal Pesanan</h3>
                         </th>
                         <th>
+                            @if ($type == 'unconfirmed')
+                            <h3 class="font-bold">Status Konfirmasi</h3>
+                            @else
                             <h3 class="font-bold">Status Pembayaran</h3>
+                            @endif
                         </th>
                         <th>
                             <h3 class="font-bold">Jatuh Tempo</h3>
@@ -61,14 +65,22 @@
                                 <td>Rp {{ number_format($item->grand_total) }}</td>
                                 <td>{{ date_format($item->created_at, 'd M Y') }}</td>
                                 <td>
-                                    @if (!$item->paid_at)
-                                        <span class="badge badge-error">
-                                            Belum Lunas
-                                        </span>
+                                    @if ($type == 'unconfirmed')
+                                        {{-- Tampilkan status konfirmasi --}}
+                                        @if ($item->confirmed_at == null)
+                                        <span class="badge badge-error">Tidak Terkonfirmasi</span>
+                                        @endif
                                     @else
-                                        <span class="badge badge-secondary">
-                                            Lunas
-                                        </span>
+                                        {{-- Tampilkan status pembayaran --}}
+                                        @if (!$item->paid_at)
+                                            <span class="badge badge-error">
+                                                Belum Lunas
+                                            </span>
+                                        @else
+                                            <span class="badge badge-secondary">
+                                                Lunas
+                                            </span>
+                                        @endif
                                     @endif
                                 </td>
                                 <td>
