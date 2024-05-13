@@ -310,6 +310,6 @@ Route::middleware([EnsureLogin::class])->group(function() {
     });
 
     Route::get('/test', function(){
-        return view('template.pdf.invoice');
+        return view('template.pdf.laporan.lababersih.laporan_lababersih');
     });
 });
