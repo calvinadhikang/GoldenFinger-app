@@ -106,7 +106,7 @@
                     tempo</p>
             @endif
 
-            @if (!$invoice->paid_at)
+            @if ($invoice->paid_at == null && $invoice->deleted_at == null)
                 <div class="divider"></div>
                 <div class="grid grid-cols-2">
                     <div class="">
