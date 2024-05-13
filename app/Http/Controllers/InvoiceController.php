@@ -12,6 +12,7 @@ use App\Models\HeaderInvoice;
 use App\Models\HeaderPaket;
 use App\Models\Karyawan;
 use App\Models\OperationalCost;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -588,6 +589,16 @@ class InvoiceController extends Controller
 
         toast('Berhasil Konfrimasi Invoice', 'success');
         return back();
+    }
+
+    // Document Creation
+    public function createInvoicePdf($id){
+        $data = HeaderInvoice::find($id);
+
+        $pdf = Pdf::loadView('template.pdf.invoice', [
+            'data' => $data
+        ]);
+        return $pdf->download('invoice_'.$data->kode.'.pdf');
     }
 
     // Api Functions

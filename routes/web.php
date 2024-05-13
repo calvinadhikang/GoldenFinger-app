@@ -176,9 +176,13 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);
         Route::post('/cancel', [InvoiceController::class, 'invoiceCancel']);
 
+        // Excel
         Route::get('/detail/{id}/dokumen/tanda_terima', [InvoiceController::class, 'invoiceCreateTandaTerima']);
         Route::get('/detail/{id}/dokumen/surat_jalan', [InvoiceController::class, 'invoiceCreateSuratJalan']);
         Route::get('/detail/{id}/dokumen/invoice', [InvoiceController::class, 'invoiceCreateInvoice']);
+
+        // PDF
+        Route::get('/detail/{id}/pdf/invoice', [InvoiceController::class, 'createInvoicePdf']);
 
         Route::get('/reset', function() {
             Session::remove('invoice_cart');
@@ -298,5 +302,9 @@ Route::middleware([EnsureLogin::class])->group(function() {
 
     Route::prefix('/arap')->group(function () {
         Route::get('/', [ARAPController::class, 'view']);
+    });
+
+    Route::get('/test', function(){
+        return view('template.pdf.invoice');
     });
 });

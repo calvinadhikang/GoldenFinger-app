@@ -265,6 +265,11 @@
         </div>
     </div>
 
+    <h3 class="text-xl font-semibold">Buat PDF</h3>
+    <div class="rounded bg-accent p-4 my-5">
+        <a href="{{ url("/invoice/detail/$invoice->id/pdf/invoice") }}"><button class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i>Buat PDF!</button></a>
+    </div>
+
     @if (!$invoice->deleted_at)
         <h3 class="text-xl font-semibold text-error">Hapus Transaksi Invoice</h3>
         <div class="rounded bg-accent p-4 my-5 text-error">
