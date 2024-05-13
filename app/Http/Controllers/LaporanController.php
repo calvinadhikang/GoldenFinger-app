@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\DetailInvoice;
 use App\Models\HeaderInvoice;
 use App\Models\HeaderPurchase;
 use App\Models\OperationalCost;
@@ -239,5 +240,56 @@ class LaporanController extends Controller
             'bersih' => $pendapatanBersih
         ]);
         return $pdf->download('laporan_dividen.pdf');
+    }
+
+    public function penjualanView(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $barang = Barang::latest()->get();
+        foreach ($barang as $key => $value) {
+            $details = DetailInvoice::where('part', $value->part)->whereBetween('created_at', [$mulai, $akhir])->get();
+
+            $value->qty_terjual = 0;
+            $value->pendapatan_total = 0;
+            $value->list_penjualan = $details;
+
+            foreach ($details as $key => $detail) {
+                $value->qty_terjual += $detail->qty;
+                $value->pendapatan_total += $detail->subtotal;
+            }
+        }
+
+        return view('laporan.penjualan', [
+            'data' => $barang,
+            'mulai' => $mulai,
+            'akhir' => $akhir
+        ]);
+    }
+
+    public function penjualanPdfDownload(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $barang = Barang::latest()->get();
+        foreach ($barang as $key => $value) {
+            $details = DetailInvoice::where('part', $value->part)->whereBetween('created_at', [$mulai, $akhir])->get();
+
+            $value->qty_terjual = 0;
+            $value->pendapatan_total = 0;
+            $value->list_penjualan = $details;
+
+            foreach ($details as $key => $detail) {
+                $value->qty_terjual += $detail->qty;
+                $value->pendapatan_total += $detail->subtotal;
+            }
+        }
+
+        $pdf = Pdf::loadView('template.pdf.laporan.penjualan.laporan_penjualan', [
+            'data' => $barang,
+            'mulai' => $mulai,
+            'akhir' => $akhir
+        ]);
+        return $pdf->download('laporan_penjualan.pdf');
     }
 }

@@ -9,9 +9,9 @@
         <table class="data-table table-zebra">
             <thead>
                 <tr>
-                    <th><h3 class="font-bold">Deskripsi</h3></th>
-                    <th><h3 class="font-bold">Total</h3></th>
-                    <th><h3 class="font-bold">Tanggal</h3></th>
+                    <th><h3 class="font-bold">Part</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Stok</h3></th>
                     <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
             </thead>
@@ -23,11 +23,11 @@
             @else
                 @foreach ($data as $item)
                     <tr>
-                        <td>{{ $item->deskripsi }}</td>
-                        <td>Rp {{ format_decimal($item->total) }}</td>
-                        <td>{{ date_format($item->created_at, 'd M Y') }}</td>
+                        <td>{{ $item->part }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->stok }}</td>
                         <td>
-                            <button onclick="my_modal_3.showModal()" class="btn-modal" id-cost="{{ $item->id }}" value="{{ $item->deskripsi }}"><i class="fa-solid fa-trash text-red-600 hover:text-red-400"></i></button>
+                            <a href="{{ url('/barang/detail/'.$item->part) }}"><button class="btn btn-xs btn-secondary">Detail</button></a>
                         </td>
                     </tr>
                 @endforeach

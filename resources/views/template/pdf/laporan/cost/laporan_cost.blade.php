@@ -12,11 +12,17 @@
     }
     table {
         width: 100%;
+        border: 1px solid black;
+        border-collapse: collapse
+    }
+
+    tr, th, td {
+        border: 1px solid black;
     }
 </style>
 <body>
     <h1 class="text-center">Laporan Pengeluaran Operasional</h1>
-    <p>Periode {{ $mulai }} - {{ $akhir }}</p>
+    <p class="text-center">Periode {{ $mulai }} - {{ $akhir }}</p>
     <br>
     <table>
         <tr>

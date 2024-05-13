@@ -9,4 +9,11 @@ class DetailInvoice extends Model
 {
     use HasFactory;
     protected $table = 'dinvoice';
+    public function header(){
+        return $this->hasOne(
+            HeaderInvoice::class,
+            'id',
+            'hinvoice_id'
+        );
+    }
 }

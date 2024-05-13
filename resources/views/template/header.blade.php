@@ -140,6 +140,7 @@
                                 <li><a href="{{ url('/laporan/pendapatan') }}">Lap. Pendapatan</a></li>
                                 <li><a href="{{ url('/laporan/pembelian') }}">Lap. Pembelian</a></li>
                                 <li><a href="{{ url('/laporan/dividen') }}">Lap. Dividen</a></li>
+                                <li><a href="{{ url('/laporan/penjualan') }}">Lap. Penjualan</a></li>
                             </ul>
                         </details>
                     </li>
