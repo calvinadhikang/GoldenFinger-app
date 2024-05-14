@@ -128,6 +128,12 @@
                             Service Vulkanisir
                         </div>
                     </a></li>
+                    <li><a href="{{ url('/penawaran') }}">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-boxes-stacked me-2 w-6"></i>
+                            Penawaran
+                        </div>
+                    </a></li>
 
                     <li class="mt-4 -ms-4">
                         <details>

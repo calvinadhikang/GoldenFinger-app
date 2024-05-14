@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('harga');
             $table->integer('stok');
             $table->integer('batas');
-            $table->string('image')->nullable();
+            $table->string('image')->nullable()->default('https://drive.google.com/thumbnail?id=1hkHYvobBdZb5R9k_48zL3FWc2SEEnyIF');
             $table->boolean('public')->default(false);
             $table->string('description')->nullable()->default('');
             $table->timestamps();
