@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\OperationalCostController;
 use App\Http\Controllers\PaketController;
+use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SettingsController;
@@ -303,6 +304,13 @@ Route::middleware([EnsureLogin::class])->group(function() {
             Route::get('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationView']);
             Route::post('/confirmation', [VulkanisirServiceController::class, 'serviceConfirmationAction']);
         });
+    });
+
+    Route::prefix('/penawaran')->group(function () {
+        Route::get('/', [PenawaranController::class, 'penawaranView']);
+        Route::get('/detail/{id}', [PenawaranController::class, 'penawaranDetailView']);
+        Route::post('/detail/{id}/confirm', [PenawaranController::class, 'penawaranConfirm']);
+        Route::post('/detail/{id}/cancel', [PenawaranController::class, 'penawaranCancel']);
     });
 
     Route::prefix('/arap')->group(function () {

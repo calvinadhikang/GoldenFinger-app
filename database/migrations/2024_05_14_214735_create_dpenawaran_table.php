@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vulkanisir_machine', function (Blueprint $table) {
+        Schema::create('dpenawaran', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
-            $table->unsignedBigInteger('service_id')->nullable();
+            $table->unsignedBigInteger('hpenawaran_id');
+            $table->string('part');
+            $table->bigInteger('harga_penawaran');
+            $table->integer('qty');
+            $table->bigInteger('subtotal');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vulkanisir_machine');
+        Schema::dropIfExists('dpenawaran');
     }
 };

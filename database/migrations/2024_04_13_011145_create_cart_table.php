@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('cart', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->string('part');
             $table->enum('type', ['barang', 'paket']);

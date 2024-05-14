@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('service', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('machine_id');
             $table->unsignedBigInteger('customer_id');
             $table->string('nama');
