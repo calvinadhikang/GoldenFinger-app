@@ -147,6 +147,8 @@
                                 <li><a href="{{ url('/laporan/pembelian') }}">Lap. Pembelian</a></li>
                                 <li><a href="{{ url('/laporan/dividen') }}">Lap. Dividen</a></li>
                                 <li><a href="{{ url('/laporan/penjualan') }}">Lap. Penjualan</a></li>
+                                <li><a href="{{ url('/laporan/laba_bersih') }}">Lap. Laba Bersih</a></li>
+                                <li><a href="{{ url('/laporan/laba_rugi') }}">Lap. Laba Rugi</a></li>
                             </ul>
                         </details>
                     </li>

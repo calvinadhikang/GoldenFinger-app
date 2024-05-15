@@ -292,4 +292,17 @@ class LaporanController extends Controller
         ]);
         return $pdf->download('laporan_penjualan.pdf');
     }
+
+    public function labaBersihView(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = [];
+
+        return view('laporan.laba_bersih', [
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'data' => $data,
+        ]);
+    }
 }

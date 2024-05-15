@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('stock_mutation', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('barang_id');
             $table->bigInteger('qty');
             $table->bigInteger('qty-used');

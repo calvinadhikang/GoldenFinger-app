@@ -269,6 +269,11 @@ Route::middleware([EnsureLogin::class])->group(function() {
             Route::get('/', [LaporanController::class, 'penjualanView']);
             Route::get('/pdf', [LaporanController::class, 'penjualanPdfDownload']);
         });
+
+        Route::prefix('/laba_bersih')->group(function () {
+            Route::get('/', [LaporanController::class, 'labaBersihView']);
+            Route::get('/pdf', [LaporanController::class, 'labaBersihPdfDownload']);
+        });
     });
 
     Route::prefix('shares')->group(function (){

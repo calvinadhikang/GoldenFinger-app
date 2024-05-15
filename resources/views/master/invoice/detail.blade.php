@@ -251,7 +251,7 @@
 
     <h3 class="text-xl font-semibold">Buat Excel</h3>
     <div class="rounded bg-accent p-4 my-5">
-        <div class="flex align-center gap-4">
+        <div class="flex items-center gap-4">
             <a href="{{ url("invoice/detail/$invoice->id/dokumen/surat_jalan") }}">
                 <button class="btn btn-success shadow-lg" name="type" value="invoice"><i
                         class="fa-solid fa-file-excel"></i>Buat Surat Jalan !</button>
@@ -259,15 +259,20 @@
             <a href="{{ url("invoice/detail/$invoice->id/dokumen/invoice") }}">
                 <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Invoice !</button>
             </a>
-            {{-- <a href="{{ url("invoice/detail/$invoice->id/dokumen/tanda_terima") }}">
-            <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Tanda Terima !</button>
-        </a> --}}
+            <a href="{{ url("invoice/detail/$invoice->id/dokumen/tanda_terima") }}">
+                <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Tanda Terima !</button>
+            </a>
         </div>
     </div>
 
     <h3 class="text-xl font-semibold">Buat PDF</h3>
     <div class="rounded bg-accent p-4 my-5">
-        <a href="{{ url("/invoice/detail/$invoice->id/pdf/invoice") }}"><button class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i>Buat PDF!</button></a>
+        <div class="flex gap-4 items-center">
+            <a href="{{ url("/invoice/detail/$invoice->id/pdf/surat_jalan") }}"><button class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i>Buat Surat Jalan !</button></a>
+            <a href="{{ url("/invoice/detail/$invoice->id/pdf/invoice") }}"><button class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i>Buat Invoice !</button></a>
+            <a href="{{ url("/invoice/detail/$invoice->id/pdf/tanda_terima") }}"><button class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i>Buat Tanda Terima !</button></a>
+            <a href="{{ url("/invoice/detail/$invoice->id/pdf/faktur_pajak") }}"><button class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i>Buat Faktur Pajak !</button></a>
+        </div>
     </div>
 
     @if (!$invoice->deleted_at)

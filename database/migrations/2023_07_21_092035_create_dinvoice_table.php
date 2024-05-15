@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('dinvoice', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('hinvoice_id');
             $table->string('part');
             $table->string('nama');

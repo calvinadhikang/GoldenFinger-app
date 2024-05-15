@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('hfifo_id');
             $table->unsignedBigInteger('hpurchase_id');
             $table->unsignedBigInteger('dpurchase_id');
+            $table->unsignedBigInteger('hinvoice_id');
+            $table->unsignedBigInteger('dinvoice_id');
             $table->string('part');
             $table->bigInteger('harga_beli');
             $table->bigInteger('harga_jual');

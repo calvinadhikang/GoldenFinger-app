@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('username');
             $table->text('password');
             $table->string('telp');
-            $table->enum('role', ['Admin', 'Stakeholder', 'Teknisi']);
+            $table->enum('role', ['Admin', 'Stakeholder', 'Teknisi', 'Pemilik']);
             $table->enum('status', ['Aktif', 'Non-Aktif']);
             $table->timestamps();
             $table->softDeletes();
