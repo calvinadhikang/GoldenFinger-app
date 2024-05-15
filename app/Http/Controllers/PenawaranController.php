@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailPenawaran;
 use App\Models\HeaderPenawaran;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -57,26 +58,67 @@ class PenawaranController extends Controller
 
     public function penawaranConfirm($id, Request $request){
         $user = Session::get('user');
+        $penawaran = HeaderPenawaran::find($id);
 
         if (!Hash::check($request->input('password'), $user->password)) {
             toast('Password Salah', 'error');
             return redirect()->back();
         }
 
-        $penawaran = HeaderPenawaran::find($id);
-        $penawaran->status = 1;
-        $penawaran->confirmed_at = now();
-        $penawaran->confirmed_by = $user->id;
-        $penawaran->save();
-
-        // Create Invoice
         DB::beginTransaction();
         try {
-            //code...
+            // Create Invoice
+            $kode = Util::generateInvoiceCode();
+            $suratJalan = Util::generateSuratJalanCodeFromInvoiceCode($kode);
+
+            $currentDateTime = Carbon::now();
+            //insert header
+            $lastId = DB::table('hinvoice')->insertGetId([
+                'customer_id' => $penawaran->customer->id,
+                'karyawan_id' => $user->id,
+                'penawaran_id' => $penawaran->id,
+                'kode' => $kode,
+                'surat_jalan' => $suratJalan,
+                'total' => $penawaran->total,
+                'contact_person' => "",
+                'komisi' => 0,
+                'ppn' => $penawaran->ppn,
+                'ppn_value' => $penawaran->ppn_value,
+                'grand_total' => $penawaran->grand_total,
+                'po' => "-",
+                'jatuh_tempo' => now()->addDays(7),
+                'created_at' => now(),
+                'confirmed_at' => now(),
+                'confirmed_by' => $user->id,
+                'status'=> 1,
+            ]);
+
+            foreach ($penawaran->details as $key => $value) {
+                DB::table('dinvoice')->insert([
+                    'hinvoice_id' => $lastId,
+                    'part' => $value->part,
+                    'nama' => $value->barang->nama,
+                    'harga' => $value->harga_penawaran,
+                    'qty' => $value->qty,
+                    'subtotal' => $value->subtotal,
+                    'type' => 'barang',
+                    'created_at' => $currentDateTime
+                ]);
+            }
+
+            // Update Penawaran
+            DB::table('hpenawaran')->where('id', $id)->update([
+                'status' => 1,
+                'confirmed_at' => now(),
+                'confirmed_by' => $user->id,
+                'confirmed_invoice' => $lastId,
+            ]);
+
             toast('Penawaran Berhasil Dikonfirmasi', 'success');
             DB::commit();
         } catch (\Exception $ex) {
             //throw $th;
+            dd($ex->getMessage());
             DB::rollBack();
         }
         return redirect()->back();
@@ -93,6 +135,7 @@ class PenawaranController extends Controller
         $penawaran = HeaderPenawaran::find($id);
         $penawaran->status = -1;
         $penawaran->canceled_at = now();
+        $penawaran->cancel_by = $user->id;
         $penawaran->cancel_reason = $request->input('cancel_reason');
         $penawaran->save();
 

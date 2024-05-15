@@ -38,8 +38,8 @@
             <div class="grid grid-cols-2">
                 <p>Tanggal Konfirmasi</p>
                 <p class="text-right">{{ $penawaran->confirmed_at }}</p>
-                <p>Kode Invoice</p>
-                <p class="text-right">{{ $penawaran->invoice_confirmed }}</p>
+                <p>Invoice</p>
+                <a class="text-right" href="{{ url('/invoice/detail/'.$penawaran->confirmed_invoice) }}"><button class="btn btn-xs btn-secondary">Lihat Invoice</button></a>
             </div>
         </div>
     @endif

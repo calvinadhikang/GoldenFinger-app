@@ -49,6 +49,7 @@ return new class extends Migration
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->unique('kode');
             $table->string('snap_token')->nullable();
+            $table->string('penawaran_id')->nullable();
         });
     }
 
