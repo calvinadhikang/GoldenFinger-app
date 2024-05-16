@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\DetailInvoice;
+use App\Models\DFIFO;
 use App\Models\HeaderInvoice;
 use App\Models\HeaderPurchase;
 use App\Models\OperationalCost;
@@ -297,7 +298,13 @@ class LaporanController extends Controller
         $mulai = $request->input('mulai', null);
         $akhir = $request->input('akhir', null);
 
-        $data = [];
+        $data = DFIFO::whereBetween('created_at', [$mulai, $akhir])->get();
+
+        $totalBersih = 0;
+        foreach ($data as $key => $value) {
+            $totalBersih += $value->profit_total;
+            $value->invoice = HeaderInvoice::find($value->hinvoice_id);
+        }
 
         return view('laporan.laba_bersih', [
             'mulai' => $mulai,
