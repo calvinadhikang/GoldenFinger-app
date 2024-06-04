@@ -186,6 +186,7 @@ Route::middleware([EnsureLogin::class])->group(function() {
         Route::get('/detail/{id}/pdf/invoice', [InvoiceController::class, 'createInvoicePdf']);
         Route::get('/detail/{id}/pdf/tanda_terima', [InvoiceController::class, 'createTandaTerimaPdf']);
         Route::get('/detail/{id}/pdf/surat_jalan', [InvoiceController::class, 'createSuratJalanPdf']);
+        Route::get('/detail/{id}/pdf/faktur_pajak', [InvoiceController::class, 'createFakturPajakPdf']);
 
         Route::get('/reset', function() {
             Session::remove('invoice_cart');

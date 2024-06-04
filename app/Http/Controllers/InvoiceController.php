@@ -627,6 +627,16 @@ class InvoiceController extends Controller
         return $pdf->download('tanda_terima_'.$data->kode.'.pdf');
     }
 
+    public function createFakturPajakPdf($id){
+        $data = HeaderInvoice::find($id);
+
+        $pdf = Pdf::loadView('template.pdf.faktur_pajak', [
+            'data' => $data,
+            'now' => Carbon::now()
+        ]);
+        return $pdf->download('faktur_pajak_'.$data->kode.'.pdf');
+    }
+
     public function createSuratJalanPdf($id){
         $data = HeaderInvoice::find($id);
 
