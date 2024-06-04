@@ -258,9 +258,9 @@
             <a href="{{ url("invoice/detail/$invoice->id/dokumen/invoice") }}">
                 <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Invoice !</button>
             </a>
-            <a href="{{ url("invoice/detail/$invoice->id/dokumen/tanda_terima") }}">
+            {{-- <a href="{{ url("invoice/detail/$invoice->id/dokumen/tanda_terima") }}">
                 <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Tanda Terima !</button>
-            </a>
+            </a> --}}
         </div>
     </div>
 

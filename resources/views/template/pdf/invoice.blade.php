@@ -100,8 +100,8 @@
             <td>{{ $item->nama }}</td>
             <td>{{ $item->qty }}</td>
             <td>SET</td>
-            <td>{{ number_format($item->harga) }}</td>
-            <td>{{ number_format($item->subtotal) }}</td>
+            <td>Rp {{ number_format($item->harga) }}</td>
+            <td>Rp {{ number_format($item->subtotal) }}</td>
         </tr>
         <?php $no += 1; ?>
         @endforeach
@@ -144,8 +144,9 @@
         <tr class="no-border">
             <td class="no-border">
                 <div id="rekening">
-                    <p><b>REKENING PANIN</b></p>
-                    <p><b>6205003619</b></p>
+                    <p><b>REKENING</b></p>
+                    <p><b>6205003619 (BANK PANIN)</b></p>
+                    <p><b>7810889998 (BCA)</b></p>
                     <p><b>an PT. GOLDFINGER WHEELS INDONESIA</b></p>
                 </div>
             </td>

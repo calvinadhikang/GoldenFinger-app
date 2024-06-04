@@ -75,7 +75,7 @@ th, td {
     <p style="margin-bottom: 10px">Email: pt.goldenfingerwheelsindonesia@gmail.com</p>
 
     <h3 class="text-center"><u>TANDA TERIMA</u></h3>
-    <p style="margin-bottom: 10px">Kepada Yth. <span class="kepada">PT. BIMA NUSA INTERNASIONAL</span></p>
+    <p style="margin-bottom: 10px">Kepada Yth. <span class="kepada">{{ $data->customer->nama }}</span></p>
 
     <table>
         <thead>
@@ -90,26 +90,27 @@ th, td {
         <tbody>
             <tr>
                 <td>1</td>
-                <td>05/05/2023</td>
-                <td>GFLM/INV/2305/004</td>
-                <td>PO.BIMA-HO 23050009</td>
-                <td class="text-right">674.500.047</td>
+                <td>{{ date_format($data->created_at, 'd M Y') }}</td>
+                <td>{{ $data->kode }}</td>
+                <td>{{ $data->po }}</td>
+                <td class="text-right">Rp {{ number_format($data->grand_total) }}</td>
             </tr>
             <tr>
                 <td colspan="4">Grand Total</td>
-                <td class="text-right">674.500.047</td>
+                <td class="text-right">Rp {{ number_format($data->grand_total) }}</td>
             </tr>
         </tbody>
     </table>
 
-    <p style="margin-top: 10px">Balikpapan, 11 Mei 2023</p>
+    <p style="margin-top: 10px">Balikpapan, {{ date_format($now, 'd M Y') }}</p>
     <br>
     <div class="inline"></div>
     <div class="flex">
         <div class="rekening">
-            <p>REKENING PANIN</p>
+            <p>REKENING</p>
+            <p>6205003619 (BANK PANIN)</p>
+            <p>7810889998 (BCA)</p>
             <p>an PT.GOLDENFINGER WHEELS INDONESIA</p>
-            <p>6205003619</p>
         </div>
         <div class="box">
             Diterima Oleh,

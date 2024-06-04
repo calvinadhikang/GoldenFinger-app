@@ -278,9 +278,13 @@ class InvoiceController extends Controller
         $invoice = Session::get('invoice_cart');
 
         //cek apakah transaksi lama
+        $isOldTransaction = $request->input('time');
+        $oldNomorTransaksi = $request->input('oldNomorTransaksi') ?? null;
+        $oldMethodTransaksi = $request->input('oldMethodTransaksi') ?? null;
         $timePembayaran = $request->input('timeValuePembayaran');
         $timeCreation = $request->input('timePembuatan') ?? Carbon::now();
 
+        // Kalau bukan transaksi lama, maka cek jatuh tempo
         if ($timePembayaran == null) {
             if (Carbon::parse($jatuhTempo)->isPast()) {
                 toast('Tanggal Jatuh Tempo Minimal Besok', 'error');
@@ -298,7 +302,11 @@ class InvoiceController extends Controller
 
         DB::beginTransaction();
         try {
-            $kode = Util::generateInvoiceCode();
+            if ($isOldTransaction) {
+                $kode = $request->input('oldKode');
+            }else {
+                $kode = Util::generateInvoiceCode();
+            }
             $suratJalan = Util::generateSuratJalanCodeFromInvoiceCode($kode);
 
             $currentDateTime = Carbon::now();
@@ -322,6 +330,8 @@ class InvoiceController extends Controller
                 'confirmed_at' => $timeCreation,
                 'confirmed_by' => $karyawan->id,
                 'status'=> 1,
+                'paid_method' => $oldMethodTransaksi,
+                'paid_code' => $oldNomorTransaksi,
             ]);
 
             foreach ($invoice->list_barang as $key => $value) {
@@ -521,6 +531,7 @@ class InvoiceController extends Controller
         return $obj;
     }
 
+    // Feature Not Used!, Client said no need for this feature
     public function invoiceCreateTandaTerima($id){
         $invoice = HeaderInvoice::find($id);
         return Excel::download(new TandaTerimaExport($invoice), "tanda_terima.xlsx");
@@ -604,6 +615,16 @@ class InvoiceController extends Controller
             'data' => $data
         ]);
         return $pdf->download('invoice_'.$data->kode.'.pdf');
+    }
+
+    public function createTandaTerimaPdf($id){
+        $data = HeaderInvoice::find($id);
+
+        $pdf = Pdf::loadView('template.pdf.tanda_terima', [
+            'data' => $data,
+            'now' => Carbon::now()
+        ]);
+        return $pdf->download('tanda_terima_'.$data->kode.'.pdf');
     }
 
     // Api Functions
