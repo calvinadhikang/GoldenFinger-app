@@ -386,9 +386,13 @@ class InvoiceController extends Controller
             $paid_by = Karyawan::find($invoice->paid_by);
         }
 
+        $hariSisa = Util::getDiffDays($invoice->jatuh_tempo);
+        $isOverdue = Carbon::parse($invoice->jatuh_tempo)->isBefore(now());
+        $daysLeft = $isOverdue ? "Lewat $hariSisa hari dari tanggal jatuh tempo" : "Kurang $hariSisa hari hingga tanggal jatuh tempo";
         return view('master.invoice.detail', [
             'invoice' => $invoice,
-            'daysLeft' => Util::getDiffDays($invoice->jatuh_tempo),
+            'daysLeft' => $daysLeft,
+            'isOverdue' => $isOverdue,
             'paid_by' => $paid_by,
             'confirmed_by' => Karyawan::find($invoice->confirmed_by),
             'statusText' => $invoiceText

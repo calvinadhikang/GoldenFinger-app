@@ -60,7 +60,7 @@
                     @else
                         @foreach ($data as $item)
                             <tr>
-                                <th>{{ $item->kode }}</th>
+                                <td>{{ $item->kode }}</td>
                                 <td>{{ $item->customer->nama }}</td>
                                 <td>Rp {{ number_format($item->grand_total) }}</td>
                                 <td>{{ date_format($item->created_at, 'd M Y') }}</td>

@@ -32,6 +32,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('status');
+            // 1 = Konfirmasi, 2 = Terbayar
 
             $table->unsignedBigInteger('confirmed_by')->nullable();
             $table->unsignedBigInteger('paid_by')->nullable();

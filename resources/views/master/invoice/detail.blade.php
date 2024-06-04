@@ -102,8 +102,7 @@
                 </p>
             </div>
             @if (!$invoice->paid_at)
-                <p class="text-right">Kurang <span class="font-bold text-lg">{{ $daysLeft }}</span> Hari hingga jatuh
-                    tempo</p>
+                <p class="text-right {{ $isOverdue ? "text-red-400" : "" }}">{{ $daysLeft }}</p>
             @endif
 
             @if ($invoice->paid_at == null && $invoice->deleted_at == null)

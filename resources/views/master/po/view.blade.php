@@ -46,7 +46,7 @@
                         ?>
 
                         <tr>
-                            <th>{{ $item->kode }}</th>
+                            <td>{{ $item->kode }}</td>
                             <td>{{ $item->vendor->nama }}</td>
                             <td>{{ $item->vendor->telp }}</td>
                             <td>Rp {{ format_decimal($item->grand_total) }}</td>
