@@ -210,7 +210,7 @@
                             <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran">
                         </div>
                         <div class="">
-                            <label class="text-sm">Waktu Pembayaran</label>
+                            <label class="text-sm">Metode Pembayaran</label>
                             <select name="oldMethodTransaksi" class="select w-full">
                                 <option value="" disabled selected>Pilih Metode Pembayaran</option>
                                 <option value="cash">Cash</option>

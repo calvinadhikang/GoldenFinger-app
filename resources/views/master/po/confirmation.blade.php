@@ -153,23 +153,43 @@
                     <input type="checkbox" class="checkbox checkbox-secondary me-2" name="statusPembayaran" id="statusPembayaran">
                     <label>Pembayaran Sudah Lunas</label>
                 </div>
-                <div class="mt-2 text-slate-400" id="statusValuePembayaran">
-                    <label class="text-sm">Waktu Pembayaran</label>
-                    <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran">
+                <div class="mt-2 space-y-2" id="statusValuePembayaran">
+                    <div class="">
+                        <label class="text-sm">Waktu Pembayaran</label>
+                        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran">
+                    </div>
+                    <div class="">
+                        <label class="text-sm">Metode Pembayaran</label>
+                        <select name="oldMethodTransaksi" class="select w-full">
+                            <option value="" disabled selected>Pilih Metode Pembayaran</option>
+                            <option value="cash">Cash</option>
+                            <option value="transfer">Transfer</option>
+                        </select>
+                    </div>
+                    <div class="">
+                        <label class="text-sm">Nomor Transaksi</label>
+                        <input type="text" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="oldNomorTransaksi">
+                    </div>
                 </div>
                 <p class="font-semibold mb-2 mt-10">Status Penerimaan Barang</p>
                 <div class="flex items-start justify-start">
                     <input type="checkbox" class="checkbox checkbox-secondary me-2" name="statusPenerimaan" id="statusPenerimaan">
                     <label>Barang Pesanan Sudah Diterima</label>
                 </div>
-                <div class="mt-2 text-slate-400" id="statusValuePenerimaan">
+                <div class="mt-2" id="statusValuePenerimaan">
                     <label class="text-sm">Waktu Penerimaan Barang</label>
                     <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePenerimaan" id="timeValuePenerimaan">
                 </div>
             </div>
-            <div class="w-full">
-                <p class="font-semibold">Tanggal Pembuatan Purchase Order</p>
-                <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timePembuatan" id="timePembuatan">
+            <div class="w-full space-y-2">
+                <div class="">
+                    <p class="font-semibold">Kode Purchase Order</p>
+                    <input type="text" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="oldKode">
+                </div>
+                <div class="">
+                    <p class="font-semibold">Tanggal Pembuatan Purchase Order</p>
+                    <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timePembuatan" id="timePembuatan">
+                </div>
             </div>
         </div>
     </div>

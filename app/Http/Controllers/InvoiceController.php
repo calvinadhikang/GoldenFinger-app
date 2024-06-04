@@ -164,6 +164,14 @@ class InvoiceController extends Controller
 
         foreach ($barangs as $key => $barang) {
             $obj = Barang::find($barang->part);
+
+            // Cek tidak boleh lebih dari stok yang tersedia
+            if ($barang->qty > $obj->stok) {
+                return redirect()->back()->withErrors([
+                    'msg' => 'Stok barang '.$obj->nama.' tidak mencukupi !'
+                ]);
+            }
+
             $obj->qty = $barang->qty;
             $price = Util::parseNumericValue($barang->harga);
             $obj->clean_price = $price;

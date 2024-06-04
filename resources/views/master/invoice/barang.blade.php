@@ -25,6 +25,7 @@
             <tr>
                 <th><h3 class="font-bold">Part Number</h3></th>
                 <th><h3 class="font-bold">Nama</h3></th>
+                <th><h3 class="font-bold">Stok</h3></th>
                 <th><h3 class="font-bold">Harga</h3></th>
                 <th><h3 class="font-bold">Quantity</h3></th>
             </tr>
@@ -34,6 +35,7 @@
             <tr>
                 <td>{{ $item->part }}</td>
                 <td>{{ $item->nama }}</td>
+                <td>{{ $item->stok }}</td>
                 <td>
                     <div class="flex items-center">
                         <div class="me-2 font-medium text-lg">Rp</div>
@@ -139,13 +141,13 @@ $('body').on('keyup', '.qty-input', function() {
             if (!isNaN(integerValue)) {
                 let index = data.filter((item) => item.part == part);
                 if (index.length > 0) {
-                    index[0].qty = qty
+                    index[0].qty = parseInt(qty)
                     index[0].harga = harga
                 }else{
                     data.push({
                         part: part,
                         harga: harga,
-                        qty: qty
+                        qty: parseInt(qty)
                     })
                 }
             }
@@ -195,13 +197,13 @@ $('body').on('keyup', '.qty-paket-input', function() {
             if (!isNaN(integerValue)) {
                 let index = paket.filter((item) => item.part == part);
                 if (index.length > 0) {
-                    index[0].qty = qty
+                    index[0].qty = parseInt(qty)
                     index[0].harga = harga
                 }else{
                     paket.push({
                         part: part,
                         harga: harga,
-                        qty: qty
+                        qty: parseInt(qty)
                     })
                 }
             }

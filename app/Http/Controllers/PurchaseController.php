@@ -90,14 +90,16 @@ class PurchaseController extends Controller
     }
 
     public function purchaseBarangAdd(Request $request){
-        $qty = $request->input('qty');
-        $part = $request->input('part');
+        $barangs = json_decode($request->input('barang'));
 
         $list = [];
-        for ($i=0; $i < count($qty); $i++) {
-            if ($qty[$i] > 0) {
-                $obj = Barang::find($part[$i]);
-                $obj->qty = $qty[$i];
+        for ($i=0; $i < count($barangs); $i++) {
+            $targetPart = $barangs[$i]->part;
+            $targetQty = $barangs[$i]->qty;
+
+            if ($targetQty > 0) {
+                $obj = Barang::find($targetPart);
+                $obj->qty = $targetQty;
 
                 $list[] = $obj;
             }
@@ -225,6 +227,9 @@ class PurchaseController extends Controller
         $jatuhTempo = Carbon::parse($request->input('jatuhTempo'));
 
         //cek apakah transaksi lama
+        $isOldTransaction = $request->input('time');
+        $oldMethodTransaksi = $request->input('oldMethodTransaksi') ?? null;
+        $oldNomorTransaksi = $request->input('oldNomorTransaksi') ?? null;
         $timePembayaran = $request->input('timeValuePembayaran') ?? null;
         $timeCreation = $request->input('timePembuatan') ?? Carbon::now();
         $timePenerimaan = $request->input('timeValuePenerimaan') ?? null;
@@ -238,10 +243,16 @@ class PurchaseController extends Controller
 
         DB::beginTransaction();
         try {
+            if ($isOldTransaction) {
+                $kode = $request->input('oldKode');
+            } else {
+                $kode = Util::generatePurchaseCode();
+            }
+
             //insert header
             $lastId = DB::table('hpurchase')->insertGetId([
                 'vendor_id' => $po->vendor->id,
-                'kode' => Util::generatePurchaseCode(),
+                'kode' => $kode,
                 'karyawan_id' => $user->id,
                 'total' => $po->total,
                 'grand_total' => $po->grandTotal,
@@ -252,7 +263,9 @@ class PurchaseController extends Controller
                 'paid_at' => $timePembayaran,
                 'paid_by' => $timePembayaran != null ? Session::get('user')->id : null,
                 'recieved_at' => $timePenerimaan,
-                'recieved_by' => $timePenerimaan != null ? Session::get('user')->id : null
+                'recieved_by' => $timePenerimaan != null ? Session::get('user')->id : null,
+                'paid_method' => $oldMethodTransaksi,
+                'paid_code' => $oldNomorTransaksi,
             ]);
 
             foreach ($po->list as $key => $value) {

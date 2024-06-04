@@ -20,7 +20,7 @@
     <p>Isi jumlah barang yang ingin dibeli, di kolom "Quantity"</p>
 </div>
 <div class="rounded bg-accent p-4 my-5">
-    <form method="POST">
+    <form method="POST" id="form">
         @csrf
         <table class="data-table table-zebra">
             <thead>
@@ -38,7 +38,7 @@
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->stok }}</td>
                     <td>
-                        <input type="number" class="input input-bordered input-secondary" name="qty[]" value="{{ $item->qty }}">
+                        <input type="number" class="input input-bordered input-secondary qty-input" name="qty[]" part="{{ $item->part }}" value="{{ $item->qty }}">
                         <input type="hidden" name="part[]" value="{{ $item->part }}">
                     </td>
                 </tr>
@@ -51,15 +51,71 @@
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
-    $(".harga").on("input", function() {
-        // Remove commas and non-numeric characters from the input value
-        let rawValue = $(this).val().replace(/[^0-9]/g, '');
+let data = [];
+let listQtyInput = document.querySelectorAll('.qty-input');
 
-        // Format the input value with thousand separators
-        let formattedValue = Number(rawValue).toLocaleString();
+$('body').on('keyup', '.qty-input', function() {
+    let qty = $(this).val();
+    let part = $(this).attr('part');
+    // let harga = 0;
 
-        // Update the input value with the formatted value
-        $(this).val(formattedValue);
-    });
+    // listHargaInput.forEach(element => {
+    //     if (element.getAttribute('part') == part) {
+    //         harga = element.value
+    //     }
+    // });
+
+    try {
+        if (qty == "" || qty <= 0) {
+            let index = 0;
+            for (let i = 0; i < data.length; i++) {
+                const element = data[i];
+                if (element.part == part) {
+                    index = i;
+                }
+            }
+
+            data.splice(index, 1)
+        }else{
+            let integerValue = parseInt(qty.toString())
+            if (!isNaN(integerValue)) {
+                let index = data.filter((item) => item.part == part);
+                if (index.length > 0) {
+                    index[0].qty = integerValue
+                    // index[0].harga = harga
+                }else{
+                    data.push({
+                        part: part,
+                        qty: integerValue,
+                        // harga: harga,
+                    })
+                }
+            }
+        }
+    } catch (error) {
+
+    }
+    console.log(data)
+});
+
+$('#form').submit(function(event) {
+    $("<input />").attr("type", "hidden")
+        .attr("name", "barang")
+        .attr("value", JSON.stringify(data))
+        .appendTo("#form");
+
+    return true;
+});
+
+$(".harga").on("input", function() {
+    // Remove commas and non-numeric characters from the input value
+    let rawValue = $(this).val().replace(/[^0-9]/g, '');
+
+    // Format the input value with thousand separators
+    let formattedValue = Number(rawValue).toLocaleString();
+
+    // Update the input value with the formatted value
+    $(this).val(formattedValue);
+});
 </script>
 @endsection
