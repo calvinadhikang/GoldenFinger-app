@@ -627,6 +627,16 @@ class InvoiceController extends Controller
         return $pdf->download('tanda_terima_'.$data->kode.'.pdf');
     }
 
+    public function createSuratJalanPdf($id){
+        $data = HeaderInvoice::find($id);
+
+        $pdf = Pdf::loadView('template.pdf.surat_jalan', [
+            'data' => $data,
+            'now' => Carbon::now()
+        ]);
+        return $pdf->download('surat_jalan_'.$data->kode.'.pdf');
+    }
+
     // Api Functions
     public function getTotalPartSoldThisYear(){
         $currentYear = Carbon::now()->year;
