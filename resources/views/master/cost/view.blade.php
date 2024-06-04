@@ -22,6 +22,7 @@
                 <tr>
                     <th><h3 class="font-bold">Deskripsi</h3></th>
                     <th><h3 class="font-bold">Total</h3></th>
+                    <th><h3 class="font-bold">Karyawan</h3></th>
                     <th><h3 class="font-bold">Tanggal</h3></th>
                     <th><h3 class="font-bold">Aksi</h3></th>
                 </tr>
@@ -36,6 +37,7 @@
                     <tr>
                         <td>{{ $item->deskripsi }}</td>
                         <td>Rp {{ format_decimal($item->total) }}</td>
+                        <td>{{ $item->karyawan_text }}</td>
                         <td>{{ date_format($item->created_at, 'd M Y') }}</td>
                         <td>
                             <button onclick="my_modal_3.showModal()" class="btn-modal" id-cost="{{ $item->id }}" value="{{ $item->deskripsi }}"><i class="fa-solid fa-trash text-red-600 hover:text-red-400"></i></button>

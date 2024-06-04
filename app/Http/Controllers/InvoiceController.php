@@ -452,6 +452,7 @@ class InvoiceController extends Controller
                         DB::table('operational_cost')->insert([
                             'total' => $invoice->komisi,
                             'deskripsi' => "Komisi kepada $invoice->contact_person pada Invoice $invoice->kode",
+                            'karyawan_id' => $invoice->confirmed_by,
                             'created_at' => Carbon::now()
                         ]);
                     }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Karyawan;
 use App\Models\OperationalCost;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use stdClass;
 
 class OperationalCostController extends Controller
@@ -19,6 +21,10 @@ class OperationalCostController extends Controller
             $data = OperationalCost::whereBetween('created_at', [$startDate, $endDate])->orderBy('created_at', 'desc')->get();
         }else{
             $data = OperationalCost::orderBy('created_at', 'desc')->get();
+        }
+
+        foreach ($data as $key => $value) {
+            $value->karyawan_text = Karyawan::find($value->karyawan_id)->nama;
         }
 
         return view('master.cost.view', [
@@ -36,6 +42,7 @@ class OperationalCostController extends Controller
     }
 
     public function costAddAction(Request $request){
+        $user = Session::get('user');
         $deskripsi = $request->input('deskripsi');
         $tanggal = $request->input('tanggal');
         $total = intval(str_replace(',', '', $request->input('total')));
@@ -45,6 +52,7 @@ class OperationalCostController extends Controller
         $cost = new OperationalCost();
         $cost->deskripsi = $deskripsi;
         $cost->total = $total;
+        $cost->karyawan_id = $user->id;
         $cost->created_at = $tanggal;
         $cost->save();
 

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('operational_cost', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('karyawan_id');
             $table->string('deskripsi');
             $table->decimal('total', 10, 2);
             $table->timestamps();
