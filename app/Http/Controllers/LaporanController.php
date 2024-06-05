@@ -310,6 +310,28 @@ class LaporanController extends Controller
             'mulai' => $mulai,
             'akhir' => $akhir,
             'data' => $data,
+            'total' => $totalBersih
         ]);
+    }
+
+    public function labaBersihPdfDownload(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $data = DFIFO::whereBetween('created_at', [$mulai, $akhir])->get();
+
+        $totalBersih = 0;
+        foreach ($data as $key => $value) {
+            $totalBersih += $value->profit_total;
+            $value->invoice = HeaderInvoice::find($value->hinvoice_id);
+        }
+
+        $pdf = Pdf::loadView('template.pdf.laporan.lababersih.laporan_laba_bersih', [
+            'data' => $data,
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'total' => $totalBersih
+        ]);
+        return $pdf->download('laporan_laba_bersih.pdf');
     }
 }

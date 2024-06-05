@@ -22,7 +22,7 @@
     @else
         <div class="grid grid-cols-2 text-xl font-bold mb-10">
             <p>Laba Bersih :</p>
-            <p class="text-right text-primary">Rp {{ number_format(900000) }}</p>
+            <p class="text-right text-primary">Rp {{ number_format($total) }}</p>
         </div>
 
         <div class="font-medium text-lg">Detail Transaksi</div>
@@ -30,51 +30,35 @@
             <table class="data-table table-zebra">
                 <thead>
                     <tr>
-                        <th><h3 class="font-bold">Kode</h3></th>
+                        <th><h3 class="font-bold">Invoice</h3></th>
                         <th><h3 class="font-bold">Part Number</h3></th>
-                        <th><h3 class="font-bold">Harga Jual</h3></th>
-                        <th><h3 class="font-bold">Harga Beli</h3></th>
-                        <th><h3 class="font-bold">Profit</h3></th>
                         <th><h3 class="font-bold">Qty Penjualan</h3></th>
-                        <th><h3 class="font-bold">Profit Total</h3></th>
+                        <th><h3 class="font-bold">Harga Beli</h3></th>
+                        <th><h3 class="font-bold">Harga Jual</h3></th>
+                        <th><h3 class="font-bold">Pendapatan per 1 Barang</h3></th>
+                        <th><h3 class="font-bold">Pendapatan Total</h3></th>
+                        <th><h3 class="font-bold">Tanggal Transaksi</h3></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @if (count($data) <= 0)
+                    @if (count($data) <= 0)
                         <tr>
-                            <th class="text-error text-lg" colspan="7">Tidak ada Data...</th>
+                            <th class="text-error" colspan="8">Tidak ada Data...</th>
                         </tr>
-                    @else --}}
+                    @else
+                        @foreach ($data as $item)
                         <tr>
-                            <td>GFLM/INV/2405/001</td>
-                            <td>LIButyl</td>
-                            <td>Rp 500,000</td>
-                            <td>Rp 300,000</td>
-                            <td>Rp 200,000</td>
-                            <td>3 SET</td>
-                            <td>Rp 600,000</td>
-                        </tr>
-                        <tr>
-                            <td>GFLM/INV/2405/002</td>
-                            <td>B750R16</td>
-                            <td>Rp 450,000</td>
-                            <td>Rp 300,000</td>
-                            <td>Rp 150,000</td>
-                            <td>2 SET</td>
-                            <td>Rp 300,000</td>
-                        </tr>
-                        {{-- @foreach ($data as $item)
-                        <tr>
-                            <td>{{ $item->kode }}</td>
-                            <td>{{ $item->customer->nama }}</td>
-                            <td>Rp {{ number_format($item->total) }}</td>
-                            <td>{{ date_format($item->created_at, 'd M Y') }}</td>
-                            <td>
-                                {{ date_format(new DateTime($item->jatuh_tempo), 'd M Y') }}
-                            </td>
+                            <td>{{ $item->invoice->kode }}</td>
+                            <td>{{ $item->part }}</td>
+                            <td>{{ number_format($item->qty) }}</td>
+                            <td>Rp {{ number_format($item->harga_beli) }}</td>
+                            <td>Rp {{ number_format($item->harga_jual) }}</td>
+                            <td>Rp {{ number_format($item->profit_each) }}</td>
+                            <td>Rp {{ number_format($item->profit_total) }}</td>
+                            <td>{{ date_format(new DateTime($item->created_at), 'd M Y') }}</td>
                         </tr>
                         @endforeach
-                    @endif --}}
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -82,7 +66,7 @@
 </div>
 @if ($mulai != null)
 <div class="my-5">
-    <a href="{{ url("/laporan/pendapatan/pdf?mulai=$mulai&akhir=$akhir") }}">
+    <a href="{{ url("/laporan/laba_bersih/pdf?mulai=$mulai&akhir=$akhir") }}">
         <button class="btn-block btn btn-secondary"><i class="fa-solid fa-file-pdf text-base hover:text-secondary"></i>Buat Laporan PDF</button>
     </a>
 </div>

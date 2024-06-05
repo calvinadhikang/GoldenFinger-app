@@ -24,8 +24,8 @@
 </style>
 <body>
     <h1 class="text-center">Laporan Laba Bersih</h1>
-    <p class="text-center">Periode 1 Feb 2024 - 29 Feb 2024</p>
-    <h4>Pendapatan Bersih Penjualan: Rp 7.610.000</h4>
+    <p class="text-center">Periode {{ $mulai }} - {{ $akhir }}</p>
+    <h4>Pendapatan Bersih Penjualan: Rp {{ number_format($total) }}</h4>
     <p>Pendapatan setelah dihitung dengan selisih harga pembelian dan harga penjualan</p>
     <table>
         <thead>
@@ -37,36 +37,28 @@
                 <th>Harga Jual</th>
                 <th>Pendapatan per 1 barang</th>
                 <th>Pendapatan Total</th>
+                <th>Tanggal Transaksi</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>INV/GFLM/2402/001</td>
-                <td>B1200R24L317</td>
-                <td>6 SET</td>
-                <td>Rp 1.000.000</td>
-                <td>Rp 2.000.000</td>
-                <td>Rp 1.000.000</td>
-                <td>Rp 6.000.000</td>
-            </tr>
-            <tr>
-                <td>INV/GFLM/2402/001</td>
-                <td>B750R16</td>
-                <td>4 SET</td>
-                <td>Rp 800.000</td>
-                <td>Rp 950.000</td>
-                <td>Rp 150.000</td>
-                <td>Rp 600.000</td>
-            </tr>
-            <tr>
-                <td>INV/GFLM/2402/003</td>
-                <td>B1200R24L317</td>
-                <td>1 SET</td>
-                <td>Rp 990.000</td>
-                <td>Rp 2.000.000</td>
-                <td>Rp 1.010.000</td>
-                <td>Rp 1.010.000</td>
-            </tr>
+            @if (count($data) <= 0)
+                <tr>
+                    <th class="text-error" colspan="8">Tidak ada Data...</th>
+                </tr>
+            @else
+                @foreach ($data as $item)
+                <tr>
+                    <td>{{ $item->invoice->kode }}</td>
+                    <td>{{ $item->part }}</td>
+                    <td>{{ number_format($item->qty) }}</td>
+                    <td>Rp {{ number_format($item->harga_beli) }}</td>
+                    <td>Rp {{ number_format($item->harga_jual) }}</td>
+                    <td>Rp {{ number_format($item->profit_each) }}</td>
+                    <td>Rp {{ number_format($item->profit_total) }}</td>
+                    <td>{{ date_format(new DateTime($item->created_at), 'd M Y') }}</td>
+                </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 </body>
