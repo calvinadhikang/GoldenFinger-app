@@ -57,12 +57,6 @@
                             Kategori
                         </div>
                     </a></li>
-                    <li><a href="{{ url('/paket') }}">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-layer-group me-2 w-6"></i>
-                            Paket Penjualan
-                        </div>
-                    </a></li>
                     <li><a href="{{ url('/customer') }}">
                         <div class="flex items-center">
                             <i class="fa-solid fa-user me-2 w-6"></i>
@@ -130,7 +124,7 @@
                     </a></li>
                     <li><a href="{{ url('/penawaran') }}">
                         <div class="flex items-center">
-                            <i class="fa-solid fa-boxes-stacked me-2 w-6"></i>
+                            <i class="fa-solid fa-layer-group me-2 w-6"></i>
                             Penawaran
                         </div>
                     </a></li>

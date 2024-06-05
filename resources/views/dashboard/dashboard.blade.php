@@ -51,7 +51,6 @@
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2 mb-5">
         <div class="p-4 bg-slate-800 rounded w-full mb-10">
             <h1 class="text-lg font-medium">Total Penjualan Barang Tahun Ini</h1>
-            <p class="text-xs text-slate-400 mb-5">*penjualan dalam bentuk Paket tidak termasuk</p>
             <canvas id="chart-penjualan"></canvas>
         </div>
     </div>

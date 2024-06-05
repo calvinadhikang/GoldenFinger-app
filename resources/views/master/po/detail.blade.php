@@ -46,9 +46,9 @@
             @if ($po->recieved_at == null)
                 <div class="text-white bg-error font-semibold text-xl text-center rounded p-3">On Process</div>
                 @if ($po->deleted_by == null)
-                    <p class="mt-10 mb-2">Barang pesanan sudah sampai ?</p>
+                    <p class="mt-10 mb-2">Barang pesanan sudah sampai / Perlu mengganti jumlah pesanan ?</p>
                     <button onclick="modal_pesanan.showModal()" class="btn btn-primary">
-                        Ya, Sudah Sampai
+                        Ya, Update Data
                     </button>
                 @endif
             @else
@@ -231,7 +231,7 @@
                 <select name="status" class="select w-full" required>
                     <option value="" disabled selected>Pilih Jumlah Barang</option>
                     <option value="0">Jumlah Barang Sesuai</option>
-                    <option value="-1">Jumlah Barang Kurang</option>
+                    <option value="-1">Jumlah Barang Kurang/Lebih</option>
                 </select>
                 <p class="mt-4">Masukan password</p>
                 <div class="flex gap-x-2">

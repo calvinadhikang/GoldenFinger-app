@@ -92,42 +92,6 @@
     @endif
 </div>
 
-{{-- <div class="flex items-center mb-5">
-    <i class="fa-solid me-2 w-6 fa-layer-group"></i>
-    <h3 class="font-semibold text-xl">Data Paket Pesanan</h3>
-</div>
-<div class="rounded bg-accent p-4 my-5">
-    @if (count($invoice->list_paket) <= 0)
-    <p class="text-error">Tidak ada pesanan paket</p>
-    @else
-    <table class="data-table table-zebra">
-        <thead>
-            <tr>
-                <th><h3 class="font-bold">Part Number</h3></th>
-                <th><h3 class="font-bold">Nama</h3></th>
-                <th><h3 class="font-bold">Harga</h3></th>
-                <th><h3 class="font-bold">Jumlah</h3></th>
-                <th><h3 class="font-bold">Subtotal</h3></th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach ($invoice->list_paket as $item)
-            <tr>
-                <td>{{ $item->id }}</td>
-                <td>{{ $item->nama }}</td>
-                <td>
-                    <p>Rp {{ format_decimal($item->harga) }}</p>
-                </td>
-                <td>{{ number_format($item->qty) }}</td>
-                <td>Rp {{ format_decimal($item->subtotal) }}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-    <p class="text-right mt-5 text-lg font-semibold">Total : Rp {{ format_decimal($invoice->total_list_paket) }}</p>
-    @endif
-</div> --}}
-
 <h2 class="font-semibold text-xl mb-5">Informasi Pajak</h2>
 <div class="rounded bg-accent p-4 my-5">
     <div class="grid grid-cols-1 md:grid-cols-2">

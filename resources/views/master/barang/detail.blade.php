@@ -62,7 +62,7 @@
 
 <h1 class="text-xl font-medium my-5">Status Barang</h1>
 <div class="bg-accent p-4 rounded grid grid-cols-2 items-center">
-    <p class="font-semibold text-xl {{ $barang->deleted_at ? 'text-error' : 'text-secondary' }}">{{ $barang->deleted_at ? 'Terhapus' : 'Tersedia' }}</p>
+    <p class="font-semibold text-xl {{ $barang->deleted_at ? 'text-error' : 'text-secondary' }}">{{ $barang->deleted_at ? 'Terhapus' : 'Tersedia / Tidak Terhapus' }}</p>
     <form action="{{ url("/barang/detail/$barang->part/toggle") }}" class="text-right" method="POST">
         @csrf
         <button class="btn {{ $barang->deleted_at ? 'btn-secondary' : 'btn-error' }}">{{ $barang->deleted_at ? 'Aktifkan' : 'Hapus' }}</button>
@@ -78,13 +78,13 @@
             <div class="stat-desc"><a href="{{ url('/po') }}">Tambah Stok</a></div>
         </div>
     </div>
-    <div class="stats shadow bg-accent">
+    {{-- <div class="stats shadow bg-accent">
         <div class="stat">
             <div class="stat-title">Pembelian Bulan Ini</div>
             <div class="stat-value">0 pcs</div>
             <div class="stat-desc">0% dari bulan lalu</div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <h1 class="text-xl font-medium my-5">Mutasi Stok</h1>
@@ -109,10 +109,16 @@
                 <h1 class="text-sm">{{ date_format($item->created_at, 'd M Y') }}</h1>
             </div>
             <div class="">
-                <h1 class="text-lg">Invoice</h1>
+                <h1 class="text-lg">Invoice / PurchaseOrder</h1>
+                @if ($item->status == 'masuk')
+                <a href="{{ url("/po/detail/$item->trans_id") }}">
+                    <h1 class="text-sm link">{{ $item->trans_kode }}</h1>
+                </a>
+                @else
                 <a href="{{ url("/invoice/detail/$item->trans_id") }}">
                     <h1 class="text-sm link">{{ $item->trans_kode }}</h1>
                 </a>
+                @endif
             </div>
         </div>
     @endforeach

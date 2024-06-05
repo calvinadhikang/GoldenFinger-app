@@ -431,111 +431,85 @@ class InvoiceController extends Controller
         }
 
         if ($invoice->paid_at == null) {
-            foreach ($invoice->details as $key => $detail) {
-                $part = $detail->part;
+            DB::beginTransaction();
+            try {
+                foreach ($invoice->details as $key => $detail) {
+                    $part = $detail->part;
 
-                DB::beginTransaction();
-                try {
-                    if ($detail->type == 'barang') {
-                        //Mengurangi Stok pada table Barang
-                        DB::table('barang')->where('part', $part)->decrement('stok', $detail->qty);
+                    //Mengurangi Stok pada table Barang
+                    DB::table('barang')->where('part', $part)->decrement('stok', $detail->qty);
 
-                        //Buat Row Baru di table Stock Mutation
-                        DB::table('stock_mutation')->insert([
-                            'barang_id' => $part,
-                            'qty' => $detail->qty,
-                            'qty-used' => 0,
-                            'harga' => $detail->harga,
-                            'status' => 'keluar',
-                            'trans_id' => $invoice->id,
-                            'trans_kode' => $invoice->kode,
+                    //Buat Row Baru di table Stock Mutation
+                    DB::table('stock_mutation')->insert([
+                        'barang_id' => $part,
+                        'qty' => $detail->qty,
+                        'qty-used' => 0,
+                        'harga' => $detail->harga,
+                        'status' => 'keluar',
+                        'trans_id' => $invoice->id,
+                        'trans_kode' => $invoice->kode,
+                        'created_at' => Carbon::now()
+                    ]);
+
+                    // DFIFO Logic
+                    // Masukan DFIFO terus, sampai qty terpenuhi
+                    $targetQty = $detail->qty;
+                    $targetInserted = 0;
+                    while ($targetInserted < $targetQty) {
+                        // Ambil HFIFO yang qty_used < qty_max
+                        $hfifo = DB::table('hfifo')->where('part', $part)->where('qty_used', '<', DB::raw('qty_max'))->orderBy('created_at')->first();
+
+                        $available_fifo = $hfifo->qty_max - $hfifo->qty_used;
+                        $toBeInserted = $targetQty - $targetInserted;
+                        $qtyToInsert = min($available_fifo, $toBeInserted);
+
+                        // Tambahkan data DFIFO
+                        DB::table('dfifo')->insert([
+                            'hfifo_id' => $hfifo->id,
+                            'hpurchase_id' => $hfifo->hpurchase_id,
+                            'dpurchase_id' => $hfifo->dpurchase_id,
+                            'hinvoice_id' => $detail->hinvoice_id,
+                            'dinvoice_id' => $detail->id,
+                            'part' => $part,
+                            'harga_beli' => $hfifo->harga_beli,
+                            'harga_jual' => $detail->harga,
+                            'profit_each' => $detail->harga - $hfifo->harga_beli,
+                            'profit_total' => ($detail->harga - $hfifo->harga_beli) * $qtyToInsert,
+                            'qty' => $qtyToInsert,
                             'created_at' => Carbon::now()
                         ]);
 
-                        // DFIFO Logic
-                        // Masukan DFIFO terus, sampai qty terpenuhi
-                        $targetQty = $detail->qty;
-                        $targetInserted = 0;
-                        while ($targetInserted < $targetQty) {
-                            // Ambil HFIFO yang qty_used < qty_max
-                            $hfifo = DB::table('hfifo')->where('part', $part)->where('qty_used', '<', DB::raw('qty_max'))->orderBy('created_at')->first();
+                        // Tambahkan counter qty_used pada HFIFO
+                        DB::table('hfifo')->where('id', $hfifo->id)->increment('qty_used', $qtyToInsert);
 
-                            if ($hfifo == null) {
-                                // Jika tidak ada HFIFO yang qty_used < qty_max, maka break
-                                dd('HFIFO habis!');
-                                break;
-                            }
-
-                            $available_fifo = $hfifo->qty_max - $hfifo->qty_used;
-                            $toBeInserted = $targetQty - $targetInserted;
-                            $qtyToInsert = min($available_fifo, $toBeInserted);
-
-                            // Tambahkan data DFIFO
-                            DB::table('dfifo')->insert([
-                                'hfifo_id' => $hfifo->id,
-                                'hpurchase_id' => $hfifo->hpurchase_id,
-                                'dpurchase_id' => $hfifo->dpurchase_id,
-                                'hinvoice_id' => $detail->hinvoice_id,
-                                'dinvoice_id' => $detail->id,
-                                'part' => $part,
-                                'harga_beli' => $hfifo->harga_beli,
-                                'harga_jual' => $detail->harga,
-                                'profit_each' => $detail->harga - $hfifo->harga_beli,
-                                'profit_total' => ($detail->harga - $hfifo->harga_beli) * $qtyToInsert,
-                                'qty' => $qtyToInsert,
-                                'created_at' => Carbon::now()
-                            ]);
-
-                            // Tambahkan counter qty_used pada HFIFO
-                            DB::table('hfifo')->where('id', $hfifo->id)->increment('qty_used', $qtyToInsert);
-
-                            // Tambahkan counter iterasi
-                            $targetInserted += $qtyToInsert;
-                        }
-                    }else{
-                        $paket = HeaderPaket::withTrashed()->where('id', $part)->first();
-                        foreach ($paket->details as $key => $value) {
-                            DB::table('barang')->where('part', $value->part)->decrement('stok', $value->qty);
-
-                            DB::table('stock_mutation')->insert([
-                                'barang_id' => $value->part,
-                                'qty' => $value->qty,
-                                'qty-used' => 0,
-                                'harga' => $paket->harga,
-                                'status' => 'keluar',
-                                'trans_id' => $invoice->id,
-                                'trans_kode' => $invoice->kode,
-                                'type' => 'paket',
-                                'created_at' => Carbon::now()
-                            ]);
-                        }
+                        // Tambahkan counter iterasi
+                        $targetInserted += $qtyToInsert;
                     }
-
-                    if ($invoice->komisi > 0) {
-                        DB::table('operational_cost')->insert([
-                            'total' => $invoice->komisi,
-                            'deskripsi' => "Komisi kepada $invoice->contact_person pada Invoice $invoice->kode",
-                            'karyawan_id' => $invoice->confirmed_by,
-                            'created_at' => Carbon::now()
-                        ]);
-                    }
-
-                    DB::commit();
-
-                    toast('Berhasil Melunasi Transaksi', 'success');
-                    $invoice->paid_at = Carbon::now();
-                    $invoice->paid_by = $user->id;
-                    $invoice->paid_method = $payment_method;
-                    $invoice->paid_code = $payment_code;
-                    $invoice->status = 2;
-                    $invoice->save();
-                    return back();
-                } catch (Exception $ex) {
-                    dd('error');
-                    dd($ex->getMessage());
-                    DB::rollBack();
                 }
+
+                if ($invoice->komisi > 0) {
+                    DB::table('operational_cost')->insert([
+                        'total' => $invoice->komisi,
+                        'deskripsi' => "Komisi kepada $invoice->contact_person pada Invoice $invoice->kode",
+                        'karyawan_id' => $invoice->confirmed_by,
+                        'created_at' => Carbon::now()
+                    ]);
+                }
+
+                DB::commit();
+
+                toast('Berhasil Melunasi Transaksi', 'success');
+                $invoice->paid_at = Carbon::now();
+                $invoice->paid_by = $user->id;
+                $invoice->paid_method = $payment_method;
+                $invoice->paid_code = $payment_code;
+                $invoice->status = 2;
+                $invoice->save();
+            } catch (\Exception $ex) {
+                DB::rollBack();
+                toast($ex->getMessage(), 'error');
             }
+            return back();
         }
     }
 

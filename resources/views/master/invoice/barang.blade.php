@@ -51,39 +51,6 @@
     </table>
 </div>
 
-
-{{-- <div class="mb-5 mt-10 flex items-center">
-    <i class="fa-solid fa-layer-group me-2 w-6"></i>
-    <h2 class="text-xl font-bold">Pilih Paket Penjualan</h2>
-</div>
-<div class="p-4 bg-accent rounded">
-    <table class="table-zebra data-table">
-        <thead>
-            <tr>
-                <th><h3 class="font-bold">Nama</h3></th>
-                <th><h3 class="font-bold">Harga</h3></th>
-                <th><h3 class="font-bold">Quantity</h3></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($paket as $item)
-            <tr>
-                <td>{{ $item->nama }}</td>
-                <td>
-                    <div class="flex items-center">
-                        <div class="me-2 font-medium text-lg">Rp</div>
-                        <input type="text" class="input input-bordered input-secondary harga flex-shrink harga-paket-input" part="{{ $item->id }}" value="{{ number_format($item->harga) }}">
-                    </div>
-                </td>
-                <td>
-                    <input type="number" class="input input-bordered input-secondary qty-paket-input" part="{{ $item->id }}" value="0">
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div> --}}
-
 @if ($hutang > 0)
     <div role="alert" class="alert alert-warning mt-10 mb-5">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
