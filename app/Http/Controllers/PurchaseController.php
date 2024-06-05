@@ -269,13 +269,41 @@ class PurchaseController extends Controller
             ]);
 
             foreach ($po->list as $key => $value) {
-                DB::table('dpurchase')->insert([
+                $dpurchaseId = DB::table('dpurchase')->insertGetId([
                     'hpurchase_id' => $lastId,
                     'part' => $value->part,
                     'nama' => $value->nama,
                     'harga' => $value->harga,
                     'qty' => $value->qty,
                     'subtotal' => $value->subtotal,
+                ]);
+
+                if ($isOldTransaction) {
+                    //Menambahkan Stok ke table Barang
+                    DB::table('barang')->where('part', $value->part)->increment('stok', $value->qty);
+
+                    //Buat Row Baru di table Stock Mutation
+                    DB::table('stock_mutation')->insert([
+                        'barang_id' => $value->part,
+                        'qty' => $value->qty,
+                        'qty-used' => 0,
+                        'harga' => $value->harga,
+                        'status' => 'masuk',
+                        'trans_id' => $lastId,
+                        'trans_kode' => $kode,
+                        'created_at' => Carbon::now()
+                    ]);
+                }
+
+                // Keperluan Fifo
+                DB::table('hfifo')->insert([
+                    'hpurchase_id' => $lastId,
+                    'dpurchase_id' => $dpurchaseId,
+                    'part' => $value->part,
+                    'harga_beli' => $value->harga,
+                    'qty_max' => $value->qty,
+                    'qty_used' => 0,
+                    'created_at' => Carbon::now()
                 ]);
             }
 

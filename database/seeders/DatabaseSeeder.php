@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Barang;
 use App\Models\BarangVendor;
 use App\Models\Customer;
+use App\Models\HFIFO;
 use App\Models\Karyawan;
 use App\Models\SharesModel;
 use App\Models\Vendor;
@@ -76,9 +77,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-            'nama' => 'Bagong',
-            'username' => 'bagong',
-            'password' => Hash::make('bagong'),
+            'nama' => 'Aldi',
+            'username' => 'aldi',
+            'password' => Hash::make('aldi'),
             'telp' => '081267562393',
             'role' => "Teknisi",
             'status' => 'Aktif',
@@ -109,6 +110,15 @@ class DatabaseSeeder extends Seeder
             'public' => true
         ]);
 
+        HFIFO::create([
+            'hpurchase_id' => 0,
+            'dpurchase_id' => 0,
+            'part' => 'B750R16',
+            'harga_beli' => 0,
+            'qty_max' => 20,
+            'qty_used' => 0
+        ]);
+
         Barang::create([
             'part' => 'B1200R24L317',
             'nama' => 'Bridgestone - Tyre 1200 R24 L317',
@@ -116,6 +126,15 @@ class DatabaseSeeder extends Seeder
             'batas' => 10,
             'stok' => 12,
             'public' => true
+        ]);
+
+        HFIFO::create([
+            'hpurchase_id' => 0,
+            'dpurchase_id' => 0,
+            'part' => 'B1200R24L317',
+            'harga_beli' => 0,
+            'qty_max' => 12,
+            'qty_used' => 0
         ]);
 
         Barang::create([
@@ -127,6 +146,15 @@ class DatabaseSeeder extends Seeder
             'public' => true
         ]);
 
+        HFIFO::create([
+            'hpurchase_id' => 0,
+            'dpurchase_id' => 0,
+            'part' => 'B1200R24M840',
+            'harga_beli' => 0,
+            'qty_max' => 2,
+            'qty_used' => 0
+        ]);
+
         Barang::create([
             'part' => 'LIButyl',
             'nama' => 'Longmarch Indonesia - Butyl Inner Tube',
@@ -134,6 +162,15 @@ class DatabaseSeeder extends Seeder
             'batas' => 10,
             'stok' => 5,
             'public' => true
+        ]);
+
+        HFIFO::create([
+            'hpurchase_id' => 0,
+            'dpurchase_id' => 0,
+            'part' => 'LIButyl',
+            'harga_beli' => 0,
+            'qty_max' => 5,
+            'qty_used' => 0
         ]);
     }
 

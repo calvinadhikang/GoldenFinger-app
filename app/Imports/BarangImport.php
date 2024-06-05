@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Barang;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -40,6 +41,17 @@ class BarangImport implements ToModel, WithHeadingRow
                     'batas' => $batas,
                 ]);
             }
+
+            // Masukan HFIFO saat pakai barang template
+            DB::table('hfifo')->insert([
+                'hpurchase_id' => 0,
+                'dpurchase_id' => 0,
+                'part' => $part,
+                'harga_beli' => 0,
+                'qty_max' => $stok,
+                'qty_used' => 0,
+                'created_at' => Carbon::now()
+            ]);
 
             toast('Data Barang berhasil di update', 'success');
             DB::commit();
