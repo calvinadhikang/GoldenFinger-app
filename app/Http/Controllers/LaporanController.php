@@ -9,6 +9,7 @@ use App\Models\HeaderInvoice;
 use App\Models\HeaderPurchase;
 use App\Models\OperationalCost;
 use App\Models\SharesModel;
+use App\Models\VulkanisirService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -355,7 +356,9 @@ class LaporanController extends Controller
             $totalPembelian += $value->harga_beli * $value->qty;
         }
 
-        $totalLabaRugi = $totalPendapatanBersih - $totalOpsCost;
+        $totalPendapatanService = VulkanisirService::whereNull('canceled_by')->whereBetween('created_at', [$mulai, $akhir])->sum('harga');
+
+        $totalLabaRugi = $totalPendapatanBersih - $totalOpsCost + $totalPendapatanService;
 
         return view('laporan.laba_rugi', [
             'mulai' => $mulai,
@@ -363,6 +366,7 @@ class LaporanController extends Controller
             'data' => $data,
             'totalPendapatanKotor' => $totalPendapatanKotor,
             'totalPendapatanBersih' => $totalPendapatanBersih,
+            'totalPendapatanService' => $totalPendapatanService,
             'totalOperationalCost' => $totalOpsCost,
             'totalPembelian' => $totalPembelian,
             'totalLabaRugi' => $totalLabaRugi
@@ -389,7 +393,9 @@ class LaporanController extends Controller
             $totalPembelian += $value->harga_beli * $value->qty;
         }
 
-        $totalLabaRugi = $totalPendapatanBersih - $totalOpsCost;
+        $totalPendapatanService = VulkanisirService::whereNull('canceled_by')->whereBetween('created_at', [$mulai, $akhir])->sum('harga');
+
+        $totalLabaRugi = $totalPendapatanBersih - $totalOpsCost + $totalPendapatanService;
 
         $pdf = Pdf::loadView('template.pdf.laporan.labarugi.laporan_laba_rugi', [
             'mulai' => $mulai,
@@ -397,6 +403,7 @@ class LaporanController extends Controller
             'data' => $data,
             'totalPendapatanKotor' => $totalPendapatanKotor,
             'totalPendapatanBersih' => $totalPendapatanBersih,
+            'totalPendapatanService' => $totalPendapatanService,
             'totalOperationalCost' => $totalOpsCost,
             'totalPembelian' => $totalPembelian,
             'totalLabaRugi' => $totalLabaRugi

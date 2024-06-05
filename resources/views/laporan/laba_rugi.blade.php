@@ -47,6 +47,11 @@
                         <td></td>
                         <td>Rp {{ number_format($totalPendapatanBersih) }}</td>
                     </tr>
+                    <tr>
+                        <td>Pendapatan Service</td>
+                        <td></td>
+                        <td>Rp {{ number_format($totalPendapatanService) }}</td>
+                    </tr>
                     {{--  --}}
                     <tr>
                         <th class="text-lg" colspan="2">Biaya</th>

@@ -48,6 +48,11 @@
             <td></td>
             <td>Rp {{ number_format($totalPendapatanBersih) }}</td>
         </tr>
+        <tr>
+            <td>Pendapatan Service</td>
+            <td></td>
+            <td>Rp {{ number_format($totalPendapatanService) }}</td>
+        </tr>
         {{--  --}}
         <tr>
             <td class="text-lg" colspan="3"><h4>Biaya</h4></td>
