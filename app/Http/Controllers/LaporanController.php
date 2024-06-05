@@ -334,4 +334,73 @@ class LaporanController extends Controller
         ]);
         return $pdf->download('laporan_laba_bersih.pdf');
     }
+
+    public function labaRugiView(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $totalOpsCost = 0;
+        $opsCostData = OperationalCost::whereBetween('created_at', [$mulai, $akhir])->get();
+        foreach ($opsCostData as $key => $value) {
+            $totalOpsCost += $value->total;
+        }
+
+        $totalPendapatanKotor = 0;
+        $totalPembelian = 0;
+        $totalPendapatanBersih = 0;
+        $data = DFIFO::whereBetween('created_at', [$mulai, $akhir])->get();
+        foreach ($data as $key => $value) {
+            $totalPendapatanKotor += $value->harga_jual * $value->qty;
+            $totalPendapatanBersih += $value->profit_total;
+            $totalPembelian += $value->harga_beli * $value->qty;
+        }
+
+        $totalLabaRugi = $totalPendapatanBersih - $totalOpsCost;
+
+        return view('laporan.laba_rugi', [
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'data' => $data,
+            'totalPendapatanKotor' => $totalPendapatanKotor,
+            'totalPendapatanBersih' => $totalPendapatanBersih,
+            'totalOperationalCost' => $totalOpsCost,
+            'totalPembelian' => $totalPembelian,
+            'totalLabaRugi' => $totalLabaRugi
+        ]);
+    }
+
+    public function labaRugiPdfDownload(Request $request){
+        $mulai = $request->input('mulai', null);
+        $akhir = $request->input('akhir', null);
+
+        $totalOpsCost = 0;
+        $opsCostData = OperationalCost::whereBetween('created_at', [$mulai, $akhir])->get();
+        foreach ($opsCostData as $key => $value) {
+            $totalOpsCost += $value->total;
+        }
+
+        $totalPendapatanKotor = 0;
+        $totalPembelian = 0;
+        $totalPendapatanBersih = 0;
+        $data = DFIFO::whereBetween('created_at', [$mulai, $akhir])->get();
+        foreach ($data as $key => $value) {
+            $totalPendapatanKotor += $value->harga_jual * $value->qty;
+            $totalPendapatanBersih += $value->profit_total;
+            $totalPembelian += $value->harga_beli * $value->qty;
+        }
+
+        $totalLabaRugi = $totalPendapatanBersih - $totalOpsCost;
+
+        $pdf = Pdf::loadView('template.pdf.laporan.labarugi.laporan_laba_rugi', [
+            'mulai' => $mulai,
+            'akhir' => $akhir,
+            'data' => $data,
+            'totalPendapatanKotor' => $totalPendapatanKotor,
+            'totalPendapatanBersih' => $totalPendapatanBersih,
+            'totalOperationalCost' => $totalOpsCost,
+            'totalPembelian' => $totalPembelian,
+            'totalLabaRugi' => $totalLabaRugi
+        ]);
+        return $pdf->download('laporan_laba_rugi.pdf');
+    }
 }
