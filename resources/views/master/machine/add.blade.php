@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="text-2xl font-bold">Tambah Mesin Vulkanisir</h1>
-<div class="text-sm breadcrumbs mb-5 text-slate-300">
+<div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/machine">Data Mesin Vulkanisir</a></li>
         <li>Tambah Mesin Vulkanisir</li>

@@ -7,18 +7,18 @@
         <div class="text-xl">Total Hutang</div>
         <div class="stat-value">Rp. {{ number_format($total_hutang) }}</div>
         <div class="grid grid-cols-3">
-            <div class="text-gray-400 mt-3">Lewat Jatuh Tempo : {{ count($hutang_jatuh_tempo) }}</div>
-            <div class="text-gray-400 mt-3">Jatuh Tempo dalam 7 hari: {{ count($hutang_jatuh_tempo_seminggu) }}</div>
-            <div class="text-gray-400 mt-3">Jumlah Total : {{ count($data_hutang) }}</div>
+            <div class="mt-3">Lewat Jatuh Tempo : {{ count($hutang_jatuh_tempo) }}</div>
+            <div class="mt-3">Jatuh Tempo dalam 7 hari: {{ count($hutang_jatuh_tempo_seminggu) }}</div>
+            <div class="mt-3">Jumlah Total : {{ count($data_hutang) }}</div>
         </div>
     </div>
     <div class="stat bg-accent">
         <div class="text-xl">Total Piutang</div>
         <div class="stat-value">Rp. {{ number_format($total_piutang) }}</div>
         <div class="grid grid-cols-3">
-            <div class="text-gray-400 mt-3">Lewat Jatuh Tempo : {{ count($piutang_jatuh_tempo) }}</div>
-            <div class="text-gray-400 mt-3">Jatuh Tempo dalam 7 hari: {{ count($piutang_jatuh_tempo_seminggu) }}</div>
-            <div class="text-gray-400 mt-3">Jumlah Total : {{ count($data_piutang) }}</div>
+            <div class="mt-3">Lewat Jatuh Tempo : {{ count($piutang_jatuh_tempo) }}</div>
+            <div class="mt-3">Jatuh Tempo dalam 7 hari: {{ count($piutang_jatuh_tempo_seminggu) }}</div>
+            <div class="mt-3">Jumlah Total : {{ count($data_piutang) }}</div>
         </div>
     </div>
 </div>

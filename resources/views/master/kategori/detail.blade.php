@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="text-2xl font-bold">Detail Kategori</h1>
-<div class="text-sm breadcrumbs mb-5 text-slate-300">
+<div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/kategori">Data Kategori</a></li>
         <li>Detail Kategori</li>
@@ -29,7 +29,7 @@
     <h1 class="text-lg font-medium">List Barang dengan Kategori</h1>
     <a class="btn btn-primary" href='{{ url("/kategori/detail/$kategori->id/add/barang") }}'>Tambah</a>
 </div>
-<p class="text-sm text-slate-300">Jumlah Barang : {{ count($kategori->barang) }}</p>
+<p class="text-sm  ">Jumlah Barang : {{ count($kategori->barang) }}</p>
 <div class="rounded bg-accent p-4 my-5">
     <table class="data-table table-zebra">
         <thead>

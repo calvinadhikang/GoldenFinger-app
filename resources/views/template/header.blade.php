@@ -22,11 +22,11 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-side">
             <label for="my-drawer-2" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 min-h-screen bg-accent text-base-content overflow-y-visible flex flex-col">
+            <ul class="menu p-4 w-80 min-h-screen bg-base-100 text-base-content overflow-y-visible flex flex-col">
                 <!-- Sidebar content here -->
-                <a href="{{ url('/profile') }}" class="rounded-lg drop-shadow-lg bg-primary px-4 py-5 mb-5 hover:bg-opacity-80">
-                    <h1 class="text-2xl font-bold text-base-100">{{ $user->nama }}</h1>
-                    <p class="text-base-100 font-semibold">{{ $user->role }}</p>
+                <a href="{{ url('/profile') }}" class="rounded-lg drop-shadow-lg bg-accent px-4 py-5 mb-5 hover:bg-opacity-80">
+                    <h1 class="text-2xl font-bold">{{ $user->nama }}</h1>
+                    <p class="font-semibold">{{ $user->role }}</p>
                 </a>
 
                 @if ($user->role == 'Teknisi')

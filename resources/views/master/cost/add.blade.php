@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="text-2xl font-bold">Tambah Operational Cost</h1>
-<div class="text-sm breadcrumbs mb-5 text-slate-300">
+<div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/customer">Data Operational Cost</a></li>
         <li>Tambah Operational Cost</li>

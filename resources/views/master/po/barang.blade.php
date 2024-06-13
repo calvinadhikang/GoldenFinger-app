@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="text-white text-2xl font-bold">Buat Purhcase Order</h1>
-<div class="text-sm breadcrumbs mb-5 text-slate-300">
+<div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/po">Data Purchase Order</a></li>
         <li>Buat Purchase Order</li>

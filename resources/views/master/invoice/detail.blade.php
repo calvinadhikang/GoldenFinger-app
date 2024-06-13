@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="text-white text-2xl font-bold">Detail Invoice</h1>
-    <div class="text-sm breadcrumbs mb-5 text-slate-300">
+    <div class="text-sm breadcrumbs mb-5  ">
         <ul>
             <li><a href="/invoice">Data Invoice</a></li>
             <li>Detail Invoice</li>

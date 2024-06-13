@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="text-2xl font-bold">Detail Paket Penjualan</h1>
-<div class="text-sm breadcrumbs mb-5 text-slate-300">
+<div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/paket">Data Paket</a></li>
         <li>Detail Paket</li>

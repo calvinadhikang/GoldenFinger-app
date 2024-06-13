@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="text-2xl font-bold">Tambah Service Vulkanisir</h1>
-<div class="text-sm breadcrumbs mb-5 text-slate-300">
+<div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/vservice">Data Service Vulkanisir</a></li>
         <li>Tambah Service Vulkanisir</li>

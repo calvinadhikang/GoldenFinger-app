@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-2xl font-bold">Detail Vendor</div>
-<div class="text-sm breadcrumbs mb-5 text-slate-300">
+<div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/vendors">Data Vendor</a></li>
         <li>Detail Vendor</li>

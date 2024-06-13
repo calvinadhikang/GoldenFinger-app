@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="text-2xl font-bold">PO Belum Lunas</h1>
-<div class="text-sm breadcrumbs mb-5 text-slate-300">
+<div class="text-sm breadcrumbs mb-5 ">
     <ul>
         <li><a href="/dashboard">Dashboard</a></li>
         <li>PO Belum Lunas</li>
