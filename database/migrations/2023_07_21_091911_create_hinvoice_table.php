@@ -28,11 +28,12 @@ return new class extends Migration
             $table->bigInteger('komisi');
             $table->timestamp('jatuh_tempo')->nullable();
             $table->timestamp('confirmed_at')->nullable();
-            $table->timestamp('paid_at')->nullable();
+            $table->timestamp('paid_at')->nullable(); //Menunjukan pembayaran lunas saat kap
+            $table->decimal('paid_total', 20, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->integer('status');
-            // 1 = Konfirmasi, 2 = Terbayar
+            // 0 = Butuh Konfirmasi 1 = Konfirmasi, 2 = Terbayar
 
             $table->unsignedBigInteger('confirmed_by')->nullable();
             $table->unsignedBigInteger('paid_by')->nullable();

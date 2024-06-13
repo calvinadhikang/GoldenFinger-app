@@ -10,19 +10,19 @@
     </div>
 
     @if ($invoice->deleted_at)
-        <h3 class="text-xl font-semibold text-secondary">Aktifkan Transaksi Invoice</h3>
-        <div class="rounded-2xl bg-accent p-4 mt-5 mb-10">
-            <p>Status invoice saat ini adalah <span class="text-error font-semibold">Tidak Aktif</span> <br>
-                Untuk mengaktifkan kembali Invoice silahkan isi password dibawah dan tekan tombol</p>
-            <form method="POST" action="{{ url("/invoice/detail/$invoice->id/restore") }}">
-                @csrf
-                <p class="text-sm mt-2">Password</p>
-                <div class="flex items-center gap-x-2">
-                    <input type="password" name="password" class="input input-secondary">
-                    <button class="btn btn-secondary">Aktifkan Invoice</button>
-                </div>
-            </form>
-        </div>
+    <div class="rounded-2xl bg-accent p-4 mt-5 mb-10">
+        <div class="rounded-lg text-center text-lg font-semibold bg-red-300 py-3 mb-3">Invoice Tidak Aktif</div>
+        <p>Status invoice saat ini adalah <span class="text-error font-semibold">Tidak Aktif</span> <br>
+            Untuk mengaktifkan kembali Invoice silahkan isi password dibawah dan tekan tombol</p>
+        <form method="POST" action="{{ url("/invoice/detail/$invoice->id/restore") }}">
+            @csrf
+            <p class="text-sm mt-2">Password</p>
+            <div class="flex items-center gap-x-2">
+                <input type="password" name="password" class="input">
+                <button class="btn btn-secondary">Aktifkan Invoice</button>
+            </div>
+        </form>
+    </div>
     @endif
 
     <div class="rounded-2xl bg-accent p-4 my-5">
@@ -37,39 +37,41 @@
             <div class="text-right">Rp {{ number_format($invoice->total) }}</div>
             <div class="">PPN ({{ $invoice->ppn }}%)</div>
             <div class="text-right">Rp {{ number_format($invoice->ppn_value) }}</div>
-            <div class="text-xl font-semibold">Grand Total</div>
-            <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($invoice->grand_total) }}</div>
+            <div class="font-semibold">Grand Total</div>
+            <div class="text-right font-semibold text-lg">Rp {{ number_format($invoice->grand_total) }}</div>
         </div>
     </div>
 
     <div class="flex justify-between items-center mb-5">
         <p class="text-xl font-semibold">Status Transaksi</p>
-        <p class="px-2 py-1 border rounded-2xl-full bg-accent text-sm">{{ $statusText }}</p>
+        <p class="px-3 py-2 rounded-xl bg-accent text-sm">{{ $statusText }}</p>
     </div>
 
     <div class="p-4 rounded-2xl bg-accent mb-5">
-        <div class="grid grid-cols-2">
-            @if ($invoice->status > 0)
+        @if ($invoice->cancel_by == null)
+            <div class="grid grid-cols-2">
                 <p>Terkonfirmasi Pada</p>
                 <p class="text-end">{{ date_format(new DateTime($invoice->confirmed_at), 'd M Y') }}</p>
                 <p>Terkonfirmasi Oleh</p>
-                <p class="text-end">{{ $confirmed_by->nama }}</p>
-                @if ($invoice->paid_at)
-                <p>Metode Pembayaran</p>
-                <p class="text-end">{{ $invoice->paid_method }}</p>
-                <p>Kode Pembayaran</p>
-                <p class="text-end">{{ $invoice->paid_code }}</p>
-                <p>Pembayaran Terkonfirmasi Oleh</p>
-                <p class="text-end">{{ $paid_by->nama }}</p>
+                <p class="text-end">{{ $confirmed_by->nama ?? "Belum Terkonfirmasi" }}</p>
+                @if ($invoice->confirmed_by != null)
+                    <p>Tanggal Jatuh Tempo</p>
+                    <p class="text-right">{{ date_format(new DateTime($invoice->jatuh_tempo), 'd M Y') }}</p>
+                    <p>Status Pembayaran</p>
+                    <p class="text-right {{ $invoice->paid_at == null ? 'text-error' : '' }}">
+                        {{ $invoice->paid_at == null ? 'Belum Lunas' : 'Lunas' }}
+                    </p>
+                @else
                 @endif
-            @elseif ($invoice->cancel_by != null)
-                <p>Dibatalkan Karena</p>
-                <p class="text-end">{{ $invoice->cancel_reason }}</p>
-            @endif
-        </div>
+            </div>
+        @elseif ($invoice->cancel_by != null)
+            <p class="font-medium">Dibatalkan Karena</p>
+            <p>{{ $invoice->cancel_reason }}</p>
+        @endif
     </div>
 
     @if ($invoice->status == 0)
+        {{-- Section Konfirmasi dan Pembatalan --}}
         <div class="p-4 rounded-2xl bg-accent">
             <p class="text-sm">Invoice perlu dikonfirmasi Admin. Pastikan stok barang mencukupi !</p>
             <form class="mt-5" method="POST" action="{{ url("/invoice/detail/$invoice->id/confirm") }}">
@@ -87,7 +89,48 @@
         </div>
     @elseif ($invoice->status == 1 || $invoice->status == 2)
         <div class="p-4 rounded-2xl bg-accent">
-            @if (!$invoice->paid_at)
+            <div class="flex justify-between items-center">
+                <div class="">
+                    <div class="font-medium text-lg">Data Pembayaran</div>
+                    <div class="grid grid-cols-2 gap-x-5">
+                        <div class="">Total Diterima</div>
+                        <div class="">Rp {{ number_format($invoice->paid_total) }}</div>
+                        <div class="">Kekurangan</div>
+                        <div class="text-error">Rp {{ number_format($invoice->grand_total - $invoice->paid_total) }}</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="modal_pembayaran.showModal()">Tambah Data Pembayaran</button>
+            </div>
+            <table class="table table-lg table-zebra mt-5">
+                <thead>
+                    <tr>
+                        <th><div class="font-bold">Metode Pembayaran</div></th>
+                        <th><div class="font-bold">Kode Pembayaran</div></th>
+                        <th><div class="font-bold">Total</div></th>
+                        <th><div class="font-bold">Dikonfirmasi Oleh</div></th>
+                        <th><div class="font-bold">Tanggal</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (count($data_pembayaran) <= 0)
+                        <tr>
+                            <td colspan="5" class="text-center">Belum ada data pembayaran</td>
+                        </tr>
+                    @else
+                        @foreach ($data_pembayaran as $pembayaran)
+                            <tr>
+                                <td>{{ $pembayaran->method }}</td>
+                                <td>{{ $pembayaran->code }}</td>
+                                <td>Rp {{ number_format($pembayaran->total) }}</td>
+                                <td>{{ $pembayaran->karyawan->nama }}</td>
+                                <td>{{ date_format($pembayaran->created_at, 'd M Y') }}</td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
+
+            {{-- @if (!$invoice->paid_at)
                 <div class="text-red-200 bg-red-600 font-semibold text-xl text-center rounded-2xl p-3 mb-5">Belum Lunas</div>
             @else
                 <div class="  bg-secondary font-semibold text-xl text-center rounded-2xl p-3">Lunas</div>
@@ -115,7 +158,7 @@
                     <button class="btn btn-primary mt-2" onclick="modal_pembayaran.showModal()">Pesanan, Sudah Lunas
                         !</button>
                 </div>
-            @endif
+            @endif --}}
         </div>
     @endif
 
@@ -189,24 +232,12 @@
         <table class="data-table table-zebra">
             <thead>
                 <tr>
-                    <th>
-                        <h3 class="font-bold">Part Number</h3>
-                    </th>
-                    <th>
-                        <h3 class="font-bold">Nama</h3>
-                    </th>
-                    <th>
-                        <h3 class="font-bold">Tipe</h3>
-                    </th>
-                    <th>
-                        <h3 class="font-bold">Harga</h3>
-                    </th>
-                    <th>
-                        <h3 class="font-bold">Jumlah</h3>
-                    </th>
-                    <th>
-                        <h3 class="font-bold">Subtotal</h3>
-                    </th>
+                    <th><h3 class="font-bold">Part Number</h3></th>
+                    <th><h3 class="font-bold">Nama</h3></th>
+                    <th><h3 class="font-bold">Tipe</h3></th>
+                    <th><h3 class="font-bold">Harga</h3></th>
+                    <th><h3 class="font-bold">Jumlah</h3></th>
+                    <th><h3 class="font-bold">Subtotal</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -275,50 +306,57 @@
     </div>
 
     @if (!$invoice->deleted_at)
-        <h3 class="text-xl font-semibold text-error">Hapus Transaksi Invoice</h3>
-        <div class="rounded-2xl bg-accent p-4 my-5 text-error">
+        <h3 class="text-xl font-semibold">Hapus Transaksi Invoice</h3>
+        <div class="rounded-2xl bg-red-300 p-4 my-5">
             <p>Untuk menghapus transaksi Invoice, masukan password dan tekan tombol dibawah</p>
             <form method="POST" action="{{ url("/invoice/detail/$invoice->id/delete") }}">
                 @csrf
                 <p class="text-sm mt-2">Password</p>
                 <div class="flex items-center gap-x-2">
-                    <input type="password" name="password" class="input input-error">
+                    <input type="password" name="password" class="input">
                     <button class="btn btn-error">Hapus Invoice</button>
                 </div>
             </form>
         </div>
     @endif
 
-
-
     <dialog id="modal_pembayaran" class="modal">
-        <div class="modal-box bg-slate-700  ">
+        <div class="modal-box bg-accent">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
-            <h3 class="font-bold text-lg">Pelunasan Pesanan</h3>
-            <p class="py-4">Pastikan kembali bahwa pesanan sudah dibayar oleh customer. <br> Bila sudah yakin, tekan
-                tombol dibawah</p>
+            <h3 class="font-bold text-lg">Pembayaran Invoice</h3>
+            <div role="alert" class="alert alert-warning my-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                <span>Pastikan kembali bahwa pesanan sudah dibayar oleh customer. <br> Bila sudah yakin, tekan
+                    tombol dibawah</span>
+            </div>
             <div>
-                <form method="POST" action="{{ url('/invoice/finish') }}">
+                <form method="POST" action="{{ url('/invoice/create/payment') }}">
                     @csrf
-                    <p class="mb-2 text-sm">Metode Pembayaran</p>
+                    <p class="mb-2">Metode Pembayaran</p>
                     <select name="payment_method" class="select w-full" required>
                         <option value="" disabled selected>Pilih Metode Pembayaran</option>
                         <option value="cash">Cash</option>
                         <option value="transfer">Transfer</option>
                     </select>
 
-                    <div class="my-2 flex justify-between text-sm">
+                    <div class="my-2 flex justify-between">
                         <p>Kode Pembayaran</p>
                         <p>Isi dengan "-" bila Cash</p>
                     </div>
                     <input type="text" name="payment_code" class="input w-full" required>
 
+                    <div class="my-2 flex justify-between">
+                        <p>Nominal Pembayaran</p>
+                        <p></p>
+                    </div>
+                    <input type="text" name="payment_nominal" class="input w-full harga" required>
+
                     <div class="divider"></div>
 
-                    <p class="mb-2 text-sm">Masukan password anda : </p>
-                    <input type="password" name="password" class="input input-primary w-full" required>
+                    <p class="mb-2">Masukan password anda : </p>
+                    <input type="password" name="password" class="input w-full" required>
 
                     <button class="btn btn-primary mt-5" name="id" value="{{ $invoice->id }}">Ya, Sudah Lunas
                         !</button>
@@ -328,26 +366,26 @@
     </dialog>
 
     <dialog id="modal_cancel" class="modal">
-        <div class="modal-box bg-slate-700  ">
+        <div class="modal-box bg-accent">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
             <h3 class="font-bold text-lg">Pembatalan Konfirmasi Pesanan</h3>
-            <p class="py-4">Dengan mengisi form dibawah maka,<br> Pesanan akan dibatalkan dan di-informasikan kepada
-                customer.</p>
+            <div role="alert" class="alert alert-warning my-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                <span>Pesanan yang dibatalkan tidak dapat diaktifkan kembali.</span>
+            </div>
             <div>
                 <form method="POST" action="{{ url('/invoice/cancel') }}">
                     @csrf
-                    <p class="mt-2">Alasan Pembatalan</p>
-                    <input type="text" name="cancel_reason" class="input w-full" required>
+                    <div class="space-y-3">
+                        <p class="">Alasan Pembatalan</p>
+                        <input type="text" name="cancel_reason" class="input w-full" required>
+                        <p class="">Masukan password anda : </p>
+                        <input type="password" name="password" class="input w-full" required>
+                    </div>
 
-                    <div class="divider"></div>
-
-                    <p class="mb-2 text-sm">Masukan password anda : </p>
-                    <input type="password" name="password" class="input input-error w-full" required>
-
-                    <button class="btn btn-error mt-5" name="id" value="{{ $invoice->id }}">Batalkan
-                        Pesanan!</button>
+                    <button class="btn btn-error mt-5" name="id" value="{{ $invoice->id }}">Batalkan Pesanan!</button>
                 </form>
             </div>
         </div>

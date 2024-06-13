@@ -174,7 +174,8 @@ Route::middleware([EnsureLogin::class])->group(function() {
         });
 
         Route::get('/created', [InvoiceController::class, 'invoiceCreatedView']);
-        Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);
+        Route::post('/create/payment', [InvoiceController::class, 'invoiceCreatePayment']);
+        // Route::post('/finish', [InvoiceController::class, 'invoiceFinish']);
         Route::post('/cancel', [InvoiceController::class, 'invoiceCancel']);
 
         // Excel

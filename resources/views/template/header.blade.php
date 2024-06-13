@@ -24,7 +24,7 @@
             <label for="my-drawer-2" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 min-h-screen bg-base-100 text-base-content overflow-y-visible flex flex-col">
                 <!-- Sidebar content here -->
-                <a href="{{ url('/profile') }}" class="rounded-2xl-lg drop-shadow-lg bg-accent px-4 py-5 mb-5 hover:bg-opacity-80">
+                <a href="{{ url('/profile') }}" class="rounded-2xl bg-accent px-4 py-5 mb-5 hover:shadow-xl">
                     <h1 class="text-2xl font-bold">{{ $user->nama }}</h1>
                     <p class="font-semibold">{{ $user->role }}</p>
                 </a>

@@ -39,11 +39,11 @@
                 <td>
                     <div class="flex items-center">
                         <div class="me-2 font-medium text-lg">Rp</div>
-                        <input type="text" class="input   input-secondary harga flex-shrink harga-input" part="{{ $item->part }}" value="{{ number_format($item->harga) }}">
+                        <input type="text" class="input harga flex-shrink harga-input" part="{{ $item->part }}" value="{{ number_format($item->harga) }}">
                     </div>
                 </td>
                 <td>
-                    <input type="number" class="input   input-secondary qty-input" part="{{ $item->part }}" value="{{ $item->qty }}">
+                    <input type="number" class="input qty-input" part="{{ $item->part }}" value="{{ $item->qty }}">
                 </td>
             </tr>
         @endforeach
@@ -62,11 +62,11 @@
     <h2 class="text-xl font-bold">Konfirmasi Pesanan</h2>
 </div>
 <div class="p-4 bg-accent rounded-2xl my-5">
-    <p class="text-sm text-gray-400 mb-5">Barang / Paket Penjualan dengan Quantity 0 tidak akan dimasukan.</p>
+    <div>Barang / Paket Penjualan dengan Quantity 0 tidak akan dimasukan.</div>
     <form id="form" class="flex items-center justify-between" method="POST" action="{{ url('/invoice/barang') }}">
         @csrf
         <div class="my-5 flex items-center gap-3">
-            <input type="checkbox" name="ppn-include" class="checkbox checkbox-primary">
+            <input type="checkbox" name="ppn-include" class="checkbox">
             <label class="text-sm">Harga Sudah PPN</label>
         </div>
         <button class="btn btn-primary">Selanjutnya</button>

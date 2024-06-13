@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\DetailInvoice;
 use App\Models\HeaderInvoice;
 use App\Models\HeaderPaket;
+use App\Models\InvoicePayment;
 use App\Models\Karyawan;
 use App\Models\OperationalCost;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -333,14 +334,25 @@ class InvoiceController extends Controller
                 'po' => $request->input('po'),
                 'jatuh_tempo' => $jatuhTempo,
                 'created_at' => $timeCreation,
-                'paid_at' => $timePembayaran,
-                'paid_by' => $timePembayaran != null ? Session::get('user')->id : null,
                 'confirmed_at' => $timeCreation,
                 'confirmed_by' => $karyawan->id,
-                'status'=> 1,
-                'paid_method' => $oldMethodTransaksi,
-                'paid_code' => $oldNomorTransaksi,
+                'paid_at' => $oldMethodTransaksi ? $timePembayaran : null,
+                'paid_total' => $oldMethodTransaksi ? $invoice->grandTotal : null,
+                'status'=> $oldMethodTransaksi ? 2 : 1,
             ]);
+
+            // Kalau transaksi lama, tambahkan pembayaran
+            // Missing: Tambahkan nominal pembayaran
+            if ($oldMethodTransaksi != null) {
+                DB::table('invoice_payment')->insert([
+                    'invoice_id' => $lastId,
+                    'karyawan_id' => $karyawan->id,
+                    'method' => $oldMethodTransaksi,
+                    'code' => $oldNomorTransaksi,
+                    'total' => $invoice->grandTotal,
+                    'created_at' => $timePembayaran
+                ]);
+            }
 
             foreach ($invoice->list_barang as $key => $value) {
                 DB::table('dinvoice')->insert([
@@ -371,7 +383,7 @@ class InvoiceController extends Controller
             Session::remove('invoice_cart');
             toast("Transaksi Customer: ".$invoice->customer->nama.", Berhasil dibuat", 'success');
             DB::commit();
-            return redirect('/invoice');
+            return redirect('/invoice/detail/'.$lastId);
         } catch (\Exception $ex) {
             DB::rollBack();
             return back()->withErrors([
@@ -407,28 +419,83 @@ class InvoiceController extends Controller
         $hariSisa = Util::getDiffDays($invoice->jatuh_tempo);
         $isOverdue = Carbon::parse($invoice->jatuh_tempo)->isBefore(now());
         $daysLeft = $isOverdue ? "Lewat $hariSisa hari dari tanggal jatuh tempo" : "Kurang $hariSisa hari hingga tanggal jatuh tempo";
+
+        $data_pembayaran = InvoicePayment::where('invoice_id', $invoice->id)->latest()->get();
+
         return view('master.invoice.detail', [
             'invoice' => $invoice,
             'daysLeft' => $daysLeft,
             'isOverdue' => $isOverdue,
             'paid_by' => $paid_by,
             'confirmed_by' => Karyawan::find($invoice->confirmed_by),
-            'statusText' => $invoiceText
+            'statusText' => $invoiceText,
+            'data_pembayaran' => $data_pembayaran,
         ]);
     }
 
-    public function invoiceFinish(Request $request){
+    public function invoiceCreatePayment(Request $request){
         $invoice = HeaderInvoice::find($request->input('id'));
         $payment_method = $request->input('payment_method');
         $payment_code = $request->input('payment_code');
-        $password = $request->input('password');
+        $payment_nominal = Util::parseNumericValue($request->input('payment_nominal'));
         $user = Session::get('user');
 
-        //check password
-        if (!Hash::check($password, $user->password)) {
-            toast('Gagal Melunasi Invoice, Password Salah', 'error');
-            return back();
+        if (!Hash::check($request->input('password'), $user->password)) {
+            return back()->witherros([
+                'msg' => 'Password Salah !'
+            ]);
         }
+
+        if ($invoice->paid_at != null) {
+            return back()->withErrors([
+                'msg' => 'Invoice Sudah Lunas !'
+            ]);
+        }
+
+        // Hitung Invoice
+        $totalInvoice = $invoice->grand_total;
+        $newTotalPaid = $invoice->paid_total + $payment_nominal;
+
+        if ($newTotalPaid > $totalInvoice) {
+            return back()->withErrors([
+                'msg' => 'Pembayaran melebihi total invoice !'
+            ]);
+        }
+
+        DB::beginTransaction();
+        try {
+            DB::table('invoice_payment')->insert([
+                'invoice_id' => $invoice->id,
+                'karyawan_id' => $user->id,
+                'method' => $payment_method,
+                'code' => $payment_code,
+                'total' => $payment_nominal,
+                'created_at' => Carbon::now()
+            ]);
+
+            DB::table('hinvoice')->where('id', $invoice->id)->update([
+                'paid_total' => $newTotalPaid
+            ]);
+
+            if ($newTotalPaid == $totalInvoice) {
+                // Finish Invoice Status
+                $this->invoiceFinish($invoice->id);
+            }
+
+            DB::commit();
+            toast('Berhasil Menambahkan Pembayaran', 'success');
+            return back();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->withErrors([
+                'msg' => $th->getMessage()
+            ]);
+        }
+
+    }
+
+    private function invoiceFinish($invoiceId){
+        $invoice = HeaderInvoice::find($invoiceId);
 
         if ($invoice->paid_at == null) {
             DB::beginTransaction();
@@ -500,9 +567,6 @@ class InvoiceController extends Controller
 
                 toast('Berhasil Melunasi Transaksi', 'success');
                 $invoice->paid_at = Carbon::now();
-                $invoice->paid_by = $user->id;
-                $invoice->paid_method = $payment_method;
-                $invoice->paid_code = $payment_code;
                 $invoice->status = 2;
                 $invoice->save();
             } catch (\Exception $ex) {
