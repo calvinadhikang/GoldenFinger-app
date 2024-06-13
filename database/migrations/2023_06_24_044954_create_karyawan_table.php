@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('username');
             $table->text('password');
             $table->string('telp');
-            $table->enum('role', ['Admin', 'Stakeholder', 'Teknisi', 'Pemilik']);
+            $table->enum('role', ['Admin', 'Shareholder', 'Teknisi', 'Pemilik']);
+            $table->boolean('is_shareholder')->default(false);
+            $table->decimal('shares', 20, 2)->default(0);
             $table->enum('status', ['Aktif', 'Non-Aktif']);
             $table->timestamps();
             $table->softDeletes();
