@@ -45,7 +45,8 @@ class DatabaseSeeder extends Seeder
             'username' => 'calvin',
             'password' => Hash::make('calvin'),
             'telp' => '082257324548',
-            'role' => "Stakeholder",
+            'role' => "Admin",
+            'is_shareholder' => true,
             'status' => 'Aktif',
         ]);
 
@@ -54,7 +55,9 @@ class DatabaseSeeder extends Seeder
             'username' => 'rina',
             'password' => Hash::make('rina'),
             'telp' => '081217393280',
-            'role' => "Stakeholder",
+            'role' => "Admin",
+            'is_shareholder' => true,
+            'shares' => 30,
             'status' => 'Aktif',
         ]);
 
@@ -63,7 +66,9 @@ class DatabaseSeeder extends Seeder
             'username' => 'ayau',
             'password' => Hash::make('ayau'),
             'telp' => '081330625880',
-            'role' => "Stakeholder",
+            'role' => "Pemilik",
+            'is_shareholder' => true,
+            'shares' => 70,
             'status' => 'Aktif',
         ]);
 
@@ -83,20 +88,6 @@ class DatabaseSeeder extends Seeder
             'telp' => '081267562393',
             'role' => "Teknisi",
             'status' => 'Aktif',
-        ]);
-
-        // Create Shares
-        SharesModel::create([
-            'karyawan_id' => 1,
-            'shares' => 0
-        ]);
-        SharesModel::create([
-            'karyawan_id' => 2,
-            'shares' => 30
-        ]);
-        SharesModel::create([
-            'karyawan_id' => 3,
-            'shares' => 70
         ]);
     }
 

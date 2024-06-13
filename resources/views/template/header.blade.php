@@ -81,7 +81,7 @@
                             Mesin Vulkanisir
                         </div>
                     </a></li>
-                    @if ($user->role == "Stakeholder")
+                    @if ($user->is_shareholder)
                     <h3 class="text-lg font-semibold mt-4">Pemegang Saham</h3>
                     <li><a href="{{ url('/shares') }}">
                         <div class="flex items-center">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Karyawan;
 use App\Models\OperationalCost;
 use App\Models\SharesModel;
 use Illuminate\Http\Request;
@@ -12,18 +13,17 @@ class SharesController extends Controller
 {
     //
     public function sharesView(){
-        $data = SharesModel::orderBy('shares', 'desc')->get();
+        $data_shareholders = Karyawan::where('is_shareholder', true)->get();
         $dataPenjualan = InvoiceController::getPaidInvoiceThisMonthData();
 
         $user = Session::get('user');
-        $user->shares = SharesModel::where('karyawan_id', $user->id)->first()->shares;
         $user->shares_value = $dataPenjualan->total / 100 * $user->shares;
 
         $operasional = OperationalCostController::getOperationalCostThisMonthData();
         $pendapatanBersih = $dataPenjualan->total - $operasional->total;
 
         return view('shares.view', [
-            'data' => $data,
+            'data' => $data_shareholders,
             'dataPenjualan' => $dataPenjualan,
             'user' => $user,
             'operasional' => $operasional,
@@ -31,8 +31,15 @@ class SharesController extends Controller
         ]);
     }
 
-    public function configureSharesView(){
-        $data = SharesModel::orderBy('shares', 'desc')->get();
+    public function configureSharesView(Request $request){
+        $user = Session::get('user');
+        if ($user->role != 'Pemilik') {
+            return redirect()->back()->withErrors([
+                'msg' => 'Anda tidak memiliki akses ke halaman ini'
+            ]);
+        }
+
+        $data = Karyawan::where('is_shareholder', true)->get();
         return view('shares.configure', [
             'data' => $data
         ]);
@@ -49,13 +56,15 @@ class SharesController extends Controller
 
         if ($total != 100) {
             toast('Jumlah total Shares harus 100', 'info');
-            return back();
+            return back()->withErrors([
+                'msg' => 'Jumlah total Shares harus 100'
+            ]);
         }else{
             DB::beginTransaction();
 
             try {
                 for ($i=0; $i < count($ids); $i++) {
-                    DB::table('shares')->where('id', $ids[$i])->update(['shares' => $shares[$i]]);
+                    DB::table('karyawan')->where('id', $ids[$i])->update(['shares' => $shares[$i]]);
                 }
 
                 DB::commit();
@@ -70,12 +79,12 @@ class SharesController extends Controller
     }
 
     public function getSharesData(){
-        $data = SharesModel::orderBy('shares', 'desc')->get();
+        $data = Karyawan::where('is_shareholder', true)->orderBy('shares', 'desc')->get();
 
         $arrKaryawan = [];
         $arrShares = [];
         foreach ($data as $key => $value) {
-            $arrKaryawan[] = $value->details->nama;
+            $arrKaryawan[] = $value->nama;
             $arrShares[] = $value->shares;
         }
 

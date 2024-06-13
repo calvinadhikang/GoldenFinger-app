@@ -14,7 +14,7 @@
             <tbody>
                 @foreach ($data as $item)
                     <tr>
-                        <td>{{ $item->details->nama }}</td>
+                        <td>{{ $item->nama }}</td>
                         <td>
                             <input type="hidden" name="id[]" value="{{ $item->id }}">
                             <input type="text" class="harga input input-primary" name="shares[]" value="{{ $item->shares }}">

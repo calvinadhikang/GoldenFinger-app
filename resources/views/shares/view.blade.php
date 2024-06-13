@@ -22,8 +22,10 @@
 </div>
 
 <h1 class="text-xl font-semibold mb-5">Grafik Shares</h1>
-<div class="bg-white bg-opacity-80 p-4 rounded mb-5">
-    <canvas id="chart-shares"></canvas>
+<div class="flex justify-start">
+    <div class="p-4 rounded bg-accent mb-5 h-60">
+        <canvas id="chart-shares"></canvas>
+    </div>
 </div>
 
 <h1 class="text-xl font-semibold mb-5">Data Shareholders</h1>
@@ -43,7 +45,7 @@
         <tbody>
             @foreach ($data as $item)
                 <tr>
-                    <td>{{ $item->details->nama }}</td>
+                    <td>{{ $item->nama }}</td>
                     <td>{{ $item->shares }}</td>
                     <td>Rp {{ number_format($dataPenjualan->total / 100 * $item->shares) }}</td>
                     <td>{{ date_format($item->created_at, 'd M Y') }}</td>
