@@ -1,22 +1,22 @@
 @extends('template.header')
 @section('content')
 <h1 class="text-2xl font-bold mb-5">Laporan Penjualan Barang</h1>
-<div class="bg-accent p-4 rounded my-5">
+<div class="bg-accent p-4 rounded-2xl my-5">
     <form action="{{ url('/laporan/penjualan') }}" method="GET">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div class="text-medium space-y-2">
                 <p>Tanggal Mulai</p>
-                <input type="date" name="mulai" class="w-full input input-bordered" value="{{ $mulai }}" required>
+                <input type="date" name="mulai" class="w-full input  " value="{{ $mulai }}" required>
             </div>
             <div class="text-medium space-y-2">
                 <p>Tanggal Akhir</p>
-                <input type="date" name="akhir" class="w-full input input-bordered" value="{{ $akhir }}" required>
+                <input type="date" name="akhir" class="w-full input  " value="{{ $akhir }}" required>
             </div>
         </div>
         <button class="btn btn-secondary btn-block mt-5">Tampilkan Data Laporan</button>
     </form>
 </div>
-<div class="bg-accent p-4 rounded">
+<div class="bg-accent p-4 rounded-2xl">
     @if ($mulai == null)
     <p class="text-center">Pilih tanggal diatas untuk menampilkan laporan</p>
     @else

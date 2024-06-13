@@ -1,8 +1,8 @@
 @extends('template/header')
 
 @section('content')
-    <h1 class="text-white text-2xl font-bold">Detail Invoice</h1>
-    <div class="text-sm breadcrumbs mb-5  ">
+    <h1 class="text-2xl font-bold">Detail Invoice</h1>
+    <div class="text-sm breadcrumbs mb-5 ">
         <ul>
             <li><a href="/invoice">Data Invoice</a></li>
             <li>Detail Invoice</li>
@@ -11,7 +11,7 @@
 
     @if ($invoice->deleted_at)
         <h3 class="text-xl font-semibold text-secondary">Aktifkan Transaksi Invoice</h3>
-        <div class="rounded bg-accent p-4 mt-5 mb-10">
+        <div class="rounded-2xl bg-accent p-4 mt-5 mb-10">
             <p>Status invoice saat ini adalah <span class="text-error font-semibold">Tidak Aktif</span> <br>
                 Untuk mengaktifkan kembali Invoice silahkan isi password dibawah dan tekan tombol</p>
             <form method="POST" action="{{ url("/invoice/detail/$invoice->id/restore") }}">
@@ -25,7 +25,7 @@
         </div>
     @endif
 
-    <div class="rounded bg-accent p-4 my-5">
+    <div class="rounded-2xl bg-accent p-4 my-5">
         <div class="grid grid-cols-2">
             <div class="text-xl font-semibold">Kode Transaksi</div>
             <div class="text-right text-lg font-medium">{{ $invoice->kode }}</div>
@@ -44,10 +44,10 @@
 
     <div class="flex justify-between items-center mb-5">
         <p class="text-xl font-semibold">Status Transaksi</p>
-        <p class="px-2 py-1 border rounded-full bg-accent text-sm">{{ $statusText }}</p>
+        <p class="px-2 py-1 border rounded-2xl-full bg-accent text-sm">{{ $statusText }}</p>
     </div>
 
-    <div class="p-4 rounded bg-accent mb-5">
+    <div class="p-4 rounded-2xl bg-accent mb-5">
         <div class="grid grid-cols-2">
             @if ($invoice->status > 0)
                 <p>Terkonfirmasi Pada</p>
@@ -70,13 +70,13 @@
     </div>
 
     @if ($invoice->status == 0)
-        <div class="p-4 rounded bg-accent">
+        <div class="p-4 rounded-2xl bg-accent">
             <p class="text-sm">Invoice perlu dikonfirmasi Admin. Pastikan stok barang mencukupi !</p>
             <form class="mt-5" method="POST" action="{{ url("/invoice/detail/$invoice->id/confirm") }}">
                 @csrf
                 <p class="w-full text-sm">Password User Admin: </p>
                 <div class="flex items-center gap-x-2 mt-2">
-                    <input type="password" name="password" class="input input-bordered">
+                    <input type="password" name="password" class="input  ">
                     <button class="btn btn-primary">Konfirmasi Pesanan!</button>
                 </div>
             </form>
@@ -86,11 +86,11 @@
                 dibuat</button>
         </div>
     @elseif ($invoice->status == 1 || $invoice->status == 2)
-        <div class="p-4 rounded bg-accent">
+        <div class="p-4 rounded-2xl bg-accent">
             @if (!$invoice->paid_at)
-                <div class="text-red-200 bg-red-600 font-semibold text-xl text-center rounded p-3 mb-5">Belum Lunas</div>
+                <div class="text-red-200 bg-red-600 font-semibold text-xl text-center rounded-2xl p-3 mb-5">Belum Lunas</div>
             @else
-                <div class="text-white bg-secondary font-semibold text-xl text-center rounded p-3">Lunas</div>
+                <div class="  bg-secondary font-semibold text-xl text-center rounded-2xl p-3">Lunas</div>
             @endif
 
             <div class="grid grid-cols-2 mt-2">
@@ -122,14 +122,14 @@
     <div class="prose mt-5">
         <h3>Informasi Customer</h3>
     </div>
-    <div class="rounded bg-accent p-4 my-5">
+    <div class="rounded-2xl bg-accent p-4 my-5">
         <div class="flex flex-wrap">
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
                     <span class="label-text font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input input-bordered w-full " value="{{ $invoice->customer->nama }}"
+                <input type="text" class="input   w-full " value="{{ $invoice->customer->nama }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2">
@@ -137,7 +137,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="email" class="input input-bordered w-full" value="{{ $invoice->customer->email }}"
+                <input type="email" class="input   w-full" value="{{ $invoice->customer->email }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
@@ -145,7 +145,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input input-bordered w-full" value="{{ $invoice->customer->alamat }}"
+                <input type="text" class="input   w-full" value="{{ $invoice->customer->alamat }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2">
@@ -153,7 +153,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input input-bordered w-full" value="{{ $invoice->customer->telp }}"
+                <input type="text" class="input   w-full" value="{{ $invoice->customer->telp }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
@@ -161,7 +161,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-city me-2"></i>Kota</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="Kota..." class="input input-bordered w-full"
+                <input type="text" placeholder="Kota..." class="input   w-full"
                     value="{{ $invoice->customer->kota }}" disabled />
             </div>
             <div class="form-control w-full md:w-1/2">
@@ -169,7 +169,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-barcode me-2"></i>NPWP</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="001.002.003" class="input input-bordered w-full"
+                <input type="text" placeholder="001.002.003" class="input   w-full"
                     value="{{ $invoice->customer->NPWP }}" disabled />
             </div>
             <div class="form-control w-full">
@@ -177,7 +177,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-file-lines me-2"></i>Nomor PO</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input input-bordered w-full" value="{{ $invoice->po }}" disabled />
+                <input type="text" class="input   w-full" value="{{ $invoice->po }}" disabled />
             </div>
         </div>
     </div>
@@ -185,7 +185,7 @@
     <div class="prose">
         <h3>Data Pesanan</h3>
     </div>
-    <div class="rounded bg-accent p-4 my-5">
+    <div class="rounded-2xl bg-accent p-4 my-5">
         <table class="data-table table-zebra">
             <thead>
                 <tr>
@@ -228,7 +228,7 @@
 
     @if ($invoice->komisi > 0)
         <h3 class="text-xl font-semibold">Komisi</h3>
-        <div class="rounded bg-accent p-4 my-5">
+        <div class="rounded-2xl bg-accent p-4 my-5">
             <div class="grid grid-cols-2">
                 <p>Penerima Komisi </p>
                 <p class="text-right text-lg font-semibold">{{ $invoice->contact_person }}</p>
@@ -249,7 +249,7 @@
     @endif
 
     <h3 class="text-xl font-semibold">Buat Excel</h3>
-    <div class="rounded bg-accent p-4 my-5">
+    <div class="rounded-2xl bg-accent p-4 my-5">
         <div class="flex items-center gap-4">
             <a href="{{ url("invoice/detail/$invoice->id/dokumen/surat_jalan") }}">
                 <button class="btn btn-success shadow-lg" name="type" value="invoice"><i
@@ -265,7 +265,7 @@
     </div>
 
     <h3 class="text-xl font-semibold">Buat PDF</h3>
-    <div class="rounded bg-accent p-4 my-5">
+    <div class="rounded-2xl bg-accent p-4 my-5">
         <div class="flex gap-4 items-center">
             <a href="{{ url("/invoice/detail/$invoice->id/pdf/surat_jalan") }}"><button class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i>Buat Surat Jalan !</button></a>
             <a href="{{ url("/invoice/detail/$invoice->id/pdf/invoice") }}"><button class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i>Buat Invoice !</button></a>
@@ -276,7 +276,7 @@
 
     @if (!$invoice->deleted_at)
         <h3 class="text-xl font-semibold text-error">Hapus Transaksi Invoice</h3>
-        <div class="rounded bg-accent p-4 my-5 text-error">
+        <div class="rounded-2xl bg-accent p-4 my-5 text-error">
             <p>Untuk menghapus transaksi Invoice, masukan password dan tekan tombol dibawah</p>
             <form method="POST" action="{{ url("/invoice/detail/$invoice->id/delete") }}">
                 @csrf
@@ -292,7 +292,7 @@
 
 
     <dialog id="modal_pembayaran" class="modal">
-        <div class="modal-box bg-slate-700 text-white">
+        <div class="modal-box bg-slate-700  ">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
@@ -328,7 +328,7 @@
     </dialog>
 
     <dialog id="modal_cancel" class="modal">
-        <div class="modal-box bg-slate-700 text-white">
+        <div class="modal-box bg-slate-700  ">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>

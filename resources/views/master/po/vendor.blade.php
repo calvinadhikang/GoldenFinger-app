@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-white text-2xl font-bold">Buat Purchase Order</h1>
+<h1 class="  text-2xl font-bold">Buat Purchase Order</h1>
 <div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/po">Data Purchase Order</a></li>
@@ -18,7 +18,7 @@
     <p>Pilih Vendor dengan harga yang paling sesuai</p>
     <p class="italic">*harga ditentukan dari harga tawaran masing2 vendor</p>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <p class="mb-5 font-semibold text-primary">Total : {{ count($vendor) }} Vendor Tersedia</p>
     <div class="overflow-x-auto mb-5">
         <table class="data-table table-zebra">

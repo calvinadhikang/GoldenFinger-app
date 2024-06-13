@@ -9,7 +9,7 @@
     <a role="tab" href="/po" class="tab {{ $type == 'all' ? 'tab-active' : '' }}"">Purchase Order Aktif</a>
     <a role="tab" href="/po?type=deleted" class="tab {{ $type == 'deleted' ? 'tab-active' : '' }}">Purchase Order Terhapus</a>
 </div>
-<div class="rounded bg-accent p-4 w-full mt-2">
+<div class="rounded-2xl bg-accent p-4 w-full mt-2">
     <div class="overflow-x-auto mt-5">
         <table class="table-zebra data-table">
             <thead>

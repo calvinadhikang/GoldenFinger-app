@@ -19,7 +19,7 @@
     <i class="fa-solid me-2 w-6 fa-box-open"></i>
     <h2 class="text-xl font-bold">Pilih Barang</h2>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <table class="table-zebra data-table">
         <thead>
             <tr>
@@ -39,11 +39,11 @@
                 <td>
                     <div class="flex items-center">
                         <div class="me-2 font-medium text-lg">Rp</div>
-                        <input type="text" class="input input-bordered input-secondary harga flex-shrink harga-input" part="{{ $item->part }}" value="{{ number_format($item->harga) }}">
+                        <input type="text" class="input   input-secondary harga flex-shrink harga-input" part="{{ $item->part }}" value="{{ number_format($item->harga) }}">
                     </div>
                 </td>
                 <td>
-                    <input type="number" class="input input-bordered input-secondary qty-input" part="{{ $item->part }}" value="{{ $item->qty }}">
+                    <input type="number" class="input   input-secondary qty-input" part="{{ $item->part }}" value="{{ $item->qty }}">
                 </td>
             </tr>
         @endforeach
@@ -61,7 +61,7 @@
 <div class="mb-5 mt-10 flex items-center">
     <h2 class="text-xl font-bold">Konfirmasi Pesanan</h2>
 </div>
-<div class="p-4 bg-accent rounded my-5">
+<div class="p-4 bg-accent rounded-2xl my-5">
     <p class="text-sm text-gray-400 mb-5">Barang / Paket Penjualan dengan Quantity 0 tidak akan dimasukan.</p>
     <form id="form" class="flex items-center justify-between" method="POST" action="{{ url('/invoice/barang') }}">
         @csrf

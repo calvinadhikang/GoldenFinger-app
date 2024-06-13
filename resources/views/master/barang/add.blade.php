@@ -8,7 +8,7 @@
         <li>Tambah Barang</li>
     </ul>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <div class="flex flex-wrap mb-5">

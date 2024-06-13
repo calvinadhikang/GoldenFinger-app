@@ -13,7 +13,7 @@
     <h2 class="font-bold text-3xl">Pilih Barang</h2>
     <p>Centang barang yang di supply oleh Vendor</p>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <table class="data-table table-zebra">

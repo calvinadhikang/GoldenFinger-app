@@ -8,7 +8,7 @@
         <li>PO Belum Lunas</li>
     </ul>
 </div>
-<div class="p-4 rounded shadow bg-accent">
+<div class="p-4 rounded-2xl shadow bg-accent">
     <table class="data-table table-zebra">
         <thead>
             <tr>

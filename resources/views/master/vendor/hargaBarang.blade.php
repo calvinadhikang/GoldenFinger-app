@@ -13,7 +13,7 @@
     <h2 class="font-bold text-3xl">Harga Beli Barang</h2>
     <p>Input data harga beli tiap barang.</p>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <div class="mb-5">

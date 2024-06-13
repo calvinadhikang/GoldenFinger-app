@@ -8,7 +8,7 @@
         <li>Tambah Mesin Vulkanisir</li>
     </ul>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <div class="flex flex-wrap mb-5">
@@ -17,7 +17,7 @@
                     <span class="label-text text-lg font-bold">Nama Mesin</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="M001" class="input input-bordered w-full" name="nama" required/>
+                <input type="text" placeholder="M001" class="input   w-full" name="nama" required/>
             </div>
         </div>
         <button class="btn btn-primary">Tambah</button>

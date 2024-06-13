@@ -9,7 +9,7 @@
     <a role="tab" href="/vservice" class="tab {{ $type == 'all' ? 'tab-active' : '' }}"">Service Aktif</a>
     <a role="tab" href="/vservice?type=deleted" class="tab {{ $type == 'deleted' ? 'tab-active' : '' }}">Service Selesai</a>
 </div>
-<div class="rounded bg-accent p-4 w-full">
+<div class="rounded-2xl bg-accent p-4 w-full">
     <div class="overflow-x-auto">
         <table class="data-table table-zebra">
             <thead>

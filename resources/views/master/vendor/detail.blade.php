@@ -8,7 +8,7 @@
         <li>Detail Vendor</li>
     </ul>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <input type="hidden" value="{{ $vendor->id }}" name="id">
@@ -18,28 +18,28 @@
                     <span class="label-text text-lg font-bold">Nama</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" value="{{ $vendor->nama }}" class="input input-bordered w-full" name="nama" required/>
+                <input type="text" value="{{ $vendor->nama }}" class="input   w-full" name="nama" required/>
             </div>
             <div class="form-control w-full md:w-1/2">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Email</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" value="{{ $vendor->email }}" class="input input-bordered w-full" name="email" required/>
+                <input type="text" value="{{ $vendor->email }}" class="input   w-full" name="email" required/>
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Telp</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" value="{{ $vendor->telp }}" class="input input-bordered w-full" name="telp" required/>
+                <input type="text" value="{{ $vendor->telp }}" class="input   w-full" name="telp" required/>
             </div>
             <div class="form-control w-full md:w-1/2">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Alamat</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" value="{{ $vendor->alamat }}" class="input input-bordered w-full" name="alamat" required/>
+                <input type="text" value="{{ $vendor->alamat }}" class="input   w-full" name="alamat" required/>
             </div>
         </div>
         <button class="btn btn-primary">Simpan</button>
@@ -47,7 +47,7 @@
 </div>
 
 <div class="text-xl font-semibold">Contact Person</div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url("vendors/add/contact/$vendor->id")}}">Tambah</a>
     </div>
@@ -57,7 +57,7 @@
         @else
             @foreach ($vendor->contact_person as $item)
                 <?php $i = 1; ?>
-                <div class="flex items-center p-2 bg-base-100 rounded-lg shadow-md m-1">
+                <div class="flex items-center p-2 bg-base-100 rounded-2xl-lg shadow-md m-1">
                     <div class="text-2xl p-2 me-2">
                         <i class="fa-solid fa-user"></i>
                     </div>
@@ -65,7 +65,7 @@
                         <span class="text-xl font-semibold me-10"> {{ $item->nama }}</span><br>
                         <span class="text-sm"><i class="fa-solid fa-phone me-2"></i>{{ $item->telp }}</span>
                     </div>
-                    <div class="hover:shadow-xl bg-red-500 hover:bg-red-600 p-3 rounded-full me-2">
+                    <div class="hover:shadow-xl bg-red-500 hover:bg-red-600 p-3 rounded-2xl-full me-2">
                         <form action="{{ url("/vendors/remove/contact/$item->id") }}" method="POST">
                             <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
@@ -78,7 +78,7 @@
 </div>
 
 <div class="text-xl font-semibold">Barang Di Supply Vendor</div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="flex justify-end w-full mb-5">
         <a class="btn btn-primary" href="{{url("vendors/add/barang/$vendor->id")}}">Tambah</a>
     </div>

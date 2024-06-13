@@ -24,7 +24,7 @@
             <label for="my-drawer-2" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 min-h-screen bg-base-100 text-base-content overflow-y-visible flex flex-col">
                 <!-- Sidebar content here -->
-                <a href="{{ url('/profile') }}" class="rounded-lg drop-shadow-lg bg-accent px-4 py-5 mb-5 hover:bg-opacity-80">
+                <a href="{{ url('/profile') }}" class="rounded-2xl-lg drop-shadow-lg bg-accent px-4 py-5 mb-5 hover:bg-opacity-80">
                     <h1 class="text-2xl font-bold">{{ $user->nama }}</h1>
                     <p class="font-semibold">{{ $user->role }}</p>
                 </a>
@@ -158,7 +158,7 @@
 
                 <div class="flex-grow h-10 mt-10 md:m-0"></div>
                 <a href="{{ url('/logout') }}" class="no-underline w-full">
-                    <div class="btn btn-error btn-md btn-block text-white mb-4 hover:bg-red-500 hover:border-red-500">Logout</div>
+                    <div class="btn btn-error btn-md btn-block   mb-4 hover:bg-red-500 hover:border-red-500">Logout</div>
                 </a>
             </ul>
         </div>

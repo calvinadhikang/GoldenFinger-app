@@ -1,8 +1,8 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-white text-2xl font-bold mb-5">Purhcase Orders - Barang Datang Kurang</h1>
-<div class="rounded bg-accent p-4 my-5">
+<h1 class="  text-2xl font-bold mb-5">Purhcase Orders - Barang Datang Kurang</h1>
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="grid grid-cols-2 gap-y-2">
         <div class="text-xl font-semibold">Kode Transaksi</div>
         <div class="text-right text-lg font-medium">{{ $po->kode }}</div>
@@ -18,35 +18,35 @@
 </div>
 
 <h3 class="text-xl font-semibold">Informasi Vendor</h3>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="flex flex-wrap">
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full " value="{{ $po->vendor->nama }}" disabled/>
+            <input type="text" class="input   w-full " value="{{ $po->vendor->nama }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="email" class="input input-bordered w-full" value="{{ $po->vendor->email }}" disabled/>
+            <input type="email" class="input   w-full" value="{{ $po->vendor->email }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $po->vendor->alamat }}" disabled/>
+            <input type="text" class="input   w-full" value="{{ $po->vendor->alamat }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $po->vendor->telp }}" disabled/>
+            <input type="text" class="input   w-full" value="{{ $po->vendor->telp }}" disabled/>
         </div>
     </div>
 </div>
@@ -54,7 +54,7 @@
 <h3 class="text-xl font-semibold">Konfirmasi Data Pesanan</h3>
 <form method="POST">
     @csrf
-    <div class="rounded bg-accent p-4 my-5">
+    <div class="rounded-2xl bg-accent p-4 my-5">
         <table class="data-table">
             <thead>
                 <tr>
@@ -73,7 +73,7 @@
                     <td>
                         <input type="hidden" name="id[]" value="{{ $item->id }}">
                         <label class="text-xs text-gray-400">Nilai awal: {{ $item->qty }}</label> <br>
-                        <input type="number" class="input input-bordered input-secondary" name="qty[]" value="{{ $item->qty }}">
+                        <input type="number" class="input   input-secondary" name="qty[]" value="{{ $item->qty }}">
                     </td>
                 </tr>
             @endforeach

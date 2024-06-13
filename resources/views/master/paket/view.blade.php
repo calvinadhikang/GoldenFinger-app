@@ -9,7 +9,7 @@
     <a role="tab" href="/paket" class="tab {{ $type == 'all' ? 'tab-active' : '' }}"">Paket Aktif</a>
     <a role="tab" href="/paket?type=deleted" class="tab {{ $type == 'deleted' ? 'tab-active' : '' }}">Paket Terhapus</a>
 </div>
-<div class="rounded bg-accent p-4 w-full">
+<div class="rounded-2xl bg-accent p-4 w-full">
     <div class="overflow-x-auto">
         <table class="data-table table-zebra">
             <thead>

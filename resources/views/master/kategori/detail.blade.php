@@ -8,7 +8,7 @@
         <li>Detail Kategori</li>
     </ul>
 </div>
-<div class="rounded bg-accent p-4 mb-5">
+<div class="rounded-2xl bg-accent p-4 mb-5">
     <form method="POST">
         @csrf
         <input type="hidden" value="{{ $kategori->id }}" name="id">
@@ -18,7 +18,7 @@
                     <span class="label-text text-lg font-bold">Nama</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="Ban Luar..." class="input input-bordered w-full" name="nama" value="{{ $kategori->nama }}" required/>
+                <input type="text" placeholder="Ban Luar..." class="input   w-full" name="nama" value="{{ $kategori->nama }}" required/>
             </div>
         </div>
         <button class="btn btn-primary">Simpan</button>
@@ -30,7 +30,7 @@
     <a class="btn btn-primary" href='{{ url("/kategori/detail/$kategori->id/add/barang") }}'>Tambah</a>
 </div>
 <p class="text-sm  ">Jumlah Barang : {{ count($kategori->barang) }}</p>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <table class="data-table table-zebra">
         <thead>
             <tr>
@@ -63,7 +63,7 @@
 </div>
 
 <h1 class="text-error text-lg font-semibold">Hapus Kategori</h1>
-<div class="bg-accent p-4 rounded mt-5">
+<div class="bg-accent p-4 rounded-2xl mt-5">
     <p class="text-error">Untuk menghapus kategori, masukan password !</p>
     <form method="POST" action="{{ url("/kategori/detail/$kategori->id/delete") }}" class="flex items-center gap-x-2 mt-2">
         @csrf

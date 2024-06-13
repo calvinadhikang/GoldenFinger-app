@@ -27,7 +27,7 @@ module.exports = {
           "secondary": "#4a8ff7", //warna notifikasi
           "secondary-content": "#F5F5F5", //warna text ketika di class primary
 
-          "accent": "#EFE2BA", //untuk counter dari background
+          "accent": "#F8E5BB", //untuk counter dari background
 
           "base-100": "#FFFADA", //warna background
           "base-content": "#141619", //warna text

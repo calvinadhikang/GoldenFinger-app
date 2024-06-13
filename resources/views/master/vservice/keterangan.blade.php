@@ -16,7 +16,7 @@
     </ul>
 </div>
 
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-5">
@@ -25,21 +25,21 @@
                     <span class="label-text text-lg font-bold">Nama Produk</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input input-bordered w-full" name="nama" required/>
+                <input type="text" class="input   w-full" name="nama" required/>
             </div>
             <div class="form-control">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Harga</span>
                     <span class="label-text-alt">Harga sudah termasuk PPN</span>
                 </label>
-                <input type="text" class="harga input input-bordered w-full" name="harga" required/>
+                <input type="text" class="harga input   w-full" name="harga" required/>
             </div>
             <div class="form-control">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Tanggal Selesai</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="datetime-local" placeholder="M001" class="input input-bordered w-full" name="tanggal" required/>
+                <input type="datetime-local" placeholder="M001" class="input   w-full" name="tanggal" required/>
             </div>
             <div class="form-control">
                 <label class="label">

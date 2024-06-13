@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-white text-2xl font-bold">Buat Purhcase Order</h1>
+<h1 class="  text-2xl font-bold">Buat Purhcase Order</h1>
 <div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/po">Data Purchase Order</a></li>
@@ -19,7 +19,7 @@
     <h2 class="font-bold text-3xl">Pilih Barang</h2>
     <p>Isi jumlah barang yang ingin dibeli, di kolom "Quantity"</p>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST" id="form">
         @csrf
         <table class="data-table table-zebra">
@@ -38,7 +38,7 @@
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->stok }}</td>
                     <td>
-                        <input type="number" class="input input-bordered input-secondary qty-input" name="qty[]" part="{{ $item->part }}" value="{{ $item->qty }}">
+                        <input type="number" class="input   input-secondary qty-input" name="qty[]" part="{{ $item->part }}" value="{{ $item->qty }}">
                         <input type="hidden" name="part[]" value="{{ $item->part }}">
                     </td>
                 </tr>

@@ -4,7 +4,7 @@
 <a href="{{ url('/laporan/stok/pdf') }}">
     <button class="my-5 btn-block btn btn-secondary"><i class="fa-solid fa-file-pdf text-base hover:text-secondary"></i>Download Laporan Stok Terbaru</button>
 </a>
-<div class="bg-accent p-4 rounded">
+<div class="bg-accent p-4 rounded-2xl">
     <div class="overflow-x-auto">
         <table class="data-table table-zebra">
             <thead>

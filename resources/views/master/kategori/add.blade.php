@@ -8,7 +8,7 @@
         <li>Tambah Kategori</li>
     </ul>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <div class="form-control w-full">
@@ -16,7 +16,7 @@
                 <span class="label-text text-lg font-bold">Nama Kategori</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" placeholder="Ban Luar..." class="input input-bordered w-full" name="nama" required/>
+            <input type="text" placeholder="Ban Luar..." class="input   w-full" name="nama" required/>
         </div>
         <button class="btn btn-primary mt-5">Tambah</button>
     </form>

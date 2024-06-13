@@ -8,7 +8,7 @@
         <li>Detail Customer</li>
     </ul>
 </div>
-<div class="rounded bg-accent p-4 mb-5">
+<div class="rounded-2xl bg-accent p-4 mb-5">
     <form method="POST">
         @csrf
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-5">
@@ -67,23 +67,23 @@
 </div>
 <h2 class="text-xl font-semibold mb-5">Detail Transaksi</h2>
 <div class="grid grid-cols-1 md:grid-cols-3 md:gap-5">
-    <div class="stat bg-accent w-auto rounded">
+    <div class="stat bg-accent w-auto rounded-2xl">
         <div class="stat-title">Jumlah Transaksi</div>
         <div class="stat-value">{{ count($customer->invoice) }}</div>
         <div class="stat-desc">Jumlah Hutang : <span class="text-lg">{{ $countHutang }}</span></div>
     </div>
-    <div class="stat bg-accent w-auto rounded">
+    <div class="stat bg-accent w-auto rounded-2xl">
         <div class="stat-title">Total Transaksi</div>
         <div class="stat-value">Rp <span class="">{{ format_decimal($grandTotal) }}</span></div>
         <div class="stat-desc"></div>
     </div>
-    <div class="stat bg-accent w-auto rounded">
+    <div class="stat bg-accent w-auto rounded-2xl">
         <div class="stat-title">Total Hutang</div>
         <div class="stat-value">Rp <span class="">{{ format_decimal($hutang) }}</span></div>
         <div class="stat-desc"></div>
     </div>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="overflow-x-auto">
         <table class="data-table table-zebra">
             <thead>

@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-white text-2xl font-bold">Buat Purchase Order</h1>
+<h1 class="  text-2xl font-bold">Buat Purchase Order</h1>
 <div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/po">Data Purchase Order</a></li>
@@ -18,35 +18,35 @@
 <div class="mb-5 mt-10">
     <h2 class="font-semibold text-xl">Informasi Vendor</h2>
 </div>
-<div class="bg-accent rounded p-4 my-5">
+<div class="bg-accent rounded-2xl p-4 my-5">
     <div class="flex flex-wrap mb-5">
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold">Nama</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" value="{{ $po->vendor->nama }}" class="input input-bordered w-full" name="nama" required/>
+            <input type="text" value="{{ $po->vendor->nama }}" class="input   w-full" name="nama" required/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold">Email</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" value="{{ $po->vendor->email }}" class="input input-bordered w-full" name="email" required/>
+            <input type="text" value="{{ $po->vendor->email }}" class="input   w-full" name="email" required/>
         </div>
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold">Telp</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" value="{{ $po->vendor->telp }}" class="input input-bordered w-full" name="telp" required/>
+            <input type="text" value="{{ $po->vendor->telp }}" class="input   w-full" name="telp" required/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold">Alamat</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" value="{{ $po->vendor->alamat }}" class="input input-bordered w-full" name="alamat" required/>
+            <input type="text" value="{{ $po->vendor->alamat }}" class="input   w-full" name="alamat" required/>
         </div>
     </div>
 </div>
@@ -54,7 +54,7 @@
 <div class="mb-5">
     <h2 class="font-semibold text-xl">Informasi Barang</h2>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <table class="data-table table-zebra">
@@ -99,13 +99,13 @@
 <div class="mb-5">
     <h2 class="font-semibold text-xl">Informasi PPN</h2>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="flex gap-5 mb-5">
         <div class="grow">
             <p class="text-lg font-semibold">PPN :<p>
             <form action="{{ url('/po/confirmation/ppn') }}" method="post">
                 @csrf
-                <input type="text" class="input input-bordered input-primary me-5" name="ppn" value="{{ $po->PPN }}"> <button class="btn btn-primary">Simpan !</button>
+                <input type="text" class="input   input-primary me-5" name="ppn" value="{{ $po->PPN }}"> <button class="btn btn-primary">Simpan !</button>
             </form>
         </div>
         <div class="grow">
@@ -119,7 +119,7 @@
 <div class="mb-5">
     <h2 class="font-semibold text-xl">Grand Total</h2>
 </div>
-<div class="rounded bg-accent p-4 my-5 items-center">
+<div class="rounded-2xl bg-accent p-4 my-5 items-center">
     <?php $grandTotal = $po->total + ($po->PPN * $po->total / 100) ?>
     <div class="gap-x-10 gap-y-3 grid-cols-2 inline-grid">
         <p class="font-medium">Total Harga Barang</p>
@@ -145,7 +145,7 @@
             <div id="timeStatus" class="text-xl font-semibold text-secondary w-full">Data Transaksi Baru</div>
         </div>
     </div>
-    <div class="rounded bg-accent mb-5">
+    <div class="rounded-2xl bg-accent mb-5">
         <div class="flex space-x-4 p-4" id="time-input">
             <div class="w-full">
                 <p class="font-semibold mb-2">Status Pembayaran</p>
@@ -156,7 +156,7 @@
                 <div class="mt-2 space-y-2" id="statusValuePembayaran">
                     <div class="">
                         <label class="text-sm">Waktu Pembayaran</label>
-                        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran">
+                        <input type="date" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran">
                     </div>
                     <div class="">
                         <label class="text-sm">Metode Pembayaran</label>
@@ -168,7 +168,7 @@
                     </div>
                     <div class="">
                         <label class="text-sm">Nomor Transaksi</label>
-                        <input type="text" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="oldNomorTransaksi">
+                        <input type="text" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="oldNomorTransaksi">
                     </div>
                 </div>
                 <p class="font-semibold mb-2 mt-10">Status Penerimaan Barang</p>
@@ -178,17 +178,17 @@
                 </div>
                 <div class="mt-2" id="statusValuePenerimaan">
                     <label class="text-sm">Waktu Penerimaan Barang</label>
-                    <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePenerimaan" id="timeValuePenerimaan">
+                    <input type="date" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="timeValuePenerimaan" id="timeValuePenerimaan">
                 </div>
             </div>
             <div class="w-full space-y-2">
                 <div class="">
                     <p class="font-semibold">Kode Purchase Order</p>
-                    <input type="text" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="oldKode">
+                    <input type="text" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="oldKode">
                 </div>
                 <div class="">
                     <p class="font-semibold">Tanggal Pembuatan Purchase Order</p>
-                    <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timePembuatan" id="timePembuatan">
+                    <input type="date" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="timePembuatan" id="timePembuatan">
                 </div>
             </div>
         </div>
@@ -196,9 +196,9 @@
 </div>
 
 <h1 class="text-xl font-semibold mb-5">Jatuh Tempo</h1>
-<div class="bg-accent p-4 rounded mb-10">
+<div class="bg-accent p-4 rounded-2xl mb-10">
     <p class="text-gray-400 text-sm mb-2">Pastikan tanggal jatuh tempo lebih dari tanggal sekarang</p>
-    <input type="date" class="rounded p-2 w-full text-black border border-primary leading-tight" name="jatuhTempo" required>
+    <input type="date" class="rounded-2xl p-2 w-full text-black border border-primary leading-tight" name="jatuhTempo" required>
 </div>
 
 <div class="mb-5">

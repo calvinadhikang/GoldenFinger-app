@@ -1,7 +1,7 @@
 @extends('template/header')
 
 @section('content')
-    <h1 class="text-white text-2xl font-bold">Detail Penawaran</h1>
+    <h1 class="  text-2xl font-bold">Detail Penawaran</h1>
     <div class="text-sm breadcrumbs mb-5  ">
         <ul>
             <li><a href="/penawaran">Data Penawaran</a></li>
@@ -12,7 +12,7 @@
     <div class="prose mt-5">
         <h3>Informasi Penawaran</h3>
     </div>
-    <div class="rounded bg-accent p-4 my-5">
+    <div class="rounded-2xl bg-accent p-4 my-5">
         <div class="grid grid-cols-2">
             <p>Status Transaksi</p>
             <p class="text-right">{{ $penawaran->status_text }}</p>
@@ -25,7 +25,7 @@
         </div>
     </div>
     @if ($penawaran->status == -1)
-        <div class="rounded bg-accent p-4 my-5">
+        <div class="rounded-2xl bg-accent p-4 my-5">
             <div class="grid grid-cols-2">
                 <p>Tanggal Penolakan</p>
                 <p class="text-right">{{ $penawaran->canceled_at }}</p>
@@ -34,7 +34,7 @@
             <textarea class="textarea w-full" disabled>{{ $penawaran->cancel_reason }}</textarea>
         </div>
     @elseif ($penawaran->status == 1)
-        <div class="rounded bg-accent p-4 my-5">
+        <div class="rounded-2xl bg-accent p-4 my-5">
             <div class="grid grid-cols-2">
                 <p>Tanggal Konfirmasi</p>
                 <p class="text-right">{{ $penawaran->confirmed_at }}</p>
@@ -47,14 +47,14 @@
     <div class="prose mt-5">
         <h3>Informasi Customer</h3>
     </div>
-    <div class="rounded bg-accent p-4 my-5">
+    <div class="rounded-2xl bg-accent p-4 my-5">
         <div class="flex flex-wrap">
             <div class="form-control w-full md:w-1/2 md:pe-2">
                 <label class="label">
                     <span class="label-text font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input input-bordered w-full " value="{{ $penawaran->customer->nama }}"
+                <input type="text" class="input   w-full " value="{{ $penawaran->customer->nama }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2">
@@ -62,7 +62,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="email" class="input input-bordered w-full" value="{{ $penawaran->customer->email }}"
+                <input type="email" class="input   w-full" value="{{ $penawaran->customer->email }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
@@ -70,7 +70,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input input-bordered w-full" value="{{ $penawaran->customer->alamat }}"
+                <input type="text" class="input   w-full" value="{{ $penawaran->customer->alamat }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2">
@@ -78,7 +78,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input input-bordered w-full" value="{{ $penawaran->customer->telp }}"
+                <input type="text" class="input   w-full" value="{{ $penawaran->customer->telp }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
@@ -86,7 +86,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-city me-2"></i>Kota</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="Kota..." class="input input-bordered w-full"
+                <input type="text" placeholder="Kota..." class="input   w-full"
                     value="{{ $penawaran->customer->kota }}" disabled />
             </div>
             <div class="form-control w-full md:w-1/2">
@@ -94,7 +94,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-barcode me-2"></i>NPWP</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="001.002.003" class="input input-bordered w-full"
+                <input type="text" placeholder="001.002.003" class="input   w-full"
                     value="{{ $penawaran->customer->NPWP }}" disabled />
             </div>
         </div>
@@ -103,7 +103,7 @@
     <div class="prose">
         <h3>Data Pesanan</h3>
     </div>
-    <div class="rounded bg-accent p-4 my-5">
+    <div class="rounded-2xl bg-accent p-4 my-5">
         <table class="data-table table-zebra">
             <thead>
                 <tr>
@@ -146,7 +146,7 @@
 
     @if ($penawaran->status == 0)
         <h3 class="text-xl font-semibold">Aksi</h3>
-        <div class="rounded bg-accent p-4 my-5">
+        <div class="rounded-2xl bg-accent p-4 my-5">
             <p>Untuk mengkonfirmasi penawaran, masukan password anda</p>
             <form method="POST" action="{{ url("/penawaran/detail/$penawaran->id/confirm") }}">
                 @csrf

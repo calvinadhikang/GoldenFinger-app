@@ -1,7 +1,7 @@
 @extends('template.header')
 @section('content')
 <h1 class="text-xl font-semibold mb-5">Configure Shares</h1>
-<div class="bg-accent p-4 rounded mb-5">
+<div class="bg-accent p-4 rounded-2xl mb-5">
     <form method="POST">
         @csrf
         <table class="data-table table-zebra">

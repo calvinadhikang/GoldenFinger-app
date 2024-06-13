@@ -1,14 +1,14 @@
 @extends('template/header')
 
 @section('content')
-<h1 class="text-white text-2xl font-bold">Detail Purhcase Orders</h1>
+<h1 class="  text-2xl font-bold">Detail Purhcase Orders</h1>
 <div class="text-sm breadcrumbs mb-5  ">
     <ul>
         <li><a href="/po">Data Purchase Order</a></li>
         <li>Buat Purchase Order</li>
     </ul>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="grid grid-cols-2 gap-y-2">
         <div class="text-xl font-semibold">Kode Transaksi</div>
         <div class="text-right text-lg font-medium">{{ $po->kode }}</div>
@@ -25,7 +25,7 @@
 
 @if ($po->deleted_at)
 <h3 class="text-xl font-semibold text-secondary">Aktifkan Transaksi Purchase Order</h3>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <p>Status Purchase Order saat ini adalah <span class="text-error font-semibold">Tidak Aktif</span> <br>
     Untuk mengaktifkan kembali Purchase Order silahkan isi password dibawah dan tekan tombol</p>
     <form method="POST" action="{{ url("/po/detail/$po->id/restore") }}">
@@ -42,9 +42,9 @@
 <div class="grid grid-cols-2 gap-x-5">
     <div class="">
         <p class="text-xl font-semibold mb-5">Status Pesanan</p>
-        <div class="rounded p-4 bg-accent">
+        <div class="rounded-2xl p-4 bg-accent">
             @if ($po->recieved_at == null)
-                <div class="text-white bg-error font-semibold text-xl text-center rounded p-3">On Process</div>
+                <div class="  bg-error font-semibold text-xl text-center rounded-2xl p-3">On Process</div>
                 @if ($po->deleted_by == null)
                     <p class="mt-10 mb-2">Barang pesanan sudah sampai / Perlu mengganti jumlah pesanan ?</p>
                     <button onclick="modal_pesanan.showModal()" class="btn btn-primary">
@@ -52,7 +52,7 @@
                     </button>
                 @endif
             @else
-                <div class="bg-secondary font-semibold text-xl text-center rounded p-3">Barang Sudah Sampai</div>
+                <div class="bg-secondary font-semibold text-xl text-center rounded-2xl p-3">Barang Sudah Sampai</div>
                 <div class="grid grid-cols-2 mt-2">
                     <p>Tanggal Diterima</p>
                     <p class="text-right">{{ date_format(new DateTime($po->recieved_at), 'd M Y H:i') }}</p>
@@ -64,11 +64,11 @@
     </div>
     <div class="">
         <p class="text-xl font-semibold mb-5">Status Pembayaran</p>
-        <div class="rounded p-4 bg-accent">
+        <div class="rounded-2xl p-4 bg-accent">
             @if ($po->paid_at)
-                <div class="bg-secondary font-semibold text-xl text-center rounded p-3">Transaksi Telah Dibayar</div>
+                <div class="bg-secondary font-semibold text-xl text-center rounded-2xl p-3">Transaksi Telah Dibayar</div>
             @else
-                <div class="text-red-50 bg-error font-semibold text-xl text-center rounded p-3">Belum Bayar</div>
+                <div class="text-red-50 bg-error font-semibold text-xl text-center rounded-2xl p-3">Belum Bayar</div>
                 <p class="text-right">Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
 
                 @if ($po->deleted_by == null)
@@ -98,41 +98,41 @@
 <div class="prose mt-5">
     <h3>Informasi Vendor</h3>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="flex flex-wrap">
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full " value="{{ $po->vendor->nama }}" disabled/>
+            <input type="text" class="input   w-full " value="{{ $po->vendor->nama }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="email" class="input input-bordered w-full" value="{{ $po->vendor->email }}" disabled/>
+            <input type="email" class="input   w-full" value="{{ $po->vendor->email }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $po->vendor->alamat }}" disabled/>
+            <input type="text" class="input   w-full" value="{{ $po->vendor->alamat }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $po->vendor->telp }}" disabled/>
+            <input type="text" class="input   w-full" value="{{ $po->vendor->telp }}" disabled/>
         </div>
     </div>
 </div>
 
 <h3 class="text-xl font-semibold">Data Pesanan</h3>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <table class="table-zebra data-table">
         <thead>
             <tr>
@@ -159,7 +159,7 @@
 </div>
 
 <h3 class="text-xl font-semibold">Buat Excel</h3>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="flex justify-between">
         <a href="{{ url("po/detail/$po->id/dokumen/purchase_order") }}" class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Purchase Order</a>
     </div>
@@ -167,7 +167,7 @@
 
 @if (!$po->deleted_at)
 <h3 class="text-xl font-semibold text-error">Hapus Transaksi Purchase Order</h3>
-<div class="rounded bg-accent p-4 my-5 text-error">
+<div class="rounded-2xl bg-accent p-4 my-5 text-error">
     <p>Untuk menghapus transaksi Purchase Order, masukan password dan tekan tombol dibawah</p>
     <form method="POST" action="{{ url("/po/detail/$po->id/delete") }}">
         @csrf
@@ -183,7 +183,7 @@
 @endif
 
 <dialog id="modal_pembayaran" class="modal">
-    <div class="modal-box bg-slate-700 text-white">
+    <div class="modal-box bg-slate-700  ">
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
@@ -218,7 +218,7 @@
 </dialog>
 
 <dialog id="modal_pesanan" class="modal">
-    <div class="modal-box bg-slate-700 text-white">
+    <div class="modal-box bg-slate-700  ">
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>

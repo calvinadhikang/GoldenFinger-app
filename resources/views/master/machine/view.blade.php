@@ -9,7 +9,7 @@
     <a role="tab" href="/machine" class="tab {{ $type == 'all' ? 'tab-active' : '' }}"">Mesin Aktif</a>
     <a role="tab" href="/machine?type=deleted" class="tab {{ $type == 'deleted' ? 'tab-active' : '' }}">Mesin Non-Aktif</a>
 </div>
-<div class="rounded bg-accent p-4 w-full">
+<div class="rounded-2xl bg-accent p-4 w-full">
     <div class="overflow-x-auto">
         <table class="data-table table-zebra">
             <thead>

@@ -8,7 +8,7 @@
         <li>Tambah Paket</li>
     </ul>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST" id="form">
         @csrf
         <div class="flex flex-wrap mb-5">
@@ -17,14 +17,14 @@
                     <span class="label-text text-lg font-bold">Nama Paket</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="Nama Paket..." class="input input-bordered w-full" name="nama" required/>
+                <input type="text" placeholder="Nama Paket..." class="input   w-full" name="nama" required/>
             </div>
             <div class="form-control w-full md:w-1/2">
                 <label class="label">
                     <span class="label-text text-lg font-bold">Harga Paket</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" placeholder="1000" class="input input-bordered w-full harga" name="harga" required/>
+                <input type="text" placeholder="1000" class="input   w-full harga" name="harga" required/>
             </div>
         </div>
         <h1 class="text-lg font-bold mb-5 mt-10">Barang Yang Dijual Pada Paket</h1>

@@ -23,41 +23,41 @@
 </div>
 
 <h3 class="font-semibold text-xl mb-5">Informasi Customer</h3>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="flex flex-wrap">
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full " value="{{ $service->customer->nama }}" disabled/>
+            <input type="text" class="input   w-full " value="{{ $service->customer->nama }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="email" class="input input-bordered w-full" value="{{ $service->customer->email }}" disabled/>
+            <input type="email" class="input   w-full" value="{{ $service->customer->email }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $service->customer->alamat }}" disabled/>
+            <input type="text" class="input   w-full" value="{{ $service->customer->alamat }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $service->customer->telp }}" disabled/>
+            <input type="text" class="input   w-full" value="{{ $service->customer->telp }}" disabled/>
         </div>
     </div>
 </div>
 
 <h2 class="font-semibold text-xl mb-5">Detail Service</h2>
-<div class="rounded bg-accent p-4 my-5 items-center">
+<div class="rounded-2xl bg-accent p-4 my-5 items-center">
     <div class="grid gap-y-3 grid-cols-2">
         <p class="font-medium">Nama Produk Customer</p>
         <p class="text-end">{{ $service->nama }}</p>
@@ -80,7 +80,7 @@
 <form method="POST">
     @csrf
     <h2 class="font-semibold text-xl mb-5">Pilih Teknisi</h2>
-    <div class="bg-accent p-4 rounded mb-5">
+    <div class="bg-accent p-4 rounded-2xl mb-5">
         <select name="teknisi" class="w-full select" required>
             <option value="" selected disabled>Nama Teknisi</option>
             @foreach ($teknisi as $item)

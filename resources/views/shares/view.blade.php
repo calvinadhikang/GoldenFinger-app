@@ -1,7 +1,7 @@
 @extends('template.header')
 @section('content')
 <h1 class="text-xl font-semibold mb-5">Data Shares</h1>
-<div class="p-4 bg-accent rounded mb-5">
+<div class="p-4 bg-accent rounded-2xl mb-5">
     <div class="grid grid-cols-2">
         <p class="">Total Penjualan:</p>
         <p class="text-right font-medium">Rp {{ number_format($dataPenjualan->total) }}</p>
@@ -23,13 +23,13 @@
 
 <h1 class="text-xl font-semibold mb-5">Grafik Shares</h1>
 <div class="flex justify-start">
-    <div class="p-4 rounded bg-accent mb-5 h-60">
+    <div class="p-4 rounded-2xl bg-accent mb-5 h-60">
         <canvas id="chart-shares"></canvas>
     </div>
 </div>
 
 <h1 class="text-xl font-semibold mb-5">Data Shareholders</h1>
-<div class="bg-accent p-4 rounded mb-5">
+<div class="bg-accent p-4 rounded-2xl mb-5">
     <div class="flex justify-end mb-5">
         <a href="{{ url('/shares/configure') }}" class="btn btn-primary">Ubah Porsi Saham</a>
     </div>

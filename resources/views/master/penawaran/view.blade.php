@@ -17,7 +17,7 @@
         <a role="tab" href="/penawaran?type=canceled" class="tab {{ $type == 'canceled' ? 'tab-active' : '' }}"">Penawaran
             Dibatalkan</a>
     </div>
-    <div class="rounded bg-accent p-4 w-full mt-2">
+    <div class="rounded-2xl bg-accent p-4 w-full mt-2">
         <div class="overflow-x-auto">
             <table class="data-table table-zebra">
                 <thead>

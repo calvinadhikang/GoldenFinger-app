@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="text-2xl font-bold">Tambah Barang Ke Kategori <span class="text-primary">{{ $kategori->nama }}</span></h1>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <form method="POST">
         @csrf
         <div class="text-right mb-5">
@@ -32,7 +32,7 @@
 </div>
 
 <h1 class="font-bold mt-10">Barang Yang Sudah Ada Pada Kategori <span class="text-primary">{{ $kategori->nama }}</span></h1>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     @if (count($listed) > 0)
     <table class="table-zebra w-full data-table">
         <thead>

@@ -23,7 +23,7 @@
     </div>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 mt-10 gap-10">
-    <div class="bg-accent p-4 rounded">
+    <div class="bg-accent p-4 rounded-2xl">
         <div class="flex mb-5 gap-x-5">
             <a href="{{ url('/arap?hutang_mode=0') }}"><button class="btn btn-xs {{ $hutang_mode == 0 ? "btn-primary" : "btn-outline" }}">Semua</button></a>
             <a href="{{ url('/arap?hutang_mode=1') }}"><button class="btn btn-xs {{ $hutang_mode == 1 ? "btn-primary" : "btn-outline" }}">Lewat Jatuh Tempo</button></a>
@@ -59,7 +59,7 @@
             </tbody>
         </table>
     </div>
-    <div class="bg-accent p-4 rounded">
+    <div class="bg-accent p-4 rounded-2xl">
         <div class="flex mb-5 gap-x-5">
             <a href="{{ url('/arap?piutang_mode=0') }}"><button class="btn btn-xs {{ $piutang_mode == 0 ? "btn-primary" : "btn-outline" }}">Semua</button></a>
             <a href="{{ url('/arap?piutang_mode=1') }}"><button class="btn btn-xs {{ $piutang_mode == 1 ? "btn-primary" : "btn-outline" }}">Lewat Jatuh Tempo</button></a>

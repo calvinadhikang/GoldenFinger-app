@@ -22,35 +22,35 @@
 </div>
 
 <h3 class="font-semibold text-xl mb-5">Informasi Customer</h3>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="flex flex-wrap">
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full " value="{{ $invoice->customer->nama }}" disabled/>
+            <input type="text" class="input   w-full " value="{{ $invoice->customer->nama }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="email" class="input input-bordered w-full" value="{{ $invoice->customer->email }}" disabled/>
+            <input type="email" class="input   w-full" value="{{ $invoice->customer->email }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $invoice->customer->alamat }}" disabled/>
+            <input type="text" class="input   w-full" value="{{ $invoice->customer->alamat }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input input-bordered w-full" value="{{ $invoice->customer->telp }}" disabled/>
+            <input type="text" class="input   w-full" value="{{ $invoice->customer->telp }}" disabled/>
         </div>
     </div>
 </div>
@@ -59,7 +59,7 @@
     <i class="fa-solid me-2 w-6 fa-box-open"></i>
     <h3 class="font-semibold text-xl">Data Barang Pesanan</h3>
 </div>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     @if (count($invoice->list_barang) <= 0)
     <p class="text-error">Tidak ada pesanan barang</p>
     @else
@@ -93,13 +93,13 @@
 </div>
 
 <h2 class="font-semibold text-xl mb-5">Informasi Pajak</h2>
-<div class="rounded bg-accent p-4 my-5">
+<div class="rounded-2xl bg-accent p-4 my-5">
     <div class="grid grid-cols-1 md:grid-cols-2">
         <div class="grow">
             <p class="text-lg font-semibold mb-2">Besar PPN :<p>
             <form action="{{ url('/invoice/confirmation/ppn') }}" method="post">
                 @csrf
-                <input type="text" class="input input-bordered input-primary me-5" name="ppn" value="{{ $invoice->PPN }}"> <button class="btn btn-primary">Simpan !</button>
+                <input type="text" class="input   input-primary me-5" name="ppn" value="{{ $invoice->PPN }}"> <button class="btn btn-primary">Simpan !</button>
             </form>
         </div>
         <div class="grow">
@@ -111,7 +111,7 @@
 </div>
 
 <h2 class="font-semibold text-xl mb-5">Detail Biaya</h2>
-<div class="rounded bg-accent p-4 my-5 items-center">
+<div class="rounded-2xl bg-accent p-4 my-5 items-center">
     <div class="gap-x-10 gap-y-3 grid-cols-2 inline-grid">
         <p class="font-medium">Total Harga Barang</p>
         <p>Rp {{ format_decimal($invoice->total) }}</p>
@@ -135,7 +135,7 @@
                 <div id="komisiStatus" class="text-xl font-semibold text-secondary w-full">Dapat Komisi</div>
             </div>
         </div>
-        <div class="rounded bg-accent mb-5">
+        <div class="rounded-2xl bg-accent mb-5">
             <div class="flex space-x-4 p-4" id="komisi-input">
                 <div class="w-full">
                     <p class="font-semibold">Jumlah Komisi</p>
@@ -160,7 +160,7 @@
                 <div id="timeStatus" class="text-xl font-semibold text-secondary w-full">Data Transaksi Baru</div>
             </div>
         </div>
-        <div class="rounded bg-accent mb-5">
+        <div class="rounded-2xl bg-accent mb-5">
             <div class="flex space-x-4 p-4" id="time-input">
                 <div class="w-full">
                     <p class="font-semibold mb-2">Status Pembayaran</p>
@@ -171,7 +171,7 @@
                     <div class="mt-2 space-y-2" id="statusValuePembayaran">
                         <div class="">
                             <label class="text-sm">Waktu Pembayaran</label>
-                            <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran">
+                            <input type="date" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="timeValuePembayaran" id="timeValuePembayaran">
                         </div>
                         <div class="">
                             <label class="text-sm">Metode Pembayaran</label>
@@ -183,18 +183,18 @@
                         </div>
                         <div class="">
                             <label class="text-sm">Nomor Transaksi</label>
-                            <input type="text" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="oldNomorTransaksi">
+                            <input type="text" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="oldNomorTransaksi">
                         </div>
                     </div>
                 </div>
                 <div class="w-full space-y-2">
                     <div class="">
                         <p class="font-semibold">Kode Invoice</p>
-                        <input type="text" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="oldKode" id="kodePembuatan">
+                        <input type="text" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="oldKode" id="kodePembuatan">
                     </div>
                     <div class="">
                         <p class="font-semibold">Tanggal Pembuatan Invoice</p>
-                        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="timePembuatan" id="timePembuatan">
+                        <input type="date" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="timePembuatan" id="timePembuatan">
                     </div>
                 </div>
             </div>
@@ -203,15 +203,15 @@
 
 
     <p class="text-xl font-semibold mb-5">Nomor PO</p>
-    <div class="rounded bg-accent p-4 mb-5">
+    <div class="rounded-2xl bg-accent p-4 mb-5">
         <p class="font-semibold">Masukan nomor PO</p>
         <input type="text" class="input input-primary w-full" name="po" required value="-">
         <p class="text-gray-400 text-xs mt-1">isi dengan ' - ' kalau tidak ada nomor PO</p>
     </div>
 
     <p class="text-xl font-semibold mb-5">Jatuh Tempo</p>
-    <div class="rounded bg-accent p-4 mb-5">
-        <input type="date" class="rounded p-2 w-full text-black border border-secondary leading-tight" name="jatuhTempo" value="{{ old('jatuhTempo') }}" required>
+    <div class="rounded-2xl bg-accent p-4 mb-5">
+        <input type="date" class="rounded-2xl p-2 w-full text-black border border-secondary leading-tight" name="jatuhTempo" value="{{ old('jatuhTempo') }}" required>
     </div>
 
     <button class="btn btn-primary w-full mb-10 shadow-lg">Buat Pesanan !</button>
