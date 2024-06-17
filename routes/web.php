@@ -217,7 +217,7 @@ Route::middleware([EnsureLogin::class])->group(function() {
 
         //Finishing PO
         Route::post('/pesanan', [PurchaseController::class, 'finishPesanan']);
-        Route::post('/pembayaran', [PurchaseController::class, 'finishPembayaran']);
+        Route::post('/pembayaran', [PurchaseController::class, 'addPembayaran']);
 
         // Handling PO
         Route::get('/handling/kurang/{id}', [PurchaseController::class, 'handlingPesananKurang']);

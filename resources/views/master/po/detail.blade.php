@@ -19,12 +19,12 @@
         <div class="">PPN ({{ $po->ppn }}%)</div>
         <div class="text-right">Rp {{ number_format($po->ppn_value) }}</div>
         <div class="text-xl font-semibold">Grand Total</div>
-        <div class="text-right font-semibold text-xl text-primary">Rp {{ number_format($po->grand_total) }}</div>
+        <div class="text-right font-semibold text-xl">Rp {{ number_format($po->grand_total) }}</div>
     </div>
 </div>
 
 @if ($po->deleted_at)
-<h3 class="text-xl font-semibold text-secondary">Aktifkan Transaksi Purchase Order</h3>
+<h3 class="text-xl font-semibold text-secondary mb-5">Aktifkan Transaksi Purchase Order</h3>
 <div class="rounded-2xl bg-accent p-4 my-5">
     <p>Status Purchase Order saat ini adalah <span class="text-error font-semibold">Tidak Aktif</span> <br>
     Untuk mengaktifkan kembali Purchase Order silahkan isi password dibawah dan tekan tombol</p>
@@ -39,60 +39,88 @@
 </div>
 @endif
 
-<div class="grid grid-cols-2 gap-x-5">
-    <div class="">
-        <p class="text-xl font-semibold mb-5">Status Pesanan</p>
-        <div class="rounded-2xl p-4 bg-accent">
-            @if ($po->recieved_at == null)
-                <div class="  bg-error font-semibold text-xl text-center rounded-2xl p-3">On Process</div>
-                @if ($po->deleted_by == null)
-                    <p class="mt-10 mb-2">Barang pesanan sudah sampai / Perlu mengganti jumlah pesanan ?</p>
-                    <button onclick="modal_pesanan.showModal()" class="btn btn-primary">
-                        Ya, Update Data
-                    </button>
-                @endif
-            @else
-                <div class="bg-secondary font-semibold text-xl text-center rounded-2xl p-3">Barang Sudah Sampai</div>
-                <div class="grid grid-cols-2 mt-2">
-                    <p>Tanggal Diterima</p>
-                    <p class="text-right">{{ date_format(new DateTime($po->recieved_at), 'd M Y H:i') }}</p>
-                    <p>Diterima Oleh</p>
-                    <p class="text-right">{{ $recieved_name }}</p>
-                </div>
-            @endif
+<p class="text-xl font-semibold mb-5">Status Barang Pesanan</p>
+<div class="rounded-2xl p-4 bg-accent flex-1 mb-5">
+    <div class="grid grid-cols-2">
+        <div class="font-medium">Status Barang Pesanan</div>
+        <div class="text-right flex justify-end">
+            <div class="px-2 py-1 border rounded-full text-sm {{ $po->recieved_at ? "bg-secondary text-white" : "border-red-300" }}">{{ $po->recieved_at ? 'Sudah Diterima' : 'Belum Diterima'}}</div>
         </div>
+        @if ($po->recieved_at)
+        <div>Tanggal Diterima</div>
+        <div class="text-right">{{ date_format(new DateTime($po->recieved_at), 'd M Y H:i') }}</div>
+        <div>Diterima Oleh</div>
+        <div class="text-right">{{ $recieved_name }}</div>
+        @endif
     </div>
-    <div class="">
-        <p class="text-xl font-semibold mb-5">Status Pembayaran</p>
-        <div class="rounded-2xl p-4 bg-accent">
-            @if ($po->paid_at)
-                <div class="bg-secondary font-semibold text-xl text-center rounded-2xl p-3">Transaksi Telah Dibayar</div>
-            @else
-                <div class="text-red-50 bg-error font-semibold text-xl text-center rounded-2xl p-3">Belum Bayar</div>
-                <p class="text-right">Kurang <span class="font-bold">{{ $daysLeft }}</span> Hari hingga jatuh tempo</p>
 
-                @if ($po->deleted_by == null)
-                    <h1 class="mt-5 mb-2">Pesanan sudah dibayar ?</h1>
-                    <button class="btn btn-primary" onclick="modal_pembayaran.showModal()">Ya, Sudah Lunas</button>
-                    <div class="divider"></div>
-                @endif
-            @endif
-            <div class="grid grid-cols-2 mt-2">
-                <p class="">Tanggal Jatuh Tempo</p>
-                <p class="text-right">{{ date_format(new DateTime($po->jatuh_tempo), 'd M Y H:i') }}</p>
-                @if ($po->paid_at)
-                    <p class="">Tanggal Pembayaran</p>
-                    <p class="text-right">{{ date_format(new DateTime($po->paid_at), 'd M Y H:i') }}</p>
-                    <p>Metode Pembayaran</p>
-                    <p class="text-right">{{ $po->paid_method }}</p>
-                    <p>Kode Pembayaran</p>
-                    <p class="text-right">{{ $po->paid_code }}</p>
-                    <p>Terkonfirmasi Oleh</p>
-                    <p class="text-right">{{ $paid_name }}</p>
-                    @endif
-            </div>
-        </div>
+    @if ($po->recieved_at == null)
+    <div class="flex justify-end mt-3">
+        <button onclick="modal_pesanan.showModal()" class="btn btn-primary">Ya, Update Data</button>
     </div>
+    @endif
+</div>
+
+<p class="text-xl font-semibold mb-5">Status Pembayaran</p>
+<div class="rounded-2xl p-4 bg-accent mb-5">
+    <div class="grid grid-cols-2">
+        <div class="font-medium">Status Pembayaran</div>
+        <div class="text-right flex justify-end">
+            <div class="px-2 py-1 border rounded-full text-sm {{ $po->paid_at ? "bg-secondary text-white" : "border-red-300" }}">{{ $po->paid_at ? 'Lunas' : 'Belum Lunas'}}</div>
+        </div>
+        <div class="">Jatuh Tempo</div>
+        <p class="text-right">{{ date_format(new DateTime($po->jatuh_tempo), 'd M Y') }}</p>
+        @if (!$po->paid_at)
+        <div>Hari hingga jatuh tempo pembayaran</div>
+        <p class="text-right">{{ $daysLeft }} Hari</p>
+        @else
+        <div>Tanggal Lunas</div>
+        <p class="text-right">{{ date_format(new DateTime($po->paid_at), 'd M Y') }}</p>
+        @endif
+    </div>
+</div>
+
+<p class="text-xl font-semibold mb-5">Data Pembayaran</p>
+<div class="rounded-2xl p-4 bg-accent mb-5">
+    <div class="flex justify-between mt-3">
+        <div class="grid grid-cols-2 gap-x-5">
+            <div class="">Diterima : </div>
+            <div class="">Rp {{ number_format($total_pembayaran) }}</div>
+            <div class="">Kekurangan : </div>
+            <div class="text-error">Rp {{ number_format($po->grand_total - $po->paid_total) }}</div>
+        </div>
+        @if ($po->paid_at == null)
+            <button class="btn btn-primary" onclick="modal_pembayaran.showModal()">Tambah Data Pembayaran</button>
+        @endif
+    </div>
+    <table class="table table-lg table-zebra mt-5">
+        <thead>
+            <tr>
+                <th><div class="font-bold">Metode Pembayaran</div></th>
+                <th><div class="font-bold">Kode Pembayaran</div></th>
+                <th><div class="font-bold">Total</div></th>
+                <th><div class="font-bold">Dikonfirmasi Oleh</div></th>
+                <th><div class="font-bold">Tanggal</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (count($data_pembayaran) <= 0)
+                <tr>
+                    <td colspan="5" class="text-center">Belum ada data pembayaran</td>
+                </tr>
+            @else
+                @foreach ($data_pembayaran as $pembayaran)
+                    <tr>
+                        <td>{{ $pembayaran->method }}</td>
+                        <td>{{ $pembayaran->code }}</td>
+                        <td>Rp {{ number_format($pembayaran->total) }}</td>
+                        <td>{{ $pembayaran->karyawan->nama }}</td>
+                        <td>{{ date_format($pembayaran->created_at, 'd M Y') }}</td>
+                    </tr>
+                @endforeach
+            @endif
+        </tbody>
+    </table>
 </div>
 
 <div class="prose mt-5">
@@ -105,28 +133,28 @@
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input   w-full " value="{{ $po->vendor->nama }}" disabled/>
+            <input type="text" class="input w-full " value="{{ $po->vendor->nama }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="email" class="input   w-full" value="{{ $po->vendor->email }}" disabled/>
+            <input type="email" class="input w-full" value="{{ $po->vendor->email }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2 md:pe-2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input   w-full" value="{{ $po->vendor->alamat }}" disabled/>
+            <input type="text" class="input w-full" value="{{ $po->vendor->alamat }}" disabled/>
         </div>
         <div class="form-control w-full md:w-1/2">
             <label class="label">
                 <span class="label-text text-lg font-bold"><i class="fa-solid fa-phone me-2"></i>Nomor Telp</span>
                 <span class="label-text-alt"></span>
             </label>
-            <input type="text" class="input   w-full" value="{{ $po->vendor->telp }}" disabled/>
+            <input type="text" class="input w-full" value="{{ $po->vendor->telp }}" disabled/>
         </div>
     </div>
 </div>
@@ -166,16 +194,16 @@
 </div>
 
 @if (!$po->deleted_at)
-<h3 class="text-xl font-semibold text-error">Hapus Transaksi Purchase Order</h3>
-<div class="rounded-2xl bg-accent p-4 my-5 text-error">
+<h3 class="text-xl font-semibold">Hapus Transaksi Purchase Order</h3>
+<div class="rounded-2xl bg-red-300 p-4 my-5">
     <p>Untuk menghapus transaksi Purchase Order, masukan password dan tekan tombol dibawah</p>
     <form method="POST" action="{{ url("/po/detail/$po->id/delete") }}">
         @csrf
         <p class="text-sm mt-2">Masukan alasan penghapusan</p>
-        <input type="text" class="input input-error w-full" name="reason" required>
+        <input type="text" class="input w-full" name="reason" required>
         <p class="text-sm mt-2">Password</p>
         <div class="flex items-center gap-x-2">
-            <input type="password" name="password" class="input input-error">
+            <input type="password" name="password" class="input">
             <button class="btn btn-error">Hapus Purchase Order</button>
         </div>
     </form>
@@ -183,7 +211,7 @@
 @endif
 
 <dialog id="modal_pembayaran" class="modal">
-    <div class="modal-box bg-slate-700  ">
+    <div class="modal-box bg-accent">
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
@@ -202,13 +230,17 @@
                 </div>
                 <div class="mb-4">
                     <p>Kode Pembayaran</p>
-                    <p class="text-sm text-gray-400 mb-2">Isi dengan '-' bila cash.</p>
+                    <p class="text-sm mb-2">Isi dengan '-' bila cash.</p>
                     <input type="text" name="paid_code" class="input w-full" required>
+                </div>
+                <div class="mb-4">
+                    <p>Nominal Pembayaran</p>
+                    <input type="text" name="paid_amount" class="input w-full harga" required>
                 </div>
                 <div class="">
                     <p class="mb-2 text-sm">Masukan password anda : </p>
                     <div class="flex w-full gap-x-2">
-                        <input type="password" name="password" class="input input-primary w-full" required>
+                        <input type="password" name="password" class="input w-full" required>
                         <button class="btn btn-primary" name="id" value="{{ $po->id }}">Ya, Sudah Lunas</button>
                     </div>
                 </div>
@@ -218,7 +250,7 @@
 </dialog>
 
 <dialog id="modal_pesanan" class="modal">
-    <div class="modal-box bg-slate-700  ">
+    <div class="modal-box bg-accent">
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>

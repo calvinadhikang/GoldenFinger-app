@@ -27,28 +27,25 @@ return new class extends Migration
             $table->text('po');
             $table->bigInteger('komisi');
             $table->timestamp('jatuh_tempo')->nullable();
-            $table->timestamp('confirmed_at')->nullable();
-            $table->timestamp('paid_at')->nullable(); //Menunjukan pembayaran lunas saat kap
-            $table->decimal('paid_total', 20, 2)->default(0);
             $table->timestamps();
-            $table->softDeletes();
             $table->integer('status');
             // 0 = Butuh Konfirmasi 1 = Konfirmasi, 2 = Terbayar
 
+            $table->timestamp('confirmed_at')->nullable();
             $table->unsignedBigInteger('confirmed_by')->nullable();
-            $table->unsignedBigInteger('paid_by')->nullable();
-            $table->unsignedBigInteger('deleted_by')->nullable();
 
-            // Payment Related
-            $table->string('paid_method')->nullable();
-            $table->string('paid_code')->nullable();
+            $table->timestamp('paid_at')->nullable(); //Menunjukan pembayaran lunas saat kap
+            $table->decimal('paid_total', 20, 2)->default(0);
 
             // Cancel Reason
             $table->text('cancel_reason')->nullable();
             $table->unsignedBigInteger('cancel_by')->nullable();
 
-            $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
-            $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
+            $table->softDeletes();
+            $table->unsignedBigInteger('deleted_by')->nullable();
+
+            $table->foreign('customer_id')->references('id')->on('customer');
+            $table->foreign('karyawan_id')->references('id')->on('karyawan');
             $table->unique('kode');
             $table->string('snap_token')->nullable();
             $table->string('penawaran_id')->nullable();

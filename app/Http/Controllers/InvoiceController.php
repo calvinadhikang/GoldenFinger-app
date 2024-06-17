@@ -409,13 +409,6 @@ class InvoiceController extends Controller
             $invoiceText = "Dibatalkan";
         }
 
-        $paid_by = "";
-        if ($invoice->snap_token) {
-            $paid_by = Customer::find($invoice->paid_by);
-        }else {
-            $paid_by = Karyawan::find($invoice->paid_by);
-        }
-
         $hariSisa = Util::getDiffDays($invoice->jatuh_tempo);
         $isOverdue = Carbon::parse($invoice->jatuh_tempo)->isBefore(now());
         $daysLeft = $isOverdue ? "Lewat $hariSisa hari dari tanggal jatuh tempo" : "Kurang $hariSisa hari hingga tanggal jatuh tempo";
@@ -426,7 +419,6 @@ class InvoiceController extends Controller
             'invoice' => $invoice,
             'daysLeft' => $daysLeft,
             'isOverdue' => $isOverdue,
-            'paid_by' => $paid_by,
             'confirmed_by' => Karyawan::find($invoice->confirmed_by),
             'statusText' => $invoiceText,
             'data_pembayaran' => $data_pembayaran,
@@ -606,7 +598,7 @@ class InvoiceController extends Controller
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
 
-        $data = HeaderInvoice::whereMonth('created_at', '=', $currentMonth)->whereYear('created_at', '=', $currentYear)->where('paid_by', '!=', null)->get();
+        $data = HeaderInvoice::whereMonth('paid_at', '=', $currentMonth)->whereYear('paid_at', '=', $currentYear)->whereNotNull('paid_at')->get();
         $total = 0;
         foreach ($data as $invoice) {
             $total += $invoice->grand_total;

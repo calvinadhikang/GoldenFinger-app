@@ -8,6 +8,7 @@ use App\Models\BarangVendor;
 use App\Models\DetailPurchase;
 use App\Models\HeaderPurchase;
 use App\Models\Karyawan;
+use App\Models\PurchasePayment;
 use App\Models\StockMutation;
 use App\Models\Vendor;
 use Carbon\Carbon;
@@ -56,11 +57,19 @@ class PurchaseController extends Controller
             $recieved_name = $karyawan->nama;
         }
 
+        $data_pembayaran = PurchasePayment::where('purchase_id', $id)->get();
+        $total_pembayaran = 0;
+        foreach ($data_pembayaran as $key => $value) {
+            $total_pembayaran += $value->total;
+        }
+
         return view('master.po.detail', [
             'po' => $po,
             'daysLeft' => Util::getDiffDays($po->jatuh_tempo),
             'paid_name' => $paid_name,
-            'recieved_name' => $recieved_name
+            'recieved_name' => $recieved_name,
+            'data_pembayaran' => $data_pembayaran,
+            'total_pembayaran' => $total_pembayaran
         ]);
     }
 
@@ -261,11 +270,8 @@ class PurchaseController extends Controller
                 'jatuh_tempo' => $jatuhTempo,
                 'created_at' => $timeCreation,
                 'paid_at' => $timePembayaran,
-                'paid_by' => $timePembayaran != null ? Session::get('user')->id : null,
                 'recieved_at' => $timePenerimaan,
                 'recieved_by' => $timePenerimaan != null ? Session::get('user')->id : null,
-                'paid_method' => $oldMethodTransaksi,
-                'paid_code' => $oldNomorTransaksi,
             ]);
 
             foreach ($po->list as $key => $value) {
@@ -319,26 +325,41 @@ class PurchaseController extends Controller
 
     }
 
-    public function finishPembayaran(Request $request){
+    public function addPembayaran(Request $request){
         $id = $request->input('id');
+        $po = HeaderPurchase::find($id);
         $user = Session::get('user');
         $password = $request->input('password');
         $paid_code = $request->input('paid_code');
         $paid_method = $request->input('paid_method');
+        $paid_amount = Util::parseNumericValue($request->input('paid_amount'));
 
         if (!Hash::check($password, $user->password)) {
             toast('Password Salah !', 'error');
             return back();
         }
 
-        $po = HeaderPurchase::find($id);
-        $po->paid_by = $user->id;
-        $po->paid_at = Carbon::now();
-        $po->paid_code = $paid_code;
-        $po->paid_method = $paid_method;
+        // Cek Kelebihan Bayar
+        if ($po->grand_total < $po->paid_total + $paid_amount) {
+            toast('Pembayaran melebihi total tagihan !', 'error');
+            return back();
+        }
+
+        PurchasePayment::create([
+            'purchase_id' => $id,
+            'karyawan_id' => $user->id,
+            'method' => $paid_method,
+            'code' => $paid_code,
+            'total' => $paid_amount,
+        ]);
+
+        $po->paid_total += $paid_amount;
+        if ($po->paid_total >= $po->grand_total) {
+            $po->paid_at = Carbon::now();
+        }
         $po->save();
 
-        toast('Transaksi telah berhasil dilunasi !', 'success');
+        toast('Pembayaran berhasil di daftarkan !', 'success');
         return redirect()->back();
     }
 

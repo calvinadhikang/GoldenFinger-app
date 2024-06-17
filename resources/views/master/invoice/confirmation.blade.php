@@ -108,14 +108,14 @@
 <div class="rounded-2xl bg-accent p-4 my-5">
     <div class="grid grid-cols-1 md:grid-cols-2">
         <div>
-            <p class="text-lg font-semibold mb-2">Besar PPN :<p>
+            <p class="font-semibold mb-1">Besar PPN :<p>
             <form action="{{ url('/invoice/confirmation/ppn') }}" method="post">
                 @csrf
                 <input type="text" class="input me-5" name="ppn" value="{{ $invoice->PPN }}"> <button class="btn btn-primary">Simpan !</button>
             </form>
         </div>
         <div>
-            <div class="font-medium text-right">Total Pajak</div>
+            <div class="font-medium text-right mb-1">Total Pajak</div>
             <div class="text-right">Rp {{ format_decimal($invoice->PPN_value) }}</div>
         </div>
     </div>
@@ -123,6 +123,8 @@
 
 <form method="POST">
     @csrf
+
+    {{-- Form Komisi --}}
     <div class="">
         <div class="flex gap-10 items-center justify-between mb-5 h-10">
             <div class="flex items-center gap-5">

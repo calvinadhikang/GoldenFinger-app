@@ -129,36 +129,6 @@
                     @endif
                 </tbody>
             </table>
-
-            {{-- @if (!$invoice->paid_at)
-                <div class="text-red-200 bg-red-600 font-semibold text-xl text-center rounded-2xl p-3 mb-5">Belum Lunas</div>
-            @else
-                <div class="  bg-secondary font-semibold text-xl text-center rounded-2xl p-3">Lunas</div>
-            @endif
-
-            <div class="grid grid-cols-2 mt-2">
-                <p>Tanggal Jatuh Tempo</p>
-                <p class="text-right">{{ date_format(new DateTime($invoice->jatuh_tempo), 'd M Y') }}</p>
-                <p>Tanggal Pembayaran</p>
-                <p class="text-right {{ $invoice->paid_at == null ? 'text-error' : 'text-secondary' }}">
-                    {{ $invoice->paid_at == null ? 'Belum Bayar' : date_format(new DateTime($invoice->paid_at), 'd M Y') }}
-                </p>
-            </div>
-            @if (!$invoice->paid_at)
-                <p class="text-right {{ $isOverdue ? "text-red-400" : "" }}">{{ $daysLeft }}</p>
-            @endif
-
-            @if ($invoice->paid_at == null && $invoice->deleted_at == null)
-                <div class="divider"></div>
-                <div class="grid grid-cols-2">
-                    <div class="">
-                        <h3 class="text-xl font-semibold">Pesanan Sudah Lunas ?</h3>
-                        <p>Klik tombol disamping bila pesanan sudah lunas</p>
-                    </div>
-                    <button class="btn btn-primary mt-2" onclick="modal_pembayaran.showModal()">Pesanan, Sudah Lunas
-                        !</button>
-                </div>
-            @endif --}}
         </div>
     @endif
 
@@ -172,7 +142,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-id-badge me-2"></i>Nama</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input   w-full " value="{{ $invoice->customer->nama }}"
+                <input type="text" class="input w-full " value="{{ $invoice->customer->nama }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2">
@@ -180,7 +150,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-envelope me-2"></i>Email</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="email" class="input   w-full" value="{{ $invoice->customer->email }}"
+                <input type="email" class="input w-full" value="{{ $invoice->customer->email }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2 md:pe-2">
@@ -188,7 +158,7 @@
                     <span class="label-text font-bold"><i class="fa-solid fa-location-dot me-2"></i>Alamat</span>
                     <span class="label-text-alt"></span>
                 </label>
-                <input type="text" class="input   w-full" value="{{ $invoice->customer->alamat }}"
+                <input type="text" class="input w-full" value="{{ $invoice->customer->alamat }}"
                     disabled />
             </div>
             <div class="form-control w-full md:w-1/2">
@@ -289,9 +259,6 @@
             <a href="{{ url("invoice/detail/$invoice->id/dokumen/invoice") }}">
                 <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Invoice !</button>
             </a>
-            {{-- <a href="{{ url("invoice/detail/$invoice->id/dokumen/tanda_terima") }}">
-                <button class="btn btn-success shadow-lg"><i class="fa-solid fa-file-excel"></i>Buat Tanda Terima !</button>
-            </a> --}}
         </div>
     </div>
 

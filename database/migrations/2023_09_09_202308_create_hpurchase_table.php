@@ -23,21 +23,21 @@ return new class extends Migration
             $table->decimal('ppn_value', 20, 2);
             $table->bigInteger('ppn');
             $table->timestamp('jatuh_tempo')->nullable();
-            $table->timestamp('recieved_at')->nullable();
-            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
-            $table->unsignedBigInteger('paid_by')->nullable();
+            // Payment Related
+            $table->timestamp('paid_at')->nullable();
+            $table->decimal('paid_total', 20, 2)->default(0);
+
+            $table->timestamp('recieved_at')->nullable();
             $table->unsignedBigInteger('recieved_by')->nullable();
+
             $table->unsignedBigInteger('deleted_by')->nullable();
             $table->text('deleted_reason')->nullable();
+            $table->softDeletes();
 
-            $table->string('paid_method')->nullable();
-            $table->string('paid_code')->nullable();
-
-            $table->foreign('vendor_id')->references('id')->on('vendor')->onDelete('cascade');
-            $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
+            $table->foreign('vendor_id')->references('id')->on('vendor');
+            $table->foreign('karyawan_id')->references('id')->on('karyawan');
         });
     }
 
