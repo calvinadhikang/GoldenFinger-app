@@ -337,7 +337,7 @@ class InvoiceController extends Controller
                 'confirmed_at' => $timeCreation,
                 'confirmed_by' => $karyawan->id,
                 'paid_at' => $oldMethodTransaksi ? $timePembayaran : null,
-                'paid_total' => $oldMethodTransaksi ? $invoice->grandTotal : null,
+                'paid_total' => $oldMethodTransaksi ? $invoice->grandTotal : 0,
                 'status'=> $oldMethodTransaksi ? 2 : 1,
             ]);
 
